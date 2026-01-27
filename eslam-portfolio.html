@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eslam Nasser — UI/UX Team Lead & Front-End Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           DESIGN TOKENS — The Foundation
+           ═══════════════════════════════════════════════════════════ */
+        :root {
+            /* Colors */
+            --color-bg: #0C0C0C;
+            --color-bg-elevated: #141414;
+            --color-bg-surface: #1A1A1A;
+            --color-border: #2A2A2A;
+            --color-border-subtle: #1F1F1F;
+            --color-text-primary: #FAFAFA;
+            --color-text-secondary: #888888;
+            --color-text-muted: #555555;
+            --color-accent: #00FF88;
+            --color-accent-dim: rgba(0, 255, 136, 0.1);
+            --color-accent-glow: rgba(0, 255, 136, 0.15);
+            --color-warning: #FF6B35;
+            --color-code-bg: #0A0A0A;
+            
+            /* Typography */
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-serif: 'Instrument Serif', serif;
+            --font-sans: 'DM Sans', sans-serif;
+            
+            /* Spacing */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+            --space-4xl: 6rem;
+            --space-5xl: 8rem;
+            
+            /* Layout */
+            --max-width: 1200px;
+            --content-width: 800px;
+            
+            /* Effects */
+            --transition-fast: 0.15s ease;
+            --transition-base: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --radius-sm: 2px;
+            --radius-md: 4px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           RESET & BASE
+           ═══════════════════════════════════════════════════════════ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-text-muted);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           LAYOUT
+           ═══════════════════════════════════════════════════════════ */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--space-xl);
+        }
+
+        .container--narrow {
+            max-width: var(--content-width);
+        }
+
+        section {
+            padding: var(--space-5xl) 0;
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           NAVIGATION
+           ═══════════════════════════════════════════════════════════ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: var(--space-lg) 0;
+            background: rgba(12, 12, 12, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: var(--transition-base);
+        }
+
+        .nav.scrolled {
+            border-bottom-color: var(--color-border-subtle);
+        }
+
+        .nav__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav__logo {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .nav__logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.9); }
+        }
+
+        .nav__links {
+            display: flex;
+            gap: var(--space-xl);
+            list-style: none;
+        }
+
+        .nav__link {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .nav__link::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-accent);
+            transition: var(--transition-base);
+        }
+
+        .nav__link:hover {
+            color: var(--color-text-primary);
+        }
+
+        .nav__link:hover::before {
+            width: 100%;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           HERO
+           ═══════════════════════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: var(--space-5xl);
+            border-bottom: none;
+        }
+
+        .hero__bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .hero__grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--color-border-subtle) 1px, transparent 1px),
+                linear-gradient(90deg, var(--color-border-subtle) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.5;
+            mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 70%);
+        }
+
+        .hero__glow {
+            position: absolute;
+            top: 10%;
+            right: 10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.4;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero__label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.2s;
+        }
+
+        .hero__label::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--color-accent);
+        }
+
+        .hero__title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.4s;
+        }
+
+        .hero__title em {
+            font-style: italic;
+            color: var(--color-accent);
+        }
+
+        .hero__subtitle {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            max-width: 550px;
+            line-height: 1.8;
+            margin-bottom: var(--space-2xl);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.6s;
+        }
+
+        .hero__cta {
+            display: flex;
+            gap: var(--space-lg);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards 0.8s;
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: var(--space-md) var(--space-xl);
+            border: 1px solid var(--color-border);
+            background: transparent;
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: var(--transition-base);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            border-color: var(--color-accent);
+            background: var(--color-accent-dim);
+        }
+
+        .btn--primary {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+            color: var(--color-bg);
+        }
+
+        .btn--primary:hover {
+            background: transparent;
+            color: var(--color-accent);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           STATS BAR
+           ═══════════════════════════════════════════════════════════ */
+        .stats-bar {
+            background: var(--color-bg-elevated);
+            border-top: 1px solid var(--color-border-subtle);
+            border-bottom: 1px solid var(--color-border-subtle);
+            padding: var(--space-2xl) 0;
+        }
+
+        .stats-bar__inner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-xl);
+        }
+
+        .stat {
+            text-align: center;
+            padding: var(--space-md);
+        }
+
+        .stat__number {
+            font-family: var(--font-mono);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat__label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SECTION HEADERS
+           ═══════════════════════════════════════════════════════════ */
+        .section-header {
+            margin-bottom: var(--space-3xl);
+        }
+
+        .section-header__label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .section-header__label::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--color-accent);
+        }
+
+        .section-header__title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--color-text-primary);
+            line-height: 1.2;
+        }
+
+        .section-header__title em {
+            font-style: italic;
+            color: var(--color-text-secondary);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           PHILOSOPHY SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .philosophy {
+            background: var(--color-bg);
+        }
+
+        .philosophy__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-xl);
+        }
+
+        .philosophy__card {
+            padding: var(--space-2xl);
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy__card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--color-accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition-base);
+        }
+
+        .philosophy__card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .philosophy__card:hover {
+            border-color: var(--color-border);
+            transform: translateY(-4px);
+        }
+
+        .philosophy__icon {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            margin-bottom: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .philosophy__card-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-md);
+        }
+
+        .philosophy__card-text {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SYSTEMS / PROJECTS
+           ═══════════════════════════════════════════════════════════ */
+        .systems {
+            background: var(--color-bg-elevated);
+        }
+
+        .system {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: var(--space-3xl);
+            padding: var(--space-3xl) 0;
+            border-bottom: 1px solid var(--color-border-subtle);
+            align-items: start;
+        }
+
+        .system:last-child {
+            border-bottom: none;
+        }
+
+        .system__info {
+            position: sticky;
+            top: 120px;
+        }
+
+        .system__number {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            letter-spacing: 2px;
+            margin-bottom: var(--space-md);
+        }
+
+        .system__title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+        }
+
+        .system__type {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-lg);
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-accent-dim);
+            display: inline-block;
+        }
+
+        .system__desc {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: var(--space-xl);
+        }
+
+        .system__stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .system__tech {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            padding: var(--space-xs) var(--space-sm);
+            border: 1px solid var(--color-border);
+            background: var(--color-bg);
+        }
+
+        .system__details {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+        }
+
+        .system__detail-section {
+            padding: var(--space-xl);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .system__detail-section:last-child {
+            border-bottom: none;
+        }
+
+        .system__detail-label {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--space-md);
+        }
+
+        .system__detail-content {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        .system__detail-list {
+            list-style: none;
+        }
+
+        .system__detail-list li {
+            padding: var(--space-sm) 0;
+            padding-left: var(--space-lg);
+            position: relative;
+        }
+
+        .system__detail-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           SKILLS / STACK
+           ═══════════════════════════════════════════════════════════ */
+        .stack {
+            background: var(--color-bg);
+        }
+
+        .stack__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+
+        .stack__category {
+            padding: var(--space-xl);
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border-subtle);
+        }
+
+        .stack__category-title {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .stack__list {
+            list-style: none;
+        }
+
+        .stack__item {
+            padding: var(--space-sm) 0;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stack__item-level {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--color-text-muted);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CODE BLOCK
+           ═══════════════════════════════════════════════════════════ */
+        .code-philosophy {
+            background: var(--color-bg-elevated);
+            padding: var(--space-5xl) 0;
+        }
+
+        .code-block {
+            background: var(--color-code-bg);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .code-block__header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-lg);
+            background: var(--color-bg-surface);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .code-block__dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--color-border);
+        }
+
+        .code-block__dot--red { background: #FF5F56; }
+        .code-block__dot--yellow { background: #FFBD2E; }
+        .code-block__dot--green { background: #27CA40; }
+
+        .code-block__filename {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-left: auto;
+        }
+
+        .code-block__content {
+            padding: var(--space-xl);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 2;
+            overflow-x: auto;
+        }
+
+        .code-block__line {
+            display: flex;
+        }
+
+        .code-block__line-number {
+            width: 40px;
+            color: var(--color-text-muted);
+            user-select: none;
+            flex-shrink: 0;
+        }
+
+        .code-block__line-content {
+            color: var(--color-text-secondary);
+        }
+
+        .code-block__line-content .comment {
+            color: var(--color-text-muted);
+            font-style: italic;
+        }
+
+        .code-block__line-content .property {
+            color: var(--color-accent);
+        }
+
+        .code-block__line-content .value {
+            color: var(--color-warning);
+        }
+
+        .code-block__line-content .string {
+            color: #98C379;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CONTACT
+           ═══════════════════════════════════════════════════════════ */
+        .contact {
+            background: var(--color-bg);
+            text-align: center;
+            padding: var(--space-5xl) 0;
+        }
+
+        .contact__title {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-lg);
+        }
+
+        .contact__text {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            max-width: 500px;
+            margin: 0 auto var(--space-2xl);
+            line-height: 1.8;
+        }
+
+        .contact__links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .contact__link {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            padding: var(--space-md) var(--space-xl);
+            border: 1px solid var(--color-border);
+            transition: var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .contact__link:hover {
+            color: var(--color-accent);
+            border-color: var(--color-accent);
+            background: var(--color-accent-dim);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════════════════════ */
+        .footer {
+            padding: var(--space-2xl) 0;
+            border-top: 1px solid var(--color-border-subtle);
+            text-align: center;
+        }
+
+        .footer__text {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .footer__text span {
+            color: var(--color-accent);
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .system {
+                grid-template-columns: 1fr;
+            }
+
+            .system__info {
+                position: static;
+            }
+
+            .philosophy__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stack__grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav__links {
+                display: none;
+            }
+
+            .stats-bar__inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero__cta {
+                flex-direction: column;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+
+            section {
+                padding: var(--space-3xl) 0;
+            }
+
+            .container {
+                padding: 0 var(--space-lg);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           ANIMATIONS
+           ═══════════════════════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav__inner">
+            <a href="#" class="nav__logo">
+                <span class="nav__logo-dot"></span>
+                eslam.nasser
+            </a>
+            <ul class="nav__links">
+                <li><a href="#philosophy" class="nav__link">Philosophy</a></li>
+                <li><a href="#systems" class="nav__link">Works</a></li>
+                <li><a href="#stack" class="nav__link">Skills</a></li>
+                <li><a href="#contact" class="nav__link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero__bg">
+            <div class="hero__grid"></div>
+            <div class="hero__glow"></div>
+        </div>
+        <div class="container hero__content">
+            <span class="hero__label">UI/UX Team Lead & Front-End Engineer</span>
+            <h1 class="hero__title">I design <em>systems</em>,<br>not pages.</h1>
+            <p class="hero__subtitle">
+                6+ years building production UIs. Team leadership since Jan 2025. 
+                Crafting fast, accessible product interfaces with Livewire, 
+                GSAP/Three.js, and Figma. AI-assisted delivery for clean, 
+                documented code.
+            </p>
+            <div class="hero__cta">
+                <a href="#systems" class="btn btn--primary">View Systems →</a>
+                <a href="#contact" class="btn">Get in Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="container stats-bar__inner">
+            <div class="stat">
+                <div class="stat__number">6+</div>
+                <div class="stat__label">Years Experience</div>
+            </div>
+            <div class="stat">
+                <div class="stat__number">2025</div>
+                <div class="stat__label">Team Lead Since</div>
+            </div>
+            <div class="stat">
+                <div class="stat__number">90+</div>
+                <div class="stat__label">Lighthouse Score</div>
+            </div>
+            <div class="stat">
+                <div class="stat__number">&lt;2.5s</div>
+                <div class="stat__label">LCP Target</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Philosophy -->
+    <section class="philosophy" id="philosophy">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-header__label">Design Philosophy</span>
+                <h2 class="section-header__title">Why most UIs fail <em>long-term</em></h2>
+            </div>
+            <div class="philosophy__grid">
+                <div class="philosophy__card reveal">
+                    <span class="philosophy__icon">// 01</span>
+                    <h3 class="philosophy__card-title">Structure Over Decoration</h3>
+                    <p class="philosophy__card-text">
+                        Clean semantic HTML. No inline styles. Ever. CSS architecture 
+                        that scales. BEM methodology. Components that compose, 
+                        not collide. The foundation matters more than the paint.
+                    </p>
+                </div>
+                <div class="philosophy__card reveal">
+                    <span class="philosophy__icon">// 02</span>
+                    <h3 class="philosophy__card-title">Tokens, Not Magic Numbers</h3>
+                    <p class="philosophy__card-text">
+                        Every spacing, color, shadow, and radius comes from a defined 
+                        system. Design tokens aren't optional—they're the contract 
+                        between design and code. Consistency is automated, not hoped for.
+                    </p>
+                </div>
+                <div class="philosophy__card reveal">
+                    <span class="philosophy__icon">// 03</span>
+                    <h3 class="philosophy__card-title">Vanilla JS Sometimes Wins</h3>
+                    <p class="philosophy__card-text">
+                        Frameworks solve problems. But not every problem needs a framework. 
+                        Understanding the platform means knowing when 50 lines of vanilla JS 
+                        beats 5000 lines of dependencies.
+                    </p>
+                </div>
+                <div class="philosophy__card reveal">
+                    <span class="philosophy__icon">// 04</span>
+                    <h3 class="philosophy__card-title">Accessibility is Architecture</h3>
+                    <p class="philosophy__card-text">
+                        ARIA labels, semantic markup, keyboard navigation, reduced motion 
+                        preferences—these aren't afterthoughts. They're structural decisions 
+                        that happen at the architecture level, not the QA level.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Systems -->
+    <section class="systems" id="systems">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-header__label">Featured Work</span>
+                <h2 class="section-header__title">Production interfaces <em>that work</em></h2>
+            </div>
+
+            <!-- System 1 -->
+            <div class="system reveal">
+                <div class="system__info">
+                    <span class="system__number">PROJECT 01</span>
+                    <h3 class="system__title">CyberSee Dashboard</h3>
+                    <span class="system__type">Security Analytics — KSA</span>
+                    <p class="system__desc">
+                        Security analytics dashboard with GSAP/Three.js hero animations,
+                        responsive grid/cards, and FLIP modal transitions. Built with
+                        reduced-motion fallbacks and WCAG accessibility.
+                    </p>
+                    <div class="system__stack">
+                        <span class="system__tech">Laravel Blade</span>
+                        <span class="system__tech">Livewire</span>
+                        <span class="system__tech">GSAP</span>
+                        <span class="system__tech">Three.js</span>
+                    </div>
+                </div>
+                <div class="system__details">
+                    <div class="system__detail-section">
+                        <span class="system__detail-label">Role & Duration</span>
+                        <p class="system__detail-content">
+                            Front-End Lead (Outsource) — Aug 2025 to Oct 2025, Remote — KSA
+                        </p>
+                    </div>
+                    <div class="system__detail-section">
+                        <span class="system__detail-label">Key Deliverables</span>
+                        <ul class="system__detail-list system__detail-content">
+                            <li>Security analytics dashboard UX design & implementation</li>
+                            <li>GSAP/Three.js hero with reduced-motion fallback</li>
+                            <li>Transform-only animations (no CLS)</li>
+                            <li>Blade + Livewire integration without breaking back-end</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System 2 -->
+            <div class="system reveal">
+                <div class="system__info">
+                    <span class="system__number">PROJECT 02</span>
+                    <h3 class="system__title">TakTek Design System</h3>
+                    <span class="system__type">Team Leadership — Türkiye</span>
+                    <p class="system__desc">
+                        Owning the design system and front-end architecture at TakTek.
+                        Leading a small squad, introducing AI-assisted coding for docs
+                        and refactors, enforcing code quality across projects.
+                    </p>
+                    <div class="system__stack">
+                        <span class="system__tech">Design Tokens</span>
+                        <span class="system__tech">Atomic Design</span>
+                        <span class="system__tech">Livewire</span>
+                        <span class="system__tech">AI Workflows</span>
+                    </div>
+                </div>
+                <div class="system__details">
+                    <div class="system__detail-section">
+                        <span class="system__detail-label">Role & Duration</span>
+                        <p class="system__detail-content">
+                            UI/UX & Front-End Team Lead (Full-time) — Jan 2025 to Present, Remote — Türkiye
+                        </p>
+                    </div>
+                    <div class="system__detail-section">
+                        <span class="system__detail-label">Achievements</span>
+                        <ul class="system__detail-list system__detail-content">
+                            <li>Lighthouse ≥ 90, CLS ~0, LCP &lt; 2.5s across key pages</li>
+                            <li>GSAP/Three.js with reduced-motion fallbacks</li>
+                            <li>Accessible interactions (WCAG compliant)</li>
+                            <li>AI-assisted documentation and refactoring</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System 3 -->
+            <div class="system reveal">
+                <div class="system__info">
+                    <span class="system__number">PROJECT 03</span>
+                    <h3 class="system__title">Mosnad Platform</h3>
+                    <span class="system__type">News Verification</span>
+                    <p class="system__desc">
+                        منصة مسند للتحقق من الأخبار — A fact-checking platform with 
+                        complex content management and RTL Arabic interface.
+                    </p>
+                    <div class="system__stack">
+                        <span class="system__tech">HTML5</span>
+                        <span class="system__tech">CSS3</span>
+                        <span class="system__tech">JavaScript</span>
+                        <span class="system__tech">RTL</span>
+                    </div>
+                </div>
+                <div class="system__details">
+                    <div class="system__detail-section">
+                        <span class="system__detail-label">Features</span>
+                        <ul class="system__detail-list system__detail-content">
+                            <li>Content verification workflow</li>
+                            <li>SEO optimized structure</li>
+                            <li>User engagement system</li>
+                        </ul>
+                    </div>
+                    <div class="system__detail-section">
+                        <a href="https://mostaql.com/portfolio/2140888" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); text-decoration: none;">→ View on Mostaql</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System 4 -->
+            <div class="system reveal">
+                <div class="system__info">
+                    <span class="system__number">PROJECT 04</span>
+                    <h3 class="system__title">Mo'ta Platform</h3>
+                    <span class="system__type">Palestine Info Center</span>
+                    <p class="system__desc">
+                        منصة "معطى" — مركز معلومات فلسطين — Comprehensive information 
+                        platform with data visualization and bilingual support.
+                    </p>
+                    <div class="system__stack">
+                        <span class="system__tech">HTML5</span>
+                        <span class="system__tech">CSS3</span>
+                        <span class="system__tech">JavaScript</span>
+                        <span class="system__tech">Data Viz</span>
+                    </div>
+                </div>
+                <div class="system__details">
+                    <div class="system__detail-section">
+                        <span class="system__detail-label">Features</span>
+                        <ul class="system__detail-list system__detail-content">
+                            <li>Interactive data visualization</li>
+                            <li>Archive management</li>
+                            <li>Bilingual AR/EN support</li>
+                        </ul>
+                    </div>
+                    <div class="system__detail-section">
+                        <a href="https://mostaql.com/portfolio/1501548" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); text-decoration: none;">→ View on Mostaql</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System 5 -->
+            <div class="system reveal">
+                <div class="system__info">
+                    <span class="system__number">PROJECT 05</span>
+                    <h3 class="system__title">Creatives Dashboard</h3>
+                    <span class="system__type">Admin System</span>
+                    <p class="system__desc">
+                        Full-featured admin dashboard for creative agency management
+                        with data visualization and user management.
+                    </p>
+                    <div class="system__stack">
+                        <span class="system__tech">HTML5</span>
+                        <span class="system__tech">CSS3</span>
+                        <span class="system__tech">JavaScript</span>
+                        <span class="system__tech">Charts</span>
+                    </div>
+                </div>
+                <div class="system__details">
+                    <div class="system__detail-section">
+                        <span class="system__detail-label">Features</span>
+                        <ul class="system__detail-list system__detail-content">
+                            <li>Data visualization & analytics</li>
+                            <li>User role management</li>
+                            <li>Dark/Light theme</li>
+                        </ul>
+                    </div>
+                    <div class="system__detail-section">
+                        <a href="https://mostaql.com/portfolio/1758876" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); text-decoration: none;">→ View on Mostaql</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System 6 -->
+            <div class="system reveal">
+                <div class="system__info">
+                    <span class="system__number">PROJECT 06</span>
+                    <h3 class="system__title">Abaad Future</h3>
+                    <span class="system__type">Corporate WordPress</span>
+                    <p class="system__desc">
+                        مؤسسة أبعاد المستقبل — Professional corporate website for events,
+                        conferences, and media production. SEO & lead generation focused.
+                    </p>
+                    <div class="system__stack">
+                        <span class="system__tech">WordPress</span>
+                        <span class="system__tech">Custom Theme</span>
+                        <span class="system__tech">SEO</span>
+                    </div>
+                </div>
+                <div class="system__details">
+                    <div class="system__detail-section">
+                        <span class="system__detail-label">Features</span>
+                        <ul class="system__detail-list system__detail-content">
+                            <li>Custom WordPress theme</li>
+                            <li>Service showcase</li>
+                            <li>Lead generation forms</li>
+                        </ul>
+                    </div>
+                    <div class="system__detail-section">
+                        <a href="https://mostaql.com/portfolio/2401051" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); text-decoration: none;">→ View on Mostaql</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- More Projects Grid -->
+    <section class="more-projects" style="background: var(--color-bg); padding: var(--space-5xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-header__label">More Work</span>
+                <h2 class="section-header__title">Additional <em>Projects</em></h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-lg);">
+                
+                <a href="https://mostaql.com/portfolio/1501668" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Education</span>
+                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">Besa</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Study abroad education site. Figma to code.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">Figma</span>
+                    </div>
+                </a>
+
+                <a href="https://mostaql.com/portfolio/973271" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Entertainment</span>
+                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">HandsOnTV</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Video entertainment platform. Adobe XD to code.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">jQuery</span>
+                    </div>
+                </a>
+
+                <a href="https://mostaql.com/portfolio/821118" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Engineering</span>
+                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">Powerline Egypt</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Engineering company WordPress site.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">WordPress</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">Custom</span>
+                    </div>
+                </a>
+
+                <a href="https://mostaql.com/portfolio/821113" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Podcast</span>
+                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">Adanicast</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Arabic podcast platform with modern design.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">Audio</span>
+                    </div>
+                </a>
+
+                <a href="https://mostaql.com/portfolio/622366" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Automotive</span>
+                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">OzCar</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Car dealership platform with listings.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">jQuery</span>
+                    </div>
+                </a>
+
+                <a href="https://mostaql.com/portfolio/1838053" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
+                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Education</span>
+                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">Buruj</h4>
+                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Educational platform with course management.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">Responsive</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" style="background: var(--color-bg); padding: var(--space-5xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-header__label">Client Reviews</span>
+                <h2 class="section-header__title">What clients <em>say</em></h2>
+            </div>
+            
+            <!-- Stats Row -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-lg); margin-bottom: var(--space-3xl); padding: var(--space-xl); background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle);">
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent);">5.0</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px;">Professionalism</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent);">5.0</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px;">Work Quality</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent);">5.0</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px;">Communication</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent);">90%+</div>
+                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px;">Completion</div>
+                </div>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-xl);">
+                
+                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
+                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                        "I found in this man all the qualities of a cooperative, sincere person whose goal is to provide excellent service and work with precision."
+                    </p>
+                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Ahmed · Private Project</div>
+                </div>
+
+                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
+                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                        "Skilled and very knowledgeable in his field. Dealt professionally with design problems. May God bless you."
+                    </p>
+                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Mohamed · WordPress</div>
+                </div>
+
+                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
+                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                        "Professionalism, dedication, and quality that deserves recognition. Results exceeded expectations."
+                    </p>
+                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Zaid · Website Fix</div>
+                </div>
+
+                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
+                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                        "The experience was satisfying to the fullest. Attention, expertise and effort produced distinguished work."
+                    </p>
+                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Nass · WordPress Dev</div>
+                </div>
+
+                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
+                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                        "Very professional work! Happy working with you. Won't be our last collaboration."
+                    </p>
+                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Yazeed · Corporate Site</div>
+                </div>
+
+                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
+                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
+                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                        "Eslam is skilled in his work. Don't hesitate to work with Engineer Eslam."
+                    </p>
+                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Dr. Wasem · Booking Site</div>
+                </div>
+
+            </div>
+
+            <!-- Platform Links -->
+            <div style="display: flex; justify-content: center; gap: var(--space-xl); margin-top: var(--space-3xl); flex-wrap: wrap;">
+                <a href="https://mostaql.com/u/imsemoo" target="_blank" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-secondary); text-decoration: none; padding: var(--space-md) var(--space-xl); border: 1px solid var(--color-border); transition: all 0.3s ease;">
+                    → Mostaql Profile (10+ Projects)
+                </a>
+                <a href="https://www.upwork.com/freelancers/~013dd117d9f077b204" target="_blank" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-secondary); text-decoration: none; padding: var(--space-md) var(--space-xl); border: 1px solid var(--color-border); transition: all 0.3s ease;">
+                    → Upwork Profile
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me -->
+    <section class="about" id="about" style="background: var(--color-bg); padding: var(--space-5xl) 0;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-header__label">About Me</span>
+                <h2 class="section-header__title">Hello, I'm <em>Eslam Nasser</em>.</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: start;">
+                <div class="reveal">
+                    <p style="font-size: 1.1rem; color: var(--color-text-secondary); line-height: 2; margin-bottom: var(--space-xl);">
+                        I'm a UI/UX-minded Front-End Team Lead working remotely with 
+                        <strong style="color: var(--color-text-primary);">TakTek (Türkiye)</strong>, 
+                        and I recently collaborated with 
+                        <strong style="color: var(--color-text-primary);">CyberSee (KSA)</strong>.
+                    </p>
+                    <p style="font-size: 1.1rem; color: var(--color-text-secondary); line-height: 2; margin-bottom: var(--space-xl);">
+                        I design and build high-performance interfaces—mixing Figma + design systems 
+                        with modern front-end (Blade + Livewire, GSAP/Three.js).
+                    </p>
+                    <p style="font-size: 1.1rem; color: var(--color-text-secondary); line-height: 2;">
+                        I use Codex and ChatGPT to accelerate delivery, document clearly, 
+                        and keep code clean.
+                    </p>
+                </div>
+                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-2xl); position: relative;">
+                    <div style="position: absolute; top: -1px; left: 0; width: 60px; height: 3px; background: var(--color-accent);"></div>
+                    <p style="font-family: var(--font-serif); font-size: 1.5rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
+                        "With great power comes great responsibility."
+                    </p>
+                    <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); letter-spacing: 1px;">
+                        — Uncle Ben
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Experience -->
+    <section class="experience" style="background: var(--color-bg-elevated); padding: var(--space-5xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-header__label">Resume</span>
+                <h2 class="section-header__title">Work <em>Experience</em></h2>
+            </div>
+            <div style="max-width: 900px;">
+                <!-- Job 1 -->
+                <div class="reveal" style="padding: var(--space-2xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md); flex-wrap: wrap; gap: var(--space-md);">
+                        <div>
+                            <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--color-text-primary); margin-bottom: var(--space-xs);">UI/UX & Front-End Team Lead</h3>
+                            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent);">@ TakTek (Full-time)</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted);">Jan 2025 — Present</p>
+                            <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted);">Remote — Türkiye</p>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; color: var(--color-text-secondary); font-size: 0.95rem; line-height: 2;">
+                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Own the design system and front-end architecture; lead a small squad.</li>
+                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Introduce AI-assisted coding for docs/refactors; enforce code quality.</li>
+                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Deliver Lighthouse ≥ 90, CLS ~0, and LCP < 2.5s across key pages.</li>
+                    </ul>
+                </div>
+                <!-- Job 2 -->
+                <div class="reveal" style="padding: var(--space-2xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md); flex-wrap: wrap; gap: var(--space-md);">
+                        <div>
+                            <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--color-text-primary); margin-bottom: var(--space-xs);">Front-End Lead</h3>
+                            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent);">@ CyberSee (Outsource)</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted);">Aug 2025 — Oct 2025</p>
+                            <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted);">Remote — KSA</p>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; color: var(--color-text-secondary); font-size: 0.95rem; line-height: 2;">
+                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Security analytics dashboard UX; GSAP/Three.js hero with reduced-motion fallback.</li>
+                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Responsive grid/cards + FLIP modal; transform-only animations (no CLS).</li>
+                    </ul>
+                </div>
+                <!-- Job 3 -->
+                <div class="reveal" style="padding: var(--space-2xl) 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md); flex-wrap: wrap; gap: var(--space-md);">
+                        <div>
+                            <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--color-text-primary); margin-bottom: var(--space-xs);">Frontend Developer</h3>
+                            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent);">@ InTimeDev (Full-time)</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted);">2019 — 2024</p>
+                            <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted);">Nasr City, Egypt</p>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; color: var(--color-text-secondary); font-size: 0.95rem; line-height: 2;">
+                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Delivered multiple products end-to-end with a professional team.</li>
+                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Built custom-coded and WordPress sites from Figma/PSD/XD to production.</li>
+                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Focused on responsive design, cross-browser compatibility, and performance.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Philosophy Block -->
+    <section class="code-philosophy">
+        <div class="container container--narrow">
+            <div class="section-header" style="text-align: center;">
+                <span class="section-header__label" style="justify-content: center;">How I Think</span>
+                <h2 class="section-header__title">Code <em>as documentation</em></h2>
+            </div>
+            <div class="code-block reveal">
+                <div class="code-block__header">
+                    <span class="code-block__dot code-block__dot--red"></span>
+                    <span class="code-block__dot code-block__dot--yellow"></span>
+                    <span class="code-block__dot code-block__dot--green"></span>
+                    <span class="code-block__filename">tokens.css</span>
+                </div>
+                <div class="code-block__content">
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">1</span>
+                        <span class="code-block__line-content"><span class="comment">/* ═══════════════════════════════════════════</span></span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">2</span>
+                        <span class="code-block__line-content"><span class="comment">   DESIGN TOKENS — The Single Source of Truth</span></span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">3</span>
+                        <span class="code-block__line-content"><span class="comment">   ═══════════════════════════════════════════ */</span></span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">4</span>
+                        <span class="code-block__line-content"></span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">5</span>
+                        <span class="code-block__line-content">:root {</span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">6</span>
+                        <span class="code-block__line-content">  <span class="comment">/* Spacing Scale */</span></span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">7</span>
+                        <span class="code-block__line-content">  <span class="property">--space-xs</span>: <span class="value">0.25rem</span>;</span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">8</span>
+                        <span class="code-block__line-content">  <span class="property">--space-sm</span>: <span class="value">0.5rem</span>;</span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">9</span>
+                        <span class="code-block__line-content">  <span class="property">--space-md</span>: <span class="value">1rem</span>;</span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">10</span>
+                        <span class="code-block__line-content">  <span class="property">--space-lg</span>: <span class="value">1.5rem</span>;</span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">11</span>
+                        <span class="code-block__line-content"></span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">12</span>
+                        <span class="code-block__line-content">  <span class="comment">/* No magic numbers. Ever. */</span></span>
+                    </div>
+                    <div class="code-block__line">
+                        <span class="code-block__line-number">13</span>
+                        <span class="code-block__line-content">}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stack -->
+    <section class="stack" id="stack">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-header__label">Technical Stack</span>
+                <h2 class="section-header__title">Tools I <em>actually use</em></h2>
+            </div>
+            <div class="stack__grid">
+                <div class="stack__category reveal">
+                    <h3 class="stack__category-title">Front-End Core</h3>
+                    <ul class="stack__list">
+                        <li class="stack__item">
+                            <span>HTML/CSS/Sass</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Bootstrap/Tailwind</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>GSAP Animations</span>
+                            <span class="stack__item-level">Proficient</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Three.js</span>
+                            <span class="stack__item-level">Proficient</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Accessibility (WCAG)</span>
+                            <span class="stack__item-level">Proficient</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="stack__category reveal">
+                    <h3 class="stack__category-title">JavaScript & Blade</h3>
+                    <ul class="stack__list">
+                        <li class="stack__item">
+                            <span>ES6+ JavaScript</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Alpine.js</span>
+                            <span class="stack__item-level">Proficient</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>jQuery (Legacy)</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Laravel Blade</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Livewire Components</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="stack__category reveal">
+                    <h3 class="stack__category-title">Design & AI Ops</h3>
+                    <ul class="stack__list">
+                        <li class="stack__item">
+                            <span>Figma</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Design Tokens / Atomic Design</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Codex / ChatGPT Workflows</span>
+                            <span class="stack__item-level">Proficient</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Git / Netlify / Vercel</span>
+                            <span class="stack__item-level">Proficient</span>
+                        </li>
+                        <li class="stack__item">
+                            <span>Lighthouse Optimization</span>
+                            <span class="stack__item-level">Advanced</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="contact__title">Interested in freelance<br>opportunities.</h2>
+            <p class="contact__text">
+                If you have a project, request, or question—feel free to reach out. 
+                I'm always open to discussing new ideas.
+            </p>
+            <div class="contact__links">
+                <a href="mailto:en.developer2@gmail.com" class="contact__link">
+                    <span>→</span> en.developer2@gmail.com
+                </a>
+                <a href="https://linkedin.com/in/islam-abdelnasser" class="contact__link" target="_blank">
+                    <span>→</span> LinkedIn
+                </a>
+                <a href="https://github.com/eslamnasser" class="contact__link" target="_blank">
+                    <span>→</span> GitHub
+                </a>
+                <a href="https://figma.com/@eslamnasser" class="contact__link" target="_blank">
+                    <span>→</span> Figma
+                </a>
+                <a href="tel:+201002952013" class="contact__link">
+                    <span>→</span> +20 100 295 2013
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer__text">
+                © 2025. Made by <span>Eslam Nasser</span> — UI/UX Team Lead & Front-End Engineer
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Reveal on scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 80) {
+                    el.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
