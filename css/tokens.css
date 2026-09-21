@@ -1,0 +1,94 @@
+/* Design tokens. Everything else in css/ reads from here and nowhere else.
+   The page is light by instruction (the paper sheet); the dark ink is the
+   desk it sits on, not a second theme. */
+
+:root {
+  color-scheme: light;
+
+  /* surfaces */
+  --ink: #14171a;
+  --ink-2: #1d2126;
+  --paper: #f3f2ee;
+  --paper-2: #ebeae5;
+  --paper-3: #e1e0da;
+  --white: #fbfbf9;
+
+  /* lines */
+  --line: rgb(20 23 26 / 0.12);
+  --line-strong: rgb(20 23 26 / 0.24);
+  --line-on-ink: rgb(243 242 238 / 0.14);
+
+  /* text */
+  --text: #14171a;
+  --text-2: #464c52;
+  --text-3: #6b7178;
+  --text-on-ink: #f3f2ee;
+  --text-on-ink-2: rgb(243 242 238 / 0.62);
+
+  /* the one accent */
+  --accent: #0b6e4f;
+  --accent-ink: #075239;
+  --accent-wash: #e3efe9;
+  --accent-on-ink: #5fc39d;
+
+  /* status, used only where a number is under the bar */
+  --under: #9a5b12;
+
+  /* type */
+  --font-display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
+  --font-body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-arabic: "Segoe UI", "SF Arabic", "Noto Naskh Arabic", "Noto Kufi Arabic", system-ui, sans-serif;
+
+  --fs-hero: clamp(2.4rem, 1rem + 4.6vw, 4.9rem);
+  --fs-h2: clamp(1.9rem, 1.1rem + 3vw, 3.4rem);
+  --fs-h3: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem);
+  --fs-h4: 1.0625rem;
+  --fs-body: 1rem;
+  --fs-lede: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  --fs-small: 0.875rem;
+  --fs-micro: 0.75rem;
+  --fs-data: clamp(2rem, 1.4rem + 2vw, 3.2rem);
+
+  --lh-tight: 1.02;
+  --lh-snug: 1.2;
+  --lh-body: 1.6;
+
+  --track-tight: -0.035em;
+  --track-snug: -0.02em;
+  --track-label: 0.12em;
+
+  /* space (4px base) */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --section: clamp(4.5rem, 4rem + 5vw, 9rem);
+  --gutter: clamp(1.25rem, 0.75rem + 2.4vw, 3rem);
+
+  /* shape */
+  --r-sheet: clamp(14px, 1vw + 8px, 24px);
+  --r: 8px;
+  --r-sm: 5px;
+
+  /* layout */
+  --shell: 1240px;
+  --measure: 62ch;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 0.22s;
+  --dur: 0.5s;
+  --dur-slow: 0.9s;
+
+  /* layers */
+  --z-nav: 20;
+  --z-preview: 30;
+  --z-menu: 40;
+}

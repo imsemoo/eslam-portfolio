@@ -1,0 +1,285 @@
+/* Reusable pieces: icons, buttons, chips, tags, the screenshot frame,
+   data cells, quotes, tables. No section knows about another's internals. */
+
+.icon {
+  width: 1.05em;
+  height: 1.05em;
+  fill: currentColor;
+  flex: none;
+}
+/* platform marks sit on the text baseline and take the text colour */
+.icon--brand {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  display: inline-block;
+}
+.icon--wide {
+  width: 2.6em;
+}
+
+.skip {
+  position: absolute;
+  inset-inline-start: var(--s-4);
+  inset-block-start: -100%;
+  z-index: 100;
+  padding: var(--s-2) var(--s-4);
+  background: var(--ink);
+  color: var(--text-on-ink);
+  border-radius: var(--r);
+}
+.skip:focus {
+  inset-block-start: var(--s-4);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  white-space: nowrap;
+  padding: 0.78rem 1.2rem;
+  border-radius: var(--r);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition:
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    color var(--dur-fast) ease,
+    transform var(--dur-fast) var(--ease-out);
+  will-change: transform;
+}
+.btn--primary {
+  background: var(--ink);
+  color: var(--text-on-ink);
+}
+.btn--primary:hover {
+  background: var(--accent-ink);
+}
+.btn--ghost {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+.btn--ghost:hover {
+  border-color: var(--ink);
+}
+.btn--lg {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+}
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+.btn .icon {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.btn:hover .icon {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- chips (filters) ---------- */
+.chip {
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  font-size: var(--fs-small);
+  color: var(--text-2);
+  background: transparent;
+  transition:
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease,
+    color var(--dur-fast) ease;
+}
+.chip:hover {
+  border-color: var(--ink);
+  color: var(--text);
+}
+.chip[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--text-on-ink);
+}
+.chip__n {
+  font-size: var(--fs-micro);
+  opacity: 0.6;
+  margin-inline-start: 0.15rem;
+}
+
+/* ---------- tags ---------- */
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  line-height: 1;
+  color: var(--text-3);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 0.28rem 0.42rem;
+  white-space: nowrap;
+}
+
+/* ---------- screenshot frame ---------- */
+.shot {
+  position: relative;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r);
+  background: var(--white);
+  overflow: hidden;
+  box-shadow:
+    0 1px 0 rgb(20 23 26 / 0.04),
+    0 30px 60px -40px rgb(20 23 26 / 0.45);
+}
+.shot__bar {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding-inline: var(--s-3);
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-2);
+}
+.shot__cap {
+  font-size: var(--fs-micro);
+  color: var(--text-3);
+}
+.shot__img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ---------- data cells ---------- */
+.datum {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--s-1);
+}
+.datum dd {
+  font-size: var(--fs-data);
+  font-weight: 400;
+  letter-spacing: var(--track-snug);
+  line-height: 1;
+  color: var(--text);
+}
+.datum dt {
+  font-size: var(--fs-small);
+  color: var(--text-3);
+}
+
+/* ---------- quotes ---------- */
+.quote {
+  padding: var(--s-5) var(--s-5) var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--white);
+  break-inside: avoid;
+}
+.quote p {
+  font-size: var(--fs-body);
+  color: var(--text);
+  text-wrap: pretty;
+}
+.quote--ar p {
+  line-height: 1.9;
+}
+.quote__src {
+  margin-top: var(--s-4);
+}
+.quote__src b {
+  color: var(--text-2);
+  font-weight: 600;
+}
+
+/* ---------- score table ---------- */
+.score {
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: var(--white);
+}
+.score__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+.score__run {
+  font-size: var(--fs-small);
+  color: var(--accent);
+  text-decoration: none;
+}
+.score__run:hover {
+  text-decoration: underline;
+}
+.score__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  font-variant-numeric: tabular-nums;
+}
+.score__table th,
+.score__table td {
+  text-align: right;
+  padding: 0.5rem 0.3rem;
+  border-bottom: 1px solid var(--line);
+}
+.score__table th:first-child,
+.score__table td:first-child {
+  text-align: left;
+  font-family: var(--font-body);
+  color: var(--text-3);
+  font-weight: 400;
+}
+.score__table thead th {
+  font-weight: 600;
+  color: var(--text-3);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.score__table tbody tr:last-child td,
+.score__table tbody tr:last-child th {
+  border-bottom: 0;
+}
+.score__table td {
+  font-weight: 400;
+  color: var(--accent);
+}
+.score__table td.under {
+  color: var(--under);
+}
+.score__table td[data-k="lcp"] {
+  color: var(--text-2);
+  font-weight: 400;
+}
+.score__note {
+  margin-top: var(--s-3);
+}
+
+/* ---------- definition lists (case meta) ---------- */
+.case__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3) var(--s-5);
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+.case__meta dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+}
+.case__meta dd {
+  margin-top: 0.15rem;
+  font-size: var(--fs-small);
+  color: var(--text-2);
+}

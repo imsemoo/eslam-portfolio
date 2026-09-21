@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eslam Nasser. Front-end engineer and UI designer</title>
+<meta name="description" content="What you approve in the design is what ships. Seven years of Arabic newsrooms, Laravel and Livewire platforms, Vue front-ends and business sites for Australia and the UK, measured weekly against Google's PageSpeed API.">
+<link rel="canonical" href="https://imsemoo.github.io/eslam-portfolio/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Eslam Nasser. Front-end engineer and UI designer">
+<meta property="og:description" content="What you approve in the design is what ships. Arabic newsrooms, Laravel platforms, Vue front-ends. Measured weekly.">
+<meta property="og:url" content="https://imsemoo.github.io/eslam-portfolio/">
+<meta property="og:image" content="https://imsemoo.github.io/eslam-portfolio/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#14171a">
+
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/bricolage-grotesque-600-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="img/work/mo3ta-1200.webp" imagesrcset="img/work/mo3ta-600.webp 600w, img/work/mo3ta-800.webp 800w, img/work/mo3ta-1200.webp 1200w" imagesizes="(min-width: 900px) 38vw, 80vw">
+{{CSS}}
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Eslam Nasser","alternateName":"Eslam Abdel Nasser","jobTitle":"Front-end engineer and UI designer","url":"https://imsemoo.github.io/eslam-portfolio/","email":"mailto:en.developer2@gmail.com","knowsLanguage":["ar","en"],"sameAs":["https://github.com/imsemoo","https://www.linkedin.com/in/imsemooo/","https://www.upwork.com/freelancers/imsemoo","https://mostaql.com/u/imsemoo/portfolio"]}
+</script>
+</head>
+<body>
+<a class="skip" href="#index">Skip to the work</a>
+
+<div class="sheet">
+
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="#top">eslam<span>.</span>nasser</a>
+    <nav class="nav__links" id="nav-links" aria-label="Sections">
+      <a href="#index">Index</a>
+      <a href="#cases">Cases</a>
+      <a href="#measured">Measured</a>
+      <a href="#method">Method</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav__end">
+      <a class="btn btn--primary nav__cta" href="mailto:en.developer2@gmail.com" data-magnetic>Email me</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
+        <span class="visually-hidden">Menu</span>
+        <svg class="icon icon--open" aria-hidden="true"><use href="#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="shell hero__grid">
+    <div class="hero__copy">
+      <h1 class="hero__title" id="hero-title" data-motion-text="lines">
+        <span class="line">What you approve</span>
+        <span class="line">in the design</span>
+        <span class="line">is what <em>ships.</em></span>
+      </h1>
+      <p class="lede hero__lede" data-reveal>Front-end engineer and UI designer. Seven years of Arabic newsrooms, Laravel platforms and business sites for Australia and the UK.</p>
+      <div class="hero__actions" data-reveal>
+        <a class="btn btn--primary" href="#index" data-magnetic>Browse the index <svg class="icon" aria-hidden="true"><use href="#i-arrow-down-right"/></svg></a>
+        <a class="btn btn--ghost" href="#cases" data-magnetic>Read a case study</a>
+      </div>
+    </div>
+    <div class="hero__stack" data-hero-stack>
+      {{HERO_SHOTS}}
+    </div>
+  </div>
+  <div class="shell">
+    <dl class="hero__data" data-reveal-group>
+      <div class="datum" data-reveal-item><dt>Years in production</dt><dd class="mono">7+</dd></div>
+      <div class="datum" data-reveal-item><dt>Sites in the index</dt><dd class="mono">{{COUNT}}</dd></div>
+      <div class="datum" data-reveal-item><dt><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> Job success on Upwork</dt><dd class="mono">100%</dd></div>
+      <div class="datum" data-reveal-item><dt><svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg> Rating on Mostaql</dt><dd class="mono">5.0</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section index" id="index" aria-labelledby="index-title">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <h2 id="index-title">Every site, and what I did on it.</h2>
+      <p class="lede">{{COUNT}} projects, {{LIVE}} of them live. Filter by stack or language. The five featured rows open a case study on this page; the rest open the site itself.</p>
+    </div>
+    <div class="index__bar" data-reveal>
+      <div class="filters" role="group" aria-label="Filter the index">{{CHIPS}}</div>
+      <p class="index__count mono" aria-live="polite"><span data-count>{{COUNT}}</span> shown</p>
+    </div>
+    <ol class="rows" data-rows>
+      {{ROWS}}
+    </ol>
+    <p class="index__empty small" data-empty hidden>Nothing matches that combination.</p>
+  </div>
+</section>
+
+<section class="section cases" id="cases" aria-labelledby="cases-title">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <p class="label">Case studies</p>
+      <h2 id="cases-title">Five projects, in more detail.</h2>
+      <p class="lede">The problem as it arrived, what I actually did, the technical notes, and the result stated only as far as it can be proven.</p>
+    </div>
+    {{CASES}}
+  </div>
+</section>
+
+<section class="section measured" id="measured" aria-labelledby="measured-title">
+  <div class="shell measured__grid">
+    <div class="measured__copy" data-reveal>
+      <p class="label">Live from GitHub</p>
+      <h2 id="measured-title">Measured every Monday, not screenshotted once.</h2>
+      <p class="lede">A screenshot of a good Lighthouse run proves nothing. A GitHub Action calls Google's PageSpeed API every week, takes the median of three runs per device, and commits the result to my profile. This section reads those files directly.</p>
+      <p class="lede">Where a site is under the bar, the number stays on the page until the site is fixed.</p>
+      <p class="measured__status small mono" data-psi-status>Showing the committed numbers from 20 September 2026.</p>
+      <a class="btn btn--ghost" href="https://github.com/imsemoo/imsemoo/tree/main/data/psi" target="_blank" rel="noopener" data-magnetic>Raw JSON on GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+    </div>
+
+    <div class="scores" data-reveal-group>
+      <article class="score" data-reveal-item data-psi="musnadye-com">
+        <header class="score__head">
+          <h3>Musnad</h3>
+          <a class="score__run" href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fmusnadye.com%2F" target="_blank" rel="noopener">Run it yourself</a>
+        </header>
+        <table class="score__table">
+          <thead><tr><th scope="col">Device</th><th scope="col">Perf</th><th scope="col">A11y</th><th scope="col">Best</th><th scope="col">SEO</th><th scope="col">LCP</th></tr></thead>
+          <tbody>
+            <tr data-strategy="mobile"><th scope="row">Mobile</th><td data-k="performance">78</td><td data-k="accessibility">100</td><td data-k="best-practices">100</td><td data-k="seo">100</td><td data-k="lcp">5.4 s</td></tr>
+            <tr data-strategy="desktop"><th scope="row">Desktop</th><td data-k="performance">100</td><td data-k="accessibility">100</td><td data-k="best-practices">100</td><td data-k="seo">100</td><td data-k="lcp">0.5 s</td></tr>
+          </tbody>
+        </table>
+        <p class="score__note small" data-field>Median of three runs per device, Lighthouse 13.4.1.</p>
+      </article>
+
+      <article class="score" data-reveal-item data-psi="qudsn-co">
+        <header class="score__head">
+          <h3>Quds News Network</h3>
+          <a class="score__run" href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fqudsn.co%2F" target="_blank" rel="noopener">Run it yourself</a>
+        </header>
+        <table class="score__table">
+          <thead><tr><th scope="col">Device</th><th scope="col">Perf</th><th scope="col">A11y</th><th scope="col">Best</th><th scope="col">SEO</th><th scope="col">LCP</th></tr></thead>
+          <tbody>
+            <tr data-strategy="mobile"><th scope="row">Mobile</th><td data-k="performance">82</td><td data-k="accessibility">100</td><td data-k="best-practices">92</td><td data-k="seo">100</td><td data-k="lcp">4.7 s</td></tr>
+            <tr data-strategy="desktop"><th scope="row">Desktop</th><td data-k="performance">99</td><td data-k="accessibility">100</td><td data-k="best-practices">96</td><td data-k="seo">100</td><td data-k="lcp">0.9 s</td></tr>
+          </tbody>
+        </table>
+        <p class="score__note small" data-field>Real Chrome users over 28 days: FAST, LCP 2.33 s, INP 104 ms.</p>
+      </article>
+
+      <aside class="footprint" data-reveal-item data-psi="imsemoo-github-io">
+        <h3>This page</h3>
+        <p class="small">{{CSS_KB}} KB of CSS and {{JS_KB}} KB of JavaScript of my own, {{REQUESTS}} requests before images and fonts. GSAP and Lenis add 132 KB for the motion and are loaded after the content. Built {{BUILT}} from one JSON file by a Python script that also wrote this sentence.</p>
+        <p class="small footprint__self" data-self hidden>Measured by the same weekly job: mobile <b data-self-mobile></b>, desktop <b data-self-desktop></b> for performance, with accessibility, best practices and SEO at <b data-self-rest></b>.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section method" id="method" aria-labelledby="method-title">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <h2 id="method-title">How a project runs.</h2>
+      <p class="lede">The same six steps whether it is a landing page or a platform. Written, staged, and measured before it is called done.</p>
+    </div>
+
+    <ol class="process" data-reveal-group>
+      <li class="step" data-reveal-item><span class="step__n mono">01</span><h3>Brief</h3><p>A written brief and my questions back. Goals and content before layout, in writing, so decisions stay documented for your team.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">02</span><h3>Structure</h3><p>Flows, page list and what each screen must do. For Arabic products this is where right-to-left is decided, not patched in later.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">03</span><h3>First screen</h3><p>One screen designed and agreed before the rest exists. If the direction is wrong it costs a day, not a project.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">04</span><h3>Build</h3><p>Hand-written, delivered in reviewable stages. Design and code come from the same person, so nothing is lost in a handover.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">05</span><h3>Measure</h3><p>PageSpeed on both devices, accessibility checks, and a pass at 375 px before anything is called finished.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">06</span><h3>Keep it running</h3><p>Most of my work lands in systems that already run. I read the existing code before I change it, and keep what works.</p></li>
+    </ol>
+
+    <div class="method__grid">
+      <div class="timeline" data-reveal>
+        <h3>Where the seven years went</h3>
+        <ol>
+          <li class="tl"><span class="tl__when mono">2025 to now</span><span class="tl__what"><b>TakTek</b>, UI/UX and front-end team lead. Devlo CMS, Matn, and the newsroom fleet that runs on them.</span></li>
+          <li class="tl"><span class="tl__when mono">2020 to 2025</span><span class="tl__what"><b>IntimeDev</b>, outsourced to SilverTrees. Front-end from XD and Figma for Australian, UK and Egyptian clients.</span></li>
+          <li class="tl"><span class="tl__when mono">Before 2020</span><span class="tl__what">Freelance front-end and WordPress, mostly for Arabic businesses. Still on Mostaql at 5.0.</span></li>
+        </ol>
+      </div>
+
+      <div class="skills" data-reveal-group>
+        <h3 data-reveal-item>What I work in</h3>
+        <div class="skills__grid">
+          <div class="skill-group" data-reveal-item><h4>Design</h4><ul><li>Figma</li><li>Design systems and tokens</li><li>Arabic typography</li><li>Prototypes in HTML</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>Front-end</h4><ul><li>HTML, CSS, SCSS, Tailwind</li><li>JavaScript, TypeScript</li><li>Vue 3, Inertia</li><li>React, Next.js</li><li>GSAP, view transitions</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>Back-end</h4><ul><li>PHP 8, Laravel, Livewire</li><li>CakePHP 5</li><li>MySQL, Redis</li><li>REST APIs</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>CMS</h4><ul><li>Devlo, multi-tenant</li><li>Matn, in-page editing</li><li>WordPress with ACF</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>Performance and SEO</h4><ul><li>Core Web Vitals</li><li>PageSpeed API, weekly</li><li>Structured data, hreflang</li><li>Share cards that render</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>Workflow</h4><ul><li>Git, GitHub Actions</li><li>PHPUnit, PHPStan</li><li>Docker</li><li>AI-assisted drafts, reviewed line by line</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tokens" data-reveal>
+      <h3>This page runs on the same discipline</h3>
+      <p class="small">Every colour, size and gap on this page comes from one token file. Here are the ones doing most of the work.</p>
+      <div class="tokens__grid">
+        <div class="swatch swatch--ink"><span class="mono">--ink</span><span class="mono">#14171a</span></div>
+        <div class="swatch swatch--paper"><span class="mono">--paper</span><span class="mono">#f3f2ee</span></div>
+        <div class="swatch swatch--accent"><span class="mono">--accent</span><span class="mono">#0b6e4f</span></div>
+        <div class="swatch swatch--under"><span class="mono">--under</span><span class="mono">#9a5b12</span></div>
+        <div class="type-sample">
+          <span class="type-sample__display">Bricolage Grotesque</span>
+          <span class="type-sample__body">Geist for reading, 16 px on a 1.6 line.</span>
+          <span class="type-sample__mono mono">Geist Mono for numbers 0123456789</span>
+        </div>
+        <div class="space-sample" role="img" aria-label="Spacing scale, four pixel base"><i style="--w:4px"></i><i style="--w:8px"></i><i style="--w:12px"></i><i style="--w:16px"></i><i style="--w:24px"></i><i style="--w:32px"></i><i style="--w:48px"></i><i style="--w:64px"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <h2 id="reviews-title">What clients wrote afterwards.</h2>
+      <p class="lede">Published reviews from Upwork and Mostaql, quoted as written.</p>
+    </div>
+    <div class="quotes" data-reveal-group>
+      <blockquote class="quote" data-reveal-item><p>"Islam is a superstar. I wanted to elevate a site for a product launch and his combined design and marketing hooks were exceptional."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, business homepage redesign</footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"He understood the scope immediately and implemented everything in a clean, structured, and future-proof way."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, landing page and bond calculator</footer></blockquote>
+      <blockquote class="quote quote--ar" data-reveal-item lang="ar" dir="rtl"><p class="ar">"كل الشكر لك أخي الفاضل إسلام. احترافية وإخلاص وجودة تستحق الإشادة، ولن أتردد بالتعاون معك مستقبلا."</p><footer class="quote__src small"><b>زيد ا.</b>، مستقل <svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg></footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"He understood the requirements well and was reliable, helpful, and solution-oriented throughout the implementation."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, ordering interface for a restaurant</footer></blockquote>
+      <blockquote class="quote quote--ar" data-reveal-item lang="ar" dir="rtl"><p class="ar">"التجربة مرضية لأقصى حد والنتائج تجاوزت سقف التوقعات. الاهتمام والخبرة والجهد أنتجت عملًا مميزًا."</p><footer class="quote__src small"><b>Nass A.</b>، مستقل <svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg></footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"I worked with Islam for an extended period of time. Thank you for the collaboration, and I wish him all the best."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, one year on a multilingual shop</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="shell"><div class="contact__inner">
+    <h2 class="contact__title" id="contact-title" data-motion-text="lines"><span class="line">Have a project</span><span class="line">worth building?</span></h2>
+    <p class="lede" data-reveal>Send it over. I reply with how I would approach it, what it costs and how long it takes. In writing, within a few hours, remote from Cairo at UTC+2.</p>
+    <div class="contact__actions" data-reveal>
+      <a class="btn btn--primary btn--lg" href="mailto:en.developer2@gmail.com" data-magnetic>Email me <svg class="icon" aria-hidden="true"><use href="#i-envelope-simple"/></svg></a>
+      <span class="mono small">en.developer2@gmail.com</span>
+    </div>
+    <ul class="links" data-reveal>
+      <li><a href="https://github.com/imsemoo" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github-logo"/></svg>GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/imsemooo/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-linkedin-logo"/></svg>LinkedIn</a></li>
+      <li><a href="https://www.upwork.com/freelancers/imsemoo" target="_blank" rel="noopener"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg>Upwork</a></li>
+      <li><a href="https://mostaql.com/u/imsemoo/portfolio" target="_blank" rel="noopener"><svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg>Mostaql</a></li>
+    </ul>
+  </div></div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell foot__inner">
+    <span>Eslam Nasser. Front-end engineer and UI designer.</span>
+    <span class="mono">Hand-written HTML and CSS. Generated from one JSON file, built {{BUILT}}.</span>
+  </div>
+</footer>
+
+<div class="preview" data-preview aria-hidden="true"><img class="preview__img" alt="" width="600" height="375" decoding="async"></div>
+
+</div>
+
+{{ICONS}}
+
+<script src="js/main.js" type="module"></script>
+</body>
+</html>

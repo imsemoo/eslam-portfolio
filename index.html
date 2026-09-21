@@ -1,1722 +1,1889 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eslam Nasser — UI/UX Team Lead & Front-End Engineer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        
-        /* ═══════════════════════════════════════════════════════════
-           DESIGN TOKENS — The Foundation
-           ═══════════════════════════════════════════════════════════ */
-        :root {
-            /* Colors */
-            --color-bg: #0C0C0C;
-            --color-bg-elevated: #141414;
-            --color-bg-surface: #1A1A1A;
-            --color-border: #2A2A2A;
-            --color-border-subtle: #1F1F1F;
-            --color-text-primary: #FAFAFA;
-            --color-text-secondary: #888888;
-            --color-text-muted: #555555;
-            --color-accent: #00FF88;
-            --color-accent-dim: rgba(0, 255, 136, 0.1);
-            --color-accent-glow: rgba(0, 255, 136, 0.15);
-            --color-warning: #FF6B35;
-            --color-code-bg: #0A0A0A;
-            
-            /* Typography */
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-serif: 'Instrument Serif', serif;
-            --font-sans: 'DM Sans', sans-serif;
-            
-            /* Spacing */
-            --space-xs: 0.25rem;
-            --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
-            --space-4xl: 6rem;
-            --space-5xl: 8rem;
-            
-            /* Layout */
-            --max-width: 1200px;
-            --content-width: 800px;
-            
-            /* Effects */
-            --transition-fast: 0.15s ease;
-            --transition-base: 0.3s ease;
-            --transition-slow: 0.5s ease;
-            --radius-sm: 2px;
-            --radius-md: 4px;
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           RESET & BASE
-           ═══════════════════════════════════════════════════════════ */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            background: var(--color-bg);
-            color: var(--color-text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        ::selection {
-            background: var(--color-accent);
-            color: var(--color-bg);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--color-bg);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--color-border);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--color-text-muted);
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           LAYOUT
-           ═══════════════════════════════════════════════════════════ */
-        .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 var(--space-xl);
-        }
-
-        .container--narrow {
-            max-width: var(--content-width);
-        }
-
-        section {
-            padding: var(--space-5xl) 0;
-            border-bottom: 1px solid var(--color-border-subtle);
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           NAVIGATION
-           ═══════════════════════════════════════════════════════════ */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: var(--space-lg) 0;
-            background: rgba(12, 12, 12, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid transparent;
-            transition: var(--transition-base);
-        }
-
-        .nav.scrolled {
-            border-bottom-color: var(--color-border-subtle);
-        }
-
-        .nav__inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav__logo {
-            font-family: var(--font-mono);
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: var(--color-text-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .nav__logo-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--color-accent);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.9); }
-        }
-
-        .nav__links {
-            display: flex;
-            gap: var(--space-xl);
-            list-style: none;
-        }
-
-        .nav__link {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--color-text-secondary);
-            text-decoration: none;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            transition: var(--transition-fast);
-            position: relative;
-        }
-
-        .nav__link::before {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--color-accent);
-            transition: var(--transition-base);
-        }
-
-        .nav__link:hover {
-            color: var(--color-text-primary);
-        }
-
-        .nav__link:hover::before {
-            width: 100%;
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           HERO
-           ═══════════════════════════════════════════════════════════ */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            padding-top: var(--space-5xl);
-            border-bottom: none;
-        }
-
-        .hero__bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .hero__grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(var(--color-border-subtle) 1px, transparent 1px),
-                linear-gradient(90deg, var(--color-border-subtle) 1px, transparent 1px);
-            background-size: 60px 60px;
-            opacity: 0.5;
-            mask-image: radial-gradient(ellipse at 50% 30%, black 0%, transparent 70%);
-        }
-
-        .hero__glow {
-            position: absolute;
-            top: 10%;
-            right: 10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
-            filter: blur(80px);
-            opacity: 0.4;
-        }
-
-        .hero__content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero__label {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--color-accent);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: var(--space-lg);
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards 0.2s;
-        }
-
-        .hero__label::before {
-            content: '';
-            width: 40px;
-            height: 1px;
-            background: var(--color-accent);
-        }
-
-        .hero__title {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 400;
-            line-height: 1.1;
-            margin-bottom: var(--space-lg);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards 0.4s;
-        }
-
-        .hero__title em {
-            font-style: italic;
-            color: var(--color-accent);
-        }
-
-        .hero__subtitle {
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            color: var(--color-text-secondary);
-            max-width: 550px;
-            line-height: 1.8;
-            margin-bottom: var(--space-2xl);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards 0.6s;
-        }
-
-        .hero__cta {
-            display: flex;
-            gap: var(--space-lg);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease forwards 0.8s;
-        }
-
-        .btn {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-decoration: none;
-            padding: var(--space-md) var(--space-xl);
-            border: 1px solid var(--color-border);
-            background: transparent;
-            color: var(--color-text-primary);
-            cursor: pointer;
-            transition: var(--transition-base);
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-sm);
-            letter-spacing: 0.5px;
-        }
-
-        .btn:hover {
-            border-color: var(--color-accent);
-            background: var(--color-accent-dim);
-        }
-
-        .btn--primary {
-            background: var(--color-accent);
-            border-color: var(--color-accent);
-            color: var(--color-bg);
-        }
-
-        .btn--primary:hover {
-            background: transparent;
-            color: var(--color-accent);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           STATS BAR
-           ═══════════════════════════════════════════════════════════ */
-        .stats-bar {
-            background: var(--color-bg-elevated);
-            border-top: 1px solid var(--color-border-subtle);
-            border-bottom: 1px solid var(--color-border-subtle);
-            padding: var(--space-2xl) 0;
-        }
-
-        .stats-bar__inner {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: var(--space-xl);
-        }
-
-        .stat {
-            text-align: center;
-            padding: var(--space-md);
-        }
-
-        .stat__number {
-            font-family: var(--font-mono);
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--color-text-primary);
-            margin-bottom: var(--space-xs);
-        }
-
-        .stat__label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--color-text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           SECTION HEADERS
-           ═══════════════════════════════════════════════════════════ */
-        .section-header {
-            margin-bottom: var(--space-3xl);
-        }
-
-        .section-header__label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--color-accent);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: var(--space-md);
-            display: flex;
-            align-items: center;
-            gap: var(--space-md);
-        }
-
-        .section-header__label::before {
-            content: '';
-            width: 20px;
-            height: 1px;
-            background: var(--color-accent);
-        }
-
-        .section-header__title {
-            font-family: var(--font-serif);
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 400;
-            color: var(--color-text-primary);
-            line-height: 1.2;
-        }
-
-        .section-header__title em {
-            font-style: italic;
-            color: var(--color-text-secondary);
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           PHILOSOPHY SECTION
-           ═══════════════════════════════════════════════════════════ */
-        .philosophy {
-            background: var(--color-bg);
-        }
-
-        .philosophy__grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-xl);
-        }
-
-        .philosophy__card {
-            padding: var(--space-2xl);
-            background: var(--color-bg-surface);
-            border: 1px solid var(--color-border-subtle);
-            transition: var(--transition-base);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .philosophy__card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--color-accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: var(--transition-base);
-        }
-
-        .philosophy__card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .philosophy__card:hover {
-            border-color: var(--color-border);
-            transform: translateY(-4px);
-        }
-
-        .philosophy__icon {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--color-accent);
-            margin-bottom: var(--space-lg);
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .philosophy__card-title {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            color: var(--color-text-primary);
-            margin-bottom: var(--space-md);
-        }
-
-        .philosophy__card-text {
-            font-size: 0.95rem;
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           SYSTEMS / PROJECTS
-           ═══════════════════════════════════════════════════════════ */
-        .systems {
-            background: var(--color-bg-elevated);
-        }
-
-        .system {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: var(--space-3xl);
-            padding: var(--space-3xl) 0;
-            border-bottom: 1px solid var(--color-border-subtle);
-            align-items: start;
-        }
-
-        .system:last-child {
-            border-bottom: none;
-        }
-
-        .system__info {
-            position: sticky;
-            top: 120px;
-        }
-
-        .system__number {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--color-text-muted);
-            letter-spacing: 2px;
-            margin-bottom: var(--space-md);
-        }
-
-        .system__title {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            color: var(--color-text-primary);
-            margin-bottom: var(--space-md);
-            line-height: 1.2;
-        }
-
-        .system__type {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--color-accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: var(--space-lg);
-            padding: var(--space-xs) var(--space-sm);
-            background: var(--color-accent-dim);
-            display: inline-block;
-        }
-
-        .system__desc {
-            font-size: 1rem;
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-            margin-bottom: var(--space-xl);
-        }
-
-        .system__stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-sm);
-        }
-
-        .system__tech {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--color-text-muted);
-            padding: var(--space-xs) var(--space-sm);
-            border: 1px solid var(--color-border);
-            background: var(--color-bg);
-        }
-
-        .system__details {
-            background: var(--color-bg-surface);
-            border: 1px solid var(--color-border-subtle);
-        }
-
-        .system__detail-section {
-            padding: var(--space-xl);
-            border-bottom: 1px solid var(--color-border-subtle);
-        }
-
-        .system__detail-section:last-child {
-            border-bottom: none;
-        }
-
-        .system__detail-label {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            color: var(--color-text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: var(--space-md);
-        }
-
-        .system__detail-content {
-            font-size: 0.95rem;
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-        }
-
-        .system__detail-list {
-            list-style: none;
-        }
-
-        .system__detail-list li {
-            padding: var(--space-sm) 0;
-            padding-left: var(--space-lg);
-            position: relative;
-        }
-
-        .system__detail-list li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--color-accent);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           SKILLS / STACK
-           ═══════════════════════════════════════════════════════════ */
-        .stack {
-            background: var(--color-bg);
-        }
-
-        .stack__grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--space-md);
-        }
-
-        .stack__category {
-            padding: var(--space-xl);
-            background: var(--color-bg-surface);
-            border: 1px solid var(--color-border-subtle);
-        }
-
-        .stack__category-title {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--color-accent);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: var(--space-lg);
-            padding-bottom: var(--space-md);
-            border-bottom: 1px solid var(--color-border-subtle);
-        }
-
-        .stack__list {
-            list-style: none;
-        }
-
-        .stack__item {
-            padding: var(--space-sm) 0;
-            font-size: 0.9rem;
-            color: var(--color-text-secondary);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .stack__item-level {
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            color: var(--color-text-muted);
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           CODE BLOCK
-           ═══════════════════════════════════════════════════════════ */
-        .code-philosophy {
-            background: var(--color-bg-elevated);
-            padding: var(--space-5xl) 0;
-        }
-
-        .code-block {
-            background: var(--color-code-bg);
-            border: 1px solid var(--color-border-subtle);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-        }
-
-        .code-block__header {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            padding: var(--space-md) var(--space-lg);
-            background: var(--color-bg-surface);
-            border-bottom: 1px solid var(--color-border-subtle);
-        }
-
-        .code-block__dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--color-border);
-        }
-
-        .code-block__dot--red { background: #FF5F56; }
-        .code-block__dot--yellow { background: #FFBD2E; }
-        .code-block__dot--green { background: #27CA40; }
-
-        .code-block__filename {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--color-text-muted);
-            margin-left: auto;
-        }
-
-        .code-block__content {
-            padding: var(--space-xl);
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            line-height: 2;
-            overflow-x: auto;
-        }
-
-        .code-block__line {
-            display: flex;
-        }
-
-        .code-block__line-number {
-            width: 40px;
-            color: var(--color-text-muted);
-            user-select: none;
-            flex-shrink: 0;
-        }
-
-        .code-block__line-content {
-            color: var(--color-text-secondary);
-        }
-
-        .code-block__line-content .comment {
-            color: var(--color-text-muted);
-            font-style: italic;
-        }
-
-        .code-block__line-content .property {
-            color: var(--color-accent);
-        }
-
-        .code-block__line-content .value {
-            color: var(--color-warning);
-        }
-
-        .code-block__line-content .string {
-            color: #98C379;
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           CONTACT
-           ═══════════════════════════════════════════════════════════ */
-        .contact {
-            background: var(--color-bg);
-            text-align: center;
-            padding: var(--space-5xl) 0;
-        }
-
-        .contact__title {
-            font-family: var(--font-serif);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            color: var(--color-text-primary);
-            margin-bottom: var(--space-lg);
-        }
-
-        .contact__text {
-            font-size: 1.1rem;
-            color: var(--color-text-secondary);
-            max-width: 500px;
-            margin: 0 auto var(--space-2xl);
-            line-height: 1.8;
-        }
-
-        .contact__links {
-            display: flex;
-            justify-content: center;
-            gap: var(--space-lg);
-            flex-wrap: wrap;
-        }
-
-        .contact__link {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--color-text-secondary);
-            text-decoration: none;
-            padding: var(--space-md) var(--space-xl);
-            border: 1px solid var(--color-border);
-            transition: var(--transition-base);
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .contact__link:hover {
-            color: var(--color-accent);
-            border-color: var(--color-accent);
-            background: var(--color-accent-dim);
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           FOOTER
-           ═══════════════════════════════════════════════════════════ */
-        .footer {
-            padding: var(--space-2xl) 0;
-            border-top: 1px solid var(--color-border-subtle);
-            text-align: center;
-        }
-
-        .footer__text {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--color-text-muted);
-        }
-
-        .footer__text span {
-            color: var(--color-accent);
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           RESPONSIVE
-           ═══════════════════════════════════════════════════════════ */
-        @media (max-width: 1024px) {
-            .system {
-                grid-template-columns: 1fr;
-            }
-
-            .system__info {
-                position: static;
-            }
-
-            .philosophy__grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stack__grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav__links {
-                display: none;
-            }
-
-            .stats-bar__inner {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .hero__cta {
-                flex-direction: column;
-            }
-
-            .btn {
-                justify-content: center;
-            }
-
-            section {
-                padding: var(--space-3xl) 0;
-            }
-
-            .container {
-                padding: 0 var(--space-lg);
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════
-           ANIMATIONS
-           ═══════════════════════════════════════════════════════════ */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eslam Nasser. Front-end engineer and UI designer</title>
+<meta name="description" content="What you approve in the design is what ships. Seven years of Arabic newsrooms, Laravel and Livewire platforms, Vue front-ends and business sites for Australia and the UK, measured weekly against Google's PageSpeed API.">
+<link rel="canonical" href="https://imsemoo.github.io/eslam-portfolio/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Eslam Nasser. Front-end engineer and UI designer">
+<meta property="og:description" content="What you approve in the design is what ships. Arabic newsrooms, Laravel platforms, Vue front-ends. Measured weekly.">
+<meta property="og:url" content="https://imsemoo.github.io/eslam-portfolio/">
+<meta property="og:image" content="https://imsemoo.github.io/eslam-portfolio/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#14171a">
+
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/bricolage-grotesque-600-latin.woff2" crossorigin>
+<link rel="preload" as="image" href="img/work/mo3ta-1200.webp" imagesrcset="img/work/mo3ta-600.webp 600w, img/work/mo3ta-800.webp 800w, img/work/mo3ta-1200.webp 1200w" imagesizes="(min-width: 900px) 38vw, 80vw">
+<style>
+/* fonts */
+@font-face{font-family:'Bricolage Grotesque';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/bricolage-grotesque-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Geist';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/geist-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Geist';font-style:normal;font-weight:600;font-display:swap;src:url(fonts/geist-600-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400;font-display:swap;src:url(fonts/geist-mono-400-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+/* tokens */
+:root {
+color-scheme: light;
+--ink: #14171a;
+--ink-2: #1d2126;
+--paper: #f3f2ee;
+--paper-2: #ebeae5;
+--paper-3: #e1e0da;
+--white: #fbfbf9;
+--line: rgb(20 23 26 / 0.12);
+--line-strong: rgb(20 23 26 / 0.24);
+--line-on-ink: rgb(243 242 238 / 0.14);
+--text: #14171a;
+--text-2: #464c52;
+--text-3: #6b7178;
+--text-on-ink: #f3f2ee;
+--text-on-ink-2: rgb(243 242 238 / 0.62);
+--accent: #0b6e4f;
+--accent-ink: #075239;
+--accent-wash: #e3efe9;
+--accent-on-ink: #5fc39d;
+--under: #9a5b12;
+--font-display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
+--font-body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+--font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+--font-arabic: "Segoe UI", "SF Arabic", "Noto Naskh Arabic", "Noto Kufi Arabic", system-ui, sans-serif;
+--fs-hero: clamp(2.4rem, 1rem + 4.6vw, 4.9rem);
+--fs-h2: clamp(1.9rem, 1.1rem + 3vw, 3.4rem);
+--fs-h3: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem);
+--fs-h4: 1.0625rem;
+--fs-body: 1rem;
+--fs-lede: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+--fs-small: 0.875rem;
+--fs-micro: 0.75rem;
+--fs-data: clamp(2rem, 1.4rem + 2vw, 3.2rem);
+--lh-tight: 1.02;
+--lh-snug: 1.2;
+--lh-body: 1.6;
+--track-tight: -0.035em;
+--track-snug: -0.02em;
+--track-label: 0.12em;
+--s-1: 0.25rem;
+--s-2: 0.5rem;
+--s-3: 0.75rem;
+--s-4: 1rem;
+--s-5: 1.5rem;
+--s-6: 2rem;
+--s-7: 3rem;
+--s-8: 4rem;
+--s-9: 6rem;
+--section: clamp(4.5rem, 4rem + 5vw, 9rem);
+--gutter: clamp(1.25rem, 0.75rem + 2.4vw, 3rem);
+--r-sheet: clamp(14px, 1vw + 8px, 24px);
+--r: 8px;
+--r-sm: 5px;
+--shell: 1240px;
+--measure: 62ch;
+--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+--dur-fast: 0.22s;
+--dur: 0.5s;
+--dur-slow: 0.9s;
+--z-nav: 20;
+--z-preview: 30;
+--z-menu: 40;
+}
+/* base */
+*,
+*::before,
+*::after {
+box-sizing: border-box;
+}
+html {
+-webkit-text-size-adjust: 100%;
+scroll-behavior: smooth;
+background: var(--ink);
+}
+body {
+margin: 0;
+background: var(--ink);
+color: var(--text);
+font-family: var(--font-body);
+font-size: var(--fs-body);
+line-height: var(--lh-body);
+-webkit-font-smoothing: antialiased;
+text-rendering: optimizeLegibility;
+}
+img,
+svg,
+video {
+display: block;
+max-width: 100%;
+height: auto;
+}
+a {
+color: inherit;
+}
+button {
+font: inherit;
+color: inherit;
+background: none;
+border: 0;
+padding: 0;
+cursor: pointer;
+}
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+ul,
+ol,
+dl,
+dd {
+margin: 0;
+}
+ul,
+ol {
+padding: 0;
+list-style: none;
+}
+h1,
+h2,
+h3 {
+font-family: var(--font-display);
+font-weight: 600;
+letter-spacing: var(--track-snug);
+line-height: var(--lh-snug);
+text-wrap: balance;
+}
+h1 {
+font-size: var(--fs-hero);
+line-height: var(--lh-tight);
+letter-spacing: var(--track-tight);
+font-weight: 600;
+}
+h2 {
+font-size: var(--fs-h2);
+}
+h3 {
+font-size: var(--fs-h3);
+}
+h4 {
+font-size: var(--fs-h4);
+font-weight: 600;
+letter-spacing: var(--track-snug);
+line-height: 1.3;
+}
+.sheet {
+position: relative;
+margin: clamp(6px, 0.8vw, 12px);
+background: var(--paper);
+border-radius: var(--r-sheet);
+overflow: clip;
+isolation: isolate;
+min-height: calc(100dvh - 2 * clamp(6px, 0.8vw, 12px));
+}
+.sheet::before {
+content: "";
+position: absolute;
+inset: 0;
+z-index: -1;
+pointer-events: none;
+background-image: repeating-linear-gradient(
+135deg,
+rgb(20 23 26 / 0.028) 0 1px,
+transparent 1px 7px
+);
+}
+.shell {
+width: 100%;
+max-width: var(--shell);
+margin-inline: auto;
+padding-inline: var(--gutter);
+}
+[hidden] {
+display: none !important;
+}
+.grid > *,
+[class*="-grid"] > * {
+min-width: 0;
+}
+.lede {
+font-size: var(--fs-lede);
+color: var(--text-2);
+max-width: var(--measure);
+text-wrap: pretty;
+}
+.small {
+font-size: var(--fs-small);
+color: var(--text-3);
+}
+.mono {
+font-family: var(--font-mono);
+font-variant-numeric: tabular-nums;
+letter-spacing: 0;
+}
+.ar {
+font-family: var(--font-arabic);
+font-size: 0.92em;
+}
+.label {
+display: inline-flex;
+align-items: center;
+gap: var(--s-2);
+font-family: var(--font-mono);
+font-size: var(--fs-micro);
+text-transform: uppercase;
+letter-spacing: var(--track-label);
+color: var(--accent-ink);
+}
+.label::before {
+content: "";
+width: 14px;
+height: 14px;
+border-inline-start: 1.5px solid currentColor;
+border-block-start: 1.5px solid currentColor;
+opacity: 0.75;
+}
+.visually-hidden {
+position: absolute !important;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0 0 0 0);
+white-space: nowrap;
+border: 0;
+}
+:focus-visible {
+outline: 2px solid var(--accent);
+outline-offset: 3px;
+border-radius: var(--r-sm);
+}
+::selection {
+background: var(--accent);
+color: var(--white);
+}
+@media (prefers-reduced-motion: reduce) {
+html {
+scroll-behavior: auto;
+}
+}
+@media print {
+html,
+body {
+background: #fff;
+}
+.sheet {
+margin: 0;
+border-radius: 0;
+min-height: 0;
+}
+.sheet::before,
+.nav,
+.preview,
+.skip,
+.hero__actions,
+.contact__actions,
+.index__bar {
+display: none !important;
+}
+.case__visual {
+position: static;
+}
+a[href^="http"]::after {
+content: " (" attr(href) ")";
+font-size: 0.8em;
+color: #6b7178;
+}
+.row__link::after,
+.row__ext::after {
+content: none;
+}
+}
+/* components */
+.icon {
+width: 1.05em;
+height: 1.05em;
+fill: currentColor;
+flex: none;
+}
+.icon--brand {
+width: 1em;
+height: 1em;
+vertical-align: -0.15em;
+display: inline-block;
+}
+.icon--wide {
+width: 2.6em;
+}
+.skip {
+position: absolute;
+inset-inline-start: var(--s-4);
+inset-block-start: -100%;
+z-index: 100;
+padding: var(--s-2) var(--s-4);
+background: var(--ink);
+color: var(--text-on-ink);
+border-radius: var(--r);
+}
+.skip:focus {
+inset-block-start: var(--s-4);
+}
+.btn {
+display: inline-flex;
+align-items: center;
+gap: var(--s-2);
+white-space: nowrap;
+padding: 0.78rem 1.2rem;
+border-radius: var(--r);
+font-size: var(--fs-small);
+font-weight: 600;
+line-height: 1;
+text-decoration: none;
+border: 1px solid transparent;
+transition:
+background-color var(--dur-fast) ease,
+border-color var(--dur-fast) ease,
+color var(--dur-fast) ease,
+transform var(--dur-fast) var(--ease-out);
+will-change: transform;
+}
+.btn--primary {
+background: var(--ink);
+color: var(--text-on-ink);
+}
+.btn--primary:hover {
+background: var(--accent-ink);
+}
+.btn--ghost {
+border-color: var(--line-strong);
+color: var(--text);
+}
+.btn--ghost:hover {
+border-color: var(--ink);
+}
+.btn--lg {
+padding: 1rem 1.5rem;
+font-size: 1rem;
+}
+.btn:active {
+transform: translateY(1px) scale(0.99);
+}
+.btn .icon {
+transition: transform var(--dur-fast) var(--ease-out);
+}
+.btn:hover .icon {
+transform: translate(2px, -2px);
+}
+.chip {
+padding: 0.5rem 0.85rem;
+border-radius: 999px;
+border: 1px solid var(--line-strong);
+font-size: var(--fs-small);
+color: var(--text-2);
+background: transparent;
+transition:
+background-color var(--dur-fast) ease,
+border-color var(--dur-fast) ease,
+color var(--dur-fast) ease;
+}
+.chip:hover {
+border-color: var(--ink);
+color: var(--text);
+}
+.chip[aria-pressed="true"] {
+background: var(--ink);
+border-color: var(--ink);
+color: var(--text-on-ink);
+}
+.chip__n {
+font-size: var(--fs-micro);
+opacity: 0.6;
+margin-inline-start: 0.15rem;
+}
+.tag {
+display: inline-block;
+font-family: var(--font-mono);
+font-size: var(--fs-micro);
+line-height: 1;
+color: var(--text-3);
+border: 1px solid var(--line);
+border-radius: var(--r-sm);
+padding: 0.28rem 0.42rem;
+white-space: nowrap;
+}
+.shot {
+position: relative;
+border: 1px solid var(--line-strong);
+border-radius: var(--r);
+background: var(--white);
+overflow: hidden;
+box-shadow:
+0 1px 0 rgb(20 23 26 / 0.04),
+0 30px 60px -40px rgb(20 23 26 / 0.45);
+}
+.shot__bar {
+display: flex;
+align-items: center;
+height: 28px;
+padding-inline: var(--s-3);
+border-bottom: 1px solid var(--line);
+background: var(--paper-2);
+}
+.shot__cap {
+font-size: var(--fs-micro);
+color: var(--text-3);
+}
+.shot__img {
+width: 100%;
+aspect-ratio: 16 / 10;
+object-fit: cover;
+object-position: top center;
+}
+.datum {
+display: flex;
+flex-direction: column-reverse;
+gap: var(--s-1);
+}
+.datum dd {
+font-size: var(--fs-data);
+font-weight: 400;
+letter-spacing: var(--track-snug);
+line-height: 1;
+color: var(--text);
+}
+.datum dt {
+font-size: var(--fs-small);
+color: var(--text-3);
+}
+.quote {
+padding: var(--s-5) var(--s-5) var(--s-5);
+border: 1px solid var(--line);
+border-radius: var(--r);
+background: var(--white);
+break-inside: avoid;
+}
+.quote p {
+font-size: var(--fs-body);
+color: var(--text);
+text-wrap: pretty;
+}
+.quote--ar p {
+line-height: 1.9;
+}
+.quote__src {
+margin-top: var(--s-4);
+}
+.quote__src b {
+color: var(--text-2);
+font-weight: 600;
+}
+.score {
+padding: var(--s-5);
+border: 1px solid var(--line);
+border-radius: var(--r);
+background: var(--white);
+}
+.score__head {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+gap: var(--s-4);
+flex-wrap: wrap;
+}
+.score__run {
+font-size: var(--fs-small);
+color: var(--accent);
+text-decoration: none;
+}
+.score__run:hover {
+text-decoration: underline;
+}
+.score__table {
+width: 100%;
+border-collapse: collapse;
+margin-top: var(--s-4);
+font-family: var(--font-mono);
+font-size: var(--fs-small);
+font-variant-numeric: tabular-nums;
+}
+.score__table th,
+.score__table td {
+text-align: right;
+padding: 0.5rem 0.3rem;
+border-bottom: 1px solid var(--line);
+}
+.score__table th:first-child,
+.score__table td:first-child {
+text-align: left;
+font-family: var(--font-body);
+color: var(--text-3);
+font-weight: 400;
+}
+.score__table thead th {
+font-weight: 600;
+color: var(--text-3);
+font-size: var(--fs-micro);
+text-transform: uppercase;
+letter-spacing: 0.06em;
+}
+.score__table tbody tr:last-child td,
+.score__table tbody tr:last-child th {
+border-bottom: 0;
+}
+.score__table td {
+font-weight: 400;
+color: var(--accent);
+}
+.score__table td.under {
+color: var(--under);
+}
+.score__table td[data-k="lcp"] {
+color: var(--text-2);
+font-weight: 400;
+}
+.score__note {
+margin-top: var(--s-3);
+}
+.case__meta {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: var(--s-3) var(--s-5);
+margin-top: var(--s-5);
+padding-top: var(--s-4);
+border-top: 1px solid var(--line);
+}
+.case__meta dt {
+font-family: var(--font-mono);
+font-size: var(--fs-micro);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+color: var(--text-3);
+}
+.case__meta dd {
+margin-top: 0.15rem;
+font-size: var(--fs-small);
+color: var(--text-2);
+}
+/* sections */
+.section {
+padding-block: var(--section);
+scroll-margin-top: 84px;
+}
+.section-head {
+max-width: 64ch;
+margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+.section-head .lede {
+margin-top: var(--s-4);
+}
+.section-head .label {
+margin-bottom: var(--s-4);
+}
+.nav {
+position: sticky;
+top: 0;
+z-index: var(--z-nav);
+height: 72px;
+display: flex;
+align-items: center;
+background: color-mix(in srgb, var(--paper) 86%, transparent);
+backdrop-filter: blur(12px);
+border-bottom: 1px solid transparent;
+transition:
+height var(--dur) var(--ease-out),
+border-color var(--dur-fast) ease;
+}
+.nav.is-compact {
+height: 60px;
+border-bottom-color: var(--line);
+}
+.nav__inner {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: var(--s-5);
+}
+.nav__brand {
+font-family: var(--font-display);
+font-weight: 600;
+font-size: 1.05rem;
+letter-spacing: var(--track-snug);
+text-decoration: none;
+}
+.nav__brand span {
+color: var(--accent);
+}
+.nav__links {
+display: flex;
+gap: var(--s-5);
+}
+.nav__links a {
+font-size: var(--fs-small);
+color: var(--text-2);
+text-decoration: none;
+padding-block: var(--s-2);
+position: relative;
+}
+.nav__links a::after {
+content: "";
+position: absolute;
+inset-inline: 0;
+bottom: 0;
+height: 1.5px;
+background: var(--ink);
+transform: scaleX(0);
+transform-origin: left;
+transition: transform var(--dur-fast) var(--ease-out);
+}
+.nav__links a:hover::after,
+.nav__links a[aria-current="true"]::after {
+transform: scaleX(1);
+}
+.nav__end {
+display: flex;
+align-items: center;
+gap: var(--s-3);
+}
+.nav__cta {
+padding: 0.6rem 1rem;
+}
+.nav__toggle {
+display: none;
+width: 40px;
+height: 40px;
+place-items: center;
+border: 1px solid var(--line-strong);
+border-radius: var(--r);
+}
+.nav__toggle .icon {
+width: 20px;
+height: 20px;
+}
+.nav__toggle .icon--close,
+.nav__toggle[aria-expanded="true"] .icon--open {
+display: none;
+}
+.nav__toggle[aria-expanded="true"] .icon--close {
+display: block;
+}
+@media (max-width: 820px) {
+.nav__toggle {
+display: grid;
+}
+.nav__links {
+position: absolute;
+top: 100%;
+inset-inline: 0;
+flex-direction: column;
+gap: 0;
+padding: var(--s-3) var(--gutter) var(--s-5);
+background: var(--paper);
+border-bottom: 1px solid var(--line);
+display: none;
+}
+.nav__links.is-open {
+display: flex;
+}
+.nav__links a {
+font-size: 1.125rem;
+padding-block: var(--s-3);
+border-bottom: 1px solid var(--line);
+}
+.nav__links a::after {
+display: none;
+}
+}
+.hero {
+padding-block: clamp(2.5rem, 4vw, 4.5rem) clamp(2.5rem, 4vw, 4rem);
+overflow: clip;
+}
+.hero__grid {
+display: grid;
+grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+gap: clamp(2rem, 4vw, 4rem);
+align-items: center;
+min-height: min(70dvh, 700px);
+}
+.hero__title em {
+font-style: normal;
+color: var(--accent);
+}
+.hero__title .line {
+display: block;
+}
+.hero__lede {
+margin-top: var(--s-5);
+}
+.hero__actions {
+display: flex;
+flex-wrap: wrap;
+gap: var(--s-3);
+margin-top: var(--s-6);
+}
+.hero__stack {
+position: relative;
+aspect-ratio: 1 / 1;
+}
+.hero__layer {
+position: absolute;
+width: 78%;
+will-change: transform;
+}
+.hero__layer--1 {
+inset-inline-end: 0;
+top: 2%;
+z-index: 3;
+width: 84%;
+}
+.hero__layer--2 {
+inset-inline-start: 0;
+top: 34%;
+z-index: 2;
+width: 72%;
+}
+.hero__layer--3 {
+inset-inline-end: 4%;
+bottom: 0;
+z-index: 1;
+width: 60%;
+}
+.hero__layer .shot {
+box-shadow:
+0 1px 0 rgb(20 23 26 / 0.04),
+0 40px 80px -48px rgb(20 23 26 / 0.55);
+}
+.hero__data {
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: var(--s-5);
+margin-top: clamp(2.5rem, 5vw, 4.5rem);
+padding-top: var(--s-5);
+border-top: 1px solid var(--line);
+}
+@media (max-width: 900px) {
+.hero__grid {
+grid-template-columns: 1fr;
+min-height: 0;
+gap: var(--s-7);
+}
+.hero__stack {
+aspect-ratio: 16 / 11;
+max-width: 560px;
+}
+}
+@media (max-width: 640px) {
+.hero__data {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: var(--s-5) var(--s-4);
+}
+}
+.index__bar {
+position: sticky;
+top: 60px;
+z-index: 5;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: var(--s-4);
+flex-wrap: wrap;
+padding-block: var(--s-3) var(--s-3);
+border-bottom: 1px solid var(--line-strong);
+background: color-mix(in srgb, var(--paper) 92%, transparent);
+backdrop-filter: blur(10px);
+}
+@media (max-width: 820px) {
+.index__bar {
+position: static;
+}
+}
+.filters {
+display: flex;
+flex-wrap: wrap;
+gap: var(--s-2);
+}
+.index__count {
+color: var(--text-3);
+font-size: var(--fs-small);
+}
+.index__empty {
+padding: var(--s-6) 0;
+}
+.rows {
+counter-reset: project;
+}
+.row {
+--thumb: 88px;
+display: grid;
+grid-template-columns: 2.5rem var(--thumb) minmax(0, 1.5fr) minmax(0, 1.3fr) minmax(0, 1fr) 3rem 2rem;
+align-items: center;
+gap: var(--s-4);
+padding-block: var(--s-4);
+border-bottom: 1px solid var(--line);
+position: relative;
+transition: background-color var(--dur-fast) ease;
+}
+.row:hover {
+background: color-mix(in srgb, var(--white) 70%, transparent);
+}
+.row--t1 {
+--thumb: 136px;
+padding-block: var(--s-5);
+}
+.row--t1 .row__name {
+font-size: var(--fs-h3);
+}
+.row--t3 {
+--thumb: 64px;
+padding-block: var(--s-3);
+}
+.row--t3 .row__role,
+.row--t3 .row__stack {
+font-size: var(--fs-micro);
+}
+.row {
+counter-increment: project;
+}
+.row__n {
+font-size: var(--fs-micro);
+color: var(--text-3);
+}
+.row__n::before {
+content: counter(project, decimal-leading-zero);
+}
+.row__thumb {
+display: block;
+aspect-ratio: 16 / 10;
+border: 1px solid var(--line);
+border-radius: var(--r-sm);
+overflow: hidden;
+background: var(--paper-2);
+}
+.row__thumb img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: top center;
+}
+.row__thumb--empty {
+display: grid;
+place-items: center;
+border-style: dashed;
+font-size: var(--fs-small);
+color: var(--text-3);
+}
+.row__thumb--empty::after {
+content: attr(data-initial);
+}
+.row__main {
+display: flex;
+flex-direction: column;
+gap: 0.15rem;
+}
+.row__link {
+text-decoration: none;
+color: inherit;
+}
+.row__link::after {
+content: "";
+position: absolute;
+inset: 0;
+}
+.row__name {
+font-family: var(--font-display);
+font-weight: 600;
+font-size: 1.125rem;
+letter-spacing: var(--track-snug);
+line-height: 1.2;
+}
+.row__client {
+font-size: var(--fs-small);
+color: var(--text-3);
+}
+.row__where::before {
+content: " / ";
+}
+.row__role {
+font-size: var(--fs-small);
+color: var(--text-2);
+}
+.row__stack {
+display: flex;
+flex-wrap: wrap;
+gap: 0.3rem;
+}
+.row__lang {
+font-size: var(--fs-micro);
+color: var(--text-3);
+text-align: right;
+}
+.row__ext {
+position: relative;
+z-index: 1;
+display: grid;
+place-items: center;
+width: 2rem;
+height: 2rem;
+color: var(--text-3);
+border-radius: 50%;
+text-decoration: none;
+transition:
+color var(--dur-fast) ease,
+transform var(--dur-fast) var(--ease-out);
+}
+.row:hover .row__ext {
+color: var(--accent);
+transform: translate(2px, -2px);
+}
+@media (max-width: 1000px) {
+.row {
+grid-template-columns: 2rem var(--thumb) minmax(0, 1fr) 3rem 2rem;
+grid-template-areas: "n thumb main lang ext" "n thumb role lang ext";
+row-gap: 0.25rem;
+}
+.row__n { grid-area: n; }
+.row__thumb { grid-area: thumb; }
+.row__main { grid-area: main; }
+.row__role { grid-area: role; }
+.row__lang { grid-area: lang; }
+.row__ext { grid-area: ext; }
+.row__stack { display: none; }
+}
+@media (max-width: 560px) {
+.row,
+.row--t1,
+.row--t3 {
+--thumb: 72px;
+grid-template-columns: var(--thumb) minmax(0, 1fr) 1.5rem;
+grid-template-areas: "thumb main ext" "thumb role ext";
+gap: var(--s-3);
+}
+.row__n,
+.row__lang { display: none; }
+.row--t1 .row__name { font-size: 1.125rem; }
+}
+.preview {
+position: fixed;
+top: 0;
+left: 0;
+z-index: var(--z-preview);
+width: clamp(260px, 26vw, 380px);
+aspect-ratio: 16 / 10;
+border: 1px solid var(--line-strong);
+border-radius: var(--r);
+overflow: hidden;
+background: var(--white);
+box-shadow: 0 30px 60px -30px rgb(20 23 26 / 0.5);
+opacity: 0;
+transform: translate3d(-50%, -50%, 0) scale(0.96);
+pointer-events: none;
+transition:
+opacity var(--dur-fast) ease,
+transform var(--dur-fast) var(--ease-out);
+}
+.preview.is-on {
+opacity: 1;
+transform: translate3d(-50%, -50%, 0) scale(1);
+}
+.preview__img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: top center;
+}
+@media (hover: none), (pointer: coarse), (max-width: 1000px) {
+.preview {
+display: none;
+}
+}
+.case {
+display: grid;
+grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+gap: clamp(2rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
+padding-block: clamp(3rem, 6vw, 5rem);
+border-top: 1px solid var(--line-strong);
+scroll-margin-top: 84px;
+}
+.case:last-child {
+padding-bottom: 0;
+}
+.case__head {
+grid-column: 1;
+grid-row: 1;
+}
+.case__visual {
+grid-column: 2;
+grid-row: 1 / span 2;
+align-self: start;
+position: sticky;
+top: 96px;
+}
+.case__body {
+grid-column: 1;
+grid-row: 2;
+display: grid;
+gap: var(--s-6);
+}
+.case--flip .case__head,
+.case--flip .case__body {
+grid-column: 2;
+}
+.case--flip .case__visual {
+grid-column: 1;
+}
+.case--full {
+grid-template-columns: 1fr;
+}
+.case--full .case__head,
+.case--full .case__visual,
+.case--full .case__body {
+grid-column: 1;
+grid-row: auto;
+position: static;
+}
+.case--full .case__head {
+max-width: 64ch;
+}
+.case--full .case__body {
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: var(--s-6) var(--s-7);
+}
+.case--full .case__block--problem {
+grid-column: 1 / -1;
+max-width: 72ch;
+}
+.case--full .case__cta {
+grid-column: 1 / -1;
+}
+.case__cat {
+font-size: var(--fs-micro);
+text-transform: uppercase;
+letter-spacing: 0.08em;
+color: var(--text-3);
+margin-bottom: var(--s-3);
+}
+.case__lede {
+margin-top: var(--s-4);
+font-size: var(--fs-lede);
+color: var(--text-2);
+text-wrap: pretty;
+}
+.case__block h4 {
+margin-bottom: var(--s-3);
+}
+.case__block p,
+.case__block li {
+color: var(--text-2);
+font-size: var(--fs-body);
+text-wrap: pretty;
+}
+.case__block ul {
+display: grid;
+gap: var(--s-3);
+}
+.case__block li {
+padding-inline-start: 1.1rem;
+position: relative;
+}
+.case__block li::before {
+content: "";
+position: absolute;
+inset-inline-start: 0;
+top: 0.72em;
+width: 0.45rem;
+height: 1.5px;
+background: var(--accent);
+}
+.shot--case .shot__img {
+aspect-ratio: 16 / 10;
+}
+@media (max-width: 900px) {
+.case,
+.case--flip {
+grid-template-columns: 1fr;
+}
+.case__head,
+.case__visual,
+.case__body,
+.case--flip .case__head,
+.case--flip .case__visual,
+.case--flip .case__body {
+grid-column: 1;
+grid-row: auto;
+position: static;
+}
+.case--full .case__body {
+grid-template-columns: 1fr;
+}
+}
+.measured {
+background: var(--paper-2);
+border-block: 1px solid var(--line);
+}
+.measured__grid {
+display: grid;
+grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+gap: clamp(2rem, 5vw, 5rem);
+align-items: start;
+}
+.measured__copy .lede + .lede {
+margin-top: var(--s-4);
+}
+.measured__copy h2 {
+margin-top: var(--s-4);
+}
+.measured__copy .lede:first-of-type {
+margin-top: var(--s-4);
+}
+.measured__status {
+margin-block: var(--s-5) var(--s-4);
+color: var(--text-3);
+}
+.scores {
+display: grid;
+gap: var(--s-5);
+}
+.footprint {
+padding: var(--s-5);
+border: 1px dashed var(--line-strong);
+border-radius: var(--r);
+}
+.footprint h3 {
+font-size: var(--fs-h4);
+margin-bottom: var(--s-2);
+}
+.footprint__self {
+margin-top: var(--s-3);
+padding-top: var(--s-3);
+border-top: 1px dashed var(--line);
+color: var(--text-2);
+}
+.footprint__self b {
+font-family: var(--font-mono);
+font-weight: 400;
+color: var(--accent);
+}
+@media (max-width: 900px) {
+.measured__grid {
+grid-template-columns: 1fr;
+}
+}
+.process {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+border-top: 1px solid var(--line-strong);
+border-left: 1px solid var(--line-strong);
+}
+.step {
+padding: var(--s-5) var(--s-5) var(--s-6) 0;
+padding-left: var(--s-5);
+border-right: 1px solid var(--line-strong);
+border-bottom: 1px solid var(--line-strong);
+display: grid;
+gap: var(--s-3);
+align-content: start;
+}
+.step__n {
+font-size: var(--fs-micro);
+color: var(--accent-ink);
+}
+.step h3 {
+font-size: var(--fs-h4);
+font-family: var(--font-body);
+font-weight: 600;
+letter-spacing: var(--track-snug);
+}
+.step p {
+font-size: var(--fs-small);
+color: var(--text-2);
+text-wrap: pretty;
+}
+.method__grid {
+display: grid;
+grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+gap: clamp(2.5rem, 5vw, 5rem);
+margin-top: clamp(3rem, 6vw, 5rem);
+}
+.timeline h3,
+.skills h3,
+.tokens h3 {
+margin-bottom: var(--s-5);
+}
+.tl {
+display: grid;
+grid-template-columns: 8.5rem minmax(0, 1fr);
+gap: var(--s-4);
+padding-block: var(--s-4);
+border-top: 1px solid var(--line);
+}
+.tl:last-child {
+border-bottom: 1px solid var(--line);
+}
+.tl__when {
+font-size: var(--fs-micro);
+color: var(--text-3);
+padding-top: 0.25rem;
+}
+.tl__what {
+font-size: var(--fs-small);
+color: var(--text-2);
+}
+.tl__what b {
+color: var(--text);
+font-weight: 600;
+}
+.skills__grid {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: var(--s-6) var(--s-5);
+}
+.skill-group h4 {
+padding-bottom: var(--s-2);
+margin-bottom: var(--s-3);
+border-bottom: 1px solid var(--line);
+}
+.skill-group li {
+font-size: var(--fs-small);
+color: var(--text-2);
+padding-block: 0.15rem;
+}
+.tokens {
+margin-top: clamp(3rem, 6vw, 5rem);
+padding-top: var(--s-6);
+border-top: 1px solid var(--line-strong);
+}
+.tokens h3 {
+margin-bottom: var(--s-2);
+}
+.tokens__grid {
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: var(--s-4);
+margin-top: var(--s-5);
+}
+.swatch {
+aspect-ratio: 4 / 3;
+border-radius: var(--r);
+border: 1px solid var(--line);
+padding: var(--s-3);
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+font-size: var(--fs-micro);
+}
+.swatch--ink { background: var(--ink); color: var(--text-on-ink); }
+.swatch--paper { background: var(--paper); }
+.swatch--accent { background: var(--accent); color: var(--white); }
+.swatch--under { background: var(--under); color: var(--white); }
+.type-sample {
+grid-column: 1 / span 3;
+display: grid;
+gap: var(--s-2);
+padding: var(--s-4);
+border: 1px solid var(--line);
+border-radius: var(--r);
+background: var(--white);
+}
+.type-sample__display {
+font-family: var(--font-display);
+font-size: clamp(1.6rem, 3vw, 2.4rem);
+font-weight: 600;
+letter-spacing: var(--track-tight);
+line-height: 1.05;
+}
+.type-sample__body {
+color: var(--text-2);
+}
+.type-sample__mono {
+font-size: var(--fs-small);
+color: var(--text-3);
+}
+.space-sample {
+display: flex;
+align-items: flex-end;
+gap: var(--s-2);
+padding: var(--s-4);
+border: 1px solid var(--line);
+border-radius: var(--r);
+background: var(--white);
+}
+.space-sample i {
+display: block;
+width: var(--w);
+height: var(--w);
+background: var(--accent);
+border-radius: 2px;
+}
+@media (max-width: 900px) {
+.process {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.method__grid {
+grid-template-columns: 1fr;
+}
+.skills__grid {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.tokens__grid {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.type-sample {
+grid-column: 1 / -1;
+}
+}
+@media (max-width: 560px) {
+.process {
+grid-template-columns: 1fr;
+}
+.skills__grid {
+grid-template-columns: 1fr;
+}
+.tl {
+grid-template-columns: 1fr;
+gap: var(--s-1);
+}
+}
+.reviews {
+border-top: 1px solid var(--line);
+}
+.quotes {
+columns: 2;
+column-gap: var(--s-5);
+}
+.quotes .quote {
+margin-bottom: var(--s-5);
+}
+@media (max-width: 760px) {
+.quotes {
+columns: 1;
+}
+}
+.contact {
+padding-block: clamp(5rem, 10vw, 9rem);
+border-top: 1px solid var(--line-strong);
+}
+.contact__inner {
+max-width: 60ch;
+}
+.contact__title {
+font-size: clamp(2.4rem, 1.2rem + 5vw, 5rem);
+line-height: var(--lh-tight);
+letter-spacing: var(--track-tight);
+}
+.contact__title .line {
+display: block;
+}
+.contact .lede {
+margin-top: var(--s-5);
+}
+.contact__actions {
+display: flex;
+align-items: center;
+gap: var(--s-4);
+flex-wrap: wrap;
+margin-top: var(--s-6);
+}
+.links {
+display: flex;
+flex-wrap: wrap;
+gap: var(--s-3) var(--s-5);
+margin-top: var(--s-6);
+}
+.links a {
+display: inline-flex;
+align-items: center;
+gap: var(--s-2);
+font-size: var(--fs-small);
+color: var(--text-2);
+text-decoration: none;
+padding-bottom: 2px;
+border-bottom: 1px solid var(--line-strong);
+}
+.links a:hover {
+color: var(--accent);
+border-color: var(--accent);
+}
+.foot {
+padding-block: var(--s-5);
+border-top: 1px solid var(--line);
+font-size: var(--fs-micro);
+color: var(--text-3);
+}
+.foot__inner {
+display: flex;
+justify-content: space-between;
+gap: var(--s-4);
+flex-wrap: wrap;
+}
+/* motion */
+.line-mask {
+display: block;
+overflow: hidden;
+padding-bottom: 0.08em;
+margin-bottom: -0.08em;
+}
+.motion-line {
+display: block;
+will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+@keyframes rise-in {
+from { transform: translateY(0.55em); opacity: 0; }
+to { transform: none; opacity: 1; }
+}
+@keyframes fade-up {
+from { transform: translateY(18px); opacity: 0; }
+to { transform: none; opacity: 1; }
+}
+@keyframes settle {
+from { transform: translateY(40px); opacity: 0; }
+to { transform: none; opacity: 1; }
+}
+.hero__title .line {
+display: block;
+animation: rise-in 1.1s var(--ease-out) both;
+}
+.hero__title .line:nth-child(2) { animation-delay: 0.09s; }
+.hero__title .line:nth-child(3) { animation-delay: 0.18s; }
+.hero__lede { animation: fade-up 0.85s var(--ease-out) 0.3s both; }
+.hero__actions { animation: fade-up 0.85s var(--ease-out) 0.42s both; }
+.hero__data .datum { animation: fade-up 0.8s var(--ease-out) both; }
+.hero__data .datum:nth-child(2) { animation-delay: 0.07s; }
+.hero__data .datum:nth-child(3) { animation-delay: 0.14s; }
+.hero__data .datum:nth-child(4) { animation-delay: 0.21s; }
+.hero__layer { animation: settle 1.2s var(--ease-out) both; }
+.hero__layer--2 { animation-delay: 0.12s; }
+.hero__layer--3 { animation-delay: 0.24s; }
+.shot__img,
+.row__thumb img {
+transition: transform var(--dur-slow) var(--ease-out);
+}
+.row:hover .row__thumb img,
+.case__visual:hover .shot__img {
+transform: scale(1.02);
+}
+}
+@media (prefers-reduced-motion: reduce) {
+.btn,
+.btn .icon,
+.chip,
+.row,
+.row__ext,
+.preview,
+.nav,
+.nav__links a::after {
+transition: none;
+}
+.btn:hover .icon,
+.row:hover .row__ext {
+transform: none;
+}
+}
+</style>
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Eslam Nasser","alternateName":"Eslam Abdel Nasser","jobTitle":"Front-end engineer and UI designer","url":"https://imsemoo.github.io/eslam-portfolio/","email":"mailto:en.developer2@gmail.com","knowsLanguage":["ar","en"],"sameAs":["https://github.com/imsemoo","https://www.linkedin.com/in/imsemooo/","https://www.upwork.com/freelancers/imsemoo","https://mostaql.com/u/imsemoo/portfolio"]}
+</script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav">
-        <div class="container nav__inner">
-            <a href="#" class="nav__logo">
-                <span class="nav__logo-dot"></span>
-                eslam.nasser
-            </a>
-            <ul class="nav__links">
-                <li><a href="#philosophy" class="nav__link">Philosophy</a></li>
-                <li><a href="#systems" class="nav__link">Works</a></li>
-                <li><a href="#stack" class="nav__link">Skills</a></li>
-                <li><a href="#contact" class="nav__link">Contact</a></li>
-            </ul>
-        </div>
+<a class="skip" href="#index">Skip to the work</a>
+
+<div class="sheet">
+
+<header class="nav" data-nav>
+  <div class="shell nav__inner">
+    <a class="nav__brand" href="#top">eslam<span>.</span>nasser</a>
+    <nav class="nav__links" id="nav-links" aria-label="Sections">
+      <a href="#index">Index</a>
+      <a href="#cases">Cases</a>
+      <a href="#measured">Measured</a>
+      <a href="#method">Method</a>
+      <a href="#contact">Contact</a>
     </nav>
+    <div class="nav__end">
+      <a class="btn btn--primary nav__cta" href="mailto:en.developer2@gmail.com" data-magnetic>Email me</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
+        <span class="visually-hidden">Menu</span>
+        <svg class="icon icon--open" aria-hidden="true"><use href="#i-list"/></svg>
+        <svg class="icon icon--close" aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero__bg">
-            <div class="hero__grid"></div>
-            <div class="hero__glow"></div>
-        </div>
-        <div class="container hero__content">
-            <span class="hero__label">UI/UX Team Lead & Front-End Engineer</span>
-            <h1 class="hero__title">I design <em>systems</em>,<br>not pages.</h1>
-            <p class="hero__subtitle">
-                6+ years building production UIs. Team leadership since Jan 2025. 
-                Crafting fast, accessible product interfaces with Livewire, 
-                GSAP/Three.js, and Figma. AI-assisted delivery for clean, 
-                documented code.
-            </p>
-            <div class="hero__cta">
-                <a href="#systems" class="btn btn--primary">View Systems →</a>
-                <a href="#contact" class="btn">Get in Touch</a>
-            </div>
-        </div>
-    </section>
+<main id="top">
 
-    <!-- Stats Bar -->
-    <div class="stats-bar">
-        <div class="container stats-bar__inner">
-            <div class="stat">
-                <div class="stat__number">6+</div>
-                <div class="stat__label">Years Experience</div>
-            </div>
-            <div class="stat">
-                <div class="stat__number">2025</div>
-                <div class="stat__label">Team Lead Since</div>
-            </div>
-            <div class="stat">
-                <div class="stat__number">90+</div>
-                <div class="stat__label">Lighthouse Score</div>
-            </div>
-            <div class="stat">
-                <div class="stat__number">&lt;2.5s</div>
-                <div class="stat__label">LCP Target</div>
-            </div>
-        </div>
+<section class="hero" id="hero" aria-labelledby="hero-title">
+  <div class="shell hero__grid">
+    <div class="hero__copy">
+      <h1 class="hero__title" id="hero-title" data-motion-text="lines">
+        <span class="line">What you approve</span>
+        <span class="line">in the design</span>
+        <span class="line">is what <em>ships.</em></span>
+      </h1>
+      <p class="lede hero__lede" data-reveal>Front-end engineer and UI designer. Seven years of Arabic newsrooms, Laravel platforms and business sites for Australia and the UK.</p>
+      <div class="hero__actions" data-reveal>
+        <a class="btn btn--primary" href="#index" data-magnetic>Browse the index <svg class="icon" aria-hidden="true"><use href="#i-arrow-down-right"/></svg></a>
+        <a class="btn btn--ghost" href="#cases" data-magnetic>Read a case study</a>
+      </div>
+    </div>
+    <div class="hero__stack" data-hero-stack>
+      <div class="hero__layer hero__layer--1" data-depth="0.12"><figure class="shot "><div class="shot__bar"><span class="shot__cap mono">mo3ta.ps</span></div><img class="shot__img" src="img/work/mo3ta-1200.webp" srcset="img/work/mo3ta-600.webp 600w, img/work/mo3ta-800.webp 800w, img/work/mo3ta-1200.webp 1200w" sizes="(min-width: 900px) 38vw, 80vw" width="1200" height="750" alt="Mo3ta website" loading="eager" decoding="async" fetchpriority="high"></figure></div><div class="hero__layer hero__layer--2" data-depth="0.22"><figure class="shot "><div class="shot__bar"><span class="shot__cap mono">qudsn.co</span></div><img class="shot__img" src="img/work/qudsn-1200.webp" srcset="img/work/qudsn-600.webp 600w, img/work/qudsn-800.webp 800w, img/work/qudsn-1200.webp 1200w" sizes="(min-width: 900px) 38vw, 80vw" width="1200" height="750" alt="Quds News Network website" loading="eager" decoding="async" fetchpriority="low"></figure></div><div class="hero__layer hero__layer--3" data-depth="0.34"><figure class="shot "><div class="shot__bar"><span class="shot__cap mono">ahsebli.com</span></div><img class="shot__img" src="img/work/ahsebli-1200.webp" srcset="img/work/ahsebli-600.webp 600w, img/work/ahsebli-800.webp 800w, img/work/ahsebli-1200.webp 1200w" sizes="(min-width: 900px) 38vw, 80vw" width="1200" height="750" alt="Ahsebli website" loading="eager" decoding="async" fetchpriority="low"></figure></div>
+    </div>
+  </div>
+  <div class="shell">
+    <dl class="hero__data" data-reveal-group>
+      <div class="datum" data-reveal-item><dt>Years in production</dt><dd class="mono">7+</dd></div>
+      <div class="datum" data-reveal-item><dt>Sites in the index</dt><dd class="mono">36</dd></div>
+      <div class="datum" data-reveal-item><dt><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> Job success on Upwork</dt><dd class="mono">100%</dd></div>
+      <div class="datum" data-reveal-item><dt><svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg> Rating on Mostaql</dt><dd class="mono">5.0</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section index" id="index" aria-labelledby="index-title">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <h2 id="index-title">Every site, and what I did on it.</h2>
+      <p class="lede">36 projects, 31 of them live. Filter by stack or language. The five featured rows open a case study on this page; the rest open the site itself.</p>
+    </div>
+    <div class="index__bar" data-reveal>
+      <div class="filters" role="group" aria-label="Filter the index"><button class="chip" type="button" data-filter="all" aria-pressed="true">Everything <span class="chip__n mono">36</span></button><button class="chip" type="button" data-filter="laravel" aria-pressed="false">Laravel and Livewire <span class="chip__n mono">13</span></button><button class="chip" type="button" data-filter="vue" aria-pressed="false">Vue <span class="chip__n mono">2</span></button><button class="chip" type="button" data-filter="wordpress" aria-pressed="false">WordPress <span class="chip__n mono">7</span></button><button class="chip" type="button" data-filter="frontend" aria-pressed="false">Hand-built front-ends <span class="chip__n mono">16</span></button><button class="chip" type="button" data-filter="design" aria-pressed="false">Designed by me <span class="chip__n mono">15</span></button><button class="chip" type="button" data-filter="english" aria-pressed="false">English sites <span class="chip__n mono">22</span></button><button class="chip" type="button" data-filter="rtl" aria-pressed="false">Arabic and RTL <span class="chip__n mono">19</span></button><button class="chip" type="button" data-filter="product" aria-pressed="false">Own products <span class="chip__n mono">3</span></button></div>
+      <p class="index__count mono" aria-live="polite"><span data-count>36</span> shown</p>
+    </div>
+    <ol class="rows" data-rows>
+      <li class="row row--t1" data-tags="frontend english" data-preview="img/work/ozcar-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/ozcar-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="#case-ozcar"><span class="row__name">OzCar</span></a><span class="row__client">Car marketplace and dealer group<span class="row__where">Australia</span></span></div><span class="row__role">Front-end, from Adobe XD to production</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">JavaScript</span><span class="tag">jQuery</span></span><span class="row__lang mono" title="English">EN</span><a class="row__ext" href="https://www.ozcar.com.au/" target="_blank" rel="noopener" aria-label="Open ozcar.com.au"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
+<li class="row row--t1" data-tags="laravel design rtl product" data-preview="img/work/devlo-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/devlo-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="#case-devlo"><span class="row__name">Devlo CMS <span class="ar">ديفلو</span></span></a><span class="row__client">Newsroom platform running 24 sites<span class="row__where">Türkiye, Palestine, Yemen</span></span></div><span class="row__role">Design and full-stack, product owner of the front-end</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">MySQL</span><span class="tag">Redis</span></span><span class="row__lang mono" title="Arabic and English">AR/EN</span><a class="row__ext" href="https://demo.taktek.co/dashboard" target="_blank" rel="noopener" aria-label="Open demo.taktek.co/dashboard"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
+<li class="row row--t1" data-tags="laravel design rtl" data-preview="img/work/qudsn-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/qudsn-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="#case-qudsn"><span class="row__name">Quds News Network <span class="ar">قدس الإخبارية</span></span></a><span class="row__client">Palestinian news network<span class="row__where">Palestine</span></span></div><span class="row__role">Design and full-stack, on Devlo CMS</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">RTL</span></span><span class="row__lang mono" title="Arabic">AR</span><a class="row__ext" href="https://qudsn.co/" target="_blank" rel="noopener" aria-label="Open qudsn.co"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
+<li class="row row--t1" data-tags="laravel vue design rtl" data-preview="img/work/mo3ta-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/mo3ta-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="#case-mo3ta"><span class="row__name">Mo3ta <span class="ar">معطي</span></span></a><span class="row__client">Palestine information centre<span class="row__where">Palestine</span></span></div><span class="row__role">Design and full-stack</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Inertia</span><span class="tag">Vue 3</span><span class="tag">SSR</span></span><span class="row__lang mono" title="Arabic">AR</span><a class="row__ext" href="https://www.mo3ta.ps/" target="_blank" rel="noopener" aria-label="Open mo3ta.ps"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
+<li class="row row--t1" data-tags="laravel design rtl" data-preview="img/work/musnad-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/musnad-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="#case-musnad"><span class="row__name">Musnad <span class="ar">مسند</span></span></a><span class="row__client">News and claim verification<span class="row__where">Yemen</span></span></div><span class="row__role">Design and full-stack</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">Schema</span><span class="tag">SEO</span></span><span class="row__lang mono" title="Arabic">AR</span><a class="row__ext" href="https://musnadye.com/" target="_blank" rel="noopener" aria-label="Open musnadye.com"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
+<li class="row row--t2" data-tags="product frontend design rtl" data-preview="img/work/ahsebli-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/ahsebli-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://ahsebli.com/" target="_blank" rel="noopener"><span class="row__name">Ahsebli <span class="ar">احسبلي</span></span></a><span class="row__client">My own product<span class="row__where">Saudi Arabia, Gulf, Egypt</span></span></div><span class="row__role">Design, build and everything else</span><span class="row__stack"><span class="tag">PWA</span><span class="tag">Service worker</span><span class="tag">Schema</span><span class="tag">RTL</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="product design rtl" data-preview="img/work/matn-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/matn-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://imsemoo.github.io/matn-site/" target="_blank" rel="noopener"><span class="row__name">Matn <span class="ar">متن</span></span></a><span class="row__client">My own CMS for hand-built sites</span></div><span class="row__role">Design and full-stack</span><span class="row__stack"><span class="tag">CakePHP 5</span><span class="tag">PHPUnit</span><span class="tag">PHPStan</span></span><span class="row__lang mono" title="Arabic and English">AR/EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="laravel design rtl" data-preview="img/work/aljarmaq-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/aljarmaq-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://new.aljarmaq.net/" target="_blank" rel="noopener"><span class="row__name">Al-Jarmaq <span class="ar">الجرمق</span></span></a><span class="row__client">Palestinian media network<span class="row__where">Palestine</span></span></div><span class="row__role">Design and full-stack</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">RTL</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="laravel design rtl english" data-preview="img/work/qasioun-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/qasioun-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://qasiounstudies.org/" target="_blank" rel="noopener"><span class="row__name">Qasioun Center for Studies <span class="ar">مركز قاسيون</span></span></a><span class="row__client">Strategic studies centre<span class="row__where">Syria, Türkiye</span></span></div><span class="row__role">Design and full-stack</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">Bilingual</span></span><span class="row__lang mono" title="Arabic and English">AR/EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="laravel design rtl" data-preview="img/work/tayqan-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/tayqan-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://tayqan.net/" target="_blank" rel="noopener"><span class="row__name">Tayaqan <span class="ar">تيقن</span></span></a><span class="row__client">Community verification platform<span class="row__where">Palestine</span></span></div><span class="row__role">Design and full-stack, on Devlo CMS</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">RTL</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="laravel frontend english" data-preview="img/work/maktoob-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/maktoob-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://maktoobmedia.com/" target="_blank" rel="noopener"><span class="row__name">Maktoob Media</span></a><span class="row__client">Independent outlet on rights and minorities<span class="row__where">India</span></span></div><span class="row__role">Front-end from Figma, then the performance and security pass, on Devlo CMS</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">Figma</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="laravel rtl" data-preview="img/work/hodhod-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/hodhod-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://hodhodpal.ps/" target="_blank" rel="noopener"><span class="row__name">Hodhod <span class="ar">الهدهد</span></span></a><span class="row__client">Palestinian news network<span class="row__where">Palestine</span></span></div><span class="row__role">Full-stack from Figma, on Devlo CMS</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">Figma</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="laravel design rtl" data-preview="img/work/adenicast-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/adenicast-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://adenicast.com/" target="_blank" rel="noopener"><span class="row__name">Adeni Cast <span class="ar">عدني كاست</span></span></a><span class="row__client">Independent podcast platform<span class="row__where">Yemen</span></span></div><span class="row__role">Design and full-stack, on Devlo CMS</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">Audio</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="laravel design rtl" data-preview="img/work/arouri-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/arouri-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://al-arouri.net/" target="_blank" rel="noopener"><span class="row__name">Saleh Al-Arouri Archive <span class="ar">أرشيف صالح العاروري</span></span></a><span class="row__client">Documentary archive<span class="row__where">Palestine</span></span></div><span class="row__role">Design and front-end, on Devlo CMS</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Blade</span><span class="tag">RTL</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="frontend english" data-preview="img/work/besa-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/besa-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://www.besaeg.com/" target="_blank" rel="noopener"><span class="row__name">BESA</span></a><span class="row__client">Study-abroad platform<span class="row__where">Egypt, UK</span></span></div><span class="row__role">Front-end from Figma, 30+ hand-built pages</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">JavaScript</span><span class="tag">Figma</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="laravel design english" data-preview="img/work/yedibasak-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/yedibasak-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://yedibasak.uk/" target="_blank" rel="noopener"><span class="row__name">Yedi Başak</span></a><span class="row__client">Humanitarian aid charity<span class="row__where">UK</span></span></div><span class="row__role">Full-stack, Laravel, UI designed from scratch</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Blade</span><span class="tag">Payments</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="frontend english" data-preview="img/work/handsontv-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/handsontv-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://handsontv.co.uk/" target="_blank" rel="noopener"><span class="row__name">HandsOnTV</span></a><span class="row__client">Media and streaming organisation<span class="row__where">UK</span></span></div><span class="row__role">Front-end from Adobe XD</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">JavaScript</span><span class="tag">Adobe XD</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="frontend english" data-preview="img/work/hg-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/hg-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://hardwareandglass.com/" target="_blank" rel="noopener"><span class="row__name">Hardware &amp; Glass</span></a><span class="row__client">Architectural glass-hardware supplier<span class="row__where">USA</span></span></div><span class="row__role">Front-end, hand-built</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">JavaScript</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="frontend english" data-preview="img/work/bhf-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/bhf-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://www.bhfcouriers.com.au/" target="_blank" rel="noopener"><span class="row__name">BHF Couriers</span></a><span class="row__client">Courier company<span class="row__where">Australia</span></span></div><span class="row__role">Front-end</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">jQuery</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t2" data-tags="frontend design english" data-preview="img/work/kevla-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/kevla-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://imsemoo.github.io/kevla-campa/" target="_blank" rel="noopener"><span class="row__name">Kevla Campa</span></a><span class="row__client">Kevlar and carbon-fibre caravan<span class="row__where">Australia</span></span></div><span class="row__role">Design and front-end</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">ES modules</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="wordpress rtl english" data-preview="img/work/hive-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/hive-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://hivestudio.net/" target="_blank" rel="noopener"><span class="row__name">Hive Studio</span></a><span class="row__client">Creative studio<span class="row__where">Saudi Arabia</span></span></div><span class="row__role">WordPress, bilingual</span><span class="row__stack"><span class="tag">WordPress</span><span class="tag">Elementor</span></span><span class="row__lang mono" title="Arabic and English">AR/EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="wordpress english" data-preview="img/work/skillsbeyond-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/skillsbeyond-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://skillsbeyond.com.au/" target="_blank" rel="noopener"><span class="row__name">Skills Beyond</span></a><span class="row__client">Driving school<span class="row__where">Australia</span></span></div><span class="row__role">WordPress</span><span class="row__stack"><span class="tag">WordPress</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="wordpress english" data-preview="img/work/ibb-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/ibb-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://infinitybluebarramundi.com.au/" target="_blank" rel="noopener"><span class="row__name">Infinity Blue Barramundi</span></a><span class="row__client">Barramundi farm<span class="row__where">Australia</span></span></div><span class="row__role">WordPress</span><span class="row__stack"><span class="tag">WordPress</span><span class="tag">Elementor</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="wordpress rtl english" data-preview="img/work/idd-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/idd-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://innovation-driven-desalination.com/" target="_blank" rel="noopener"><span class="row__name">IDD 2023</span></a><span class="row__client">Desalination conference<span class="row__where">Saudi Arabia</span></span></div><span class="row__role">WordPress, bilingual</span><span class="row__stack"><span class="tag">WordPress</span><span class="tag">Elementor</span></span><span class="row__lang mono" title="Arabic and English">AR/EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="wordpress english" data-preview="img/work/powerline-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/powerline-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://powerlineegypt.com/" target="_blank" rel="noopener"><span class="row__name">Power Line Egypt</span></a><span class="row__client">Engineering and contracting<span class="row__where">Egypt</span></span></div><span class="row__role">WordPress</span><span class="row__stack"><span class="tag">WordPress</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="wordpress rtl" data-preview="img/work/abaad-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/abaad-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://abaad-intl.com/" target="_blank" rel="noopener"><span class="row__name">Abaad Future <span class="ar">أبعاد المستقبل</span></span></a><span class="row__client">Events and exhibitions company<span class="row__where">Saudi Arabia</span></span></div><span class="row__role">WordPress</span><span class="row__stack"><span class="tag">WordPress</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="wordpress english" data-preview="img/work/visaoman-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/visaoman-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://visaoman.com/" target="_blank" rel="noopener"><span class="row__name">VisaOman</span></a><span class="row__client">Travel visa service<span class="row__where">Oman</span></span></div><span class="row__role">WordPress</span><span class="row__stack"><span class="tag">WordPress</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="frontend english" data-preview="img/work/couriernow-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/couriernow-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://couriernow.com.au/" target="_blank" rel="noopener"><span class="row__name">CourierNow</span></a><span class="row__client">Courier booking<span class="row__where">Australia</span></span></div><span class="row__role">Front-end from Adobe XD</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">JavaScript</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="frontend english" data-preview="img/work/buruj-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/buruj-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://imsemoo.github.io/Buruj/" target="_blank" rel="noopener"><span class="row__name">Buruj</span></a><span class="row__client">Quran learning for children</span></div><span class="row__role">Front-end</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">JavaScript</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="frontend english" data-preview="img/work/intimedev-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/intimedev-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://imsemoo.github.io/Intimedev/" target="_blank" rel="noopener"><span class="row__name">IntimeDev</span></a><span class="row__client">Software agency<span class="row__where">Egypt</span></span></div><span class="row__role">Front-end</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">AOS</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="frontend rtl" data-preview="img/work/mohajer-600.webp"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb"><img src="img/work/mohajer-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><a class="row__link" href="https://imsemoo.github.io/mohajer/" target="_blank" rel="noopener"><span class="row__name">Al-Mohajer <span class="ar">المهاجر</span></span></a><span class="row__client">News for migrants and refugees<span class="row__where">Egypt</span></span></div><span class="row__role">Front-end, six page templates</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">Bootstrap</span><span class="tag">RTL</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="frontend english"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb row__thumb--empty mono" aria-hidden="true" data-initial="C"></span><div class="row__main"><span class="row__name">Calimero</span><span class="row__client">Restaurant and shop<span class="row__where">Germany</span></span></div><span class="row__role">Front-end, in a team, over a year</span><span class="row__stack"><span class="tag">Next.js</span><span class="tag">TypeScript</span></span><span class="row__lang mono" title="English">EN</span></li>
+<li class="row row--t3" data-tags="laravel vue rtl"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb row__thumb--empty mono" aria-hidden="true" data-initial="Y"></span><div class="row__main"><a class="row__link" href="https://github.com/imsemoo/yassiru" target="_blank" rel="noopener"><span class="row__name">Yassiru <span class="ar">يسّروا</span></span></a><span class="row__client">Marriage-support platform</span></div><span class="row__role">Full-stack, open source</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Vue</span><span class="tag">Docker</span><span class="tag">Sanctum</span></span><span class="row__lang mono" title="Arabic">AR</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="frontend design rtl english"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb row__thumb--empty mono" aria-hidden="true" data-initial="B"></span><div class="row__main"><a class="row__link" href="https://github.com/imsemoo/bwabtek" target="_blank" rel="noopener"><span class="row__name">Bawabtak <span class="ar">بوابتك</span></span></a><span class="row__client">Bilingual landing page</span></div><span class="row__role">Design and front-end, open source</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">ES modules</span><span class="tag">Python</span></span><span class="row__lang mono" title="Arabic and English">AR/EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="frontend rtl english"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb row__thumb--empty mono" aria-hidden="true" data-initial="Y"></span><div class="row__main"><a class="row__link" href="https://github.com/imsemoo/yottasrc" target="_blank" rel="noopener"><span class="row__name">Yottasrc</span></a><span class="row__client">Web-hosting provider</span></div><span class="row__role">Front-end, open source</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">SCSS</span><span class="tag">JavaScript</span></span><span class="row__lang mono" title="Arabic and English">AR/EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+<li class="row row--t3" data-tags="frontend design english"><span class="row__n mono" aria-hidden="true"></span><span class="row__thumb row__thumb--empty mono" aria-hidden="true" data-initial="C"></span><div class="row__main"><a class="row__link" href="https://github.com/imsemoo/creatives-dashboard" target="_blank" rel="noopener"><span class="row__name">Creatives Dashboard</span></a><span class="row__client">Dashboard UI kit</span></div><span class="row__role">UI, open source</span><span class="row__stack"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></span><span class="row__lang mono" title="English">EN</span><span class="row__ext" aria-hidden="true"><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
+    </ol>
+    <p class="index__empty small" data-empty hidden>Nothing matches that combination.</p>
+  </div>
+</section>
+
+<section class="section cases" id="cases" aria-labelledby="cases-title">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <p class="label">Case studies</p>
+      <h2 id="cases-title">Five projects, in more detail.</h2>
+      <p class="lede">The problem as it arrived, what I actually did, the technical notes, and the result stated only as far as it can be proven.</p>
+    </div>
+    
+<article class="case case--full" id="case-ozcar" data-reveal-group>
+  <header class="case__head">
+    <p class="case__cat mono">Marketplace front-end</p>
+    <h3>OzCar</h3>
+    <p class="case__lede">One of the biggest used-car marketplaces in its market: search, vehicle pages with finance calculators, live video presentations and an online auction dashboard.</p>
+    <dl class="case__meta"><div><dt>Client</dt><dd>Car marketplace and dealer group</dd></div><div><dt>Where</dt><dd>Australia</dd></div><div><dt>Role</dt><dd>Front-end, from Adobe XD to production</dd></div><div><dt>Stack</dt><dd>HTML, SCSS, JavaScript, jQuery, Bootstrap</dd></div></dl>
+  </header>
+  <div class="case__visual" data-parallax-section><figure class="shot shot--case"><div class="shot__bar"><span class="shot__cap mono">ozcar.com.au</span></div><img class="shot__img" src="img/work/ozcar-1200.webp" srcset="img/work/ozcar-600.webp 600w, img/work/ozcar-800.webp 800w, img/work/ozcar-1200.webp 1200w" sizes="(min-width: 900px) 1180px, 100vw" width="1200" height="750" alt="OzCar website" loading="lazy" decoding="async"></figure></div>
+  <div class="case__body">
+    <div class="case__block case__block--problem"><h4>The problem</h4><p>A dealer group with a large, fast-moving inventory needed a public site that sells cars and an auction panel that dealers work in all day. The designs arrived as Adobe XD files; every screen had to become production markup that a back-end team could wire up without redrawing anything.</p></div>
+    <div class="case__block"><h4>What I did</h4><ul><li>Built the full public front-end: make and model search with dependent filters, the vehicle page with its finance calculator and live video presentation request, and the reviews and dealer pages.</li><li>Built the auction side as a separate application shell: a left navigation of filters (make, model, series, year, variant, kilometres) driving a dashboard of upcoming auctions.</li><li>Kept the markup semantic and the components reusable so the same card, filter and form patterns repeat across both sides of the product.</li></ul></div>
+    <div class="case__block"><h4>Technical notes</h4><ul><li>Hand-written SCSS with a small component layer over the Bootstrap grid</li><li>Progressive enhancement: filters and calculators work as plain forms first, then jQuery adds the live behaviour</li><li>Sprite and image discipline for an inventory site that shows dozens of photos per page</li></ul></div>
+    <div class="case__block"><h4>Result</h4><ul><li>Shipped across the marketplace, vehicle and auction screens.</li><li>The public site is offline at the time of writing, so the visuals here are the screens as they were built.</li></ul></div>
+    
+  </div>
+</article>
+
+<article class="case " id="case-devlo" data-reveal-group>
+  <header class="case__head">
+    <p class="case__cat mono">Multi-tenant CMS</p>
+    <h3>Devlo CMS <span class="ar">ديفلو</span></h3>
+    <p class="case__lede">One Laravel application, one deploy, twenty-four Arabic news sites, each with its own theme, modules, languages and editorial team.</p>
+    <dl class="case__meta"><div><dt>Client</dt><dd>Newsroom platform running 24 sites</dd></div><div><dt>Where</dt><dd>Türkiye, Palestine, Yemen</dd></div><div><dt>Role</dt><dd>Design and full-stack, product owner of the front-end</dd></div><div><dt>Stack</dt><dd>Laravel, Livewire, MySQL, Redis, Alpine</dd></div></dl>
+  </header>
+  <div class="case__visual" data-parallax-section><figure class="shot shot--case"><div class="shot__bar"><span class="shot__cap mono">demo.taktek.co/dashboard</span></div><img class="shot__img" src="img/work/devlo-1200.webp" srcset="img/work/devlo-600.webp 600w, img/work/devlo-800.webp 800w, img/work/devlo-1200.webp 1200w" sizes="(min-width: 900px) 56vw, 100vw" width="1200" height="750" alt="Devlo CMS website" loading="lazy" decoding="async"></figure></div>
+  <div class="case__body">
+    <div class="case__block case__block--problem"><h4>The problem</h4><p>Newsrooms were being built one at a time, each a fork of the last. A fix in one site never reached the others, and every new client meant weeks of duplicated work. The platform had to run many sites from one codebase without any site seeing another&#x27;s features, permissions or content.</p></div>
+    <div class="case__block"><h4>What I did</h4><ul><li>Designed the editorial interface and the theming model, then built both: 456 Livewire components and 839 Blade views behind one admin panel that works in Arabic, English and Turkish, right-to-left throughout.</li><li>Put tenancy on 113 feature flags, so nothing reaches a site that did not ask for it, and mirrored 40 permission modules across four actions with a command that re-syncs them.</li><li>Wrote the guards: 50 artisan commands, six of which exist only to fail when something invisible breaks, such as a feature leaking between tenants, a route permission that exists nowhere else, or a translation key that renders in Arabic because the fallback locale is Arabic.</li></ul></div>
+    <div class="case__block"><h4>Technical notes</h4><ul><li>66 models and 247 migrations under one schema, tenant-scoped at the query layer</li><li>5,874 translation keys, checked in CI so a missing English string fails the build instead of shipping</li><li>Share-card pipeline that regenerates Open Graph images per article, after a favicon and a WebP had turned shared links into bare blue lines on WhatsApp</li></ul></div>
+    <div class="case__block"><h4>Result</h4><ul><li>Powers Quds News Network, Tayaqan, Maktoob Media, Hodhod, Adeni Cast and the Saleh Al-Arouri archive, among others.</li><li>Full write-up in the case studies on my GitHub profile, including the ideas that were measured and thrown away.</li></ul></div>
+    <div class="case__cta"><a class="btn btn--ghost" href="https://demo.taktek.co/dashboard" target="_blank" rel="noopener">Open demo.taktek.co/dashboard <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></div>
+  </div>
+</article>
+
+<article class="case case--flip" id="case-qudsn" data-reveal-group>
+  <header class="case__head">
+    <p class="case__cat mono">High-traffic newsroom</p>
+    <h3>Quds News Network <span class="ar">قدس الإخبارية</span></h3>
+    <p class="case__lede">A high-volume Arabic newsroom publishing all day. Real Chrome users load it inside Google&#x27;s FAST band.</p>
+    <dl class="case__meta"><div><dt>Client</dt><dd>Palestinian news network</dd></div><div><dt>Where</dt><dd>Palestine</dd></div><div><dt>Role</dt><dd>Design and full-stack, on Devlo CMS</dd></div><div><dt>Stack</dt><dd>Laravel, Livewire, RTL</dd></div></dl>
+  </header>
+  <div class="case__visual" data-parallax-section><figure class="shot shot--case"><div class="shot__bar"><span class="shot__cap mono">qudsn.co</span></div><img class="shot__img" src="img/work/qudsn-1200.webp" srcset="img/work/qudsn-600.webp 600w, img/work/qudsn-800.webp 800w, img/work/qudsn-1200.webp 1200w" sizes="(min-width: 900px) 56vw, 100vw" width="1200" height="750" alt="Quds News Network website" loading="lazy" decoding="async"></figure></div>
+  <div class="case__body">
+    <div class="case__block case__block--problem"><h4>The problem</h4><p>A newsroom that publishes around the clock, in Arabic, to an audience that is overwhelmingly on phones and often on poor connections. The front page changes every few minutes and has to stay fast while carrying video, podcasts, live tickers and a dark mode.</p></div>
+    <div class="case__block"><h4>What I did</h4><ul><li>Designed the reading experience for right-to-left first: the grid, the type scale and the density were set on real Arabic headlines, not on Latin placeholder text.</li><li>Built the front page on Devlo modules: breaking strip, lead story, headline rail, audio briefing, podcast and translation sections, each switchable by the editors.</li><li>Ran the performance pass described in the newsroom audit case study: fonts cut from 749 KB to 78 KB, a preload that was hurting removed, and the Cloudflare rule that explained a TTFB nobody could move.</li></ul></div>
+    <div class="case__block"><h4>Technical notes</h4><ul><li>Server-rendered Blade with Livewire only where the page actually changes</li><li>Article schema, share images and hreflang generated per story</li><li>Measured weekly against Google&#x27;s PageSpeed API from my GitHub profile</li></ul></div>
+    <div class="case__block"><h4>Result</h4><ul><li>Field data from real Chrome users over 28 days: FAST, with LCP at 2.33 s and INP at 104 ms.</li><li>Lab scores on 20 September 2026: 99 on desktop, 82 on mobile, with accessibility and SEO at 100 on both.</li></ul></div>
+    <div class="case__cta"><a class="btn btn--ghost" href="https://qudsn.co/" target="_blank" rel="noopener">Open qudsn.co <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></div>
+  </div>
+</article>
+
+<article class="case case--full" id="case-mo3ta" data-reveal-group>
+  <header class="case__head">
+    <p class="case__cat mono">Data platform</p>
+    <h3>Mo3ta <span class="ar">معطي</span></h3>
+    <p class="case__lede">A data platform rather than a website: dashboards, an interactive map and charts over a large Arabic dataset, rendered on the server so the numbers are indexable.</p>
+    <dl class="case__meta"><div><dt>Client</dt><dd>Palestine information centre</dd></div><div><dt>Where</dt><dd>Palestine</dd></div><div><dt>Role</dt><dd>Design and full-stack</dd></div><div><dt>Stack</dt><dd>Laravel, Inertia, Vue 3, SSR, Charts</dd></div></dl>
+  </header>
+  <div class="case__visual" data-parallax-section><figure class="shot shot--case"><div class="shot__bar"><span class="shot__cap mono">mo3ta.ps</span></div><img class="shot__img" src="img/work/mo3ta-1200.webp" srcset="img/work/mo3ta-600.webp 600w, img/work/mo3ta-800.webp 800w, img/work/mo3ta-1200.webp 1200w" sizes="(min-width: 900px) 1180px, 100vw" width="1200" height="750" alt="Mo3ta website" loading="lazy" decoding="async"></figure></div>
+  <div class="case__body">
+    <div class="case__block case__block--problem"><h4>The problem</h4><p>Statistics about Palestine were scattered across PDFs and spreadsheets. The centre wanted one place where a journalist, a researcher or a student could find a number, see it in context on a map or a chart, and cite it. The page had to be readable by search engines, which rules out a client-only dashboard.</p></div>
+    <div class="case__block"><h4>What I did</h4><ul><li>Designed the visual language for numbers in Arabic: a mono scale for figures, a restrained palette so the map and the charts carry the colour, and a right-to-left layout that keeps axes and legends readable.</li><li>Built the platform on Laravel with Inertia and Vue 3, server-side rendered, so every indicator page arrives as real HTML and the interactivity layers on top.</li><li>Built the map and chart components as one reusable set fed from the same indicator model, with export and share per figure.</li></ul></div>
+    <div class="case__block"><h4>Technical notes</h4><ul><li>Inertia SSR for indexable first paint, Vue 3 for the interactive layer</li><li>Indicator model with sources and dates on every figure, so a number is never shown without where it came from</li><li>Dashboards, maps and charts share tokens with the marketing pages, so the product and the site read as one system</li></ul></div>
+    <div class="case__block"><h4>Result</h4><ul><li>Live at mo3ta.ps with the indicator library, map and dashboards in production.</li></ul></div>
+    <div class="case__cta"><a class="btn btn--ghost" href="https://www.mo3ta.ps/" target="_blank" rel="noopener">Open mo3ta.ps <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></div>
+  </div>
+</article>
+
+<article class="case " id="case-musnad" data-reveal-group>
+  <header class="case__head">
+    <p class="case__cat mono">Fact-checking platform</p>
+    <h3>Musnad <span class="ar">مسند</span></h3>
+    <p class="case__lede">Arabic fact-checking: every claim carries its verdict on the card. Scores 100 in all four Lighthouse categories on desktop, re-measured weekly.</p>
+    <dl class="case__meta"><div><dt>Client</dt><dd>News and claim verification</dd></div><div><dt>Where</dt><dd>Yemen</dd></div><div><dt>Role</dt><dd>Design and full-stack</dd></div><div><dt>Stack</dt><dd>Laravel, Livewire, Schema, SEO</dd></div></dl>
+  </header>
+  <div class="case__visual" data-parallax-section><figure class="shot shot--case"><div class="shot__bar"><span class="shot__cap mono">musnadye.com</span></div><img class="shot__img" src="img/work/musnad-1200.webp" srcset="img/work/musnad-600.webp 600w, img/work/musnad-800.webp 800w, img/work/musnad-1200.webp 1200w" sizes="(min-width: 900px) 56vw, 100vw" width="1200" height="750" alt="Musnad website" loading="lazy" decoding="async"></figure></div>
+  <div class="case__body">
+    <div class="case__block case__block--problem"><h4>The problem</h4><p>A fact-checking team needed a site where the verdict is the first thing a reader sees, in Arabic, on a phone, and where each investigation can be found by the claim people are actually searching for. Speed and trust signals mattered more than decoration.</p></div>
+    <div class="case__block"><h4>What I did</h4><ul><li>Designed the verdict system: a fixed set of labels (fabricated, misleading, old, true) with one colour each, shown on every card and every article header before anything else.</li><li>Built the platform on Laravel and Livewire with the reading page tuned for long Arabic text: type scale, line length and the placement of sources.</li><li>Wrote a technical SEO and AI-search audit of the live site, 20 findings ranked by impact, and turned it into the fix plan for the next release.</li></ul></div>
+    <div class="case__block"><h4>Technical notes</h4><ul><li>Server-rendered pages with Livewire pagination kept crawlable</li><li>Organization, Article and ClaimReview structured data on the roadmap from the audit</li><li>Weekly PageSpeed measurement with the raw JSON kept in the open</li></ul></div>
+    <div class="case__block"><h4>Result</h4><ul><li>Desktop: 100 for performance, accessibility, best practices and SEO on 20 September 2026.</li><li>Mobile performance dropped to 78 in the same run. It stays on this page until the fix ships, because a table that only shows the good weeks is a screenshot with extra steps.</li></ul></div>
+    <div class="case__cta"><a class="btn btn--ghost" href="https://musnadye.com/" target="_blank" rel="noopener">Open musnadye.com <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></div>
+  </div>
+</article>
+  </div>
+</section>
+
+<section class="section measured" id="measured" aria-labelledby="measured-title">
+  <div class="shell measured__grid">
+    <div class="measured__copy" data-reveal>
+      <p class="label">Live from GitHub</p>
+      <h2 id="measured-title">Measured every Monday, not screenshotted once.</h2>
+      <p class="lede">A screenshot of a good Lighthouse run proves nothing. A GitHub Action calls Google's PageSpeed API every week, takes the median of three runs per device, and commits the result to my profile. This section reads those files directly.</p>
+      <p class="lede">Where a site is under the bar, the number stays on the page until the site is fixed.</p>
+      <p class="measured__status small mono" data-psi-status>Showing the committed numbers from 20 September 2026.</p>
+      <a class="btn btn--ghost" href="https://github.com/imsemoo/imsemoo/tree/main/data/psi" target="_blank" rel="noopener" data-magnetic>Raw JSON on GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
     </div>
 
-    <!-- Philosophy -->
-    <section class="philosophy" id="philosophy">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-header__label">Design Philosophy</span>
-                <h2 class="section-header__title">Why most UIs fail <em>long-term</em></h2>
-            </div>
-            <div class="philosophy__grid">
-                <div class="philosophy__card reveal">
-                    <span class="philosophy__icon">// 01</span>
-                    <h3 class="philosophy__card-title">Structure Over Decoration</h3>
-                    <p class="philosophy__card-text">
-                        Clean semantic HTML. No inline styles. Ever. CSS architecture 
-                        that scales. BEM methodology. Components that compose, 
-                        not collide. The foundation matters more than the paint.
-                    </p>
-                </div>
-                <div class="philosophy__card reveal">
-                    <span class="philosophy__icon">// 02</span>
-                    <h3 class="philosophy__card-title">Tokens, Not Magic Numbers</h3>
-                    <p class="philosophy__card-text">
-                        Every spacing, color, shadow, and radius comes from a defined 
-                        system. Design tokens aren't optional—they're the contract 
-                        between design and code. Consistency is automated, not hoped for.
-                    </p>
-                </div>
-                <div class="philosophy__card reveal">
-                    <span class="philosophy__icon">// 03</span>
-                    <h3 class="philosophy__card-title">Vanilla JS Sometimes Wins</h3>
-                    <p class="philosophy__card-text">
-                        Frameworks solve problems. But not every problem needs a framework. 
-                        Understanding the platform means knowing when 50 lines of vanilla JS 
-                        beats 5000 lines of dependencies.
-                    </p>
-                </div>
-                <div class="philosophy__card reveal">
-                    <span class="philosophy__icon">// 04</span>
-                    <h3 class="philosophy__card-title">Accessibility is Architecture</h3>
-                    <p class="philosophy__card-text">
-                        ARIA labels, semantic markup, keyboard navigation, reduced motion 
-                        preferences—these aren't afterthoughts. They're structural decisions 
-                        that happen at the architecture level, not the QA level.
-                    </p>
-                </div>
-            </div>
+    <div class="scores" data-reveal-group>
+      <article class="score" data-reveal-item data-psi="musnadye-com">
+        <header class="score__head">
+          <h3>Musnad</h3>
+          <a class="score__run" href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fmusnadye.com%2F" target="_blank" rel="noopener">Run it yourself</a>
+        </header>
+        <table class="score__table">
+          <thead><tr><th scope="col">Device</th><th scope="col">Perf</th><th scope="col">A11y</th><th scope="col">Best</th><th scope="col">SEO</th><th scope="col">LCP</th></tr></thead>
+          <tbody>
+            <tr data-strategy="mobile"><th scope="row">Mobile</th><td data-k="performance">78</td><td data-k="accessibility">100</td><td data-k="best-practices">100</td><td data-k="seo">100</td><td data-k="lcp">5.4 s</td></tr>
+            <tr data-strategy="desktop"><th scope="row">Desktop</th><td data-k="performance">100</td><td data-k="accessibility">100</td><td data-k="best-practices">100</td><td data-k="seo">100</td><td data-k="lcp">0.5 s</td></tr>
+          </tbody>
+        </table>
+        <p class="score__note small" data-field>Median of three runs per device, Lighthouse 13.4.1.</p>
+      </article>
+
+      <article class="score" data-reveal-item data-psi="qudsn-co">
+        <header class="score__head">
+          <h3>Quds News Network</h3>
+          <a class="score__run" href="https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fqudsn.co%2F" target="_blank" rel="noopener">Run it yourself</a>
+        </header>
+        <table class="score__table">
+          <thead><tr><th scope="col">Device</th><th scope="col">Perf</th><th scope="col">A11y</th><th scope="col">Best</th><th scope="col">SEO</th><th scope="col">LCP</th></tr></thead>
+          <tbody>
+            <tr data-strategy="mobile"><th scope="row">Mobile</th><td data-k="performance">82</td><td data-k="accessibility">100</td><td data-k="best-practices">92</td><td data-k="seo">100</td><td data-k="lcp">4.7 s</td></tr>
+            <tr data-strategy="desktop"><th scope="row">Desktop</th><td data-k="performance">99</td><td data-k="accessibility">100</td><td data-k="best-practices">96</td><td data-k="seo">100</td><td data-k="lcp">0.9 s</td></tr>
+          </tbody>
+        </table>
+        <p class="score__note small" data-field>Real Chrome users over 28 days: FAST, LCP 2.33 s, INP 104 ms.</p>
+      </article>
+
+      <aside class="footprint" data-reveal-item data-psi="imsemoo-github-io">
+        <h3>This page</h3>
+        <p class="small">28 KB of CSS and 16 KB of JavaScript of my own, 7 requests before images and fonts. GSAP and Lenis add 132 KB for the motion and are loaded after the content. Built 21 September 2026 from one JSON file by a Python script that also wrote this sentence.</p>
+        <p class="small footprint__self" data-self hidden>Measured by the same weekly job: mobile <b data-self-mobile></b>, desktop <b data-self-desktop></b> for performance, with accessibility, best practices and SEO at <b data-self-rest></b>.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section method" id="method" aria-labelledby="method-title">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <h2 id="method-title">How a project runs.</h2>
+      <p class="lede">The same six steps whether it is a landing page or a platform. Written, staged, and measured before it is called done.</p>
+    </div>
+
+    <ol class="process" data-reveal-group>
+      <li class="step" data-reveal-item><span class="step__n mono">01</span><h3>Brief</h3><p>A written brief and my questions back. Goals and content before layout, in writing, so decisions stay documented for your team.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">02</span><h3>Structure</h3><p>Flows, page list and what each screen must do. For Arabic products this is where right-to-left is decided, not patched in later.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">03</span><h3>First screen</h3><p>One screen designed and agreed before the rest exists. If the direction is wrong it costs a day, not a project.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">04</span><h3>Build</h3><p>Hand-written, delivered in reviewable stages. Design and code come from the same person, so nothing is lost in a handover.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">05</span><h3>Measure</h3><p>PageSpeed on both devices, accessibility checks, and a pass at 375 px before anything is called finished.</p></li>
+      <li class="step" data-reveal-item><span class="step__n mono">06</span><h3>Keep it running</h3><p>Most of my work lands in systems that already run. I read the existing code before I change it, and keep what works.</p></li>
+    </ol>
+
+    <div class="method__grid">
+      <div class="timeline" data-reveal>
+        <h3>Where the seven years went</h3>
+        <ol>
+          <li class="tl"><span class="tl__when mono">2025 to now</span><span class="tl__what"><b>TakTek</b>, UI/UX and front-end team lead. Devlo CMS, Matn, and the newsroom fleet that runs on them.</span></li>
+          <li class="tl"><span class="tl__when mono">2020 to 2025</span><span class="tl__what"><b>IntimeDev</b>, outsourced to SilverTrees. Front-end from XD and Figma for Australian, UK and Egyptian clients.</span></li>
+          <li class="tl"><span class="tl__when mono">Before 2020</span><span class="tl__what">Freelance front-end and WordPress, mostly for Arabic businesses. Still on Mostaql at 5.0.</span></li>
+        </ol>
+      </div>
+
+      <div class="skills" data-reveal-group>
+        <h3 data-reveal-item>What I work in</h3>
+        <div class="skills__grid">
+          <div class="skill-group" data-reveal-item><h4>Design</h4><ul><li>Figma</li><li>Design systems and tokens</li><li>Arabic typography</li><li>Prototypes in HTML</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>Front-end</h4><ul><li>HTML, CSS, SCSS, Tailwind</li><li>JavaScript, TypeScript</li><li>Vue 3, Inertia</li><li>React, Next.js</li><li>GSAP, view transitions</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>Back-end</h4><ul><li>PHP 8, Laravel, Livewire</li><li>CakePHP 5</li><li>MySQL, Redis</li><li>REST APIs</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>CMS</h4><ul><li>Devlo, multi-tenant</li><li>Matn, in-page editing</li><li>WordPress with ACF</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>Performance and SEO</h4><ul><li>Core Web Vitals</li><li>PageSpeed API, weekly</li><li>Structured data, hreflang</li><li>Share cards that render</li></ul></div>
+          <div class="skill-group" data-reveal-item><h4>Workflow</h4><ul><li>Git, GitHub Actions</li><li>PHPUnit, PHPStan</li><li>Docker</li><li>AI-assisted drafts, reviewed line by line</li></ul></div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <!-- Systems -->
-    <section class="systems" id="systems">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-header__label">Featured Work</span>
-                <h2 class="section-header__title">Production interfaces <em>that work</em></h2>
-            </div>
-
-            <!-- System 1 -->
-            <div class="system reveal">
-                <div class="system__info">
-                    <span class="system__number">PROJECT 01</span>
-                    <h3 class="system__title">CyberSee Dashboard</h3>
-                    <span class="system__type">Security Analytics — KSA</span>
-                    <p class="system__desc">
-                        Security analytics dashboard with GSAP/Three.js hero animations,
-                        responsive grid/cards, and FLIP modal transitions. Built with
-                        reduced-motion fallbacks and WCAG accessibility.
-                    </p>
-                    <div class="system__stack">
-                        <span class="system__tech">Laravel Blade</span>
-                        <span class="system__tech">Livewire</span>
-                        <span class="system__tech">GSAP</span>
-                        <span class="system__tech">Three.js</span>
-                    </div>
-                </div>
-                <div class="system__details">
-                    <div class="system__detail-section">
-                        <span class="system__detail-label">Role & Duration</span>
-                        <p class="system__detail-content">
-                            Front-End Lead (Outsource) — Aug 2025 to Oct 2025, Remote — KSA
-                        </p>
-                    </div>
-                    <div class="system__detail-section">
-                        <span class="system__detail-label">Key Deliverables</span>
-                        <ul class="system__detail-list system__detail-content">
-                            <li>Security analytics dashboard UX design & implementation</li>
-                            <li>GSAP/Three.js hero with reduced-motion fallback</li>
-                            <li>Transform-only animations (no CLS)</li>
-                            <li>Blade + Livewire integration without breaking back-end</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- System 2 -->
-            <div class="system reveal">
-                <div class="system__info">
-                    <span class="system__number">PROJECT 02</span>
-                    <h3 class="system__title">TakTek Design System</h3>
-                    <span class="system__type">Team Leadership — Türkiye</span>
-                    <p class="system__desc">
-                        Owning the design system and front-end architecture at TakTek.
-                        Leading a small squad, introducing AI-assisted coding for docs
-                        and refactors, enforcing code quality across projects.
-                    </p>
-                    <div class="system__stack">
-                        <span class="system__tech">Design Tokens</span>
-                        <span class="system__tech">Atomic Design</span>
-                        <span class="system__tech">Livewire</span>
-                        <span class="system__tech">AI Workflows</span>
-                    </div>
-                </div>
-                <div class="system__details">
-                    <div class="system__detail-section">
-                        <span class="system__detail-label">Role & Duration</span>
-                        <p class="system__detail-content">
-                            UI/UX & Front-End Team Lead (Full-time) — Jan 2025 to Present, Remote — Türkiye
-                        </p>
-                    </div>
-                    <div class="system__detail-section">
-                        <span class="system__detail-label">Achievements</span>
-                        <ul class="system__detail-list system__detail-content">
-                            <li>Lighthouse ≥ 90, CLS ~0, LCP &lt; 2.5s across key pages</li>
-                            <li>GSAP/Three.js with reduced-motion fallbacks</li>
-                            <li>Accessible interactions (WCAG compliant)</li>
-                            <li>AI-assisted documentation and refactoring</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- System 3 -->
-            <div class="system reveal">
-                <div class="system__info">
-                    <span class="system__number">PROJECT 03</span>
-                    <h3 class="system__title">Mosnad Platform</h3>
-                    <span class="system__type">News Verification</span>
-                    <p class="system__desc">
-                        منصة مسند للتحقق من الأخبار — A fact-checking platform with 
-                        complex content management and RTL Arabic interface.
-                    </p>
-                    <div class="system__stack">
-                        <span class="system__tech">HTML5</span>
-                        <span class="system__tech">CSS3</span>
-                        <span class="system__tech">JavaScript</span>
-                        <span class="system__tech">RTL</span>
-                    </div>
-                </div>
-                <div class="system__details">
-                    <div class="system__detail-section">
-                        <span class="system__detail-label">Features</span>
-                        <ul class="system__detail-list system__detail-content">
-                            <li>Content verification workflow</li>
-                            <li>SEO optimized structure</li>
-                            <li>User engagement system</li>
-                        </ul>
-                    </div>
-                    <div class="system__detail-section">
-                        <a href="https://mostaql.com/portfolio/2140888" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); text-decoration: none;">→ View on Mostaql</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- System 4 -->
-            <div class="system reveal">
-                <div class="system__info">
-                    <span class="system__number">PROJECT 04</span>
-                    <h3 class="system__title">Mo'ta Platform</h3>
-                    <span class="system__type">Palestine Info Center</span>
-                    <p class="system__desc">
-                        منصة "معطى" — مركز معلومات فلسطين — Comprehensive information 
-                        platform with data visualization and bilingual support.
-                    </p>
-                    <div class="system__stack">
-                        <span class="system__tech">HTML5</span>
-                        <span class="system__tech">CSS3</span>
-                        <span class="system__tech">JavaScript</span>
-                        <span class="system__tech">Data Viz</span>
-                    </div>
-                </div>
-                <div class="system__details">
-                    <div class="system__detail-section">
-                        <span class="system__detail-label">Features</span>
-                        <ul class="system__detail-list system__detail-content">
-                            <li>Interactive data visualization</li>
-                            <li>Archive management</li>
-                            <li>Bilingual AR/EN support</li>
-                        </ul>
-                    </div>
-                    <div class="system__detail-section">
-                        <a href="https://mostaql.com/portfolio/1501548" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); text-decoration: none;">→ View on Mostaql</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- System 5 -->
-            <div class="system reveal">
-                <div class="system__info">
-                    <span class="system__number">PROJECT 05</span>
-                    <h3 class="system__title">Creatives Dashboard</h3>
-                    <span class="system__type">Admin System</span>
-                    <p class="system__desc">
-                        Full-featured admin dashboard for creative agency management
-                        with data visualization and user management.
-                    </p>
-                    <div class="system__stack">
-                        <span class="system__tech">HTML5</span>
-                        <span class="system__tech">CSS3</span>
-                        <span class="system__tech">JavaScript</span>
-                        <span class="system__tech">Charts</span>
-                    </div>
-                </div>
-                <div class="system__details">
-                    <div class="system__detail-section">
-                        <span class="system__detail-label">Features</span>
-                        <ul class="system__detail-list system__detail-content">
-                            <li>Data visualization & analytics</li>
-                            <li>User role management</li>
-                            <li>Dark/Light theme</li>
-                        </ul>
-                    </div>
-                    <div class="system__detail-section">
-                        <a href="https://mostaql.com/portfolio/1758876" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); text-decoration: none;">→ View on Mostaql</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- System 6 -->
-            <div class="system reveal">
-                <div class="system__info">
-                    <span class="system__number">PROJECT 06</span>
-                    <h3 class="system__title">Abaad Future</h3>
-                    <span class="system__type">Corporate WordPress</span>
-                    <p class="system__desc">
-                        مؤسسة أبعاد المستقبل — Professional corporate website for events,
-                        conferences, and media production. SEO & lead generation focused.
-                    </p>
-                    <div class="system__stack">
-                        <span class="system__tech">WordPress</span>
-                        <span class="system__tech">Custom Theme</span>
-                        <span class="system__tech">SEO</span>
-                    </div>
-                </div>
-                <div class="system__details">
-                    <div class="system__detail-section">
-                        <span class="system__detail-label">Features</span>
-                        <ul class="system__detail-list system__detail-content">
-                            <li>Custom WordPress theme</li>
-                            <li>Service showcase</li>
-                            <li>Lead generation forms</li>
-                        </ul>
-                    </div>
-                    <div class="system__detail-section">
-                        <a href="https://mostaql.com/portfolio/2401051" target="_blank" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-accent); text-decoration: none;">→ View on Mostaql</a>
-                    </div>
-                </div>
-            </div>
+    <div class="tokens" data-reveal>
+      <h3>This page runs on the same discipline</h3>
+      <p class="small">Every colour, size and gap on this page comes from one token file. Here are the ones doing most of the work.</p>
+      <div class="tokens__grid">
+        <div class="swatch swatch--ink"><span class="mono">--ink</span><span class="mono">#14171a</span></div>
+        <div class="swatch swatch--paper"><span class="mono">--paper</span><span class="mono">#f3f2ee</span></div>
+        <div class="swatch swatch--accent"><span class="mono">--accent</span><span class="mono">#0b6e4f</span></div>
+        <div class="swatch swatch--under"><span class="mono">--under</span><span class="mono">#9a5b12</span></div>
+        <div class="type-sample">
+          <span class="type-sample__display">Bricolage Grotesque</span>
+          <span class="type-sample__body">Geist for reading, 16 px on a 1.6 line.</span>
+          <span class="type-sample__mono mono">Geist Mono for numbers 0123456789</span>
         </div>
-    </section>
+        <div class="space-sample" role="img" aria-label="Spacing scale, four pixel base"><i style="--w:4px"></i><i style="--w:8px"></i><i style="--w:12px"></i><i style="--w:16px"></i><i style="--w:24px"></i><i style="--w:32px"></i><i style="--w:48px"></i><i style="--w:64px"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- More Projects Grid -->
-    <section class="more-projects" style="background: var(--color-bg); padding: var(--space-5xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-header__label">More Work</span>
-                <h2 class="section-header__title">Additional <em>Projects</em></h2>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-lg);">
-                
-                <a href="https://mostaql.com/portfolio/1501668" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Education</span>
-                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">Besa</h4>
-                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Study abroad education site. Figma to code.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">Figma</span>
-                    </div>
-                </a>
+<section class="section reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="shell">
+    <div class="section-head" data-reveal>
+      <h2 id="reviews-title">What clients wrote afterwards.</h2>
+      <p class="lede">Published reviews from Upwork and Mostaql, quoted as written.</p>
+    </div>
+    <div class="quotes" data-reveal-group>
+      <blockquote class="quote" data-reveal-item><p>"Islam is a superstar. I wanted to elevate a site for a product launch and his combined design and marketing hooks were exceptional."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, business homepage redesign</footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"He understood the scope immediately and implemented everything in a clean, structured, and future-proof way."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, landing page and bond calculator</footer></blockquote>
+      <blockquote class="quote quote--ar" data-reveal-item lang="ar" dir="rtl"><p class="ar">"كل الشكر لك أخي الفاضل إسلام. احترافية وإخلاص وجودة تستحق الإشادة، ولن أتردد بالتعاون معك مستقبلا."</p><footer class="quote__src small"><b>زيد ا.</b>، مستقل <svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg></footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"He understood the requirements well and was reliable, helpful, and solution-oriented throughout the implementation."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, ordering interface for a restaurant</footer></blockquote>
+      <blockquote class="quote quote--ar" data-reveal-item lang="ar" dir="rtl"><p class="ar">"التجربة مرضية لأقصى حد والنتائج تجاوزت سقف التوقعات. الاهتمام والخبرة والجهد أنتجت عملًا مميزًا."</p><footer class="quote__src small"><b>Nass A.</b>، مستقل <svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg></footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"I worked with Islam for an extended period of time. Thank you for the collaboration, and I wish him all the best."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, one year on a multilingual shop</footer></blockquote>
+    </div>
+  </div>
+</section>
 
-                <a href="https://mostaql.com/portfolio/973271" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Entertainment</span>
-                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">HandsOnTV</h4>
-                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Video entertainment platform. Adobe XD to code.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">jQuery</span>
-                    </div>
-                </a>
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="shell"><div class="contact__inner">
+    <h2 class="contact__title" id="contact-title" data-motion-text="lines"><span class="line">Have a project</span><span class="line">worth building?</span></h2>
+    <p class="lede" data-reveal>Send it over. I reply with how I would approach it, what it costs and how long it takes. In writing, within a few hours, remote from Cairo at UTC+2.</p>
+    <div class="contact__actions" data-reveal>
+      <a class="btn btn--primary btn--lg" href="mailto:en.developer2@gmail.com" data-magnetic>Email me <svg class="icon" aria-hidden="true"><use href="#i-envelope-simple"/></svg></a>
+      <span class="mono small">en.developer2@gmail.com</span>
+    </div>
+    <ul class="links" data-reveal>
+      <li><a href="https://github.com/imsemoo" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github-logo"/></svg>GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/imsemooo/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-linkedin-logo"/></svg>LinkedIn</a></li>
+      <li><a href="https://www.upwork.com/freelancers/imsemoo" target="_blank" rel="noopener"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg>Upwork</a></li>
+      <li><a href="https://mostaql.com/u/imsemoo/portfolio" target="_blank" rel="noopener"><svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg>Mostaql</a></li>
+    </ul>
+  </div></div>
+</section>
 
-                <a href="https://mostaql.com/portfolio/821118" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Engineering</span>
-                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">Powerline Egypt</h4>
-                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Engineering company WordPress site.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">WordPress</span>
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">Custom</span>
-                    </div>
-                </a>
+</main>
 
-                <a href="https://mostaql.com/portfolio/821113" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Podcast</span>
-                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">Adanicast</h4>
-                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Arabic podcast platform with modern design.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">Audio</span>
-                    </div>
-                </a>
+<footer class="foot">
+  <div class="shell foot__inner">
+    <span>Eslam Nasser. Front-end engineer and UI designer.</span>
+    <span class="mono">Hand-written HTML and CSS. Generated from one JSON file, built 21 September 2026.</span>
+  </div>
+</footer>
 
-                <a href="https://mostaql.com/portfolio/622366" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Automotive</span>
-                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">OzCar</h4>
-                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Car dealership platform with listings.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">jQuery</span>
-                    </div>
-                </a>
+<div class="preview" data-preview aria-hidden="true"><img class="preview__img" alt="" width="600" height="375" decoding="async"></div>
 
-                <a href="https://mostaql.com/portfolio/1838053" target="_blank" class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); text-decoration: none; transition: all 0.3s ease; display: block;">
-                    <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 1px;">Education</span>
-                    <h4 style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--color-text-primary); margin: var(--space-sm) 0;">Buruj</h4>
-                    <p style="font-size: 0.9rem; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: var(--space-md);">Educational platform with course management.</p>
-                    <div style="display: flex; flex-wrap: wrap; gap: var(--space-xs);">
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">HTML/CSS/JS</span>
-                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted); padding: 2px 6px; background: var(--color-bg); border: 1px solid var(--color-border);">Responsive</span>
-                    </div>
-                </a>
+</div>
 
-            </div>
-        </div>
-    </section>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<symbol id="i-arrow-down-right" viewBox="0 0 256 256"><path d="M200,88V192a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h84.69L58.34,69.66A8,8,0,0,1,69.66,58.34L184,172.69V88a8,8,0,0,1,16,0Z"/></symbol>
+<symbol id="i-arrow-right" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+<symbol id="i-arrow-up-right" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></symbol>
+<symbol id="i-browser" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V88H40V56Zm0,144H40V104H216v96Z"/></symbol>
+<symbol id="i-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol>
+<symbol id="i-code" viewBox="0 0 256 256"><path d="M69.12,94.15,28.5,128l40.62,33.85a8,8,0,1,1-10.24,12.29l-48-40a8,8,0,0,1,0-12.29l48-40a8,8,0,0,1,10.24,12.3Zm176,27.7-48-40a8,8,0,1,0-10.24,12.3L227.5,128l-40.62,33.85a8,8,0,1,0,10.24,12.29l48-40a8,8,0,0,0,0-12.29ZM162.73,32.48a8,8,0,0,0-10.25,4.79l-64,176a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,96,224a8,8,0,0,0,7.52-5.27l64-176A8,8,0,0,0,162.73,32.48Z"/></symbol>
+<symbol id="i-device-mobile" viewBox="0 0 256 256"><path d="M176,16H80A24,24,0,0,0,56,40V216a24,24,0,0,0,24,24h96a24,24,0,0,0,24-24V40A24,24,0,0,0,176,16ZM72,64H184V192H72Zm8-32h96a8,8,0,0,1,8,8v8H72V40A8,8,0,0,1,80,32Zm96,192H80a8,8,0,0,1-8-8v-8H184v8A8,8,0,0,1,176,224Z"/></symbol>
+<symbol id="i-envelope-simple" viewBox="0 0 256 256"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></symbol>
+<symbol id="i-funnel" viewBox="0 0 256 256"><path d="M230.6,49.53A15.81,15.81,0,0,0,216,40H40A16,16,0,0,0,28.19,66.76l.08.09L96,139.17V216a16,16,0,0,0,24.87,13.32l32-21.34A16,16,0,0,0,160,194.66V139.17l67.74-72.32.08-.09A15.8,15.8,0,0,0,230.6,49.53ZM40,56h0Zm106.18,74.58A8,8,0,0,0,144,136v58.66L112,216V136a8,8,0,0,0-2.16-5.47L40,56H216Z"/></symbol>
+<symbol id="i-gauge" viewBox="0 0 256 256"><path d="M207.06,72.67A111.24,111.24,0,0,0,128,40h-.4C66.07,40.21,16,91,16,153.13V176a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V152A111.25,111.25,0,0,0,207.06,72.67ZM224,176H119.71l54.76-75.3a8,8,0,0,0-12.94-9.42L99.92,176H32V153.13c0-3.08.15-6.12.43-9.13H56a8,8,0,0,0,0-16H35.27c10.32-38.86,44-68.24,84.73-71.66V80a8,8,0,0,0,16,0V56.33A96.14,96.14,0,0,1,221,128H200a8,8,0,0,0,0,16h23.67c.21,2.65.33,5.31.33,8Z"/></symbol>
+<symbol id="i-github-logo" viewBox="0 0 256 256"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></symbol>
+<symbol id="i-globe-simple" viewBox="0 0 256 256"><path d="M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm87.62,96H175.79C174,83.49,159.94,57.67,148.41,42.4A88.19,88.19,0,0,1,215.63,120ZM96.23,136h63.54c-2.31,41.61-22.23,67.11-31.77,77C118.45,203.1,98.54,177.6,96.23,136Zm0-16C98.54,78.39,118.46,52.89,128,43c9.55,9.93,29.46,35.43,31.77,77Zm11.36-77.6C96.06,57.67,82,83.49,80.21,120H40.37A88.19,88.19,0,0,1,107.59,42.4ZM40.37,136H80.21c1.82,36.51,15.85,62.33,27.38,77.6A88.19,88.19,0,0,1,40.37,136Zm108,77.6c11.53-15.27,25.56-41.09,27.38-77.6h39.84A88.19,88.19,0,0,1,148.41,213.6Z"/></symbol>
+<symbol id="i-layout" viewBox="0 0 256 256"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V96H40V56ZM40,112H96v88H40Zm176,88H112V112H216v88Z"/></symbol>
+<symbol id="i-linkedin-logo" viewBox="0 0 256 256"><path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24Zm0,192H40V40H216V216ZM96,112v64a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0Zm88,28v36a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140ZM100,84A12,12,0,1,1,88,72,12,12,0,0,1,100,84Z"/></symbol>
+<symbol id="i-list" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></symbol>
+<symbol id="i-magnifying-glass" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></symbol>
+<symbol id="i-mostaql" viewBox="0 0 414 122"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mostaql_1_" transform="translate(0.059437, 0.195000)" fill="currentColor" fill-rule="nonzero">
+            <g id="Ar" transform="translate(0.000000, 0.000000)">
+                <circle id="Oval" cx="123.491563" cy="12.573" r="12.573"></circle>
+                <circle id="Oval" cx="153.090563" cy="12.573" r="12.573"></circle>
+                <circle id="Oval" cx="196.606563" cy="37.67" r="12.573"></circle>
+                <circle id="Oval" cx="226.205563" cy="37.67" r="12.573"></circle>
+                <path d="M374.709563,42.623 C353.083563,42.623 335.491563,60.215 335.491563,81.841 C335.491563,84.257 335.722563,86.618 336.142563,88.915 C330.741563,88.916 324.037563,88.916 316.490563,88.917 L321.137563,58.675 C321.982563,53.136 318.177563,47.96 312.638563,47.114 C307.110563,46.291 301.923563,50.074 301.077563,55.613 L295.960563,88.92 C293.044563,88.92 290.080563,88.921 287.077563,88.921 L291.057563,63.174 C291.902563,57.635 288.097563,52.459 282.558563,51.613 C277.026563,50.79 271.843563,54.573 270.997563,60.112 L266.543563,88.924 C263.622563,88.924 260.707563,88.925 257.809563,88.925 L260.602563,70.621 C261.447563,65.082 257.641563,59.906 252.103563,59.06 C246.571563,58.237 241.388563,62.02 240.542563,67.559 L237.281563,88.928 C230.973563,88.929 224.968563,88.93 219.444563,88.931 L222.238563,70.621 C223.083563,65.082 219.277563,59.906 213.739563,59.06 C208.207563,58.237 203.024563,62.02 202.178563,67.559 L198.919563,88.918 L169.379563,88.918 C172.732563,83.35 174.665563,76.835 174.665563,69.876 C174.665563,49.46 158.056563,32.851 137.640563,32.851 C117.224563,32.851 100.615563,49.46 100.615563,69.876 C100.615563,76.836 102.548563,83.351 105.901563,88.918 L79.4215629,88.918 C79.8435629,86.534 80.0655629,84.072 80.0675629,81.531 C80.0685629,79.278 80.0675629,77.026 80.0665629,74.773 C80.0665629,74.764 80.0675629,74.756 80.0675629,74.748 L80.2625629,10.031 C80.2625629,4.493 75.7725629,0.002 70.2335629,0.002 C64.6945629,0.002 60.2045629,4.493 60.2045629,10.031 L60.2065629,17.446 L60.2065629,17.446 C60.2065629,17.504 60.2065629,17.561 60.2065629,17.619 L60.2215629,74.997 C60.2155629,77.163 60.2085629,79.346 60.2005629,81.568 C60.1515629,94.82 46.2775629,104.007 33.7985629,100.477 C24.7625629,97.92 18.8175629,89.3 19.6565629,79.97 C20.5195629,70.376 28.0635629,63.175 38.0915629,62.374 C45.1465629,61.81 49.3255629,57.65 48.8835629,51.63 C48.4505629,45.736 43.5125629,42.107 36.5525629,42.568 C19.0615629,43.726 4.67256288,56.212 0.96456288,73.103 C-2.83943712,90.435 4.81256288,107.882 20.3085629,116.289 C35.6835629,124.63 56.3755629,121.846 68.6935629,109.424 L346.880563,109.424 C353.991563,116.598 363.833563,121.061 374.709563,121.061 C396.333563,121.061 413.925563,103.469 413.925563,81.843 C413.925563,60.217 396.333563,42.623 374.709563,42.623 Z M137.638563,52.005 C147.491563,52.005 155.507563,60.02 155.507563,69.874 C155.507563,79.728 147.491563,87.743 137.638563,87.743 C127.785563,87.743 119.769563,79.728 119.769563,69.874 C119.770563,60.02 127.786563,52.005 137.638563,52.005 Z M374.709563,100.768 C364.272563,100.768 355.782563,92.278 355.782563,81.841 C355.782563,71.404 364.272563,62.914 374.709563,62.914 C385.144563,62.914 393.634563,71.404 393.634563,81.841 C393.634563,92.278 385.144563,100.768 374.709563,100.768 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g></symbol>
+<symbol id="i-palette" viewBox="0 0 256 256"><path d="M200.77,53.89A103.27,103.27,0,0,0,128,24h-1.07A104,104,0,0,0,24,128c0,43,26.58,79.06,69.36,94.17A32,32,0,0,0,136,192a16,16,0,0,1,16-16h46.21a31.81,31.81,0,0,0,31.2-24.88,104.43,104.43,0,0,0,2.59-24A103.28,103.28,0,0,0,200.77,53.89Zm13,93.71A15.89,15.89,0,0,1,198.21,160H152a32,32,0,0,0-32,32,16,16,0,0,1-21.31,15.07C62.49,194.3,40,164,40,128a88,88,0,0,1,87.09-88h.9a88.35,88.35,0,0,1,88,87.25A88.86,88.86,0,0,1,213.81,147.6ZM140,76a12,12,0,1,1-12-12A12,12,0,0,1,140,76ZM96,100A12,12,0,1,1,84,88,12,12,0,0,1,96,100Zm0,56a12,12,0,1,1-12-12A12,12,0,0,1,96,156Zm88-56a12,12,0,1,1-12-12A12,12,0,0,1,184,100Z"/></symbol>
+<symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></symbol>
+<symbol id="i-stack" viewBox="0 0 256 256"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></symbol>
+<symbol id="i-translate" viewBox="0 0 256 256"><path d="M247.15,212.42l-56-112a8,8,0,0,0-14.31,0l-21.71,43.43A88,88,0,0,1,108,126.93,103.65,103.65,0,0,0,135.69,64H160a8,8,0,0,0,0-16H104V32a8,8,0,0,0-16,0V48H32a8,8,0,0,0,0,16h87.63A87.76,87.76,0,0,1,96,116.35a87.74,87.74,0,0,1-19-31,8,8,0,1,0-15.08,5.34A103.63,103.63,0,0,0,84,127a87.55,87.55,0,0,1-52,17,8,8,0,0,0,0,16,103.46,103.46,0,0,0,64-22.08,104.18,104.18,0,0,0,51.44,21.31l-26.6,53.19a8,8,0,0,0,14.31,7.16L148.94,192h70.11l13.79,27.58A8,8,0,0,0,240,224a8,8,0,0,0,7.15-11.58ZM156.94,176,184,121.89,211.05,176Z"/></symbol>
+<symbol id="i-upwork" viewBox="0 0 24 24"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></symbol>
+<symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
+</svg>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials" style="background: var(--color-bg); padding: var(--space-5xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-header__label">Client Reviews</span>
-                <h2 class="section-header__title">What clients <em>say</em></h2>
-            </div>
-            
-            <!-- Stats Row -->
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-lg); margin-bottom: var(--space-3xl); padding: var(--space-xl); background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle);">
-                <div style="text-align: center;">
-                    <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent);">5.0</div>
-                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px;">Professionalism</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent);">5.0</div>
-                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px;">Work Quality</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent);">5.0</div>
-                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px;">Communication</div>
-                </div>
-                <div style="text-align: center;">
-                    <div style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700; color: var(--color-accent);">90%+</div>
-                    <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px;">Completion</div>
-                </div>
-            </div>
-
-            <!-- Testimonials Grid -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: var(--space-xl);">
-                
-                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
-                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
-                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        "I found in this man all the qualities of a cooperative, sincere person whose goal is to provide excellent service and work with precision."
-                    </p>
-                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Ahmed · Private Project</div>
-                </div>
-
-                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
-                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
-                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        "Skilled and very knowledgeable in his field. Dealt professionally with design problems. May God bless you."
-                    </p>
-                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Mohamed · WordPress</div>
-                </div>
-
-                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
-                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
-                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        "Professionalism, dedication, and quality that deserves recognition. Results exceeded expectations."
-                    </p>
-                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Zaid · Website Fix</div>
-                </div>
-
-                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
-                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
-                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        "The experience was satisfying to the fullest. Attention, expertise and effort produced distinguished work."
-                    </p>
-                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Nass · WordPress Dev</div>
-                </div>
-
-                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
-                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
-                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        "Very professional work! Happy working with you. Won't be our last collaboration."
-                    </p>
-                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Yazeed · Corporate Site</div>
-                </div>
-
-                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-xl); position: relative;">
-                    <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--color-accent);"></div>
-                    <p style="font-family: var(--font-serif); font-size: 1.05rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        "Eslam is skilled in his work. Don't hesitate to work with Engineer Eslam."
-                    </p>
-                    <div style="font-size: 0.85rem; color: var(--color-text-muted);">— Dr. Wasem · Booking Site</div>
-                </div>
-
-            </div>
-
-            <!-- Platform Links -->
-            <div style="display: flex; justify-content: center; gap: var(--space-xl); margin-top: var(--space-3xl); flex-wrap: wrap;">
-                <a href="https://mostaql.com/u/imsemoo" target="_blank" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-secondary); text-decoration: none; padding: var(--space-md) var(--space-xl); border: 1px solid var(--color-border); transition: all 0.3s ease;">
-                    → Mostaql Profile (10+ Projects)
-                </a>
-                <a href="https://www.upwork.com/freelancers/~013dd117d9f077b204" target="_blank" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-secondary); text-decoration: none; padding: var(--space-md) var(--space-xl); border: 1px solid var(--color-border); transition: all 0.3s ease;">
-                    → Upwork Profile
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Me -->
-    <section class="about" id="about" style="background: var(--color-bg); padding: var(--space-5xl) 0;">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-header__label">About Me</span>
-                <h2 class="section-header__title">Hello, I'm <em>Eslam Nasser</em>.</h2>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); align-items: start;">
-                <div class="reveal">
-                    <p style="font-size: 1.1rem; color: var(--color-text-secondary); line-height: 2; margin-bottom: var(--space-xl);">
-                        I'm a UI/UX-minded Front-End Team Lead working remotely with 
-                        <strong style="color: var(--color-text-primary);">TakTek (Türkiye)</strong>, 
-                        and I recently collaborated with 
-                        <strong style="color: var(--color-text-primary);">CyberSee (KSA)</strong>.
-                    </p>
-                    <p style="font-size: 1.1rem; color: var(--color-text-secondary); line-height: 2; margin-bottom: var(--space-xl);">
-                        I design and build high-performance interfaces—mixing Figma + design systems 
-                        with modern front-end (Blade + Livewire, GSAP/Three.js).
-                    </p>
-                    <p style="font-size: 1.1rem; color: var(--color-text-secondary); line-height: 2;">
-                        I use Codex and ChatGPT to accelerate delivery, document clearly, 
-                        and keep code clean.
-                    </p>
-                </div>
-                <div class="reveal" style="background: var(--color-bg-surface); border: 1px solid var(--color-border-subtle); padding: var(--space-2xl); position: relative;">
-                    <div style="position: absolute; top: -1px; left: 0; width: 60px; height: 3px; background: var(--color-accent);"></div>
-                    <p style="font-family: var(--font-serif); font-size: 1.5rem; font-style: italic; color: var(--color-text-primary); line-height: 1.8; margin-bottom: var(--space-lg);">
-                        "With great power comes great responsibility."
-                    </p>
-                    <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); letter-spacing: 1px;">
-                        — Uncle Ben
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Work Experience -->
-    <section class="experience" style="background: var(--color-bg-elevated); padding: var(--space-5xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-header__label">Resume</span>
-                <h2 class="section-header__title">Work <em>Experience</em></h2>
-            </div>
-            <div style="max-width: 900px;">
-                <!-- Job 1 -->
-                <div class="reveal" style="padding: var(--space-2xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md); flex-wrap: wrap; gap: var(--space-md);">
-                        <div>
-                            <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--color-text-primary); margin-bottom: var(--space-xs);">UI/UX & Front-End Team Lead</h3>
-                            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent);">@ TakTek (Full-time)</p>
-                        </div>
-                        <div style="text-align: right;">
-                            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted);">Jan 2025 — Present</p>
-                            <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted);">Remote — Türkiye</p>
-                        </div>
-                    </div>
-                    <ul style="list-style: none; color: var(--color-text-secondary); font-size: 0.95rem; line-height: 2;">
-                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Own the design system and front-end architecture; lead a small squad.</li>
-                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Introduce AI-assisted coding for docs/refactors; enforce code quality.</li>
-                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Deliver Lighthouse ≥ 90, CLS ~0, and LCP < 2.5s across key pages.</li>
-                    </ul>
-                </div>
-                <!-- Job 2 -->
-                <div class="reveal" style="padding: var(--space-2xl) 0; border-bottom: 1px solid var(--color-border-subtle);">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md); flex-wrap: wrap; gap: var(--space-md);">
-                        <div>
-                            <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--color-text-primary); margin-bottom: var(--space-xs);">Front-End Lead</h3>
-                            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent);">@ CyberSee (Outsource)</p>
-                        </div>
-                        <div style="text-align: right;">
-                            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted);">Aug 2025 — Oct 2025</p>
-                            <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted);">Remote — KSA</p>
-                        </div>
-                    </div>
-                    <ul style="list-style: none; color: var(--color-text-secondary); font-size: 0.95rem; line-height: 2;">
-                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Security analytics dashboard UX; GSAP/Three.js hero with reduced-motion fallback.</li>
-                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Responsive grid/cards + FLIP modal; transform-only animations (no CLS).</li>
-                    </ul>
-                </div>
-                <!-- Job 3 -->
-                <div class="reveal" style="padding: var(--space-2xl) 0;">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: var(--space-md); flex-wrap: wrap; gap: var(--space-md);">
-                        <div>
-                            <h3 style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--color-text-primary); margin-bottom: var(--space-xs);">Frontend Developer</h3>
-                            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-accent);">@ InTimeDev (Full-time)</p>
-                        </div>
-                        <div style="text-align: right;">
-                            <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted);">2019 — 2024</p>
-                            <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted);">Nasr City, Egypt</p>
-                        </div>
-                    </div>
-                    <ul style="list-style: none; color: var(--color-text-secondary); font-size: 0.95rem; line-height: 2;">
-                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Delivered multiple products end-to-end with a professional team.</li>
-                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Built custom-coded and WordPress sites from Figma/PSD/XD to production.</li>
-                        <li style="padding-left: var(--space-lg); position: relative; margin-bottom: var(--space-sm);"><span style="position: absolute; left: 0; color: var(--color-accent);">→</span> Focused on responsive design, cross-browser compatibility, and performance.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Code Philosophy Block -->
-    <section class="code-philosophy">
-        <div class="container container--narrow">
-            <div class="section-header" style="text-align: center;">
-                <span class="section-header__label" style="justify-content: center;">How I Think</span>
-                <h2 class="section-header__title">Code <em>as documentation</em></h2>
-            </div>
-            <div class="code-block reveal">
-                <div class="code-block__header">
-                    <span class="code-block__dot code-block__dot--red"></span>
-                    <span class="code-block__dot code-block__dot--yellow"></span>
-                    <span class="code-block__dot code-block__dot--green"></span>
-                    <span class="code-block__filename">tokens.css</span>
-                </div>
-                <div class="code-block__content">
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">1</span>
-                        <span class="code-block__line-content"><span class="comment">/* ═══════════════════════════════════════════</span></span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">2</span>
-                        <span class="code-block__line-content"><span class="comment">   DESIGN TOKENS — The Single Source of Truth</span></span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">3</span>
-                        <span class="code-block__line-content"><span class="comment">   ═══════════════════════════════════════════ */</span></span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">4</span>
-                        <span class="code-block__line-content"></span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">5</span>
-                        <span class="code-block__line-content">:root {</span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">6</span>
-                        <span class="code-block__line-content">  <span class="comment">/* Spacing Scale */</span></span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">7</span>
-                        <span class="code-block__line-content">  <span class="property">--space-xs</span>: <span class="value">0.25rem</span>;</span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">8</span>
-                        <span class="code-block__line-content">  <span class="property">--space-sm</span>: <span class="value">0.5rem</span>;</span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">9</span>
-                        <span class="code-block__line-content">  <span class="property">--space-md</span>: <span class="value">1rem</span>;</span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">10</span>
-                        <span class="code-block__line-content">  <span class="property">--space-lg</span>: <span class="value">1.5rem</span>;</span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">11</span>
-                        <span class="code-block__line-content"></span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">12</span>
-                        <span class="code-block__line-content">  <span class="comment">/* No magic numbers. Ever. */</span></span>
-                    </div>
-                    <div class="code-block__line">
-                        <span class="code-block__line-number">13</span>
-                        <span class="code-block__line-content">}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stack -->
-    <section class="stack" id="stack">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-header__label">Technical Stack</span>
-                <h2 class="section-header__title">Tools I <em>actually use</em></h2>
-            </div>
-            <div class="stack__grid">
-                <div class="stack__category reveal">
-                    <h3 class="stack__category-title">Front-End Core</h3>
-                    <ul class="stack__list">
-                        <li class="stack__item">
-                            <span>HTML/CSS/Sass</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Bootstrap/Tailwind</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>GSAP Animations</span>
-                            <span class="stack__item-level">Proficient</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Three.js</span>
-                            <span class="stack__item-level">Proficient</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Accessibility (WCAG)</span>
-                            <span class="stack__item-level">Proficient</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="stack__category reveal">
-                    <h3 class="stack__category-title">JavaScript & Blade</h3>
-                    <ul class="stack__list">
-                        <li class="stack__item">
-                            <span>ES6+ JavaScript</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Alpine.js</span>
-                            <span class="stack__item-level">Proficient</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>jQuery (Legacy)</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Laravel Blade</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Livewire Components</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="stack__category reveal">
-                    <h3 class="stack__category-title">Design & AI Ops</h3>
-                    <ul class="stack__list">
-                        <li class="stack__item">
-                            <span>Figma</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Design Tokens / Atomic Design</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Codex / ChatGPT Workflows</span>
-                            <span class="stack__item-level">Proficient</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Git / Netlify / Vercel</span>
-                            <span class="stack__item-level">Proficient</span>
-                        </li>
-                        <li class="stack__item">
-                            <span>Lighthouse Optimization</span>
-                            <span class="stack__item-level">Advanced</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <h2 class="contact__title">Interested in freelance<br>opportunities.</h2>
-            <p class="contact__text">
-                If you have a project, request, or question—feel free to reach out. 
-                I'm always open to discussing new ideas.
-            </p>
-            <div class="contact__links">
-                <a href="mailto:en.developer2@gmail.com" class="contact__link">
-                    <span>→</span> en.developer2@gmail.com
-                </a>
-                <a href="https://linkedin.com/in/islam-abdelnasser" class="contact__link" target="_blank">
-                    <span>→</span> LinkedIn
-                </a>
-                <a href="https://github.com/eslamnasser" class="contact__link" target="_blank">
-                    <span>→</span> GitHub
-                </a>
-                <a href="https://figma.com/@eslamnasser" class="contact__link" target="_blank">
-                    <span>→</span> Figma
-                </a>
-                <a href="tel:+201002952013" class="contact__link">
-                    <span>→</span> +20 100 295 2013
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="footer__text">
-                © 2025. Made by <span>Eslam Nasser</span> — UI/UX Team Lead & Front-End Engineer
-            </p>
-        </div>
-    </footer>
-
-    <script>
-        // Navigation scroll effect
-        const nav = document.querySelector('.nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Reveal on scroll
-        const revealElements = document.querySelectorAll('.reveal');
-        
-        const revealOnScroll = () => {
-            revealElements.forEach(el => {
-                const elementTop = el.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementTop < windowHeight - 80) {
-                    el.classList.add('active');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', revealOnScroll);
-        revealOnScroll();
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+<script src="js/main.js" type="module"></script>
 </body>
 </html>
