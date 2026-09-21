@@ -864,31 +864,6 @@
       "code": "https://github.com/imsemoo/yassiru"
     },
     {
-      "slug": "bwabtek",
-      "name": "Bawabtak",
-      "ar": "بوابتك",
-      "tier": 3,
-      "client": "Bilingual landing page",
-      "where": "",
-      "lang": "bi",
-      "role": "Design and front-end, open source",
-      "stack": [
-        "HTML",
-        "CSS",
-        "ES modules",
-        "Python"
-      ],
-      "tags": [
-        "frontend",
-        "design",
-        "rtl",
-        "english"
-      ],
-      "summary": "Arabic is the source and the English page is generated from it. No framework, no bundler, no third-party requests.",
-      "url": "",
-      "code": "https://github.com/imsemoo/bwabtek"
-    },
-    {
       "slug": "yottasrc",
       "name": "Yottasrc",
       "tier": 3,
