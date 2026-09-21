@@ -4,7 +4,7 @@
    the pointer is over a row. */
 
 export function initPreview({ reduce }) {
-  const box = document.querySelector("[data-preview]");
+  const box = document.querySelector("[data-preview-box]");
   const rows = document.querySelector("[data-rows]");
   const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   if (!box || !rows || !fine || reduce) return;

@@ -478,9 +478,38 @@ line-height: 1.9;
 .quote__src {
 margin-top: var(--s-4);
 }
+.quote__src {
+display: flex;
+align-items: center;
+gap: var(--s-3);
+}
+.quote--ar .quote__src {
+flex-direction: row;
+}
 .quote__src b {
 color: var(--text-2);
 font-weight: 600;
+}
+.quote__brand {
+display: inline-grid;
+place-items: center;
+height: 2rem;
+min-width: 2rem;
+padding-inline: 0.5rem;
+border: 1px solid var(--line);
+border-radius: var(--r-sm);
+background: var(--paper-2);
+color: var(--ink);
+flex: none;
+}
+.quote__brand .icon--brand {
+width: 1.1rem;
+height: 1.1rem;
+vertical-align: 0;
+}
+.quote__brand .icon--wide {
+width: 3.2rem;
+height: 1rem;
 }
 .score {
 padding: var(--s-5);
@@ -1617,7 +1646,7 @@ transform: none;
     <div class="case__block case__block--problem"><h4>The problem</h4><p>A dealer group with a large, fast-moving inventory needed a public site that sells cars and an auction panel that dealers work in all day. The designs arrived as Adobe XD files; every screen had to become production markup that a back-end team could wire up without redrawing anything.</p></div>
     <div class="case__block"><h4>What I did</h4><ul><li>Built the full public front-end: make and model search with dependent filters, the vehicle page with its finance calculator and live video presentation request, and the reviews and dealer pages.</li><li>Built the auction side as a separate application shell: a left navigation of filters (make, model, series, year, variant, kilometres) driving a dashboard of upcoming auctions.</li><li>Kept the markup semantic and the components reusable so the same card, filter and form patterns repeat across both sides of the product.</li></ul></div>
     <div class="case__block"><h4>Technical notes</h4><ul><li>Hand-written SCSS with a small component layer over the Bootstrap grid</li><li>Progressive enhancement: filters and calculators work as plain forms first, then jQuery adds the live behaviour</li><li>Sprite and image discipline for an inventory site that shows dozens of photos per page</li></ul></div>
-    <div class="case__block"><h4>Result</h4><ul><li>Shipped across the marketplace, vehicle and auction screens.</li><li>The public site is offline at the time of writing, so the visuals here are the screens as they were built.</li></ul></div>
+    <div class="case__block"><h4>Result</h4><ul><li>Shipped across the marketplace, vehicle and auction screens.</li><li>The public site is currently limited to visitors in Australia after a wave of attacks on it, so the visuals here are the screens as they were built.</li></ul></div>
     
   </div>
 </article>
@@ -1736,7 +1765,7 @@ transform: none;
 
       <aside class="footprint" data-reveal-item data-psi="imsemoo-github-io">
         <h3>This page</h3>
-        <p class="small">28 KB of CSS and 16 KB of JavaScript of my own, 7 requests before images and fonts. GSAP and Lenis add 132 KB for the motion and are loaded after the content. Built 21 September 2026 from one JSON file by a Python script that also wrote this sentence.</p>
+        <p class="small">29 KB of CSS and 16 KB of JavaScript of my own, 7 requests before images and fonts. GSAP and Lenis add 132 KB for the motion and are loaded after the content. Built 21 September 2026 from one JSON file by a Python script that also wrote this sentence.</p>
         <p class="small footprint__self" data-self hidden>Measured by the same weekly job: mobile <b data-self-mobile></b>, desktop <b data-self-desktop></b> for performance, with accessibility, best practices and SEO at <b data-self-rest></b>.</p>
       </aside>
     </div>
@@ -1808,12 +1837,12 @@ transform: none;
       <p class="lede">Published reviews from Upwork and Mostaql, quoted as written.</p>
     </div>
     <div class="quotes" data-reveal-group>
-      <blockquote class="quote" data-reveal-item><p>"Islam is a superstar. I wanted to elevate a site for a product launch and his combined design and marketing hooks were exceptional."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, business homepage redesign</footer></blockquote>
-      <blockquote class="quote" data-reveal-item><p>"He understood the scope immediately and implemented everything in a clean, structured, and future-proof way."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, landing page and bond calculator</footer></blockquote>
-      <blockquote class="quote quote--ar" data-reveal-item lang="ar" dir="rtl"><p class="ar">"كل الشكر لك أخي الفاضل إسلام. احترافية وإخلاص وجودة تستحق الإشادة، ولن أتردد بالتعاون معك مستقبلا."</p><footer class="quote__src small"><b>زيد ا.</b>، مستقل <svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg></footer></blockquote>
-      <blockquote class="quote" data-reveal-item><p>"He understood the requirements well and was reliable, helpful, and solution-oriented throughout the implementation."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, ordering interface for a restaurant</footer></blockquote>
-      <blockquote class="quote quote--ar" data-reveal-item lang="ar" dir="rtl"><p class="ar">"التجربة مرضية لأقصى حد والنتائج تجاوزت سقف التوقعات. الاهتمام والخبرة والجهد أنتجت عملًا مميزًا."</p><footer class="quote__src small"><b>Nass A.</b>، مستقل <svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg></footer></blockquote>
-      <blockquote class="quote" data-reveal-item><p>"I worked with Islam for an extended period of time. Thank you for the collaboration, and I wish him all the best."</p><footer class="quote__src small"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg> <b>Upwork client</b>, one year on a multilingual shop</footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"Islam is a superstar. I wanted to elevate a site for a product launch and his combined design and marketing hooks were exceptional."</p><footer class="quote__src small"><span class="quote__brand" title="Upwork"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg></span><span><b>Upwork client</b>, business homepage redesign</span></footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"He understood the scope immediately and implemented everything in a clean, structured, and future-proof way."</p><footer class="quote__src small"><span class="quote__brand" title="Upwork"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg></span><span><b>Upwork client</b>, landing page and bond calculator</span></footer></blockquote>
+      <blockquote class="quote quote--ar" data-reveal-item lang="ar" dir="rtl"><p class="ar">"كل الشكر لك أخي الفاضل إسلام. احترافية وإخلاص وجودة تستحق الإشادة، ولن أتردد بالتعاون معك مستقبلا."</p><footer class="quote__src small"><span class="quote__brand" title="مستقل"><svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg></span><span><b>زيد ا.</b>، عميل على مستقل</span></footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"He understood the requirements well and was reliable, helpful, and solution-oriented throughout the implementation."</p><footer class="quote__src small"><span class="quote__brand" title="Upwork"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg></span><span><b>Upwork client</b>, ordering interface for a restaurant</span></footer></blockquote>
+      <blockquote class="quote quote--ar" data-reveal-item lang="ar" dir="rtl"><p class="ar">"التجربة مرضية لأقصى حد والنتائج تجاوزت سقف التوقعات. الاهتمام والخبرة والجهد أنتجت عملًا مميزًا."</p><footer class="quote__src small"><span class="quote__brand" title="مستقل"><svg class="icon icon--brand icon--wide" aria-hidden="true"><use href="#i-mostaql"/></svg></span><span><b>Nass A.</b>، عميل على مستقل</span></footer></blockquote>
+      <blockquote class="quote" data-reveal-item><p>"I worked with Islam for an extended period of time. Thank you for the collaboration, and I wish him all the best."</p><footer class="quote__src small"><span class="quote__brand" title="Upwork"><svg class="icon icon--brand" aria-hidden="true"><use href="#i-upwork"/></svg></span><span><b>Upwork client</b>, one year on a multilingual shop</span></footer></blockquote>
     </div>
   </div>
 </section>
@@ -1844,7 +1873,7 @@ transform: none;
   </div>
 </footer>
 
-<div class="preview" data-preview aria-hidden="true"><img class="preview__img" alt="" width="600" height="375" decoding="async"></div>
+<div class="preview" data-preview-box aria-hidden="true"><img class="preview__img" alt="" width="600" height="375" decoding="async"></div>
 
 </div>
 

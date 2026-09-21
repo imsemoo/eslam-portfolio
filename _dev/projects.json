@@ -1,14 +1,41 @@
 {
   "filters": [
-    { "id": "all", "label": "Everything" },
-    { "id": "laravel", "label": "Laravel and Livewire" },
-    { "id": "vue", "label": "Vue" },
-    { "id": "wordpress", "label": "WordPress" },
-    { "id": "frontend", "label": "Hand-built front-ends" },
-    { "id": "design", "label": "Designed by me" },
-    { "id": "english", "label": "English sites" },
-    { "id": "rtl", "label": "Arabic and RTL" },
-    { "id": "product", "label": "Own products" }
+    {
+      "id": "all",
+      "label": "Everything"
+    },
+    {
+      "id": "laravel",
+      "label": "Laravel and Livewire"
+    },
+    {
+      "id": "vue",
+      "label": "Vue"
+    },
+    {
+      "id": "wordpress",
+      "label": "WordPress"
+    },
+    {
+      "id": "frontend",
+      "label": "Hand-built front-ends"
+    },
+    {
+      "id": "design",
+      "label": "Designed by me"
+    },
+    {
+      "id": "english",
+      "label": "English sites"
+    },
+    {
+      "id": "rtl",
+      "label": "Arabic and RTL"
+    },
+    {
+      "id": "product",
+      "label": "Own products"
+    }
   ],
   "projects": [
     {
@@ -19,11 +46,24 @@
       "where": "Australia",
       "lang": "en",
       "role": "Front-end, from Adobe XD to production",
-      "stack": ["HTML", "SCSS", "JavaScript", "jQuery", "Bootstrap"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript",
+        "jQuery",
+        "Bootstrap"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "One of the biggest used-car marketplaces in its market: search, vehicle pages with finance calculators, live video presentations and an online auction dashboard.",
       "url": "https://www.ozcar.com.au/",
-      "image": ["oz/OzCar-home-3.png", "oz/OzCar-home-1.png", "oz/OzCar-auc1.png"],
+      "image": [
+        "oz/OzCar-home-3.png",
+        "oz/OzCar-home-1.png",
+        "oz/OzCar-auc1.png"
+      ],
       "case": {
         "category": "Marketplace front-end",
         "problem": "A dealer group with a large, fast-moving inventory needed a public site that sells cars and an auction panel that dealers work in all day. The designs arrived as Adobe XD files; every screen had to become production markup that a back-end team could wire up without redrawing anything.",
@@ -39,7 +79,7 @@
         ],
         "result": [
           "Shipped across the marketplace, vehicle and auction screens.",
-          "The public site is offline at the time of writing, so the visuals here are the screens as they were built."
+          "The public site is currently limited to visitors in Australia after a wave of attacks on it, so the visuals here are the screens as they were built."
         ]
       }
     },
@@ -52,8 +92,19 @@
       "where": "Türkiye, Palestine, Yemen",
       "lang": "bi",
       "role": "Design and full-stack, product owner of the front-end",
-      "stack": ["Laravel", "Livewire", "MySQL", "Redis", "Alpine"],
-      "tags": ["laravel", "design", "rtl", "product"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "MySQL",
+        "Redis",
+        "Alpine"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl",
+        "product"
+      ],
       "summary": "One Laravel application, one deploy, twenty-four Arabic news sites, each with its own theme, modules, languages and editorial team.",
       "url": "https://demo.taktek.co/dashboard",
       "image": "devlo.png",
@@ -85,8 +136,16 @@
       "where": "Palestine",
       "lang": "ar",
       "role": "Design and full-stack, on Devlo CMS",
-      "stack": ["Laravel", "Livewire", "RTL"],
-      "tags": ["laravel", "design", "rtl"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "RTL"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl"
+      ],
       "summary": "A high-volume Arabic newsroom publishing all day. Real Chrome users load it inside Google's FAST band.",
       "url": "https://qudsn.co/",
       "image": "qudsn.png",
@@ -118,8 +177,19 @@
       "where": "Palestine",
       "lang": "ar",
       "role": "Design and full-stack",
-      "stack": ["Laravel", "Inertia", "Vue 3", "SSR", "Charts"],
-      "tags": ["laravel", "vue", "design", "rtl"],
+      "stack": [
+        "Laravel",
+        "Inertia",
+        "Vue 3",
+        "SSR",
+        "Charts"
+      ],
+      "tags": [
+        "laravel",
+        "vue",
+        "design",
+        "rtl"
+      ],
       "summary": "A data platform rather than a website: dashboards, an interactive map and charts over a large Arabic dataset, rendered on the server so the numbers are indexable.",
       "url": "https://www.mo3ta.ps/",
       "image": "mo3ta.png",
@@ -150,8 +220,17 @@
       "where": "Yemen",
       "lang": "ar",
       "role": "Design and full-stack",
-      "stack": ["Laravel", "Livewire", "Schema", "SEO"],
-      "tags": ["laravel", "design", "rtl"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "Schema",
+        "SEO"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl"
+      ],
       "summary": "Arabic fact-checking: every claim carries its verdict on the card. Scores 100 in all four Lighthouse categories on desktop, re-measured weekly.",
       "url": "https://musnadye.com/",
       "image": "musnad.png",
@@ -174,7 +253,6 @@
         ]
       }
     },
-
     {
       "slug": "ahsebli",
       "name": "Ahsebli",
@@ -184,8 +262,18 @@
       "where": "Saudi Arabia, Gulf, Egypt",
       "lang": "ar",
       "role": "Design, build and everything else",
-      "stack": ["PWA", "Service worker", "Schema", "RTL"],
-      "tags": ["product", "frontend", "design", "rtl"],
+      "stack": [
+        "PWA",
+        "Service worker",
+        "Schema",
+        "RTL"
+      ],
+      "tags": [
+        "product",
+        "frontend",
+        "design",
+        "rtl"
+      ],
       "summary": "Over a hundred Arabic financial calculators. Installable, and a saved calculator keeps working with no connection.",
       "url": "https://ahsebli.com/",
       "image": "ahsebli.png"
@@ -199,8 +287,16 @@
       "where": "",
       "lang": "bi",
       "role": "Design and full-stack",
-      "stack": ["CakePHP 5", "PHPUnit", "PHPStan"],
-      "tags": ["product", "design", "rtl"],
+      "stack": [
+        "CakePHP 5",
+        "PHPUnit",
+        "PHPStan"
+      ],
+      "tags": [
+        "product",
+        "design",
+        "rtl"
+      ],
       "summary": "The client edits the real page inside the panel, so the design cannot be dragged apart. 1,500 tests gated in CI.",
       "url": "https://imsemoo.github.io/matn-site/",
       "image": "matn.png"
@@ -214,8 +310,16 @@
       "where": "Palestine",
       "lang": "ar",
       "role": "Design and full-stack",
-      "stack": ["Laravel", "Livewire", "RTL"],
-      "tags": ["laravel", "design", "rtl"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "RTL"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl"
+      ],
       "summary": "News network from inside the 1948 territories, built around a dense right-to-left front page.",
       "url": "https://new.aljarmaq.net/",
       "image": "aljarmaq.png"
@@ -229,8 +333,17 @@
       "where": "Syria, Türkiye",
       "lang": "bi",
       "role": "Design and full-stack",
-      "stack": ["Laravel", "Livewire", "Bilingual"],
-      "tags": ["laravel", "design", "rtl", "english"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "Bilingual"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl",
+        "english"
+      ],
       "summary": "Papers, library and media in Arabic and English, with a separate URL per language and long-form pages built to be read.",
       "url": "https://qasiounstudies.org/",
       "image": "qasioun.png"
@@ -244,8 +357,16 @@
       "where": "Palestine",
       "lang": "ar",
       "role": "Design and full-stack, on Devlo CMS",
-      "stack": ["Laravel", "Livewire", "RTL"],
-      "tags": ["laravel", "design", "rtl"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "RTL"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl"
+      ],
       "summary": "Readers submit claims, the team verifies them, and the verdicts publish as news.",
       "url": "https://tayqan.net/",
       "image": "tayqan.png"
@@ -258,8 +379,16 @@
       "where": "India",
       "lang": "en",
       "role": "Front-end from Figma, then the performance and security pass, on Devlo CMS",
-      "stack": ["Laravel", "Livewire", "Figma"],
-      "tags": ["laravel", "frontend", "english"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "Figma"
+      ],
+      "tags": [
+        "laravel",
+        "frontend",
+        "english"
+      ],
       "summary": "An English-language newsroom on the same platform as the Arabic ones, which is the point of the platform.",
       "url": "https://maktoobmedia.com/",
       "image": "maktoob.png"
@@ -273,8 +402,15 @@
       "where": "Palestine",
       "lang": "ar",
       "role": "Full-stack from Figma, on Devlo CMS",
-      "stack": ["Laravel", "Livewire", "Figma"],
-      "tags": ["laravel", "rtl"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "Figma"
+      ],
+      "tags": [
+        "laravel",
+        "rtl"
+      ],
       "summary": "News network with a heavy visual front page and a live ticker.",
       "url": "https://hodhodpal.ps/",
       "image": "hodhod.png"
@@ -288,8 +424,16 @@
       "where": "Yemen",
       "lang": "ar",
       "role": "Design and full-stack, on Devlo CMS",
-      "stack": ["Laravel", "Livewire", "Audio"],
-      "tags": ["laravel", "design", "rtl"],
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "Audio"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl"
+      ],
       "summary": "A podcast network with episode pages, players and show archives, all in Arabic.",
       "url": "https://adenicast.com/",
       "image": "adenicast.png"
@@ -303,8 +447,16 @@
       "where": "Palestine",
       "lang": "ar",
       "role": "Design and front-end, on Devlo CMS",
-      "stack": ["Laravel", "Blade", "RTL"],
-      "tags": ["laravel", "design", "rtl"],
+      "stack": [
+        "Laravel",
+        "Blade",
+        "RTL"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl"
+      ],
       "summary": "A single-subject archive: timeline, documents, speeches and media, designed to be read slowly.",
       "url": "https://al-arouri.net/",
       "image": "arouri.png"
@@ -317,8 +469,16 @@
       "where": "Egypt, UK",
       "lang": "en",
       "role": "Front-end from Figma, 30+ hand-built pages",
-      "stack": ["HTML", "SCSS", "JavaScript", "Figma"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript",
+        "Figma"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "University search, programmes, scholarships and applications, built page by page from Figma.",
       "url": "https://www.besaeg.com/",
       "code": "https://github.com/imsemoo/besa",
@@ -332,8 +492,16 @@
       "where": "UK",
       "lang": "en",
       "role": "Full-stack, Laravel, UI designed from scratch",
-      "stack": ["Laravel", "Blade", "Payments"],
-      "tags": ["laravel", "design", "english"],
+      "stack": [
+        "Laravel",
+        "Blade",
+        "Payments"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "english"
+      ],
       "summary": "Campaigns, quick donate, sponsorship and multi-currency giving for a UK charity.",
       "url": "https://yedibasak.uk/",
       "image": "yedibasak.png"
@@ -346,8 +514,16 @@
       "where": "UK",
       "lang": "en",
       "role": "Front-end from Adobe XD",
-      "stack": ["HTML", "SCSS", "JavaScript", "Adobe XD"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript",
+        "Adobe XD"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "A streaming front page: shows, categories, premieres and a presenter sign-up, built from XD.",
       "url": "https://handsontv.co.uk/",
       "image": "handsontv.png"
@@ -360,8 +536,15 @@
       "where": "USA",
       "lang": "en",
       "role": "Front-end, hand-built",
-      "stack": ["HTML", "SCSS", "JavaScript"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "Product catalogue and distribution pages for a US hardware brand, no page builder anywhere.",
       "url": "https://hardwareandglass.com/",
       "image": "hg.png"
@@ -374,8 +557,15 @@
       "where": "Australia",
       "lang": "en",
       "role": "Front-end",
-      "stack": ["HTML", "SCSS", "jQuery"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "jQuery"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "Quote, book and track flows for an Australian courier, with a dense quick-quote form as the home page.",
       "url": "https://www.bhfcouriers.com.au/",
       "image": "bhf.png"
@@ -388,14 +578,21 @@
       "where": "Australia",
       "lang": "en",
       "role": "Design and front-end",
-      "stack": ["HTML", "CSS", "ES modules"],
-      "tags": ["frontend", "design", "english"],
+      "stack": [
+        "HTML",
+        "CSS",
+        "ES modules"
+      ],
+      "tags": [
+        "frontend",
+        "design",
+        "english"
+      ],
       "summary": "Marketing site with scroll scenes on CSS view timelines, page transitions and no build step. No axe-core violations across 24 page states.",
       "url": "https://imsemoo.github.io/kevla-campa/",
       "code": "https://github.com/imsemoo/kevla-campa",
       "image": "kevla.png"
     },
-
     {
       "slug": "hive",
       "name": "Hive Studio",
@@ -404,8 +601,15 @@
       "where": "Saudi Arabia",
       "lang": "bi",
       "role": "WordPress, bilingual",
-      "stack": ["WordPress", "Elementor"],
-      "tags": ["wordpress", "rtl", "english"],
+      "stack": [
+        "WordPress",
+        "Elementor"
+      ],
+      "tags": [
+        "wordpress",
+        "rtl",
+        "english"
+      ],
       "summary": "Bilingual studio site with portfolio and media sections.",
       "url": "https://hivestudio.net/",
       "image": "hive.png"
@@ -418,8 +622,13 @@
       "where": "Australia",
       "lang": "en",
       "role": "WordPress",
-      "stack": ["WordPress"],
-      "tags": ["wordpress", "english"],
+      "stack": [
+        "WordPress"
+      ],
+      "tags": [
+        "wordpress",
+        "english"
+      ],
       "summary": "Lesson booking for a family-owned driving school on Sydney's North Shore.",
       "url": "https://skillsbeyond.com.au/",
       "image": "skillsbeyond.png"
@@ -432,8 +641,14 @@
       "where": "Australia",
       "lang": "en",
       "role": "WordPress",
-      "stack": ["WordPress", "Elementor"],
-      "tags": ["wordpress", "english"],
+      "stack": [
+        "WordPress",
+        "Elementor"
+      ],
+      "tags": [
+        "wordpress",
+        "english"
+      ],
       "summary": "Brand site for an Australian aquaculture farm.",
       "url": "https://infinitybluebarramundi.com.au/",
       "image": "ibb.png"
@@ -446,8 +661,15 @@
       "where": "Saudi Arabia",
       "lang": "bi",
       "role": "WordPress, bilingual",
-      "stack": ["WordPress", "Elementor"],
-      "tags": ["wordpress", "rtl", "english"],
+      "stack": [
+        "WordPress",
+        "Elementor"
+      ],
+      "tags": [
+        "wordpress",
+        "rtl",
+        "english"
+      ],
       "summary": "Conference site with schedule, speakers, sponsors and live stream.",
       "url": "https://innovation-driven-desalination.com/",
       "image": "idd.png"
@@ -460,8 +682,13 @@
       "where": "Egypt",
       "lang": "en",
       "role": "WordPress",
-      "stack": ["WordPress"],
-      "tags": ["wordpress", "english"],
+      "stack": [
+        "WordPress"
+      ],
+      "tags": [
+        "wordpress",
+        "english"
+      ],
       "summary": "Corporate site for a wellbore survey and engineering services company.",
       "url": "https://powerlineegypt.com/",
       "image": "powerline.png"
@@ -475,8 +702,13 @@
       "where": "Saudi Arabia",
       "lang": "ar",
       "role": "WordPress",
-      "stack": ["WordPress"],
-      "tags": ["wordpress", "rtl"],
+      "stack": [
+        "WordPress"
+      ],
+      "tags": [
+        "wordpress",
+        "rtl"
+      ],
       "summary": "Corporate site for an events company.",
       "url": "https://abaad-intl.com/",
       "image": "legacy/abaad/Template.png"
@@ -489,8 +721,13 @@
       "where": "Oman",
       "lang": "en",
       "role": "WordPress",
-      "stack": ["WordPress"],
-      "tags": ["wordpress", "english"],
+      "stack": [
+        "WordPress"
+      ],
+      "tags": [
+        "wordpress",
+        "english"
+      ],
       "summary": "E-visa information and application site.",
       "url": "https://visaoman.com/",
       "image": "legacy/visaoman/1.png"
@@ -503,8 +740,15 @@
       "where": "Australia",
       "lang": "en",
       "role": "Front-end from Adobe XD",
-      "stack": ["HTML", "SCSS", "JavaScript"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "Five-step shipment booking flow, built from XD.",
       "url": "https://couriernow.com.au/",
       "image": "legacy/cn/couriernow-home_1.png"
@@ -517,8 +761,15 @@
       "where": "",
       "lang": "en",
       "role": "Front-end",
-      "stack": ["HTML", "SCSS", "JavaScript"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "Corporate site with a multi-step application form.",
       "url": "https://imsemoo.github.io/Buruj/",
       "code": "https://github.com/imsemoo/Buruj",
@@ -532,8 +783,15 @@
       "where": "Egypt",
       "lang": "en",
       "role": "Front-end",
-      "stack": ["HTML", "SCSS", "AOS"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "AOS"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "Agency site with scroll-driven animation.",
       "url": "https://imsemoo.github.io/Intimedev/",
       "code": "https://github.com/imsemoo/Intimedev",
@@ -548,8 +806,15 @@
       "where": "Egypt",
       "lang": "ar",
       "role": "Front-end, six page templates",
-      "stack": ["HTML", "Bootstrap", "RTL"],
-      "tags": ["frontend", "rtl"],
+      "stack": [
+        "HTML",
+        "Bootstrap",
+        "RTL"
+      ],
+      "tags": [
+        "frontend",
+        "rtl"
+      ],
       "summary": "Fully right-to-left news template set.",
       "url": "https://imsemoo.github.io/mohajer/",
       "code": "https://github.com/imsemoo/mohajer",
@@ -563,8 +828,14 @@
       "where": "Germany",
       "lang": "en",
       "role": "Front-end, in a team, over a year",
-      "stack": ["Next.js", "TypeScript"],
-      "tags": ["frontend", "english"],
+      "stack": [
+        "Next.js",
+        "TypeScript"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
       "summary": "Multilingual restaurant and shop, including a custom pizza builder and a dark mode for the whole UI system.",
       "url": ""
     },
@@ -577,8 +848,17 @@
       "where": "",
       "lang": "ar",
       "role": "Full-stack, open source",
-      "stack": ["Laravel", "Vue", "Docker", "Sanctum"],
-      "tags": ["laravel", "vue", "rtl"],
+      "stack": [
+        "Laravel",
+        "Vue",
+        "Docker",
+        "Sanctum"
+      ],
+      "tags": [
+        "laravel",
+        "vue",
+        "rtl"
+      ],
       "summary": "Candidate matching, premarital courses, guarantee-fund savings circles and digital contracts.",
       "url": "",
       "code": "https://github.com/imsemoo/yassiru"
@@ -592,8 +872,18 @@
       "where": "",
       "lang": "bi",
       "role": "Design and front-end, open source",
-      "stack": ["HTML", "CSS", "ES modules", "Python"],
-      "tags": ["frontend", "design", "rtl", "english"],
+      "stack": [
+        "HTML",
+        "CSS",
+        "ES modules",
+        "Python"
+      ],
+      "tags": [
+        "frontend",
+        "design",
+        "rtl",
+        "english"
+      ],
       "summary": "Arabic is the source and the English page is generated from it. No framework, no bundler, no third-party requests.",
       "url": "",
       "code": "https://github.com/imsemoo/bwabtek"
@@ -606,8 +896,16 @@
       "where": "",
       "lang": "bi",
       "role": "Front-end, open source",
-      "stack": ["HTML", "SCSS", "JavaScript"],
-      "tags": ["frontend", "rtl", "english"],
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "frontend",
+        "rtl",
+        "english"
+      ],
       "summary": "Hosting site and client dashboard, English and Arabic, multi-currency.",
       "url": "",
       "code": "https://github.com/imsemoo/yottasrc"
@@ -620,8 +918,16 @@
       "where": "",
       "lang": "en",
       "role": "UI, open source",
-      "stack": ["HTML", "CSS", "JavaScript"],
-      "tags": ["frontend", "design", "english"],
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "frontend",
+        "design",
+        "english"
+      ],
       "summary": "Multi-page dashboard UI for a creative agency: pricing, sign-up and a guided tour.",
       "url": "",
       "code": "https://github.com/imsemoo/creatives-dashboard"
