@@ -16,8 +16,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEV = os.path.join(ROOT, "_dev")
 ICONS = os.path.join(DEV, "icons")
 
-LANG = {"ar": "Arabic", "en": "English", "bi": "Arabic and English"}
-LANG_SHORT = {"ar": "AR", "en": "EN", "bi": "AR/EN"}
+LANG = {"ar": "Arabic", "en": "English", "bi": "Arabic and English", "de": "German and English"}
+LANG_SHORT = {"ar": "AR", "en": "EN", "bi": "AR/EN", "de": "DE/EN"}
 
 
 def esc(s):
@@ -61,7 +61,7 @@ def picture(p, sizes, cls="", loading="lazy", priority=None):
 
 def shot(p, sizes, priority=None, cls=""):
     """A screenshot in the page's thin frame. Caption is the host, nothing else."""
-    cap = host(p["url"]) if p.get("url") else "code on GitHub"
+    cap = p.get("caption") or (host(p["url"]) if p.get("url") else ("code on GitHub" if p.get("code") else "private build"))
     loading = "eager" if priority is not None else "lazy"
     return (
         f'<figure class="shot {cls}">'
@@ -75,9 +75,20 @@ def tags(stack):
     return "".join(f'<span class="tag">{esc(t)}</span>' for t in stack)
 
 
-def row(p, n):
+def rank_attrs(p, ranks):
+    """data-rank-<filter> for the filters whose order is set by hand under
+    "orders" in projects.json; filters.js sorts the visible rows by it. Every
+    other filter follows the order of the projects array."""
+    out = ""
+    for fid, order in ranks.items():
+        if p["slug"] in order:
+            out += f' data-rank-{fid}="{order.index(p["slug"]) + 1}"'
+    return out
+
+
+def row(p, n, ranks):
     tier = p["tier"]
-    featured = tier == 1
+    featured = bool(p.get("case"))
     has_img = bool(p.get("image"))
     if featured:
         href, external = f"#case-{p['slug']}", False
@@ -92,7 +103,7 @@ def row(p, n):
         f'<span class="row__thumb"><img src="img/work/{p["slug"]}-thumb.webp" width="240" height="150" '
         f'alt="" loading="lazy" decoding="async"></span>'
         if has_img
-        else f'<span class="row__thumb row__thumb--empty mono" aria-hidden="true" data-initial="{esc(p["name"][0])}"></span>'
+        else f'<span class="row__thumb row__thumb--empty" aria-hidden="true" data-initial="{esc(p["name"][0])}" data-note="{"repo" if p.get("code") else "private"}"></span>'
     )
     ar = f' <span class="ar">{esc(p["ar"])}</span>' if p.get("ar") else ""
     where = f'<span class="row__where">{esc(p["where"])}</span>' if p.get("where") else ""
@@ -110,13 +121,13 @@ def row(p, n):
         ext = f'<span class="row__ext" aria-hidden="true">{icon("arrow-up-right" if external else "arrow-down-right")}</span>'
     preview = f' data-preview="img/work/{p["slug"]}-600.webp"' if has_img else ""
     return (
-        f'<li class="row row--t{tier}" data-tags="{esc(" ".join(p["tags"]))}"{preview}>'
+        f'<li class="row row--t{tier}" data-tags="{esc(" ".join(p["tags"]))}"{preview}{rank_attrs(p, ranks)}>'
         f'<span class="row__n mono" aria-hidden="true"></span>'
         f"{thumb}"
         f'<div class="row__main">{name_html}'
         f'<span class="row__client">{esc(p["client"])}{where}</span></div>'
         f'<span class="row__role">{esc(p["role"])}</span>'
-        f'<span class="row__stack">{tags(p["stack"][:4])}</span>'
+        f'<span class="row__stack">{tags(p["stack"][:3])}</span>'
         f'<span class="row__lang mono" title="{LANG[p["lang"]]}">{LANG_SHORT[p["lang"]]}</span>'
         f"{ext}"
         f"</li>"
@@ -144,6 +155,7 @@ def case(p, i):
         else ""
     )
     sizes = "(min-width: 900px) 1180px, 100vw" if "full" in layout else "(min-width: 900px) 56vw, 100vw"
+    back = f'<a class="case__back" href="#index">{icon("arrow-up")}Back to the index</a>'
     return f"""
 <article class="case {layout}" id="case-{p['slug']}" data-reveal-group>
   <header class="case__head">
@@ -158,7 +170,7 @@ def case(p, i):
     {block('What I did', c['did'])}
     {block('Technical notes', c['tech'])}
     {block('Result', c['result'])}
-    {f'<div class="case__cta">{link}</div>' if link else ''}
+    <div class="case__cta">{link}{back}</div>
   </div>
 </article>"""
 
@@ -198,8 +210,12 @@ def main():
     projects = data["projects"]
     tpl = open(os.path.join(DEV, "template.html"), encoding="utf-8").read()
 
-    featured = [p for p in projects if p["tier"] == 1]
-    rows = "\n".join(row(p, i + 1) for i, p in enumerate(projects))
+    ranks = data.get("orders", {})
+    for fid, order in ranks.items():
+        tagged = {p["slug"] for p in projects if fid in p["tags"]}
+        assert set(order) == tagged and len(order) == len(tagged), f"orders.{fid} must list every {fid} project exactly once"
+    featured = [p for p in projects if p.get("case")]
+    rows = "\n".join(row(p, i + 1, ranks) for i, p in enumerate(projects))
     cases = "\n".join(case(p, i) for i, p in enumerate(featured))
     def tally(fid):
         return len(projects) if fid == "all" else sum(1 for p in projects if fid in p["tags"])
@@ -211,7 +227,7 @@ def main():
     by = {p["slug"]: p for p in projects}
     hero_shots = "".join(
         f'<div class="hero__layer hero__layer--{i + 1}" data-depth="{d}">{shot(by[s], "(min-width: 900px) 38vw, 80vw", priority=(i == 0))}</div>'
-        for i, (s, d) in enumerate([("mo3ta", 0.12), ("qudsn", 0.22), ("ahsebli", 0.34)])
+        for i, (s, d) in enumerate([("mo3ta", 0.12), ("iwad", 0.22), ("qasioun", 0.34)])
     )
     css, js_kb, requests = footprint()
     css_kb = round(len(css.encode("utf-8")) / 1024)

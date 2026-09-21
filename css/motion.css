@@ -22,7 +22,7 @@
     to { transform: none; opacity: 1; }
   }
   @keyframes fade-up {
-    from { transform: translateY(18px); opacity: 0; }
+    from { transform: translateY(var(--rise)); opacity: 0; }
     to { transform: none; opacity: 1; }
   }
   @keyframes settle {
@@ -36,9 +36,9 @@
   }
   .hero__title .line:nth-child(2) { animation-delay: 0.09s; }
   .hero__title .line:nth-child(3) { animation-delay: 0.18s; }
-  .hero__lede { animation: fade-up 0.85s var(--ease-out) 0.3s both; }
-  .hero__actions { animation: fade-up 0.85s var(--ease-out) 0.42s both; }
-  .hero__data .datum { animation: fade-up 0.8s var(--ease-out) both; }
+  .hero__lede { animation: fade-up var(--dur-reveal) var(--ease-out) 0.3s both; }
+  .hero__actions { animation: fade-up var(--dur-reveal) var(--ease-out) 0.42s both; }
+  .hero__data .datum { animation: fade-up var(--dur-reveal) var(--ease-out) both; }
   .hero__data .datum:nth-child(2) { animation-delay: 0.07s; }
   .hero__data .datum:nth-child(3) { animation-delay: 0.14s; }
   .hero__data .datum:nth-child(4) { animation-delay: 0.21s; }
@@ -50,9 +50,11 @@
   .row__thumb img {
     transition: transform var(--dur-slow) var(--ease-out);
   }
-  .row:hover .row__thumb img,
+  .row:hover .row__thumb img {
+    transform: scale(1.05);
+  }
   .case__visual:hover .shot__img {
-    transform: scale(1.02);
+    transform: scale(1.025);
   }
 }
 
@@ -64,6 +66,8 @@
   .row__ext,
   .preview,
   .nav,
+  .case__back,
+  .case__back .icon,
   .nav__links a::after {
     transition: none;
   }

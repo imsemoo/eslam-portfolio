@@ -37,6 +37,26 @@
       "label": "Own products"
     }
   ],
+  "orders": {
+    "design": [
+      "iwad",
+      "qasioun",
+      "mo3ta",
+      "musnad",
+      "aljarmaq",
+      "devlo",
+      "toolora",
+      "qudsn",
+      "kevla",
+      "ahsebli",
+      "adenicast",
+      "arouri",
+      "matn",
+      "yedibasak",
+      "tayqan",
+      "creatives"
+    ]
+  },
   "projects": [
     {
       "slug": "ozcar",
@@ -107,7 +127,11 @@
       ],
       "summary": "One Laravel application, one deploy, twenty-four Arabic news sites, each with its own theme, modules, languages and editorial team.",
       "url": "https://demo.taktek.co/dashboard",
-      "image": "devlo.png",
+      "image": [
+        "qudsn.png",
+        "hodhod.png",
+        "maktoob.png"
+      ],
       "case": {
         "category": "Multi-tenant CMS",
         "problem": "Newsrooms were being built one at a time, each a fork of the last. A fix in one site never reached the others, and every new client meant weeks of duplicated work. The platform had to run many sites from one codebase without any site seeing another's features, permissions or content.",
@@ -125,48 +149,30 @@
           "Powers Quds News Network, Tayaqan, Maktoob Media, Hodhod, Adeni Cast and the Saleh Al-Arouri archive, among others.",
           "Full write-up in the case studies on my GitHub profile, including the ideas that were measured and thrown away."
         ]
-      }
+      },
+      "caption": "24 sites on one codebase"
     },
     {
-      "slug": "qudsn",
-      "name": "Quds News Network",
-      "ar": "قدس الإخبارية",
+      "slug": "calimero",
+      "name": "Calimero",
       "tier": 1,
-      "client": "Palestinian news network",
-      "where": "Palestine",
-      "lang": "ar",
-      "role": "Design and full-stack, on Devlo CMS",
+      "client": "Calimero Pizzaservice, restaurant and online ordering",
+      "where": "Germany",
+      "lang": "de",
+      "role": "Front-end, in a team, over a year",
       "stack": [
-        "Laravel",
-        "Livewire",
-        "RTL"
+        "Next.js 14",
+        "TypeScript",
+        "Tailwind",
+        "Framer Motion",
+        "GSAP"
       ],
       "tags": [
-        "laravel",
-        "design",
-        "rtl"
+        "frontend",
+        "english"
       ],
-      "summary": "A high-volume Arabic newsroom publishing all day. Real Chrome users load it inside Google's FAST band.",
-      "url": "https://qudsn.co/",
-      "image": "qudsn.png",
-      "case": {
-        "category": "High-traffic newsroom",
-        "problem": "A newsroom that publishes around the clock, in Arabic, to an audience that is overwhelmingly on phones and often on poor connections. The front page changes every few minutes and has to stay fast while carrying video, podcasts, live tickers and a dark mode.",
-        "did": [
-          "Designed the reading experience for right-to-left first: the grid, the type scale and the density were set on real Arabic headlines, not on Latin placeholder text.",
-          "Built the front page on Devlo modules: breaking strip, lead story, headline rail, audio briefing, podcast and translation sections, each switchable by the editors.",
-          "Ran the performance pass described in the newsroom audit case study: fonts cut from 749 KB to 78 KB, a preload that was hurting removed, and the Cloudflare rule that explained a TTFB nobody could move."
-        ],
-        "tech": [
-          "Server-rendered Blade with Livewire only where the page actually changes",
-          "Article schema, share images and hreflang generated per story",
-          "Measured weekly against Google's PageSpeed API from my GitHub profile"
-        ],
-        "result": [
-          "Field data from real Chrome users over 28 days: FAST, with LCP at 2.33 s and INP at 104 ms.",
-          "Lab scores on 20 September 2026: 99 on desktop, 82 on mobile, with accessibility and SEO at 100 on both."
-        ]
-      }
+      "summary": "Online ordering in German and English: a menu of eleven-plus categories, a custom pizza builder, a live cart, delivery or pickup, and checkout through PayPal, Stripe, Klarna, Apple Pay and Google Pay, with a dark mode for the whole UI system. The shop now sits behind an access login, so there is no public link.",
+      "url": ""
     },
     {
       "slug": "mo3ta",
@@ -254,6 +260,124 @@
       }
     },
     {
+      "slug": "toolora",
+      "name": "Toolora",
+      "tier": 1,
+      "client": "My own product, in development",
+      "where": "",
+      "lang": "en",
+      "role": "Design, architecture and full-stack",
+      "stack": [
+        "Laravel 13",
+        "Vue 3",
+        "TypeScript",
+        "Tailwind v4",
+        "Pest"
+      ],
+      "tags": [
+        "product",
+        "laravel",
+        "vue",
+        "design",
+        "english"
+      ],
+      "summary": "45 privacy-first online tools, each on its own indexable page and each running in the browser: no account, no analytics, no third-party request. Laravel 13 with Vue 3 islands and TypeScript, tests at three layers. Not public yet.",
+      "url": "",
+      "image": "toolora.png",
+      "caption": "toolora, not public yet"
+    },
+    {
+      "slug": "qasioun",
+      "name": "Qasioun Center for Studies",
+      "ar": "مركز قاسيون",
+      "tier": 1,
+      "client": "Strategic studies centre",
+      "where": "Syria, Türkiye",
+      "lang": "bi",
+      "role": "Design and full-stack",
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "Bilingual"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl",
+        "english"
+      ],
+      "summary": "Papers, library and media in Arabic and English, with a separate URL per language and long-form pages built to be read.",
+      "url": "https://qasiounstudies.org/",
+      "image": "qasioun.png"
+    },
+    {
+      "slug": "iwad",
+      "name": "IWAD",
+      "ar": "إيواد",
+      "tier": 1,
+      "client": "Defence research institute",
+      "where": "",
+      "lang": "ar",
+      "role": "UI design from the brand book, and the front-end",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Design system",
+        "RTL"
+      ],
+      "tags": [
+        "frontend",
+        "design",
+        "rtl"
+      ],
+      "summary": "A 24-page research platform built from the institute's brand book: studies, researcher profiles, thematic sections, a glossary and file dossiers, right-to-left throughout. Delivered as a theme; the public launch is the client's.",
+      "url": "",
+      "image": "iwad.png",
+      "caption": "IWAD theme, 24 pages"
+    },
+    {
+      "slug": "qudsn",
+      "name": "Quds News Network",
+      "ar": "قدس الإخبارية",
+      "tier": 1,
+      "client": "Palestinian news network",
+      "where": "Palestine",
+      "lang": "ar",
+      "role": "Design and full-stack, on Devlo CMS",
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "RTL"
+      ],
+      "tags": [
+        "laravel",
+        "design",
+        "rtl"
+      ],
+      "summary": "A high-volume Arabic newsroom publishing all day. Real Chrome users load it inside Google's FAST band.",
+      "url": "https://qudsn.co/",
+      "image": "qudsn.png",
+      "case": {
+        "category": "High-traffic newsroom",
+        "problem": "A newsroom that publishes around the clock, in Arabic, to an audience that is overwhelmingly on phones and often on poor connections. The front page changes every few minutes and has to stay fast while carrying video, podcasts, live tickers and a dark mode.",
+        "did": [
+          "Designed the reading experience for right-to-left first: the grid, the type scale and the density were set on real Arabic headlines, not on Latin placeholder text.",
+          "Built the front page on Devlo modules: breaking strip, lead story, headline rail, audio briefing, podcast and translation sections, each switchable by the editors.",
+          "Ran the performance pass described in the newsroom audit case study: fonts cut from 749 KB to 78 KB, a preload that was hurting removed, and the Cloudflare rule that explained a TTFB nobody could move."
+        ],
+        "tech": [
+          "Server-rendered Blade with Livewire only where the page actually changes",
+          "Article schema, share images and hreflang generated per story",
+          "Measured weekly against Google's PageSpeed API from my GitHub profile"
+        ],
+        "result": [
+          "Field data from real Chrome users over 28 days: FAST, with LCP at 2.33 s and INP at 104 ms.",
+          "Lab scores on 20 September 2026: 99 on desktop, 82 on mobile, with accessibility and SEO at 100 on both."
+        ]
+      }
+    },
+    {
       "slug": "ahsebli",
       "name": "Ahsebli",
       "ar": "احسبلي",
@@ -325,28 +449,26 @@
       "image": "aljarmaq.png"
     },
     {
-      "slug": "qasioun",
-      "name": "Qasioun Center for Studies",
-      "ar": "مركز قاسيون",
+      "slug": "yedibasak",
+      "name": "Yedi Başak",
       "tier": 2,
-      "client": "Strategic studies centre",
-      "where": "Syria, Türkiye",
-      "lang": "bi",
-      "role": "Design and full-stack",
+      "client": "Humanitarian aid charity",
+      "where": "UK",
+      "lang": "en",
+      "role": "Full-stack, Laravel, UI designed from scratch",
       "stack": [
         "Laravel",
-        "Livewire",
-        "Bilingual"
+        "Blade",
+        "Payments"
       ],
       "tags": [
         "laravel",
         "design",
-        "rtl",
         "english"
       ],
-      "summary": "Papers, library and media in Arabic and English, with a separate URL per language and long-form pages built to be read.",
-      "url": "https://qasiounstudies.org/",
-      "image": "qasioun.png"
+      "summary": "Campaigns, quick donate, sponsorship and multi-currency giving for a UK charity.",
+      "url": "https://yedibasak.uk/",
+      "image": "yedibasak.png"
     },
     {
       "slug": "tayqan",
@@ -370,6 +492,52 @@
       "summary": "Readers submit claims, the team verifies them, and the verdicts publish as news.",
       "url": "https://tayqan.net/",
       "image": "tayqan.png"
+    },
+    {
+      "slug": "kevla",
+      "name": "Kevla Campa",
+      "tier": 2,
+      "client": "Kevlar and carbon-fibre caravan",
+      "where": "Australia",
+      "lang": "en",
+      "role": "Design and front-end",
+      "stack": [
+        "HTML",
+        "CSS",
+        "ES modules"
+      ],
+      "tags": [
+        "frontend",
+        "design",
+        "english"
+      ],
+      "summary": "Marketing site with scroll scenes on CSS view timelines, page transitions and no build step. No axe-core violations across 24 page states.",
+      "url": "https://imsemoo.github.io/kevla-campa/",
+      "code": "https://github.com/imsemoo/kevla-campa",
+      "image": "kevla.png"
+    },
+    {
+      "slug": "besa",
+      "name": "BESA",
+      "tier": 2,
+      "client": "Study-abroad platform",
+      "where": "Egypt, UK",
+      "lang": "en",
+      "role": "Front-end from Figma, 30+ hand-built pages",
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript",
+        "Figma"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
+      "summary": "University search, programmes, scholarships and applications, built page by page from Figma.",
+      "url": "https://www.besaeg.com/",
+      "code": "https://github.com/imsemoo/besa",
+      "image": "besa.png"
     },
     {
       "slug": "maktoob",
@@ -462,51 +630,6 @@
       "image": "arouri.png"
     },
     {
-      "slug": "besa",
-      "name": "BESA",
-      "tier": 2,
-      "client": "Study-abroad platform",
-      "where": "Egypt, UK",
-      "lang": "en",
-      "role": "Front-end from Figma, 30+ hand-built pages",
-      "stack": [
-        "HTML",
-        "SCSS",
-        "JavaScript",
-        "Figma"
-      ],
-      "tags": [
-        "frontend",
-        "english"
-      ],
-      "summary": "University search, programmes, scholarships and applications, built page by page from Figma.",
-      "url": "https://www.besaeg.com/",
-      "code": "https://github.com/imsemoo/besa",
-      "image": "besa.png"
-    },
-    {
-      "slug": "yedibasak",
-      "name": "Yedi Başak",
-      "tier": 2,
-      "client": "Humanitarian aid charity",
-      "where": "UK",
-      "lang": "en",
-      "role": "Full-stack, Laravel, UI designed from scratch",
-      "stack": [
-        "Laravel",
-        "Blade",
-        "Payments"
-      ],
-      "tags": [
-        "laravel",
-        "design",
-        "english"
-      ],
-      "summary": "Campaigns, quick donate, sponsorship and multi-currency giving for a UK charity.",
-      "url": "https://yedibasak.uk/",
-      "image": "yedibasak.png"
-    },
-    {
       "slug": "handsontv",
       "name": "HandsOnTV",
       "tier": 2,
@@ -571,27 +694,25 @@
       "image": "bhf.png"
     },
     {
-      "slug": "kevla",
-      "name": "Kevla Campa",
-      "tier": 2,
-      "client": "Kevlar and carbon-fibre caravan",
+      "slug": "couriernow",
+      "name": "CourierNow",
+      "tier": 3,
+      "client": "Courier booking",
       "where": "Australia",
       "lang": "en",
-      "role": "Design and front-end",
+      "role": "Front-end from Adobe XD",
       "stack": [
         "HTML",
-        "CSS",
-        "ES modules"
+        "SCSS",
+        "JavaScript"
       ],
       "tags": [
         "frontend",
-        "design",
         "english"
       ],
-      "summary": "Marketing site with scroll scenes on CSS view timelines, page transitions and no build step. No axe-core violations across 24 page states.",
-      "url": "https://imsemoo.github.io/kevla-campa/",
-      "code": "https://github.com/imsemoo/kevla-campa",
-      "image": "kevla.png"
+      "summary": "Five-step shipment booking flow, built from XD.",
+      "url": "https://couriernow.com.au/",
+      "image": "legacy/cn/couriernow-home_1.png"
     },
     {
       "slug": "hive",
@@ -615,45 +736,6 @@
       "image": "hive.png"
     },
     {
-      "slug": "skillsbeyond",
-      "name": "Skills Beyond",
-      "tier": 3,
-      "client": "Driving school",
-      "where": "Australia",
-      "lang": "en",
-      "role": "WordPress",
-      "stack": [
-        "WordPress"
-      ],
-      "tags": [
-        "wordpress",
-        "english"
-      ],
-      "summary": "Lesson booking for a family-owned driving school on Sydney's North Shore.",
-      "url": "https://skillsbeyond.com.au/",
-      "image": "skillsbeyond.png"
-    },
-    {
-      "slug": "ibb",
-      "name": "Infinity Blue Barramundi",
-      "tier": 3,
-      "client": "Barramundi farm",
-      "where": "Australia",
-      "lang": "en",
-      "role": "WordPress",
-      "stack": [
-        "WordPress",
-        "Elementor"
-      ],
-      "tags": [
-        "wordpress",
-        "english"
-      ],
-      "summary": "Brand site for an Australian aquaculture farm.",
-      "url": "https://infinitybluebarramundi.com.au/",
-      "image": "ibb.png"
-    },
-    {
       "slug": "idd",
       "name": "IDD 2023",
       "tier": 3,
@@ -673,171 +755,6 @@
       "summary": "Conference site with schedule, speakers, sponsors and live stream.",
       "url": "https://innovation-driven-desalination.com/",
       "image": "idd.png"
-    },
-    {
-      "slug": "powerline",
-      "name": "Power Line Egypt",
-      "tier": 3,
-      "client": "Engineering and contracting",
-      "where": "Egypt",
-      "lang": "en",
-      "role": "WordPress",
-      "stack": [
-        "WordPress"
-      ],
-      "tags": [
-        "wordpress",
-        "english"
-      ],
-      "summary": "Corporate site for a wellbore survey and engineering services company.",
-      "url": "https://powerlineegypt.com/",
-      "image": "powerline.png"
-    },
-    {
-      "slug": "abaad",
-      "name": "Abaad Future",
-      "ar": "أبعاد المستقبل",
-      "tier": 3,
-      "client": "Events and exhibitions company",
-      "where": "Saudi Arabia",
-      "lang": "ar",
-      "role": "WordPress",
-      "stack": [
-        "WordPress"
-      ],
-      "tags": [
-        "wordpress",
-        "rtl"
-      ],
-      "summary": "Corporate site for an events company.",
-      "url": "https://abaad-intl.com/",
-      "image": "legacy/abaad/Template.png"
-    },
-    {
-      "slug": "visaoman",
-      "name": "VisaOman",
-      "tier": 3,
-      "client": "Travel visa service",
-      "where": "Oman",
-      "lang": "en",
-      "role": "WordPress",
-      "stack": [
-        "WordPress"
-      ],
-      "tags": [
-        "wordpress",
-        "english"
-      ],
-      "summary": "E-visa information and application site.",
-      "url": "https://visaoman.com/",
-      "image": "legacy/visaoman/1.png"
-    },
-    {
-      "slug": "couriernow",
-      "name": "CourierNow",
-      "tier": 3,
-      "client": "Courier booking",
-      "where": "Australia",
-      "lang": "en",
-      "role": "Front-end from Adobe XD",
-      "stack": [
-        "HTML",
-        "SCSS",
-        "JavaScript"
-      ],
-      "tags": [
-        "frontend",
-        "english"
-      ],
-      "summary": "Five-step shipment booking flow, built from XD.",
-      "url": "https://couriernow.com.au/",
-      "image": "legacy/cn/couriernow-home_1.png"
-    },
-    {
-      "slug": "buruj",
-      "name": "Buruj",
-      "tier": 3,
-      "client": "Quran learning for children",
-      "where": "",
-      "lang": "en",
-      "role": "Front-end",
-      "stack": [
-        "HTML",
-        "SCSS",
-        "JavaScript"
-      ],
-      "tags": [
-        "frontend",
-        "english"
-      ],
-      "summary": "Corporate site with a multi-step application form.",
-      "url": "https://imsemoo.github.io/Buruj/",
-      "code": "https://github.com/imsemoo/Buruj",
-      "image": "buruj.png"
-    },
-    {
-      "slug": "intimedev",
-      "name": "IntimeDev",
-      "tier": 3,
-      "client": "Software agency",
-      "where": "Egypt",
-      "lang": "en",
-      "role": "Front-end",
-      "stack": [
-        "HTML",
-        "SCSS",
-        "AOS"
-      ],
-      "tags": [
-        "frontend",
-        "english"
-      ],
-      "summary": "Agency site with scroll-driven animation.",
-      "url": "https://imsemoo.github.io/Intimedev/",
-      "code": "https://github.com/imsemoo/Intimedev",
-      "image": "intimedev.png"
-    },
-    {
-      "slug": "mohajer",
-      "name": "Al-Mohajer",
-      "ar": "المهاجر",
-      "tier": 3,
-      "client": "News for migrants and refugees",
-      "where": "Egypt",
-      "lang": "ar",
-      "role": "Front-end, six page templates",
-      "stack": [
-        "HTML",
-        "Bootstrap",
-        "RTL"
-      ],
-      "tags": [
-        "frontend",
-        "rtl"
-      ],
-      "summary": "Fully right-to-left news template set.",
-      "url": "https://imsemoo.github.io/mohajer/",
-      "code": "https://github.com/imsemoo/mohajer",
-      "image": "mohajer.png"
-    },
-    {
-      "slug": "calimero",
-      "name": "Calimero",
-      "tier": 3,
-      "client": "Restaurant and shop",
-      "where": "Germany",
-      "lang": "en",
-      "role": "Front-end, in a team, over a year",
-      "stack": [
-        "Next.js",
-        "TypeScript"
-      ],
-      "tags": [
-        "frontend",
-        "english"
-      ],
-      "summary": "Multilingual restaurant and shop, including a custom pizza builder and a dark mode for the whole UI system.",
-      "url": ""
     },
     {
       "slug": "yassiru",
@@ -906,6 +823,170 @@
       "summary": "Multi-page dashboard UI for a creative agency: pricing, sign-up and a guided tour.",
       "url": "",
       "code": "https://github.com/imsemoo/creatives-dashboard"
+    },
+    {
+      "slug": "skillsbeyond",
+      "name": "Skills Beyond",
+      "tier": 3,
+      "client": "Driving school",
+      "where": "Australia",
+      "lang": "en",
+      "role": "WordPress",
+      "stack": [
+        "WordPress"
+      ],
+      "tags": [
+        "wordpress",
+        "english"
+      ],
+      "summary": "Lesson booking for a family-owned driving school on Sydney's North Shore.",
+      "url": "https://skillsbeyond.com.au/",
+      "image": "skillsbeyond.png"
+    },
+    {
+      "slug": "ibb",
+      "name": "Infinity Blue Barramundi",
+      "tier": 3,
+      "client": "Barramundi farm",
+      "where": "Australia",
+      "lang": "en",
+      "role": "WordPress",
+      "stack": [
+        "WordPress",
+        "Elementor"
+      ],
+      "tags": [
+        "wordpress",
+        "english"
+      ],
+      "summary": "Brand site for an Australian aquaculture farm.",
+      "url": "https://infinitybluebarramundi.com.au/",
+      "image": "ibb.png"
+    },
+    {
+      "slug": "powerline",
+      "name": "Power Line Egypt",
+      "tier": 3,
+      "client": "Engineering and contracting",
+      "where": "Egypt",
+      "lang": "en",
+      "role": "WordPress",
+      "stack": [
+        "WordPress"
+      ],
+      "tags": [
+        "wordpress",
+        "english"
+      ],
+      "summary": "Corporate site for a wellbore survey and engineering services company.",
+      "url": "https://powerlineegypt.com/",
+      "image": "powerline.png"
+    },
+    {
+      "slug": "abaad",
+      "name": "Abaad Future",
+      "ar": "أبعاد المستقبل",
+      "tier": 3,
+      "client": "Events and exhibitions company",
+      "where": "Saudi Arabia",
+      "lang": "ar",
+      "role": "WordPress",
+      "stack": [
+        "WordPress"
+      ],
+      "tags": [
+        "wordpress",
+        "rtl"
+      ],
+      "summary": "Corporate site for an events company.",
+      "url": "https://abaad-intl.com/",
+      "image": "legacy/abaad/Template.png"
+    },
+    {
+      "slug": "visaoman",
+      "name": "VisaOman",
+      "tier": 3,
+      "client": "Travel visa service",
+      "where": "Oman",
+      "lang": "en",
+      "role": "WordPress",
+      "stack": [
+        "WordPress"
+      ],
+      "tags": [
+        "wordpress",
+        "english"
+      ],
+      "summary": "E-visa information and application site.",
+      "url": "https://visaoman.com/",
+      "image": "legacy/visaoman/1.png"
+    },
+    {
+      "slug": "buruj",
+      "name": "Buruj",
+      "tier": 3,
+      "client": "Quran learning for children",
+      "where": "",
+      "lang": "en",
+      "role": "Front-end",
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
+      "summary": "Corporate site with a multi-step application form.",
+      "url": "https://imsemoo.github.io/Buruj/",
+      "code": "https://github.com/imsemoo/Buruj",
+      "image": "buruj.png"
+    },
+    {
+      "slug": "intimedev",
+      "name": "IntimeDev",
+      "tier": 3,
+      "client": "Software agency",
+      "where": "Egypt",
+      "lang": "en",
+      "role": "Front-end",
+      "stack": [
+        "HTML",
+        "SCSS",
+        "AOS"
+      ],
+      "tags": [
+        "frontend",
+        "english"
+      ],
+      "summary": "Agency site with scroll-driven animation.",
+      "url": "https://imsemoo.github.io/Intimedev/",
+      "code": "https://github.com/imsemoo/Intimedev",
+      "image": "intimedev.png"
+    },
+    {
+      "slug": "mohajer",
+      "name": "Al-Mohajer",
+      "ar": "المهاجر",
+      "tier": 3,
+      "client": "News for migrants and refugees",
+      "where": "Egypt",
+      "lang": "ar",
+      "role": "Front-end, six page templates",
+      "stack": [
+        "HTML",
+        "Bootstrap",
+        "RTL"
+      ],
+      "tags": [
+        "frontend",
+        "rtl"
+      ],
+      "summary": "Fully right-to-left news template set.",
+      "url": "https://imsemoo.github.io/mohajer/",
+      "code": "https://github.com/imsemoo/mohajer",
+      "image": "mohajer.png"
     }
   ]
 }

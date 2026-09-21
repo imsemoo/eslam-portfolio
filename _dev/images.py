@@ -32,7 +32,9 @@ def top_crop(im, ratio=1.6):
 
 def montage(paths):
     """One large screen on the left, two stacked on the right, on paper.
-    Used only for OzCar, whose public site is offline."""
+    Used where one screenshot cannot carry the project: OzCar, whose public
+    site is limited to Australia, and Devlo, whose evidence is the sites
+    it runs rather than its login page."""
     canvas = Image.new("RGB", (1440, 900), PAPER)
     pad, gap = 24, 20
     big_w = int((1440 - pad * 2 - gap) * 0.62)
@@ -78,7 +80,7 @@ def main():
         if not src:
             continue
         if isinstance(src, list):
-            im = montage([os.path.join(LEGACY, s) for s in src])
+            im = montage([os.path.join(RAW, s) if os.path.exists(os.path.join(RAW, s)) else os.path.join(LEGACY, s) for s in src])
         elif src.startswith("legacy/"):
             im = Image.open(os.path.join(LEGACY, src[7:]))
         else:

@@ -34,7 +34,7 @@ js/
   nav.js            mobile menu
 img/work/           WebP screenshots at 1200, 800 and 600 wide, plus 240 wide thumbnails
 _dev/
-  projects.json     the thirty-odd projects, tiers, tags and case-study text
+  projects.json     the projects: tiers (row weight), tags, per-filter `orders`, captions, case-study text
   template.html     the page with placeholders
   build.py          template + JSON  ->  index.html, css/site.css
   images.py         raw screenshots  ->  img/work

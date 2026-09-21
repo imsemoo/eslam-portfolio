@@ -21,7 +21,7 @@
   /* text */
   --text: #14171a;
   --text-2: #464c52;
-  --text-3: #6b7178;
+  --text-3: #5e646b;
   --text-on-ink: #f3f2ee;
   --text-on-ink-2: rgb(243 242 238 / 0.62);
 
@@ -43,7 +43,7 @@
   --fs-hero: clamp(2.4rem, 1rem + 4.6vw, 4.9rem);
   --fs-h2: clamp(1.9rem, 1.1rem + 3vw, 3.4rem);
   --fs-h3: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem);
-  --fs-h4: 1.0625rem;
+  --fs-h4: 1.125rem;
   --fs-body: 1rem;
   --fs-lede: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
   --fs-small: 0.875rem;
@@ -86,6 +86,8 @@
   --dur-fast: 0.22s;
   --dur: 0.5s;
   --dur-slow: 0.9s;
+  --dur-reveal: 0.8s;
+  --rise: 20px;
 
   /* layers */
   --z-nav: 20;

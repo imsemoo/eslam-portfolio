@@ -8,11 +8,11 @@
    - magnetic buttons acknowledge the pointer before the click.
    Nothing loops, nothing bounces. */
 
-const EASE = "power3.out";
+const EASE = "expo.out";
 
 export function initMotion({ gsap, ScrollTrigger, Lenis }) {
   gsap.registerPlugin(ScrollTrigger);
-  gsap.defaults({ ease: EASE, duration: 0.9 });
+  gsap.defaults({ ease: EASE, duration: 0.8 });
 
   const fold = window.innerHeight;
   const belowFold = (el) => el.getBoundingClientRect().top > fold * 0.92;
@@ -49,8 +49,8 @@ export function initMotion({ gsap, ScrollTrigger, Lenis }) {
     if (!belowFold(el)) return;
     gsap.fromTo(
       el,
-      { y: 22, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.85, scrollTrigger: { trigger: el, start: "top 88%", once: true } }
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, scrollTrigger: { trigger: el, start: "top 88%", once: true } }
     );
   });
 
@@ -61,7 +61,7 @@ export function initMotion({ gsap, ScrollTrigger, Lenis }) {
     if (!items.length) return;
     gsap.fromTo(
       items,
-      { y: 22, opacity: 0 },
+      { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8, stagger: 0.07, scrollTrigger: { trigger: group, start: "top 85%", once: true } }
     );
   });
@@ -83,8 +83,8 @@ export function initMotion({ gsap, ScrollTrigger, Lenis }) {
     if (finePointer) {
       const movers = layers.map((layer) => ({
         depth: parseFloat(layer.dataset.depth || "0.2"),
-        x: gsap.quickTo(layer, "x", { duration: 0.9, ease: "power3.out" }),
-        rot: gsap.quickTo(layer, "rotation", { duration: 0.9, ease: "power3.out" }),
+        x: gsap.quickTo(layer, "x", { duration: 0.9, ease: EASE }),
+        rot: gsap.quickTo(layer, "rotation", { duration: 0.9, ease: EASE }),
       }));
       const hero = stack.closest(".hero") || stack;
       hero.addEventListener("pointermove", (e) => {
@@ -111,8 +111,8 @@ export function initMotion({ gsap, ScrollTrigger, Lenis }) {
   // ---- magnetic buttons (fine pointers only)
   if (finePointer) {
     document.querySelectorAll("[data-magnetic]").forEach((btn) => {
-      const toX = gsap.quickTo(btn, "x", { duration: 0.45, ease: "power3.out" });
-      const toY = gsap.quickTo(btn, "y", { duration: 0.45, ease: "power3.out" });
+      const toX = gsap.quickTo(btn, "x", { duration: 0.45, ease: EASE });
+      const toY = gsap.quickTo(btn, "y", { duration: 0.45, ease: EASE });
       btn.addEventListener("pointermove", (e) => {
         const r = btn.getBoundingClientRect();
         toX((e.clientX - (r.left + r.width / 2)) * 0.22);
