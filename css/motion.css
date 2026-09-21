@@ -13,7 +13,6 @@
 }
 .motion-line {
   display: block;
-  will-change: transform;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -50,11 +49,13 @@
   .row__thumb img {
     transition: transform var(--dur-slow) var(--ease-out);
   }
-  .row:hover .row__thumb img {
-    transform: scale(1.05);
-  }
-  .case__visual:hover .shot__img {
-    transform: scale(1.025);
+  @media (hover: hover) and (pointer: fine) {
+    .row:hover .row__thumb img {
+      transform: scale(1.05);
+    }
+    .case__visual:hover .shot__img {
+      transform: scale(1.025);
+    }
   }
 }
 
@@ -64,6 +65,9 @@
   .chip,
   .row,
   .row__ext,
+  .hero__card,
+  .hero__next,
+  .hero__next .icon,
   .preview,
   .nav,
   .case__back,

@@ -111,17 +111,20 @@ def row(p, n, ranks):
     if href:
         attrs = ' target="_blank" rel="noopener"' if external else ""
         name_html = f'<a class="row__link" href="{esc(href)}"{attrs}>{name_html}</a>'
-    ext = ""
     if featured and p.get("url"):
         ext = (
             f'<a class="row__ext" href="{esc(p["url"])}" target="_blank" rel="noopener" '
-            f'aria-label="Open {esc(host(p["url"]))}">{icon("arrow-up-right")}</a>'
+            f'aria-label="Open {esc(host(p["url"]))}"><span class="row__ext-text">Visit</span>{icon("arrow-up-right")}</a>'
         )
-    elif href:
-        ext = f'<span class="row__ext" aria-hidden="true">{icon("arrow-up-right" if external else "arrow-down-right")}</span>'
+    elif p.get("url"):
+        ext = f'<span class="row__ext" aria-hidden="true"><span class="row__ext-text">Visit</span>{icon("arrow-up-right")}</span>'
+    elif p.get("code"):
+        ext = f'<span class="row__ext" aria-hidden="true"><span class="row__ext-text">Code</span>{icon("arrow-up-right")}</span>'
+    else:
+        ext = '<span class="row__ext row__ext--none" aria-hidden="true"><span class="row__ext-text">Private</span></span>'
     preview = f' data-preview="img/work/{p["slug"]}-600.webp"' if has_img else ""
     return (
-        f'<li class="row row--t{tier}" data-tags="{esc(" ".join(p["tags"]))}"{preview}{rank_attrs(p, ranks)}>'
+        f'<li class="row row--t{tier}" id="p-{p["slug"]}" data-tags="{esc(" ".join(p["tags"]))}"{preview}{rank_attrs(p, ranks)}>'
         f'<span class="row__n mono" aria-hidden="true"></span>'
         f"{thumb}"
         f'<div class="row__main">{name_html}'
@@ -150,14 +153,14 @@ def case(p, i):
         return f'<div class="case__block"><h4>{title}</h4><ul>{lis}</ul></div>'
     link = (
         f'<a class="btn btn--ghost" href="{esc(p["url"])}" target="_blank" rel="noopener">'
-        f'Open {esc(host(p["url"]))} {icon("arrow-up-right")}</a>'
-        if p.get("url") and p["slug"] != "ozcar"
+        f'Open {esc(host(p["url"]))}{" (Australia only)" if p["slug"] == "ozcar" else ""} {icon("arrow-up-right")}</a>'
+        if p.get("url")
         else ""
     )
     sizes = "(min-width: 900px) 1180px, 100vw" if "full" in layout else "(min-width: 900px) 56vw, 100vw"
     back = f'<a class="case__back" href="#index">{icon("arrow-up")}Back to the index</a>'
     return f"""
-<article class="case {layout}" id="case-{p['slug']}" data-reveal-group>
+<article class="case {layout}" id="case-{p['slug']}">
   <header class="case__head">
     <p class="case__cat mono">{esc(c['category'])}</p>
     <h3>{esc(p['name'])}{' <span class="ar">' + esc(p['ar']) + '</span>' if p.get('ar') else ''}</h3>
@@ -225,8 +228,24 @@ def main():
         for f in data["filters"]
     )
     by = {p["slug"]: p for p in projects}
+    def card(s, i):
+        p = by[s]
+        if p.get("case"):
+            href, open_ = f"#case-{s}", "open the case study"
+        elif p.get("url"):
+            href, open_ = p["url"], f"open {host(p['url'])}"
+        else:
+            href, open_ = f"#p-{s}", "find it in the index"
+        kind = p["case"]["category"].lower() if p.get("case") else p["client"].lower()
+        cap = p.get("caption") or (host(p["url"]) if p.get("url") else p["name"])
+        ext = ' target="_blank" rel="noopener"' if href.startswith("http") else ""
+        return (
+            f'<a class="hero__card" href="{esc(href)}"{ext} data-card data-name="{esc(p["name"])}" '
+            f'data-cap="{esc(cap)}" data-kind="{esc(kind)}" data-open="{esc(open_)}">'
+            f'{shot(p, "(min-width: 900px) 38vw, 80vw", priority=(i == 0))}</a>'
+        )
     hero_shots = "".join(
-        f'<div class="hero__layer hero__layer--{i + 1}" data-depth="{d}">{shot(by[s], "(min-width: 900px) 38vw, 80vw", priority=(i == 0))}</div>'
+        f'<div class="hero__layer hero__layer--{i + 1}{" is-front" if i == 0 else ""}" data-depth="{d}" data-slot="{i + 1}">{card(s, i)}</div>'
         for i, (s, d) in enumerate([("mo3ta", 0.12), ("iwad", 0.22), ("qasioun", 0.34)])
     )
     css, js_kb, requests = footprint()

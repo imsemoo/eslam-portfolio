@@ -27,8 +27,9 @@ css/
   site.css          generated bundle of the above; build.py inlines it into index.html
 js/
   main.js           entry; every module is guarded so the page works without it
-  motion.js         GSAP + ScrollTrigger + Lenis: line reveals, fade-ups, parallax, magnetic buttons
-  filters.js        the index filter, with deep links like #index-english
+  motion.js         GSAP + ScrollTrigger + Lenis: masked headings, fade-ups, row batches, case wipes, parallax, magnetic buttons
+  filters.js        the index filter: per-filter order, FLIP reorder, deep links like #index-english
+  hero.js           the hero pile: click a back card to bring it forward, Next button, linked cards
   preview.js        pointer-following preview over the index, fine pointers only
   measured.js       live PageSpeed numbers from raw.githubusercontent.com
   nav.js            mobile menu

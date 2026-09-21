@@ -333,7 +333,11 @@
       ],
       "summary": "A 24-page research platform built from the institute's brand book: studies, researcher profiles, thematic sections, a glossary and file dossiers, right-to-left throughout. Delivered as a theme; the public launch is the client's.",
       "url": "",
-      "image": "iwad.png",
+      "image": [
+        "iwad-index.png",
+        "iwad-study.png",
+        "iwad-researchers.png"
+      ],
       "caption": "IWAD theme, 24 pages"
     },
     {
@@ -423,7 +427,12 @@
       ],
       "summary": "The client edits the real page inside the panel, so the design cannot be dragged apart. 1,500 tests gated in CI.",
       "url": "https://imsemoo.github.io/matn-site/",
-      "image": "matn.png"
+      "image": [
+        "matn-band.png",
+        "matn-hero.png",
+        "matn-flow.png"
+      ],
+      "caption": "imsemoo.github.io/matn-site"
     },
     {
       "slug": "aljarmaq",

@@ -30,7 +30,7 @@
 {{CSS}}
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Eslam Nasser","alternateName":"Eslam Abdel Nasser","jobTitle":"Front-end engineer and UI designer","url":"https://imsemoo.github.io/eslam-portfolio/","email":"mailto:en.developer2@gmail.com","knowsLanguage":["ar","en"],"sameAs":["https://github.com/imsemoo","https://www.linkedin.com/in/imsemooo/","https://www.upwork.com/freelancers/imsemoo","https://mostaql.com/u/imsemoo/portfolio"]}
+{"@context":"https://schema.org","@type":"Person","name":"Eslam Nasser","alternateName":"Eslam Abdel Nasser","jobTitle":"Front-end engineer and UI designer","url":"https://imsemoo.github.io/eslam-portfolio/","email":"mailto:en.developer2@gmail.com","knowsLanguage":["ar","en"],"address":{"@type":"PostalAddress","addressLocality":"10th of Ramadan City","addressCountry":"EG"},"worksFor":{"@type":"Organization","name":"TakTek"},"sameAs":["https://github.com/imsemoo","https://www.linkedin.com/in/imsemooo/","https://www.upwork.com/freelancers/imsemoo","https://mostaql.com/u/imsemoo/portfolio"]}
 </script>
 </head>
 <body>
@@ -77,6 +77,10 @@
     </div>
     <div class="hero__stack" data-hero-stack>
       {{HERO_SHOTS}}
+      <div class="hero__stackbar">
+        <p class="mono small" aria-live="polite"><span class="hero__stackdot" aria-hidden="true"></span><span data-stack-caption></span></p>
+        <button class="hero__next mono" type="button" data-stack-next>Next screen <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+      </div>
     </div>
   </div>
   <div class="shell">
@@ -91,7 +95,7 @@
 
 <section class="section index" id="index" aria-labelledby="index-title">
   <div class="shell">
-    <div class="section-head" data-reveal>
+    <div class="section-head">
       <h2 id="index-title">Every site, and what I did on it.</h2>
       <p class="lede">{{COUNT}} projects, {{LIVE}} of them live. Filter by stack or language. Five rows open a case study on this page; the rest open the site where there is a public one.</p>
     </div>
@@ -102,13 +106,13 @@
     <ol class="rows" data-rows>
       {{ROWS}}
     </ol>
-    <p class="index__empty small" data-empty hidden>Nothing matches that combination.</p>
+    <div class="index__empty" data-empty hidden><p class="small">Nothing matches that combination.</p><button class="btn btn--ghost" type="button" data-reset-filter>Show everything</button></div>
   </div>
 </section>
 
 <section class="section cases" id="cases" aria-labelledby="cases-title">
   <div class="shell">
-    <div class="section-head" data-reveal>
+    <div class="section-head">
       <p class="label">Case studies</p>
       <h2 id="cases-title">Five projects, in more detail.</h2>
       <p class="lede">The problem as it arrived, what I actually did, the technical notes, and the result stated only as far as it can be proven.</p>
@@ -170,7 +174,7 @@
 
 <section class="section method" id="method" aria-labelledby="method-title">
   <div class="shell">
-    <div class="section-head" data-reveal>
+    <div class="section-head">
       <h2 id="method-title">How a project runs.</h2>
       <p class="lede">The same six steps whether it is a landing page or a platform. Written, staged, and measured before it is called done.</p>
     </div>
@@ -185,6 +189,18 @@
     </ol>
 
     <div class="method__grid">
+      <div class="method__aside">
+      <div class="about" data-reveal>
+        <h3>Who you would be working with</h3>
+        <dl class="about__list">
+          <div><dt>Name</dt><dd>Eslam Nasser, also written Islam</dd></div>
+          <div><dt>Born</dt><dd>29 April 2000, <span data-age>26</span> years old</dd></div>
+          <div><dt>Based in</dt><dd>10th of Ramadan City, Egypt, originally from Qalyubia. UTC+2, remote only</dd></div>
+          <div><dt>Languages</dt><dd>Arabic, native. English, reads and writes at C1, speaks at a conversational level</dd></div>
+          <div><dt>Role today</dt><dd>UI/UX and front-end team lead at TakTek, freelance alongside</dd></div>
+          <div><dt>How I work</dt><dd>In writing: briefs, staged deliveries and reviews in text, with a reply within a few hours</dd></div>
+        </dl>
+      </div>
       <div class="timeline" data-reveal>
         <h3>Where the seven years went</h3>
         <ol>
@@ -192,6 +208,7 @@
           <li class="tl"><span class="tl__when mono">2020 to 2025</span><span class="tl__what"><b>IntimeDev</b>, outsourced to SilverTrees. Front-end from XD and Figma for Australian, UK and Egyptian clients.</span></li>
           <li class="tl"><span class="tl__when mono">Before 2020</span><span class="tl__what">Freelance front-end and WordPress, mostly for Arabic businesses. Still on Mostaql at 5.0.</span></li>
         </ol>
+      </div>
       </div>
 
       <div class="skills" data-reveal-group>
@@ -228,7 +245,7 @@
 
 <section class="section reviews" id="reviews" aria-labelledby="reviews-title">
   <div class="shell">
-    <div class="section-head" data-reveal>
+    <div class="section-head">
       <h2 id="reviews-title">What clients wrote afterwards.</h2>
       <p class="lede">Published reviews from Upwork and Mostaql, quoted as written.</p>
     </div>
@@ -246,7 +263,7 @@
 <section class="section contact" id="contact" aria-labelledby="contact-title">
   <div class="shell"><div class="contact__inner">
     <h2 class="contact__title" id="contact-title" data-motion-text="lines"><span class="line">Have a project</span><span class="line">worth building?</span></h2>
-    <p class="lede" data-reveal>Send it over. I reply with how I would approach it, what it costs and how long it takes. In writing, within a few hours, remote from Cairo at UTC+2.</p>
+    <p class="lede" data-reveal>Send it over. I reply with how I would approach it, what it costs and how long it takes. In writing, within a few hours, remote from Egypt at UTC+2.</p>
     <div class="contact__actions" data-reveal>
       <a class="btn btn--primary btn--lg" href="mailto:en.developer2@gmail.com" data-magnetic>Email me <svg class="icon" aria-hidden="true"><use href="#i-envelope-simple"/></svg></a>
       <span class="mono small">en.developer2@gmail.com</span>

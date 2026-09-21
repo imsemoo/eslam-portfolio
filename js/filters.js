@@ -56,13 +56,21 @@ export function initFilters({ reduce }) {
 
     if (gsap) {
       const limit = window.innerHeight * 1.5;
+      // Measure the new layout before any tween moves a row back to where it
+      // was. Rows that arrive, and rows the reorder pulled up before the
+      // scroll batch had shown them, rise in together and count as revealed.
+      const near = sequence.filter((row) => {
+        if (row.hidden || row.getBoundingClientRect().top >= limit) return false;
+        return arriving.includes(row) || parseFloat(getComputedStyle(row).opacity) < 1;
+      });
+      near.forEach((row) => (row.dataset.revealed = "1"));
       staying.forEach((row) => {
+        if (near.includes(row)) return;
         const top = row.getBoundingClientRect().top;
         const dy = before.get(row) - top;
         if (Math.abs(dy) < 1 || top > limit) return;
         gsap.fromTo(row, { y: dy }, { y: 0, duration: 0.55, ease: "expo.out", overwrite: true, clearProps: "transform" });
       });
-      const near = arriving.filter((row) => row.getBoundingClientRect().top < limit);
       if (near.length) {
         gsap.fromTo(
           near,
@@ -81,6 +89,9 @@ export function initFilters({ reduce }) {
       history.replaceState(null, "", chip.dataset.filter === "all" ? "#index" : `#index-${chip.dataset.filter}`);
     });
   });
+
+  const reset = document.querySelector("[data-reset-filter]");
+  if (reset) reset.addEventListener("click", () => { const all = [...chips].find((c) => c.dataset.filter === "all"); if (all) all.click(); });
 
   // deep link: /#index-english opens the index already filtered
   const m = location.hash.match(/^#index-([a-z]+)$/);

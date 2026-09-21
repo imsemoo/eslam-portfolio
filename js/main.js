@@ -7,10 +7,20 @@ import { initFilters } from "./filters.js";
 import { initPreview } from "./preview.js";
 import { initMeasured } from "./measured.js";
 import { initNav } from "./nav.js";
+import { initHero } from "./hero.js";
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 initNav();
+initHero({ reduce });
+
+// the age line stays right without a rebuild
+document.querySelectorAll("[data-age]").forEach((el) => {
+  const b = new Date(2000, 3, 29);
+  const now = new Date();
+  const age = now.getFullYear() - b.getFullYear() - (now < new Date(now.getFullYear(), 3, 29) ? 1 : 0);
+  el.textContent = String(age);
+});
 initFilters({ reduce });
 initPreview({ reduce });
 initMeasured();
