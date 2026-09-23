@@ -21,7 +21,6 @@ export function initMotion({ reduce }) {
   print();
   if (reduce || !("IntersectionObserver" in window)) return;
   reveals();
-  magnet();
 }
 
 function curtain() {
@@ -185,20 +184,4 @@ function reveals() {
   document.addEventListener("visibilitychange", () => { if (!document.hidden) sweep(); });
   window.addEventListener("beforeprint", () => armed.forEach(([el]) => show(el)));
   setTimeout(sweep, 2500);
-}
-
-// the email buttons lean towards the pointer, a few pixels, fine pointers only
-function magnet() {
-  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-  document.querySelectorAll("[data-magnetic]").forEach((btn) => {
-    btn.addEventListener("pointermove", (e) => {
-      const r = btn.getBoundingClientRect();
-      const x = (e.clientX - (r.left + r.width / 2)) * 0.18;
-      const y = (e.clientY - (r.top + r.height / 2)) * 0.28;
-      btn.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
-    });
-    btn.addEventListener("pointerleave", () => {
-      btn.style.translate = "";
-    });
-  });
 }
