@@ -77,6 +77,9 @@ def main():
     with sync_playwright() as pw:
         browser = pw.chromium.launch(channel="chrome", headless=True)
         for e in items(data, only):
+            if e.get("export"):  # a design file, not a site: exported by hand, nothing to capture
+                print("  skip:", e["file"], f"(exported from {e['export']})")
+                continue
             if e.get("local"):
                 if e.get("root") not in roots:
                     print("  skip:", e["file"], f"(needs --root {e.get('root')}=<path>)")

@@ -50,6 +50,7 @@
     "design": [
       "iwad",
       "qasioun",
+      "freightzone",
       "mo3ta",
       "arbetsbil",
       "aljarmaq",
@@ -652,6 +653,133 @@
       }
     },
     {
+      "slug": "freightzone",
+      "name": "FreightZone",
+      "tier": 1,
+      "client": "Freight marketplace, client and driver apps",
+      "where": "Australia",
+      "lang": "en",
+      "role": "Product design: UX, UI and the design system",
+      "stack": [
+        "Figma",
+        "Design tokens",
+        "Auto layout",
+        "iOS and Android"
+      ],
+      "tags": [
+        "apps",
+        "design"
+      ],
+      "summary": "A two-sided freight marketplace for Australia, designed end to end: clients post a job, drivers bid, and payment is held in escrow until delivery is confirmed. A client app and a driver app, 70+ screens and states on one design system.",
+      "url": "https://www.figma.com/design/KLzNmrJ5ljExMreBmA9e5Y/FreightZone-App?node-id=1-2",
+      "image": "freightzone.png",
+      "alt": "FreightZone app design: delivery tracking, a three-bid comparison and the escrow payment screen",
+      "caption": "Figma case study, 70+ screens and states",
+      "case": {
+        "lede": "A local freight marketplace for Australia. Clients post a delivery request, drivers bid, the client picks an offer and pays into escrow, and the driver is paid once delivery is confirmed. I took an existing set of screens and turned it into a complete, testable two-sided product on one design system.",
+        "glance": [
+          [
+            "Role",
+            "Product designer: UX, UI and the design system"
+          ],
+          [
+            "Platforms",
+            "iOS and Android, on a 360 x 800 base"
+          ],
+          [
+            "Scope",
+            "Client app and driver app, 70+ screens and states"
+          ]
+        ],
+        "live": {
+          "label": "Design file",
+          "text": "The case study in Figma"
+        },
+        "evidence": [
+          {
+            "file": "freightzone-cover",
+            "kind": "wide",
+            "export": "Figma",
+            "bar": "Figma, FreightZone App",
+            "alt": "The FreightZone cover: the headline From pickup to final delivery beside three phone screens, a delivery in transit, three bids to compare and a payment secured in escrow.",
+            "caption": "The cover of the design file: tracking, the bid comparison and the escrow confirmation, three of the 70+ screens and states."
+          }
+        ],
+        "decision": "Every bid looks the same. Clients choose between people and prices, so each bid card carries the same five facts in the same place: price, pickup time, delivery estimate, vehicle and rating. A compare view lines up to three bids in one table and marks the best value in each row.",
+        "system": {
+          "title": "The system: the client's red, made to pass",
+          "swatches": [
+            {
+              "name": "Brand",
+              "hex": "#D7102F",
+              "role": "Primary actions, 5.2:1 under white text"
+            },
+            {
+              "name": "Tint",
+              "hex": "#FFF0F2",
+              "role": "Brand surfaces"
+            },
+            {
+              "name": "Text",
+              "hex": "#0F172A",
+              "role": "Primary text, 17.9:1"
+            },
+            {
+              "name": "Secondary",
+              "hex": "#5B6679",
+              "role": "Secondary text, 5.8:1 on white"
+            },
+            {
+              "name": "Success",
+              "hex": "#15803D",
+              "role": "Delivered and paid, 5.0:1"
+            },
+            {
+              "name": "Danger",
+              "hex": "#BE123C",
+              "role": "Errors and reported issues, 6.3:1"
+            }
+          ],
+          "note": "The logo and the red were kept, but the red went from #F81D3E to #D7102F so white text passes WCAG AA. Plus Jakarta Sans runs in 11 styles from Display 32 down to 12 px and never smaller; radius tokens are bound to variables, spacing sits on a 4-point grid with a 20 px screen margin, and icon buttons are at least 44 x 44."
+        },
+        "story": [
+          {
+            "h": "What was wrong",
+            "p": "“Get a quote” went straight to payment without ever showing a price, a vehicle or a pickup time. Phone login, an email password reset and Google sign-in sat side by side with no password field anywhere. The same code meant two different things on two screens, a nine-item drawer hid the core tasks, and only the happy path existed."
+          },
+          {
+            "h": "Who it is for",
+            "p": "Senders who want the price and the pickup time before they pay, and independent drivers who want to be verified quickly and to see fare and distance before they accept. Both are proto-personas: there was no research budget, and the file labels them as assumptions."
+          },
+          {
+            "h": "One journey, both sides",
+            "p": "Post, receive bids, compare, select, pay into escrow, track, confirm, get paid. The drawer became four tabs per app, and both apps share one status badge, from Open for bids to Paid out, so the client and the driver always see the same state name for the same job."
+          },
+          {
+            "h": "Trust at the moment of doubt",
+            "p": "Paying a stranger up front is the biggest barrier in the flow, so escrow is explained three times, briefly: when a request is published (nothing is charged now), before a driver is chosen (what happens next) and on the payment screen. Phone OTP is the only sign-in, and only the driver ever types the handover code."
+          },
+          {
+            "h": "The states, not just the happy path",
+            "p": "Loading while a driver is matched, empty lists, a wrong code with attempts left, a declined payment with no charge, offline with the last update time, buttons disabled until a code is complete, and success. Motion appears only where it explains something: the onboarding carousel, sheet transitions and a pulse while a driver is found."
+          }
+        ],
+        "result": [
+          "A complete Figma file for both apps, 70+ screens and states on one design system, with the case study in the same file.",
+          "Four hypotheses, each with the metric that would confirm or kill it after launch, from the time it takes to pick a bid to the drop-off between choosing a driver and securing the payment. They are proposals, not results."
+        ],
+        "links": [
+          {
+            "href": "https://www.figma.com/design/KLzNmrJ5ljExMreBmA9e5Y/FreightZone-App?node-id=1-2",
+            "label": "Open the case study in Figma"
+          }
+        ],
+        "todo": [
+          "Real project dates: the Figma case study still says [add real dates]."
+        ]
+      }
+    },
+    {
       "slug": "qasioun",
       "name": "Qasioun Center for Studies",
       "ar": "مركز قاسيون",
@@ -733,8 +861,10 @@
       "tags": [
         "commerce"
       ],
-      "summary": "Online ordering in German and English: a menu of eleven-plus categories, a custom pizza builder, a live cart, delivery or pickup, and checkout through PayPal, Stripe, Klarna, Apple Pay and Google Pay, with a dark mode for the whole UI system. The shop now sits behind an access login, so there is no public link.",
-      "url": ""
+      "summary": "Online ordering in German and English: a menu of eleven-plus categories, a custom pizza builder, a live cart, delivery or pickup, and checkout through PayPal, Stripe, Klarna, Apple Pay and Google Pay, with a dark mode for the whole UI system. The live shop sits behind an access login; the development build is public.",
+      "url": "https://dev.calimeroshop.de/de",
+      "image": "calimero.png",
+      "caption": "dev.calimeroshop.de"
     },
     {
       "slug": "toolora",
@@ -1492,7 +1622,8 @@
   "featured": [
     "mo3ta",
     "devlo",
-    "kevla"
+    "kevla",
+    "freightzone"
   ],
   "briefs": [
     "ozcar",

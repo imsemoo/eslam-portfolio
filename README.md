@@ -7,9 +7,10 @@ and a little JavaScript, hosted on GitHub Pages.
 
 ## The idea
 
-Show the work, not a list of adjectives. The page opens with three case
-studies told through the decision that shaped each product, with the live
-sites as they are today on a laptop and on a phone. Four shorter write-ups
+Show the work, not a list of adjectives. The page opens with four case
+studies told through the decision that shaped each product: three live
+sites as they are today on a laptop and on a phone, and one app design
+(FreightZone) shown from its Figma file. Four shorter write-ups
 follow, then the index of every project with my actual role on it. The
 PageSpeed section reads the JSON that a weekly GitHub Action commits to my
 profile, and the page states its own weight.
