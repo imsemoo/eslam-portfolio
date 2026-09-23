@@ -40,10 +40,10 @@
   --under: #9a5b12;
 
   /* type */
-  --font-display: "Bricolage Grotesque", "Geist", system-ui, sans-serif;
-  --font-body: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --font-arabic: "Segoe UI", "SF Arabic", "Noto Naskh Arabic", "Noto Kufi Arabic", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Schibsted Grotesk", "Readex Pro", system-ui, sans-serif;
+  --font-body: "Schibsted Grotesk", "Readex Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-arabic: "Readex Pro", "Segoe UI", "SF Arabic", "Noto Kufi Arabic", system-ui, sans-serif;
 
   --fs-hero: clamp(2.5rem, 0.9rem + 5.1vw, 5rem);
   --fs-h2: clamp(1.9rem, 1.1rem + 3vw, 3.4rem);

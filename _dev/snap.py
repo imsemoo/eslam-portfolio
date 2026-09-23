@@ -7,10 +7,11 @@ images.py then crops and converts them. Phones are emulated properly
 (390 x 844 CSS px, 2x, touch, mobile UA), so what lands in the portfolio is
 what a reader's phone shows, not a squeezed desktop.
 
-Most items point at a live site. Work that is not public yet (IWAD) points at
-a file in its own repository instead: the item names a "root" and a "local"
-path, and the root is given on the command line, so nothing private is
-written into this repository.
+Most items point at a live site. A few point at a file in the project's own
+repository instead (the IWAD section hubs, whose modules show only with the
+theme's sample content): the item names a "root" and a "local" path, and the
+root is given on the command line, so no local path is written into this
+repository.
 
 The live sites are newsrooms and dashboards, so a capture is a snapshot of
 one day.

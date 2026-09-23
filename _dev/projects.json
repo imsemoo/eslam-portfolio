@@ -252,7 +252,7 @@
           },
           {
             "h": "A theme from a brand book",
-            "p": "IWAD is one of the themes: a research platform for a defence institute, 24 pages, right to left. The brand book was six pages and had no type scale, spacing or components, so those were designed first, in two written documents, and the pages were built on them. Sections are told apart by colour instead of icons, because anything military reads as combat."
+            "p": "IWAD is one of the themes: a research platform for a defence institute, 24 pages, right to left. The brand book was six pages and had no type scale, spacing or components, so those were designed first, in two written documents, and the pages were built on them. Sections are told apart by colour instead of icons, because anything military reads as combat. It is live at wardefense.institute."
           },
           {
             "h": "A panel that shows only what a newsroom uses",
@@ -293,7 +293,7 @@
         "todo": [
           "Devlo's evidence is the sites, not the panel: demo.taktek.co/dashboard redirects to a login, so the editorial panel could not be captured. A screenshot of the panel (dashboard, sidebar, a module switched off) would show the design side directly.",
           "The old Quds case credited Quds with the 749 KB to 78 KB font cut. Your GitHub write-up places that audit on maktoobmedia.com, so it now sits under Maktoob. If Quds got the same pass, add it back to the Quds paragraph.",
-          "IWAD now sits inside the Devlo case as one of its themes, as you asked. Check the wording, and check with the client that the brand details and the unlaunched pages can be shown publicly."
+          "IWAD is live at wardefense.institute, but its sections are still empty, so the grid shows the theme build with sample content. Recapture the hubs from the live site once the first publications are out."
         ],
         "live": {
           "label": "Demo",
@@ -335,7 +335,7 @@
           ],
           "note": "IWAD, a defence research institute, came with a logo, clear space and six colours. The type scale, spacing, components and section colours were designed from those. The brand gold is 3.02:1 on paper, which fails for text, so it only marks things and a darker gold carries every gold word.",
           "grid": {
-            "caption": "The five section hubs share one layout and one set of components. Each gets its accent, checked against the paper, and a module of its own: a matrix, an atlas, a map of schools, learning paths, a record of battles.",
+            "caption": "The five section hubs, captured from the theme build with its sample content. They share one layout and one set of components; each gets its accent, checked against the paper, and a module of its own: a matrix, an atlas, a map of schools, learning paths, a record of battles.",
             "items": [
               {
                 "file": "iwad-sec-global",
@@ -452,8 +452,8 @@
         "design",
         "rtl"
       ],
-      "summary": "A research platform for a defence research institute, built as a theme from its six-page brand book: 24 pages, right to left. In the Devlo case study.",
-      "url": "",
+      "summary": "A research platform for a defence research institute, built as a theme from its six-page brand book: 24 pages, right to left, live at wardefense.institute. In the Devlo case study.",
+      "url": "https://wardefense.institute/",
       "image": [
         "iwad-index.png",
         "iwad-study.png",

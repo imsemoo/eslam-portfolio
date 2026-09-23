@@ -30,7 +30,7 @@ css/
   components.css    buttons, chips, badges, screenshot and phone frames, quotes, tables, the at-a-glance list
   sections.css      one block per section, each with its own mobile collapse
   motion.css        the hero build on load, the hero sinking under the white sheet, scroll reveals, the reading-progress line
-  fonts.css         three self-hosted latin subsets: Bricolage Grotesque 600, Geist and Geist Mono (variable)
+  fonts.css         self-hosted subsets: Bricolage Grotesque 600, Schibsted Grotesk and Fragment Mono (latin), Readex Pro (arabic)
   site.css          generated bundle of the above; build.py inlines it into index.html
 js/
   main.js           entry; every module is guarded so the page works without it
@@ -73,8 +73,9 @@ python _dev/images.py --evidence <raw-dir>
 python _dev/og.py
 ```
 
-Evidence that is not public yet (the IWAD theme, before launch) names a
-`root` and a `local` file instead of a URL; point the root at a checkout of
+Evidence can also come from a local build instead of the live site (the
+IWAD section hubs, shown with the theme's sample content). Such an item names
+a `root` and a `local` file instead of a URL; point the root at a checkout of
 that repository:
 
 ```bash
