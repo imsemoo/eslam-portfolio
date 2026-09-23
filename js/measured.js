@@ -17,7 +17,7 @@ export function initMeasured() {
   Promise.allSettled(
     [...cards].map(async (card) => {
       const slug = card.dataset.psi;
-      const res = await fetch(`${BASE}${slug}.json`, { cache: "no-store" });
+      const res = await fetch(`${BASE}${slug}.json`, { cache: "no-cache" });
       if (!res.ok) throw new Error(res.status);
       const data = await res.json();
       fill(card, data);
@@ -47,20 +47,22 @@ function fill(card, data) {
     });
     const lcp = tr.querySelector('[data-k="lcp"]');
     if (lcp && r.metrics && r.metrics.lcp && r.metrics.lcp.display) {
-      lcp.textContent = r.metrics.lcp.display.replace(/ /g, " ");
+      lcp.textContent = r.metrics.lcp.display.replace(/\s/g, "\u00a0");
     }
   });
   const note = card.querySelector("[data-field]");
   const field = data.results && (data.results.mobile || data.results.desktop);
   if (note && field && field.field && field.field.overall) {
     const f = field.field;
-    const s = (ms) => (ms == null ? "n/a" : `${(ms / 1000).toFixed(2)} s`);
-    note.textContent = `Real Chrome users over 28 days: ${f.overall}, LCP ${s(f.lcp_ms)}, INP ${f.inp_ms == null ? "n/a" : f.inp_ms + " ms"}.`;
+    const s = (ms) => (ms == null ? "n/a" : `${(ms / 1000).toFixed(2)}\u00a0s`);
+    note.textContent = `Real Chrome users over 28 days: ${f.overall}, LCP ${s(f.lcp_ms)}, INP ${f.inp_ms == null ? "n/a" : f.inp_ms + "\u00a0ms"}.`;
   }
 }
 
 /* The page's own card has no table: one sentence with the two performance
-   scores and the lowest of the other three categories across both devices. */
+   scores and the lowest of the other three categories across both devices.
+   The sentence ships with the committed numbers, so filling it in never
+   moves the layout. */
 function fillSelf(card, data) {
   const r = data.results || {};
   const mob = r.mobile && r.mobile.scores;
@@ -71,6 +73,5 @@ function fillSelf(card, data) {
   );
   card.querySelector("[data-self-mobile]").textContent = String(mob.performance);
   card.querySelector("[data-self-desktop]").textContent = String(desk.performance);
-  card.querySelector("[data-self-rest]").textContent = Number.isFinite(rest) ? `${rest} or above` : "n/a";
-  card.querySelector("[data-self]").hidden = false;
+  card.querySelector("[data-self-rest]").textContent = Number.isFinite(rest) ? (rest === 100 ? "100" : `${rest} or more`) : "n/a";
 }

@@ -1,235 +1,204 @@
-/* The scroll motion system. It starts after the first paint, so it only ever
-   touches elements that are still below the fold; whatever is already on
-   screen is left exactly as the CSS drew it.
+/* Scroll behaviour, with no libraries.
 
-   One language, four moves, in reading order:
-   - a headline slides up out of a mask (the hero does this in CSS; every
-     section heading further down does the same here),
-   - a block fades and rises 20 px into place,
-   - a group of siblings does that with a short stagger, so a list reads as
-     a list,
-   - a screenshot is uncovered with a wipe from the top and settles from a
-     slight zoom, the one move reserved for the case visuals.
-   Everything runs once, on transform, opacity and clip-path only. Nothing
-   loops, nothing bounces. */
+   - The curtain: the hero stays pinned while the white sheet slides up over
+     it. Its sticky offset is set here so a hero taller than the screen is
+     read to the end before it pins.
+   - The nav follows the ground under it: ink over the hero, white over the
+     sheet, and it underlines the section being read (aria-current).
+   - Reveals: section headings slide up out of a mask, blocks rise in with a
+     short stagger inside their group, the decision line arrives word by word,
+     and case evidence is uncovered from the top.
 
-const EASE = "expo.out";
-const D = { rise: 20, reveal: 0.8, mask: 1.0, wipe: 1.1, stagger: 0.07 };
+   Only elements still below the fold when this runs are hidden, and they are
+   hidden without a transition, so nothing on screen ever flickers. A timer, a
+   focus listener and beforeprint show anything a frozen renderer or a
+   keyboard jump would otherwise miss. Under prefers-reduced-motion the
+   reveals are skipped entirely; the curtain and the nav still run. */
 
-export function initMotion({ gsap, ScrollTrigger, Lenis }) {
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.defaults({ ease: EASE, duration: D.reveal });
+export function initMotion({ reduce }) {
+  curtain();
+  nav();
+  print();
+  if (reduce || !("IntersectionObserver" in window)) return;
+  reveals();
+  magnet();
+}
 
-  const fold = window.innerHeight;
-  const belowFold = (el) => el.getBoundingClientRect().top > fold * 0.92;
-  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const once = (trigger, start) => ({ trigger, start, once: true });
+function curtain() {
+  const hero = document.querySelector("[data-hero]");
+  if (!hero) return;
+  const set = () => hero.style.setProperty("--hero-top", `${Math.min(0, window.innerHeight - hero.offsetHeight)}px`);
+  set();
+  document.documentElement.setAttribute("data-curtain", "");
+  window.addEventListener("resize", set);
+  if ("ResizeObserver" in window) new ResizeObserver(set).observe(hero);
+}
 
-  // ---- smooth scroll, driven by GSAP's ticker so ScrollTrigger stays in sync
-  if (Lenis && finePointer) {
-    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, wheelMultiplier: 0.9, anchors: true });
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add((t) => lenis.raf(t * 1000));
-    gsap.ticker.lagSmoothing(0);
-  }
+function nav() {
+  const bar = document.querySelector("[data-nav]");
+  if (!bar) return;
+  const lead = document.querySelector(".curtain--lead");
 
-  // Wrap an element's content in a mask so it can slide up into view.
-  function mask(el) {
-    const wrap = document.createElement("span");
-    wrap.className = "line-mask";
-    const line = document.createElement("span");
-    line.className = "motion-line";
-    while (el.firstChild) line.appendChild(el.firstChild);
-    wrap.appendChild(line);
-    el.appendChild(wrap);
-    return line;
-  }
-
-  // ---- multi-line headlines (contact): each .line gets its own mask
-  document.querySelectorAll("[data-motion-text='lines']").forEach((el) => {
-    if (el.closest(".hero") || !belowFold(el)) return;
-    const lines = [...el.querySelectorAll(".line")].map((line) => {
-      const wrap = document.createElement("span");
-      wrap.className = "line-mask";
-      line.parentNode.insertBefore(wrap, line);
-      wrap.appendChild(line);
-      line.classList.add("motion-line");
-      return line;
-    });
-    gsap.fromTo(lines, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: D.mask, stagger: 0.09, scrollTrigger: once(el, "top 88%") });
-  });
-
-  // ---- section heads: label, then the heading out of its mask, then the lede
-  document.querySelectorAll(".section-head").forEach((head) => {
-    if (!belowFold(head)) return;
-    const label = head.querySelector(".label");
-    const h2 = head.querySelector("h2");
-    const lede = head.querySelector(".lede");
-    const tl = gsap.timeline({ scrollTrigger: once(head, "top 85%") });
-    if (label) tl.fromTo(label, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0);
-    if (h2) tl.fromTo(mask(h2), { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: D.mask }, 0);
-    if (lede) tl.fromTo(lede, { y: D.rise, opacity: 0 }, { y: 0, opacity: 1, duration: D.reveal }, 0.18);
-  });
-
-  // ---- other headings below the fold (the measured copy) slide out of a mask too
-  document.querySelectorAll("main h2").forEach((h2) => {
-    if (h2.closest(".hero, .section-head") || h2.hasAttribute("data-motion-text") || !belowFold(h2)) return;
-    gsap.fromTo(mask(h2), { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: D.mask, scrollTrigger: once(h2, "top 88%") });
-  });
-
-  // ---- single reveals
-  document.querySelectorAll("[data-reveal]").forEach((el) => {
-    if (!belowFold(el)) return;
-    gsap.fromTo(el, { y: D.rise, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: once(el, "top 88%") });
-  });
-
-  // ---- grouped reveals, staggered within the group
-  document.querySelectorAll("[data-reveal-group]").forEach((group) => {
-    if (!belowFold(group)) return;
-    const items = group.querySelectorAll("[data-reveal-item]");
-    if (!items.length) return;
-    gsap.fromTo(items, { y: D.rise, opacity: 0 }, { y: 0, opacity: 1, stagger: D.stagger, scrollTrigger: once(group, "top 85%") });
-  });
-
-  // ---- the index: rows arrive in small batches as the reader scrolls. Quick
-  // and shallow, because this is a list to be read, not a show. Rows that a
-  // filter already brought in are left alone.
-  const rows = [...document.querySelectorAll("[data-rows] .row")].filter(belowFold);
-  if (rows.length) {
-    rows.forEach((row) => row.setAttribute("data-batch", ""));
-    gsap.set(rows, { y: 10, opacity: 0 });
-    ScrollTrigger.batch(rows, {
-      start: "top 94%",
-      once: true,
-      onEnter: (batch) => {
-        const fresh = batch.filter((row) => !row.dataset.revealed);
-        batch.forEach((row) => (row.dataset.revealed = "1"));
-        if (fresh.length) gsap.to(fresh, { y: 0, opacity: 1, duration: 0.5, stagger: 0.04, overwrite: true, clearProps: "transform" });
-      },
-    });
-  }
-
-  // ---- case studies: the head rises, the screenshot is uncovered from the
-  // top while it settles from a slight zoom, then the text blocks follow
-  document.querySelectorAll(".case").forEach((article) => {
-    const head = article.querySelector(".case__head");
-    const shot = article.querySelector(".case__visual .shot");
-    const img = shot && shot.querySelector(".shot__img");
-    const blocks = article.querySelectorAll(".case__block, .case__cta");
-    if (head && belowFold(head)) {
-      gsap.fromTo(head, { y: D.rise, opacity: 0 }, { y: 0, opacity: 1, scrollTrigger: once(head, "top 85%") });
-    }
-    if (shot && belowFold(shot)) {
-      const tl = gsap.timeline({ scrollTrigger: once(shot, "top 85%") });
-      tl.fromTo(shot, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: D.wipe }, 0);
-      if (img) tl.fromTo(img, { scale: 1.08 }, { scale: 1, duration: D.wipe + 0.4, clearProps: "transform" }, 0);
-    }
-    const body = article.querySelector(".case__body");
-    if (body && blocks.length && belowFold(body)) {
-      gsap.fromTo(blocks, { y: D.rise, opacity: 0 }, { y: 0, opacity: 1, stagger: D.stagger, scrollTrigger: once(body, "top 85%") });
-    }
-  });
-
-  // ---- hero: the three layered screens drift at different depths while
-  // scrolling, and on a fine pointer they lean away from the cursor, deeper
-  // layers less, so the stack reads as a real pile rather than a flat image.
-  const stack = document.querySelector("[data-hero-stack]");
-  if (stack) {
-    const layers = [...stack.querySelectorAll("[data-depth]")];
-    layers.forEach((layer) => {
-      const depth = parseFloat(layer.dataset.depth || "0.2");
-      gsap.to(layer, {
-        yPercent: depth * -60,
-        ease: "none",
-        scrollTrigger: { trigger: stack, start: "top 20%", end: "bottom top", scrub: 1 },
-      });
-    });
-    if (finePointer) {
-      const movers = layers.map((layer) => ({
-        depth: parseFloat(layer.dataset.depth || "0.2"),
-        x: gsap.quickTo(layer, "x", { duration: 0.9, ease: EASE }),
-        rot: gsap.quickTo(layer, "rotation", { duration: 0.9, ease: EASE }),
-      }));
-      const hero = stack.closest(".hero") || stack;
-      hero.addEventListener("pointermove", (e) => {
-        const r = hero.getBoundingClientRect();
-        const nx = ((e.clientX - r.left) / r.width - 0.5) * 2; // -1 .. 1
-        movers.forEach((m) => {
-          m.x(nx * -26 * (1 - m.depth));
-          m.rot(nx * -1.2 * (1 - m.depth));
-        });
-      });
-      hero.addEventListener("pointerleave", () => movers.forEach((m) => { m.x(0); m.rot(0); }));
-    }
-  }
-
-  // ---- case visuals: a slow drift so the sticky image feels attached to the text
-  document.querySelectorAll("[data-parallax-section] .shot__img").forEach((img) => {
-    gsap.fromTo(
-      img,
-      { yPercent: -4 },
-      { yPercent: 4, ease: "none", scrollTrigger: { trigger: img.closest(".case"), start: "top bottom", end: "bottom top", scrub: 1.2 } }
-    );
-  });
-
-  // ---- magnetic buttons (fine pointers only)
-  if (finePointer) {
-    document.querySelectorAll("[data-magnetic]").forEach((btn) => {
-      const toX = gsap.quickTo(btn, "x", { duration: 0.45, ease: EASE });
-      const toY = gsap.quickTo(btn, "y", { duration: 0.45, ease: EASE });
-      btn.addEventListener("pointermove", (e) => {
-        const r = btn.getBoundingClientRect();
-        toX((e.clientX - (r.left + r.width / 2)) * 0.22);
-        toY((e.clientY - (r.top + r.height / 2)) * 0.28);
-      });
-      btn.addEventListener("pointerleave", () => {
-        toX(0);
-        toY(0);
-      });
-    });
-  }
-
-  // ---- nav: compact after the hero, current section underlined
-  const nav = document.querySelector("[data-nav]");
-  if (nav) {
-    ScrollTrigger.create({
-      start: 80,
-      onUpdate: (self) => nav.classList.toggle("is-compact", self.scroll() > 80),
-    });
-    nav.querySelectorAll(".nav__links a").forEach((a) => {
-      const target = document.querySelector(a.getAttribute("href"));
-      if (!target) return;
-      ScrollTrigger.create({
-        trigger: target,
-        start: "top 45%",
-        end: "bottom 45%",
-        onToggle: (self) => a.toggleAttribute("aria-current", self.isActive),
-      });
-    });
-  }
-
-  // ---- safety net: a renderer that stops producing frames (background tab,
-  // print preview, some embeds) can leave a trigger unfired. On return, and
-  // once after a pause, anything faded that is now on screen is shown.
-  const showVisible = () => {
-    const faded = [...document.querySelectorAll("[data-reveal], [data-reveal-item], [data-batch], .motion-line, .case__head, .case__block, .case__cta, .section-head .lede, .section-head .label")].filter((el) => {
-      const r = el.getBoundingClientRect();
-      return parseFloat(getComputedStyle(el).opacity) < 1 && r.top < window.innerHeight && r.bottom > 0;
-    });
-    if (faded.length) gsap.set(faded, { opacity: 1, y: 0, yPercent: 0 });
-    document.querySelectorAll(".case__visual .shot").forEach((shot) => {
-      const r = shot.getBoundingClientRect();
-      if (r.top < window.innerHeight && r.bottom > 0 && shot.style.clipPath && shot.style.clipPath !== "inset(0px 0px 0% 0px)") {
-        gsap.set(shot, { clipPath: "inset(0 0 0% 0)" });
-      }
-    });
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const tone = lead && lead.getBoundingClientRect().top > bar.offsetHeight ? "ink" : "paper";
+    if (bar.dataset.tone !== tone) bar.dataset.tone = tone;
   };
-  window.addEventListener("pageshow", () => ScrollTrigger.refresh());
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden) {
-      ScrollTrigger.refresh();
-      showVisible();
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
     }
+  }, { passive: true });
+  update();
+
+  if (!("IntersectionObserver" in window)) return;
+  const links = [...bar.querySelectorAll(".nav__links a[href^='#']")];
+  const sections = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  const visible = new Map();
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => visible.set(e.target, e.isIntersecting));
+    const current = sections.find((s) => visible.get(s));
+    links.forEach((a) => {
+      if (current && a.getAttribute("href") === `#${current.id}`) a.setAttribute("aria-current", "true");
+      else a.removeAttribute("aria-current");
+    });
+  }, { rootMargin: "-45% 0px -54% 0px" });
+  sections.forEach((s) => io.observe(s));
+}
+
+// closed notes would print as nothing: open them for the printout, then
+// put them back the way the reader left them
+function print() {
+  let opened = [];
+  window.addEventListener("beforeprint", () => {
+    opened = [...document.querySelectorAll("details:not([open])")];
+    opened.forEach((d) => (d.open = true));
   });
-  setTimeout(showVisible, 2500);
+  window.addEventListener("afterprint", () => {
+    opened.forEach((d) => (d.open = false));
+    opened = [];
+  });
+}
+
+function reveals() {
+  const fold = window.innerHeight * 0.9;
+  const below = (el) => el.getBoundingClientRect().top > fold;
+  const armed = [];
+
+  const arm = (el, cls, i = 0) => {
+    if (!below(el)) return;
+    el.classList.add(cls, `${cls}-off`);
+    el.style.setProperty("--rv-i", String(i));
+    armed.push([el, `${cls}-off`]);
+  };
+
+  // headings slide up out of a mask
+  document.querySelectorAll("main h2, .feature__title, .briefs__head h3").forEach((h) => {
+    if (!below(h)) return;
+    const inner = document.createElement("span");
+    inner.className = "mask__in";
+    while (h.firstChild) inner.appendChild(h.firstChild);
+    const mask = document.createElement("span");
+    mask.className = "mask";
+    mask.appendChild(inner);
+    h.appendChild(mask);
+    arm(h, "rh");
+  });
+
+  // blocks rise in, staggered inside their group
+  const groups = [
+    ".section-head .lede", ".feature__lede", ".contact .lede", ".contact__actions", ".links",
+    ".glance > div", ".story__block", ".outcome > div", ".feature__links",
+    ".system h4", ".sw", ".system__note",
+    ".briefs__head p", ".brief", ".step", ".score", ".footprint", ".score__legend",
+    ".measured__copy > :not(h2)", ".about__intro .lede", ".facts > div", ".timeline h3", ".tl",
+    ".skills h3", ".skill-group", ".tokens__head", ".swatch, .type-sample, .space-sample",
+    ".quote", ".index__bar", ".row", ".index__more",
+  ];
+  groups.forEach((sel) => {
+    const byParent = new Map();
+    document.querySelectorAll(sel).forEach((el) => {
+      const list = byParent.get(el.parentElement) || [];
+      list.push(el);
+      byParent.set(el.parentElement, list);
+    });
+    byParent.forEach((list) => list.forEach((el, i) => arm(el, "rv", Math.min(i, 6))));
+  });
+
+  // the decision line arrives word by word
+  document.querySelectorAll(".decision").forEach((p) => {
+    if (!below(p)) return;
+    let w = 0;
+    const walk = (node) => {
+      [...node.childNodes].forEach((n) => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) return frag.appendChild(document.createTextNode(part));
+            const s = document.createElement("span");
+            s.className = "word";
+            s.style.setProperty("--w", String(w++));
+            s.textContent = part;
+            frag.appendChild(s);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1) {
+          walk(n);
+        }
+      });
+    };
+    walk(p);
+    arm(p, "rw");
+  });
+
+  // case evidence is uncovered from the top
+  document.querySelectorAll("[data-reveal-ev]").forEach((el) => {
+    const siblings = [...el.parentElement.querySelectorAll(":scope > [data-reveal-ev]")];
+    arm(el, "uc", Math.min(siblings.indexOf(el), 3));
+  });
+
+  if (!armed.length) return;
+  const off = new Map(armed);
+  const show = (el) => {
+    const cls = off.get(el);
+    if (cls) el.classList.remove(cls);
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      show(e.target);
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px" });
+  armed.forEach(([el]) => io.observe(el));
+
+  const sweep = () => armed.forEach(([el]) => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) show(el);
+  });
+  document.addEventListener("focusin", (e) => {
+    armed.forEach(([el]) => { if (el.contains(e.target)) show(el); });
+  });
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) sweep(); });
+  window.addEventListener("beforeprint", () => armed.forEach(([el]) => show(el)));
+  setTimeout(sweep, 2500);
+}
+
+// the email buttons lean towards the pointer, a few pixels, fine pointers only
+function magnet() {
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  document.querySelectorAll("[data-magnetic]").forEach((btn) => {
+    btn.addEventListener("pointermove", (e) => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - (r.left + r.width / 2)) * 0.18;
+      const y = (e.clientY - (r.top + r.height / 2)) * 0.28;
+      btn.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
+    });
+    btn.addEventListener("pointerleave", () => {
+      btn.style.translate = "";
+    });
+  });
 }

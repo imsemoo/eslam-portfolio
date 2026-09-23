@@ -1,5 +1,5 @@
-/* Reusable pieces: icons, buttons, chips, tags, the screenshot frame,
-   data cells, quotes, tables. No section knows about another's internals. */
+/* Reusable pieces: icons, buttons, chips, tags, badges, the screenshot and
+   phone frames, quotes, tables. No section knows about another's internals. */
 
 .icon {
   width: 1.05em;
@@ -23,6 +23,9 @@
   inset-inline-start: var(--s-4);
   inset-block-start: -100%;
   z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
   padding: var(--s-2) var(--s-4);
   background: var(--ink);
   color: var(--text-on-ink);
@@ -36,9 +39,10 @@
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--s-2);
   white-space: nowrap;
-  min-height: 2.5rem;
+  min-height: var(--target);
   padding: 0.7rem 1.2rem;
   border-radius: var(--r);
   font-size: var(--fs-small);
@@ -68,7 +72,7 @@
 }
 .btn--lg {
   min-height: 3rem;
-  padding: 1rem 1.5rem;
+  padding: 0.9rem 1.4rem;
   font-size: 1rem;
 }
 .btn:active {
@@ -85,23 +89,35 @@
 
 /* ---------- chips (filters) ---------- */
 .chip {
-  padding: 0.5rem 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.85rem;
   border-radius: 999px;
   border: 1px solid var(--line-strong);
   font-size: var(--fs-small);
   color: var(--text-2);
   background: transparent;
+  white-space: nowrap;
   transition:
     background-color var(--dur-fast) ease,
     border-color var(--dur-fast) ease,
     color var(--dur-fast) ease,
     transform var(--dur-fast) var(--ease-out);
 }
-.chip:hover {
+/* hover only changes chips that are neither pressed nor disabled, so the
+   pressed chip keeps its light text on ink under the pointer */
+.chip:not([aria-pressed="true"]):not(:disabled):hover {
   border-color: var(--ink);
   color: var(--text);
 }
-.chip:active {
+.chip:disabled {
+  cursor: not-allowed;
+  border-style: dashed;
+  color: var(--text-3);
+}
+.chip:active:not(:disabled) {
   transform: scale(0.97);
   transition-duration: 0.12s;
 }
@@ -110,25 +126,41 @@
   border-color: var(--ink);
   color: var(--text-on-ink);
 }
+.chip[aria-pressed="true"]:hover {
+  background: var(--ink-2);
+}
 .chip__n {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   font-size: var(--fs-micro);
   color: var(--text-3);
-  margin-inline-start: 0.15rem;
 }
 .chip[aria-pressed="true"] .chip__n {
   color: var(--text-on-ink-2);
 }
 
-/* ---------- tags ---------- */
+/* ---------- tags and badges ---------- */
 .tag {
   display: inline-block;
-  font-family: var(--font-mono);
   font-size: var(--fs-micro);
   line-height: 1;
   color: var(--text-3);
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   padding: 0.3rem 0.5rem;
+  white-space: nowrap;
+}
+.row__badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: var(--accent-ink);
+  background: var(--accent-wash);
+  border-radius: 999px;
+  padding: 0.3rem 0.55rem;
   white-space: nowrap;
 }
 
@@ -140,20 +172,24 @@
   background: var(--white);
   overflow: hidden;
   box-shadow:
-    0 1px 0 rgb(20 23 26 / 0.04),
-    0 30px 60px -40px rgb(20 23 26 / 0.45);
+    0 1px 0 rgb(15 17 21 / 0.04),
+    0 30px 60px -40px rgb(15 17 21 / 0.45);
 }
 .shot__bar {
   display: flex;
   align-items: center;
-  height: 28px;
-  padding-inline: var(--s-3);
+  min-height: 30px;
+  padding: 0.35rem var(--s-3);
   border-bottom: 1px solid var(--line);
   background: var(--paper-2);
 }
 .shot__cap {
+  font-family: var(--font-mono);
   font-size: var(--fs-micro);
   color: var(--text-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .shot__img {
   width: 100%;
@@ -161,28 +197,32 @@
   object-fit: cover;
   object-position: top center;
 }
+.shot__img--strip {
+  aspect-ratio: 3 / 1;
+}
 
-/* ---------- data cells ---------- */
-.datum {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: var(--s-1);
+/* ---------- phone frame: a real capture at 390 CSS px, nothing drawn on top */
+.phone {
+  padding: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-phone);
+  background: var(--white);
+  box-shadow:
+    0 1px 0 rgb(15 17 21 / 0.04),
+    0 30px 60px -40px rgb(15 17 21 / 0.45);
 }
-.datum dd {
-  font-size: var(--fs-data);
-  font-weight: 400;
-  letter-spacing: var(--track-snug);
-  line-height: 1;
-  color: var(--text);
-}
-.datum dt {
-  font-size: var(--fs-small);
-  color: var(--text-3);
+.phone img {
+  width: 100%;
+  aspect-ratio: 390 / 844;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: calc(var(--r-phone) - 6px);
+  background: var(--paper-2);
 }
 
 /* ---------- quotes ---------- */
 .quote {
-  padding: var(--s-5) var(--s-5) var(--s-5);
+  padding: var(--s-5);
   border: 1px solid var(--line);
   border-radius: var(--r);
   background: var(--white);
@@ -197,15 +237,10 @@
   line-height: 1.9;
 }
 .quote__src {
-  margin-top: var(--s-4);
-}
-.quote__src {
   display: flex;
   align-items: center;
   gap: var(--s-3);
-}
-.quote--ar .quote__src {
-  flex-direction: row;
+  margin-top: var(--s-4);
 }
 .quote__src b {
   color: var(--text-2);
@@ -248,6 +283,9 @@
   flex-wrap: wrap;
 }
 .score__run {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
   font-size: var(--fs-small);
   color: var(--accent);
   text-decoration: none;
@@ -258,7 +296,7 @@
 .score__table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: var(--s-4);
+  margin-top: var(--s-3);
   font-family: var(--font-mono);
   font-size: var(--fs-small);
   font-variant-numeric: tabular-nums;
@@ -268,6 +306,7 @@
   text-align: right;
   padding: 0.5rem 0.3rem;
   border-bottom: 1px solid var(--line);
+  white-space: nowrap;
 }
 .score__table th:first-child,
 .score__table td:first-child {
@@ -277,11 +316,10 @@
   font-weight: 400;
 }
 .score__table thead th {
+  font-family: var(--font-body);
   font-weight: 600;
   color: var(--text-3);
   font-size: var(--fs-micro);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 .score__table tbody tr:last-child td,
 .score__table tbody tr:last-child th {
@@ -296,30 +334,43 @@
 }
 .score__table td[data-k="lcp"] {
   color: var(--text-2);
-  font-weight: 400;
 }
 .score__note {
   margin-top: var(--s-3);
 }
+.score__about {
+  margin-top: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px dashed var(--line);
+  color: var(--text-2);
+  text-wrap: pretty;
+}
 
-/* ---------- definition lists (case meta) ---------- */
-.case__meta {
+/* ---------- at-a-glance list (case studies) ---------- */
+.glance {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s-3) var(--s-5);
-  margin-top: var(--s-5);
-  padding-top: var(--s-4);
+  gap: var(--s-4) var(--s-5);
+  align-content: start;
+}
+.glance div {
+  padding-top: var(--s-3);
   border-top: 1px solid var(--line);
 }
-.case__meta dt {
-  font-family: var(--font-mono);
+.glance dt {
   font-size: var(--fs-micro);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font-weight: 600;
   color: var(--text-3);
 }
-.case__meta dd {
-  margin-top: 0.15rem;
+.glance dd {
+  margin-top: 0.2rem;
   font-size: var(--fs-small);
-  color: var(--text-2);
+  color: var(--text);
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+.glance a {
+  display: inline-block;
+  padding-block: 3px;
+  color: var(--accent-ink);
 }

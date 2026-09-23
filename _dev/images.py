@@ -4,9 +4,16 @@ Every project gets the same treatment so the index reads as one system:
 a 16:10 crop from the top of a 1440-wide above-the-fold screenshot, saved as
 WebP at 1200 and 600 wide for srcset, plus a 240-wide thumbnail for the index
 rows. OzCar's site is offline, so its image is a montage of two of the
-screens I built, laid on the page's own paper colour.
+screens I built, laid on the page's white sheet.
 
 Run from the repository root:  python _dev/images.py <raw-dir> <legacy-dir>
+
+Case-study evidence (live-site captures from _dev/snap.py) goes through
+    python _dev/images.py --evidence <raw-dir>
+Phones keep their full 390 x 844 frame at 390 and 600 wide; desktop captures
+become a 16:10 frame at 800 and 1400 wide; a "strip" is cropped to the CSS
+rectangle named in projects.json and saved at 1000 and 1600 wide; the small
+screens in a case's system grid are 16:10 at 600 wide.
 """
 import json
 import os
@@ -19,7 +26,7 @@ OUT = os.path.join(ROOT, "img", "work")
 RAW = sys.argv[1] if len(sys.argv) > 1 else "raw"
 LEGACY = sys.argv[2] if len(sys.argv) > 2 else "legacy"
 
-PAPER = (243, 242, 238)
+PAPER = (255, 255, 255)  # the sheet is white; no cream anywhere
 SIZES = ((1200, 750), (800, 500), (600, 375))
 THUMB = (240, 150)
 
@@ -42,12 +49,19 @@ def montage(paths):
     inner_h = 900 - pad * 2
 
     def framed(path, w, h):
+        # Cover the slot without distorting: a source wider than the slot
+        # loses its right side, a taller one loses its bottom. The old
+        # version always cut height, so wide screenshots were squeezed.
         im = Image.open(path).convert("RGB")
         iw, ih = im.size
         target = w / h
-        ch = min(ih, int(iw / target))
-        im = im.crop((0, 0, iw, ch)).resize((w, h), Image.LANCZOS)
-        frame = Image.new("RGB", (w + 2, h + 2), (214, 212, 205))
+        if iw / ih > target:
+            cw = int(ih * target)
+            im = im.crop((0, 0, cw, ih))  # these screens read left to right; keep the start
+        else:
+            im = im.crop((0, 0, iw, int(iw / target)))
+        im = im.resize((w, h), Image.LANCZOS)
+        frame = Image.new("RGB", (w + 2, h + 2), (218, 221, 226))
         frame.paste(im, (1, 1))
         return frame
 
@@ -70,7 +84,47 @@ def save_all(im, slug):
     )
 
 
+def evidence(raw):
+    """Crop and size the live captures the case studies use as evidence.
+    Captures are taken at 2x, so a CSS rectangle is doubled before cutting."""
+    out = os.path.join(OUT, "ev")
+    os.makedirs(out, exist_ok=True)
+    with open(os.path.join(ROOT, "_dev", "projects.json"), encoding="utf-8") as f:
+        projects = json.load(f)["projects"]
+    items = [e for p in projects for e in (p.get("case") or {}).get("evidence", []) if e.get("file")]
+    items += [
+        {"kind": "grid", **e}
+        for p in projects
+        for e in ((p.get("case") or {}).get("system") or {}).get("grid", {}).get("items", [])
+    ]
+    for e in items:
+        src = os.path.join(raw, e["file"] + ".png")
+        if not os.path.exists(src):  # snap.py was run for some cases only
+            continue
+        im = Image.open(src).convert("RGB")
+        if e["kind"] == "grid":
+            im = top_crop(im)
+            widths = (600,)
+        elif e["kind"] == "phone":
+            widths = (390, 600)
+        elif e["kind"] == "strip":
+            x, y, w, h = (v * 2 for v in e["crop"])
+            im = im.crop((x, y, x + w, y + h))
+            widths = (1000, 1600)
+        else:
+            im = top_crop(im)
+            widths = (800, 1400)
+        for w in widths:
+            h = round(im.size[1] * w / im.size[0])
+            im.resize((w, h), Image.LANCZOS).save(os.path.join(out, f"{e['file']}-{w}.webp"), "WEBP", quality=78, method=6)
+        print("ok", e["file"], im.size)
+    total = sum(os.path.getsize(os.path.join(out, f)) for f in os.listdir(out))
+    print(f"{len(items)} captures, {len(os.listdir(out))} files, {total // 1024} KB")
+
+
 def main():
+    if len(sys.argv) > 2 and sys.argv[1] == "--evidence":
+        return evidence(sys.argv[2])
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(ROOT, "_dev", "projects.json"), encoding="utf-8") as f:
         projects = json.load(f)["projects"]

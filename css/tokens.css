@@ -1,35 +1,40 @@
 /* Design tokens. Everything else in css/ reads from here and nowhere else.
-   The page is light by instruction (the paper sheet); the dark ink is the
-   desk it sits on, not a second theme. */
+   Two grounds, one system: the ink canvas at the top of the page, where the
+   work is shown the way a design tool shows a frame, and the white sheet the
+   case studies are read on, which slides up over it. */
 
 :root {
   color-scheme: light;
 
-  /* surfaces */
-  --ink: #14171a;
-  --ink-2: #1d2126;
-  --paper: #f3f2ee;
-  --paper-2: #ebeae5;
-  --paper-3: #e1e0da;
-  --white: #fbfbf9;
+  /* surfaces: the ink canvas the work is shown on, and the white sheet it is
+     read on. No cream, no beige: neutral greys with a faint cool cast. */
+  --ink: #0f1115;
+  --ink-2: #181b21;
+  --ink-3: #23272f;
+  --paper: #ffffff;
+  --paper-2: #f3f4f6;
+  --paper-3: #e5e7eb;
+  --white: #ffffff;
 
   /* lines */
-  --line: rgb(20 23 26 / 0.12);
-  --line-strong: rgb(20 23 26 / 0.24);
-  --line-on-ink: rgb(243 242 238 / 0.14);
+  --line: rgb(15 17 21 / 0.1);
+  --line-strong: rgb(15 17 21 / 0.22);
+  --line-on-ink: rgb(244 245 247 / 0.12);
+  --line-on-ink-strong: rgb(244 245 247 / 0.24);
 
   /* text */
-  --text: #14171a;
-  --text-2: #464c52;
-  --text-3: #5e646b;
-  --text-on-ink: #f3f2ee;
-  --text-on-ink-2: rgb(243 242 238 / 0.62);
+  --text: #0f1115;
+  --text-2: #434954;
+  --text-3: #5b626d;
+  --text-on-ink: #f4f5f7;
+  --text-on-ink-2: rgb(244 245 247 / 0.7);
+  --text-on-ink-3: rgb(244 245 247 / 0.56);
 
-  /* the one accent */
+  /* the one accent, and its brighter self on the ink canvas */
   --accent: #0b6e4f;
   --accent-ink: #075239;
-  --accent-wash: #e3efe9;
-  --accent-on-ink: #5fc39d;
+  --accent-wash: #e4f2eb;
+  --accent-on-ink: #5fd3a5;
 
   /* status, used only where a number is under the bar */
   --under: #9a5b12;
@@ -40,15 +45,16 @@
   --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-arabic: "Segoe UI", "SF Arabic", "Noto Naskh Arabic", "Noto Kufi Arabic", system-ui, sans-serif;
 
-  --fs-hero: clamp(2.4rem, 1rem + 4.6vw, 4.9rem);
+  --fs-hero: clamp(2.5rem, 0.9rem + 5.1vw, 5rem);
   --fs-h2: clamp(1.9rem, 1.1rem + 3vw, 3.4rem);
+  --fs-case: clamp(1.9rem, 1.2rem + 2.5vw, 3rem);
   --fs-h3: clamp(1.25rem, 1.05rem + 0.6vw, 1.6rem);
+  --fs-decision: clamp(1.3rem, 1.05rem + 0.95vw, 1.75rem);
   --fs-h4: 1.125rem;
   --fs-body: 1rem;
   --fs-lede: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
   --fs-small: 0.875rem;
   --fs-micro: 0.75rem;
-  --fs-data: clamp(2rem, 1.4rem + 2vw, 3.2rem);
 
   --lh-tight: 1.02;
   --lh-snug: 1.2;
@@ -68,17 +74,21 @@
   --s-7: 3rem;
   --s-8: 4rem;
   --s-9: 6rem;
-  --section: clamp(4.5rem, 4rem + 5vw, 9rem);
+  --section: clamp(3.75rem, 2.75rem + 4vw, 7rem);
   --gutter: clamp(1.25rem, 0.75rem + 2.4vw, 3rem);
 
   /* shape */
   --r-sheet: clamp(14px, 1vw + 8px, 24px);
   --r: 8px;
   --r-sm: 5px;
+  --r-phone: 26px;
 
   /* layout */
   --shell: 1240px;
   --measure: 62ch;
+  --measure-story: 60ch;
+  --nav-h: 72px;
+  --target: 2.75rem;
 
   /* motion */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

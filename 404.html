@@ -3,25 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Not here. Eslam Nasser</title>
+<title>Not here. Eslam Nasser, UI/UX designer and front-end developer</title>
 <meta name="robots" content="noindex">
-<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#0f1115">
+<!-- GitHub Pages serves this file at whatever path was asked for, so every
+     link and asset is absolute to the site root. -->
+<link rel="icon" href="/eslam-portfolio/img/favicon.svg?v=2" type="image/svg+xml">
 <style>
-  html{background:#14171a}
-  body{margin:0;font-family:"Geist",system-ui,sans-serif;color:#14171a}
-  .sheet{margin:12px;min-height:calc(100dvh - 24px);background:#f3f2ee;border-radius:24px;display:grid;place-items:center;padding:24px}
+  @font-face{font-family:"Bricolage Grotesque";font-weight:600;font-display:swap;src:url(/eslam-portfolio/fonts/bricolage-grotesque-600-latin.woff2) format("woff2")}
+  @font-face{font-family:"Geist";font-weight:100 900;font-display:swap;src:url(/eslam-portfolio/fonts/geist-latin.woff2) format("woff2")}
+  html{background:#0f1115;color-scheme:dark}
+  body{margin:0;min-height:100dvh;box-sizing:border-box;display:grid;place-items:center;padding:24px;
+    font-family:"Geist",system-ui,sans-serif;color:#f4f5f7;
+    background-image:radial-gradient(circle at 1px 1px,rgb(244 245 247 / .13) 1px,transparent 1.4px);background-size:24px 24px}
   main{max-width:36rem}
-  h1{font-size:clamp(2rem,6vw,3.5rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 1rem}
-  p{color:#464c52;font-size:1.0625rem;line-height:1.6;margin:0 0 1.5rem}
-  a{display:inline-block;background:#14171a;color:#f3f2ee;text-decoration:none;padding:.8rem 1.2rem;border-radius:8px;font-weight:600}
-  code{font-family:ui-monospace,Menlo,monospace;background:#ebeae5;padding:.1rem .35rem;border-radius:4px}
+  h1{font-family:"Bricolage Grotesque","Geist",system-ui,sans-serif;font-weight:600;font-size:clamp(2rem,6vw,3.5rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 1rem}
+  h1 em{font-style:normal;color:#5fd3a5}
+  p{color:rgb(244 245 247 / .7);font-size:1.0625rem;line-height:1.6;margin:0 0 1.5rem}
+  a{display:inline-flex;align-items:center;min-height:2.75rem;box-sizing:border-box;background:#f4f5f7;color:#0f1115;text-decoration:none;padding:.8rem 1.2rem;border-radius:8px;font-weight:600;transition:background-color .18s ease}
+  a:hover{background:#5fd3a5}
+  a.plain{display:inline;min-height:0;background:none;color:#5fd3a5;padding:0;font-weight:400;text-decoration:underline;text-underline-offset:.16em}
+  a:focus-visible{outline:2px solid #5fd3a5;outline-offset:3px}
 </style>
 </head>
 <body>
-<div class="sheet"><main>
-  <h1>That page is not here.</h1>
-  <p>The whole site is one page. If a link brought you here, it was probably to a project or a case study that now lives in the index.</p>
-  <a href="./#index">Go to the index</a>
-</main></div>
+<main>
+  <h1>That page is <em>not here.</em></h1>
+  <p>The whole site is one page. If a link brought you here, the project it pointed to is in the case studies or in <a class="plain" href="/eslam-portfolio/#index">the list of every project</a>.</p>
+  <a href="/eslam-portfolio/#work">See the work</a>
+</main>
 </body>
 </html>

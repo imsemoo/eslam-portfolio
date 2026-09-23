@@ -99,29 +99,17 @@ h4 {
   line-height: 1.3;
 }
 
-/* the paper sheet on the desk */
+/* the sheet: everything sits in one rounded panel on the ink ground. Its
+   own ground is ink too, so the translucent nav reads as ink over the hero;
+   every section below brings its own white. */
 .sheet {
   position: relative;
   margin: clamp(6px, 0.8vw, 12px);
-  background: var(--paper);
+  background: var(--ink);
   border-radius: var(--r-sheet);
   overflow: clip;
   isolation: isolate;
   min-height: calc(100dvh - 2 * clamp(6px, 0.8vw, 12px));
-}
-
-/* fine diagonal grain over the whole sheet; fixed so it never repaints on scroll */
-.sheet::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgb(20 23 26 / 0.028) 0 1px,
-    transparent 1px 7px
-  );
 }
 
 .shell {
@@ -154,36 +142,28 @@ h4 {
   color: var(--text-3);
 }
 
-.mono {
+/* mono is for figures, code and addresses, nothing else */
+.mono,
+.num,
+code {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   letter-spacing: 0;
+}
+code {
+  font-size: 0.92em;
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  cursor: help;
 }
 
 .ar {
   font-family: var(--font-arabic);
   font-size: 0.92em;
-}
-
-/* one label style for the page. Rationed: three sections may use it. */
-.label {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--s-2);
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  text-transform: uppercase;
-  letter-spacing: var(--track-label);
-  color: var(--accent-ink);
-}
-
-.label::before {
-  content: "";
-  width: 14px;
-  height: 14px;
-  border-inline-start: 1.5px solid currentColor;
-  border-block-start: 1.5px solid currentColor;
-  opacity: 0.75;
 }
 
 .visually-hidden {
@@ -209,17 +189,9 @@ h4 {
   color: var(--white);
 }
 
-/* Lenis drives the scroll on fine pointers; the browser's own smoothing
-   must stand down or the two fight over every anchor jump */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-html.lenis {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
+/* a compound that should never break at its hyphen */
+.nobr {
+  white-space: nowrap;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -231,32 +203,27 @@ html.lenis {
 @media print {
   html,
   body {
-    background: #fff;
+    background: var(--white);
   }
   .sheet {
     margin: 0;
     border-radius: 0;
     min-height: 0;
   }
-  .sheet::before,
   .nav,
   .preview,
   .skip,
   .hero__actions,
-  .contact__actions,
-  .index__bar {
+  .index__bar,
+  .index__more {
     display: none !important;
   }
-  .case__visual {
-    position: static;
+  .row[hidden] {
+    display: grid !important;
   }
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.8em;
-    color: #6b7178;
-  }
-  .row__link::after,
-  .row__ext::after {
-    content: none;
+    color: var(--text-3);
   }
 }

@@ -1,71 +1,25 @@
-/* Entry point. Four small modules, each guarded so the page works without it:
-   the index filter, the pointer preview, the live PageSpeed numbers, and the
-   mobile menu. The motion libraries are fetched after the first paint, so
-   they never sit between the reader and the content. */
+/* Entry point. Small modules, each loaded and started on its own so one that
+   fails cannot take the others with it. They are imported with this file's
+   own ?v= so a new build never mixes with a cached module from the last one.
+   No third-party scripts: the motion runs on CSS, IntersectionObserver and
+   the Web Animations API. */
 
-import { initFilters } from "./filters.js";
-import { initPreview } from "./preview.js";
-import { initMeasured } from "./measured.js";
-import { initNav } from "./nav.js";
-import { initHero } from "./hero.js";
-
+const v = new URL(import.meta.url).search;
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-initNav();
-initHero({ reduce });
-
-// the age line stays right without a rebuild
-document.querySelectorAll("[data-age]").forEach((el) => {
-  const b = new Date(2000, 3, 29);
-  const now = new Date();
-  const age = now.getFullYear() - b.getFullYear() - (now < new Date(now.getFullYear(), 3, 29) ? 1 : 0);
-  el.textContent = String(age);
-});
-initFilters({ reduce });
-initPreview({ reduce });
-initMeasured();
-
-const CDN = "https://cdn.jsdelivr.net/npm/";
-const LIBS = [
-  "gsap@3.13.0/dist/gsap.min.js",
-  "gsap@3.13.0/dist/ScrollTrigger.min.js",
-  "lenis@1.3.4/dist/lenis.min.js",
+const modules = [
+  ["nav", "initNav"],
+  ["hero", "initHero"],
+  ["filters", "initFilters"],
+  ["preview", "initPreview"],
+  ["measured", "initMeasured"],
+  ["motion", "initMotion"],
 ];
 
-function load(src) {
-  return new Promise((resolve, reject) => {
-    const s = document.createElement("script");
-    s.src = CDN + src;
-    s.async = true;
-    s.onload = resolve;
-    s.onerror = reject;
-    document.head.appendChild(s);
-  });
-}
-
-function startMotion() {
-  Promise.all(LIBS.map(load))
-    .then(() => import("./motion.js"))
-    .then(({ initMotion }) => {
-      if (window.gsap && window.ScrollTrigger) {
-        initMotion({ gsap: window.gsap, ScrollTrigger: window.ScrollTrigger, Lenis: window.Lenis });
-      }
-    })
+for (const [file, fn] of modules) {
+  import(`./${file}.js${v}`)
+    .then((m) => m[fn]({ reduce }))
     .catch(() => {
-      /* no motion, nothing lost */
+      /* the page works without this module */
     });
-}
-
-if (!reduce) {
-  // Two frames in, the first paint has happened and the hero CSS animation is
-  // running. A tab opened in the background gets no frames, so a timer makes
-  // sure the libraries still arrive before the reader does.
-  let started = false;
-  const once = () => {
-    if (started) return;
-    started = true;
-    startMotion();
-  };
-  requestAnimationFrame(() => requestAnimationFrame(once));
-  setTimeout(once, 1500);
 }

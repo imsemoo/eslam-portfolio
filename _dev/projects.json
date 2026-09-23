@@ -2,39 +2,48 @@
   "filters": [
     {
       "id": "all",
-      "label": "Everything"
+      "label": "Everything",
+      "group": "type"
     },
     {
-      "id": "laravel",
-      "label": "Laravel and Livewire"
+      "id": "news",
+      "label": "News and media",
+      "group": "type"
     },
     {
-      "id": "vue",
-      "label": "Vue"
+      "id": "apps",
+      "label": "Dashboards and web apps",
+      "group": "type"
     },
     {
-      "id": "wordpress",
-      "label": "WordPress"
+      "id": "commerce",
+      "label": "Stores and bookings",
+      "group": "type"
     },
     {
-      "id": "frontend",
-      "label": "Hand-built front-ends"
+      "id": "company",
+      "label": "Company sites",
+      "group": "type"
+    },
+    {
+      "id": "research",
+      "label": "Research and education",
+      "group": "type"
     },
     {
       "id": "design",
-      "label": "Designed by me"
+      "label": "Design and build",
+      "group": "need"
     },
     {
-      "id": "english",
-      "label": "English sites"
+      "id": "figma",
+      "label": "Build from my design",
+      "group": "need"
     },
     {
       "id": "rtl",
-      "label": "Arabic and RTL"
-    },
-    {
-      "id": "product",
-      "label": "Own products"
+      "label": "Arabic, right to left",
+      "group": "need"
     }
   ],
   "orders": {
@@ -42,9 +51,10 @@
       "iwad",
       "qasioun",
       "mo3ta",
-      "musnad",
+      "arbetsbil",
       "aljarmaq",
       "devlo",
+      "nuqta",
       "toolora",
       "qudsn",
       "kevla",
@@ -54,52 +64,111 @@
       "matn",
       "yedibasak",
       "tayqan",
-      "creatives"
+      "creatives",
+      "musnad"
     ]
   },
   "projects": [
     {
-      "slug": "ozcar",
-      "name": "OzCar",
+      "slug": "mo3ta",
+      "name": "Mo3ta",
+      "ar": "معطي",
       "tier": 1,
-      "client": "Car marketplace and dealer group",
-      "where": "Australia",
-      "lang": "en",
-      "role": "Front-end, from Adobe XD to production",
+      "client": "Palestine information centre",
+      "where": "Palestine",
+      "lang": "ar",
+      "role": "Design, front-end and back-end",
       "stack": [
-        "HTML",
-        "SCSS",
-        "JavaScript",
-        "jQuery",
-        "Bootstrap"
+        "Laravel",
+        "Inertia",
+        "Vue 3",
+        "SSR",
+        "Charts"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "apps",
+        "design",
+        "rtl"
       ],
-      "summary": "One of the biggest used-car marketplaces in its market: search, vehicle pages with finance calculators, live video presentations and an online auction dashboard.",
-      "url": "https://www.ozcar.com.au/",
-      "image": [
-        "oz/OzCar-home-3.png",
-        "oz/OzCar-home-1.png",
-        "oz/OzCar-auc1.png"
-      ],
+      "summary": "Palestine's statistics in one place: dashboards, a map and charts over a large Arabic dataset, rendered on the server so every number can be found and cited.",
+      "url": "https://www.mo3ta.ps/",
+      "image": "mo3ta.png",
       "case": {
-        "category": "Marketplace front-end",
-        "problem": "A dealer group with a large, fast-moving inventory needed a public site that sells cars and an auction panel that dealers work in all day. The designs arrived as Adobe XD files; every screen had to become production markup that a back-end team could wire up without redrawing anything.",
-        "did": [
-          "Built the full public front-end: make and model search with dependent filters, the vehicle page with its finance calculator and live video presentation request, and the reviews and dealer pages.",
-          "Built the auction side as a separate application shell: a left navigation of filters (make, model, series, year, variant, kilometres) driving a dashboard of upcoming auctions.",
-          "Kept the markup semantic and the components reusable so the same card, filter and form patterns repeat across both sides of the product."
+        "lede": "Palestine's statistics in one place: dashboards, a map and charts over a large Arabic dataset. A journalist, a researcher or a student should be able to find a number, see it in context and cite it.",
+        "glance": [
+          [
+            "Role",
+            "UX and UI design, then the whole build"
+          ],
+          [
+            "Focus",
+            "Numbers in Arabic, map and chart components, server rendering"
+          ],
+          [
+            "Built with",
+            "Vue 3 and Inertia with SSR, on Laravel"
+          ]
         ],
-        "tech": [
-          "Hand-written SCSS with a small component layer over the Bootstrap grid",
-          "Progressive enhancement: filters and calculators work as plain forms first, then jQuery adds the live behaviour",
-          "Sprite and image discipline for an inventory site that shows dozens of photos per page"
+        "decision": "Keep everything around the data quiet so the map and the charts carry the colour, and never show a number without its date and its source.",
+        "evidence": [
+          {
+            "file": "mo3ta-dashboard",
+            "kind": "wide",
+            "device": "desktop",
+            "url": "https://www.mo3ta.ps/daily",
+            "wait": 4500,
+            "alt": "Mo3ta's daily dashboard in Arabic: six headline counts, a search field, region and period filters, and the top of a map.",
+            "caption": "The daily dashboard. Region, period and governorate filters sit above the map, and the date of the last update is in the header."
+          },
+          {
+            "file": "mo3ta-home-phone",
+            "kind": "phone",
+            "device": "phone",
+            "url": "https://www.mo3ta.ps/",
+            "wait": 5000,
+            "alt": "Mo3ta's home page on a phone: a map of Palestine with four headline counts placed around it.",
+            "caption": "The home page at phone width. The map stays in the middle of the screen."
+          },
+          {
+            "file": "mo3ta-dashboard-phone",
+            "kind": "phone",
+            "device": "phone",
+            "url": "https://www.mo3ta.ps/daily",
+            "wait": 4500,
+            "alt": "The daily dashboard on a phone: counts in two columns, then search, region chips, a governorate menu and period tabs.",
+            "caption": "The same dashboard on a phone. The counts drop to two columns and the filters stack under the search."
+          }
+        ],
+        "story": [
+          {
+            "h": "Where the numbers were",
+            "p": "Before this, the statistics lived in PDFs and spreadsheets. The centre wanted one place where a number could be found, seen on a map or a chart, and cited."
+          },
+          {
+            "h": "Why every page renders on the server",
+            "p": "A figure that search engines cannot read is a figure nobody finds, so a client-only dashboard was ruled out early. Pages are rendered on the server with Inertia and arrive as real HTML, and Vue 3 adds the interactive layer on top."
+          },
+          {
+            "h": "One component set for every figure",
+            "p": "The map and the charts are one reusable set, fed from the same indicator model, with export and share on each figure. They use the same tokens as the marketing pages, so the product and the site look like one thing."
+          },
+          {
+            "h": "Numbers, in Arabic",
+            "p": "Figures sit on a monospaced scale so they line up in columns. The layout runs right to left throughout, and the axes and legends are placed so they still read naturally that way."
+          }
         ],
         "result": [
-          "Shipped across the marketplace, vehicle and auction screens.",
-          "The public site is currently limited to visitors in Australia after a wave of attacks on it, so the visuals here are the screens as they were built."
+          "Live at mo3ta.ps, with the indicator library, the map and the dashboards in production."
+        ],
+        "links": [
+          {
+            "label": "Open mo3ta.ps",
+            "href": "https://www.mo3ta.ps/"
+          }
+        ],
+        "todo": [
+          "Mo3ta's result is only 'live'. If the centre can share anything public (usage, citations, press), add it to case.result.",
+          "An early sketch or a rejected version of the dashboard would show the decisions better than the final screen alone."
         ]
       }
     },
@@ -111,7 +180,7 @@
       "client": "Newsroom platform running 24 sites",
       "where": "Türkiye, Palestine, Yemen",
       "lang": "bi",
-      "role": "Design and full-stack, product owner of the front-end",
+      "role": "Design, front-end and back-end; product owner of the front-end",
       "stack": [
         "Laravel",
         "Livewire",
@@ -120,12 +189,12 @@
         "Alpine"
       ],
       "tags": [
-        "laravel",
+        "news",
+        "apps",
         "design",
-        "rtl",
-        "product"
+        "rtl"
       ],
-      "summary": "One Laravel application, one deploy, twenty-four Arabic news sites, each with its own theme, modules, languages and editorial team.",
+      "summary": "One Laravel application running 24 Arabic news sites, each with its own theme, modules, languages and editorial team.",
       "url": "https://demo.taktek.co/dashboard",
       "image": [
         "qudsn.png",
@@ -133,24 +202,519 @@
         "maktoob.png"
       ],
       "case": {
-        "category": "Multi-tenant CMS",
-        "problem": "Newsrooms were being built one at a time, each a fork of the last. A fix in one site never reached the others, and every new client meant weeks of duplicated work. The platform had to run many sites from one codebase without any site seeing another's features, permissions or content.",
-        "did": [
-          "Designed the editorial interface and the theming model, then built both: 456 Livewire components and 839 Blade views behind one admin panel that works in Arabic, English and Turkish, right-to-left throughout.",
-          "Put tenancy on 113 feature flags, so nothing reaches a site that did not ask for it, and mirrored 40 permission modules across four actions with a command that re-syncs them.",
-          "Wrote the guards: 50 artisan commands, six of which exist only to fail when something invisible breaks, such as a feature leaking between tenants, a route permission that exists nowhere else, or a translation key that renders in Arabic because the fallback locale is Arabic."
+        "lede": "One Laravel application runs 24 Arabic news sites, each with its own theme, modules, languages and editorial team. I designed the editorial panel and the theming model, then built both.",
+        "glance": [
+          [
+            "Role",
+            "Design and full-stack, product owner of the front-end"
+          ],
+          [
+            "Focus",
+            "Theming model, a panel in three languages, guard rails"
+          ],
+          [
+            "Built with",
+            "Blade, Livewire and Alpine on Laravel; MySQL, Redis"
+          ]
         ],
-        "tech": [
-          "66 models and 247 migrations under one schema, tenant-scoped at the query layer",
-          "5,874 translation keys, checked in CI so a missing English string fails the build instead of shipping",
-          "Share-card pipeline that regenerates Open Graph images per article, after a favicon and a WebP had turned shared links into bare blue lines on WhatsApp"
+        "decision": "A site may differ in configuration, not in behaviour. Every newsroom runs the same modules and the same code; what changes is the theme, the languages and which modules are switched on.",
+        "evidence": [
+          {
+            "kind": "fleet",
+            "sites": [
+              "qudsn",
+              "maktoob",
+              "hodhod",
+              "tayqan",
+              "adenicast",
+              "arouri"
+            ],
+            "caption": "Six of the 24 sites. Same codebase and same modules; the themes, the languages and the switched-on modules differ."
+          },
+          {
+            "file": "qudsn-phone",
+            "kind": "phone",
+            "device": "phone",
+            "url": "https://qudsn.co/",
+            "wait": 5000,
+            "alt": "Quds News Network's front page on a phone: the lead story over a photo, then a list of headlines with thumbnails.",
+            "caption": "Quds News Network at phone width. Its front page is assembled from the same modules as the others."
+          }
+        ],
+        "story": [
+          {
+            "h": "Twenty-four forks",
+            "p": "Newsrooms used to be built one at a time, each a fork of the last. A fix in one site never reached the others, and every new client meant weeks of repeated work. Share previews show what that costs after a few years: each theme had grown its own share handler, and some fell back to a favicon, which WhatsApp will not turn into a card."
+          },
+          {
+            "h": "Modules, themes and switches",
+            "p": "Front pages are built from shared modules: a breaking strip, a lead story, a headline rail, an audio briefing, podcast and translation sections. Editors switch them on per site. A new feature starts switched off everywhere and is turned on for one site in the same commit that writes it, so the question of who gets it is answered before it ships."
+          },
+          {
+            "h": "A theme from a brand book",
+            "p": "IWAD is one of the themes: a research platform for a defence institute, 24 pages, right to left. The brand book was six pages and had no type scale, spacing or components, so those were designed first, in two written documents, and the pages were built on them. Sections are told apart by colour instead of icons, because anything military reads as combat."
+          },
+          {
+            "h": "A panel that shows only what a newsroom uses",
+            "p": "The editorial panel works in Arabic, English and Turkish, right to left by default. Switching a module off removes its route, its sidebar entry and its permission together, so an editor never meets a menu item that leads nowhere. Every label is a translation key, 5,874 of them, checked in CI."
+          },
+          {
+            "h": "Small details, decided once",
+            "p": "Share previews run through one controller for every site. The site name is not added to the title, because WhatsApp and Telegram give the title a single line and the prefix was eating the part of the headline that earns the click. Descriptions stop at 200 characters, which still reads as a full sentence on every platform."
+          },
+          {
+            "h": "Checks for what nobody can see",
+            "p": "Some failures never throw an error: an English string that renders in Arabic because Arabic is the fallback, a share image a crawler quietly refuses, a permission that exists on one route and nowhere else. Each has a command that fails before a commit lands, across 456 Livewire components and 839 Blade views."
+          },
+          {
+            "h": "Measuring a live newsroom",
+            "p": "Maktoob Media, the English site on the platform, felt slow on mobile. Lighthouse against production moved 20 points between identical runs, so before touching the site I built a rig that could tell two builds apart. Fonts went from 749 KB to 78 KB and icons from 302 KB to 31.6 KB. The usual advice, content-visibility on the off-screen sections, measured 84 against 83 and was thrown away."
+          }
         ],
         "result": [
-          "Powers Quds News Network, Tayaqan, Maktoob Media, Hodhod, Adeni Cast and the Saleh Al-Arouri archive, among others.",
-          "Full write-up in the case studies on my GitHub profile, including the ideas that were measured and thrown away."
-        ]
+          "Runs 24 sites, among them Quds News Network, Maktoob Media, Tayaqan, Hodhod, Adeni Cast and the Saleh Al-Arouri archive.",
+          "Quds News Network, real Chrome users over 28 days: FAST, with LCP at 2.33 s and INP at 104 ms."
+        ],
+        "reflection": "The guard commands arrived after the failures they catch, one at a time, each written the day something silent reached a client. They should have come first for each part of the system. Writing the check first forces you to decide what correct means, and that was the part that was actually missing.",
+        "links": [
+          {
+            "label": "Open the demo panel (login)",
+            "href": "https://demo.taktek.co/dashboard"
+          },
+          {
+            "label": "Full write-up on GitHub",
+            "href": "https://github.com/imsemoo/imsemoo/blob/main/case-studies/devlo-cms.md"
+          },
+          {
+            "label": "The performance audit",
+            "href": "https://github.com/imsemoo/imsemoo/blob/main/case-studies/newsroom-performance-audit.md"
+          }
+        ],
+        "todo": [
+          "Devlo's evidence is the sites, not the panel: demo.taktek.co/dashboard redirects to a login, so the editorial panel could not be captured. A screenshot of the panel (dashboard, sidebar, a module switched off) would show the design side directly.",
+          "The old Quds case credited Quds with the 749 KB to 78 KB font cut. Your GitHub write-up places that audit on maktoobmedia.com, so it now sits under Maktoob. If Quds got the same pass, add it back to the Quds paragraph.",
+          "IWAD now sits inside the Devlo case as one of its themes, as you asked. Check the wording, and check with the client that the brand details and the unlaunched pages can be shown publicly."
+        ],
+        "live": {
+          "label": "Demo",
+          "text": "demo.taktek.co, behind a login"
+        },
+        "system": {
+          "title": "One theme, from a six-page brand book: IWAD",
+          "swatches": [
+            {
+              "name": "Maroon",
+              "hex": "#3D1720",
+              "role": "Primary surfaces and headings"
+            },
+            {
+              "name": "Gold",
+              "hex": "#A8824A",
+              "role": "The mark only: squares, borders, large type"
+            },
+            {
+              "name": "Gold for text",
+              "hex": "#7E5F31",
+              "role": "Any gold text, 5.03:1 on paper"
+            },
+            {
+              "name": "Paper",
+              "hex": "#F0EDE6",
+              "role": "Editorial surfaces"
+            },
+            {
+              "name": "Cream",
+              "hex": "#F3EEEA",
+              "role": "Text on maroon"
+            },
+            {
+              "name": "Ink",
+              "hex": "#1A1A1A",
+              "role": "Body text"
+            }
+          ],
+          "note": "IWAD, a defence research institute, came with a logo, clear space and six colours. The type scale, spacing, components and section colours were designed from those. The brand gold is 3.02:1 on paper, which fails for text, so it only marks things and a darker gold carries every gold word.",
+          "grid": {
+            "caption": "The five section hubs share one layout and one set of components. Each gets its accent, checked against the paper, and a module of its own: a matrix, an atlas, a map of schools, learning paths, a record of battles.",
+            "items": [
+              {
+                "file": "iwad-sec-global",
+                "root": "iwad",
+                "local": "section-global.html",
+                "label": "Global",
+                "hex": "#33526B",
+                "ratio": "7.02:1"
+              },
+              {
+                "file": "iwad-sec-regional",
+                "root": "iwad",
+                "local": "section-regional.html",
+                "label": "Regional",
+                "hex": "#2F5D53",
+                "ratio": "6.39:1"
+              },
+              {
+                "file": "iwad-sec-doctrine",
+                "root": "iwad",
+                "local": "section-doctrine.html",
+                "label": "Doctrine",
+                "hex": "#3D1720",
+                "ratio": "13.39:1"
+              },
+              {
+                "file": "iwad-sec-education",
+                "root": "iwad",
+                "local": "section-education.html",
+                "label": "Education",
+                "hex": "#7E5F31",
+                "ratio": "5.03:1"
+              },
+              {
+                "file": "iwad-sec-heritage",
+                "root": "iwad",
+                "local": "section-heritage.html",
+                "label": "Heritage",
+                "hex": "#5C4632",
+                "ratio": "7.56:1"
+              }
+            ]
+          }
+        }
       },
       "caption": "24 sites on one codebase"
+    },
+    {
+      "slug": "musnad",
+      "name": "Musnad",
+      "ar": "مسند",
+      "tier": 1,
+      "client": "News and claim verification",
+      "where": "Yemen",
+      "lang": "ar",
+      "role": "Design, front-end and back-end",
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "Schema",
+        "SEO"
+      ],
+      "tags": [
+        "news",
+        "design",
+        "rtl"
+      ],
+      "summary": "Arabic fact-checking for Yemen. Here for the technical side: server rendering, crawlable pagination, an SEO audit and weekly PageSpeed runs.",
+      "url": "https://musnadye.com/",
+      "image": "musnad.png"
+    },
+    {
+      "slug": "qudsn",
+      "name": "Quds News Network",
+      "ar": "قدس الإخبارية",
+      "tier": 1,
+      "client": "Palestinian news network",
+      "where": "Palestine",
+      "lang": "ar",
+      "role": "Design, front-end and back-end, on Devlo CMS",
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "RTL"
+      ],
+      "tags": [
+        "news",
+        "design",
+        "rtl"
+      ],
+      "summary": "A high-volume Arabic newsroom publishing all day, on Devlo CMS. Real Chrome users load it inside Google's FAST band.",
+      "url": "https://qudsn.co/",
+      "image": "qudsn.png",
+      "in_case": "devlo"
+    },
+    {
+      "slug": "iwad",
+      "name": "IWAD",
+      "ar": "إيواد",
+      "tier": 1,
+      "client": "Defence research institute",
+      "where": "",
+      "lang": "ar",
+      "role": "UI design from the brand book, the design system and the front-end",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Design system",
+        "RTL"
+      ],
+      "tags": [
+        "research",
+        "design",
+        "rtl"
+      ],
+      "summary": "A research platform for a defence research institute, built as a theme from its six-page brand book: 24 pages, right to left. In the Devlo case study.",
+      "url": "",
+      "image": [
+        "iwad-index.png",
+        "iwad-study.png",
+        "iwad-researchers.png"
+      ],
+      "caption": "IWAD theme, 24 pages",
+      "in_case": "devlo"
+    },
+    {
+      "slug": "kevla",
+      "name": "Kevla Campa",
+      "tier": 1,
+      "client": "Caravan maker, a design concept",
+      "where": "Australia",
+      "lang": "en",
+      "role": "Design and front-end, not launched",
+      "stack": [
+        "HTML",
+        "CSS",
+        "ES modules"
+      ],
+      "tags": [
+        "company",
+        "design"
+      ],
+      "summary": "A design concept for a Kevlar and carbon-fibre caravan maker: scroll scenes on CSS view timelines, no build step, no axe-core violations across 24 page states. Placeholder copy, not a client launch.",
+      "url": "https://imsemoo.github.io/kevla-campa/",
+      "code": "https://github.com/imsemoo/kevla-campa",
+      "image": "kevla.png",
+      "case": {
+        "lede": "A marketing site for KEVLA CAMPA, a teardrop caravan built as one Kevlar and carbon-fibre shell. It is a design concept, not a launched site: I designed it and wrote all of it by hand, in HTML, CSS and JavaScript with no framework and no build step.",
+        "glance": [
+          [
+            "Role",
+            "Design and front-end, a concept"
+          ],
+          [
+            "Focus",
+            "Scroll scenes that explain the shell, motion that stays smooth, accessibility checked"
+          ],
+          [
+            "Built with",
+            "HTML, CSS and ES modules; no framework, no build step"
+          ]
+        ],
+        "live": {
+          "label": "Live demo",
+          "text": "imsemoo.github.io/kevla-campa"
+        },
+        "evidence": [
+          {
+            "file": "kevla-home",
+            "kind": "wide",
+            "device": "desktop",
+            "url": "https://imsemoo.github.io/kevla-campa/",
+            "wait": 3500,
+            "alt": "The Kevla Campa home page: the headline Built different. over a photo of the white caravan, with Explore Kevla and Enquire now buttons.",
+            "caption": "The home page, the first of four pinned scenes. As the page scrolls, the photo drifts and scales under the headline."
+          },
+          {
+            "file": "kevla-home-phone",
+            "kind": "phone",
+            "device": "phone",
+            "url": "https://imsemoo.github.io/kevla-campa/",
+            "wait": 3500,
+            "alt": "The home page on a phone: the headline, both buttons and the four selling points in two columns.",
+            "caption": "The home page at phone width. The four selling points drop into two columns."
+          },
+          {
+            "file": "kevla-caravan-phone",
+            "kind": "phone",
+            "device": "phone",
+            "url": "https://imsemoo.github.io/kevla-campa/pages/caravan.html",
+            "wait": 3500,
+            "alt": "The caravan explorer on a phone: view tabs, the caravan photo with numbered hotspots, and the notes for hotspot 08, the monocoque shell.",
+            "caption": "The explorer on a phone. The hotspots stay on the photo, and the notes for the selected one sit under it."
+          }
+        ],
+        "decision": "The scroll does the explaining. The home page walks through the shell in four pinned scenes, from the laminate to the places it goes, and each scene is a CSS animation on its own view timeline, not a script listening to the scroll.",
+        "system": {
+          "title": "The system: a dark shell, one lime accent",
+          "swatches": [
+            {
+              "name": "Ground",
+              "hex": "#07090A",
+              "role": "The page, dark by default"
+            },
+            {
+              "name": "Surface",
+              "hex": "#0E1214",
+              "role": "Photo frames, tiles and the explorer"
+            },
+            {
+              "name": "Light",
+              "hex": "#EEF0ED",
+              "role": "The light sections, set in ink"
+            },
+            {
+              "name": "Lime",
+              "hex": "#6BD117",
+              "role": "Links, focus and selection, 10.2:1 on the ground"
+            },
+            {
+              "name": "Cyan",
+              "hex": "#12B7C9",
+              "role": "Hover and section labels on the dark"
+            },
+            {
+              "name": "Cyan on light",
+              "hex": "#076570",
+              "role": "The same job on light sections, 5.9:1"
+            }
+          ],
+          "note": "Archivo carries everything large, widened to between 110 and 118 percent, and Azeret Mono carries the labels, never below 11 px. The cyan falls to 2.1:1 on the light sections, so they get a darker one, and every translucent colour is mixed from these tokens with color-mix().",
+          "grid": {
+            "caption": "Four of the seven pages: the home page halfway through the laminate scan, the construction page, the caravan explorer and the gallery filters.",
+            "items": [
+              {
+                "file": "kevla-scan",
+                "url": "https://imsemoo.github.io/kevla-campa/",
+                "scroll": 3600,
+                "wait": 1500,
+                "label": "Home, mid-scroll",
+                "alt": "The laminate scan part way through: a green line has uncovered the finished white caravan over a raw carbon weave."
+              },
+              {
+                "file": "kevla-technology",
+                "url": "https://imsemoo.github.io/kevla-campa/pages/technology.html",
+                "label": "The Kevla",
+                "alt": "The technology page: the headline The skin is the structure, over a close-up of the shell."
+              },
+              {
+                "file": "kevla-caravan",
+                "url": "https://imsemoo.github.io/kevla-campa/pages/caravan.html",
+                "label": "The Caravan",
+                "alt": "The caravan explorer: the caravan photo with eight numbered hotspots beside the notes for the selected one."
+              },
+              {
+                "file": "kevla-gallery",
+                "url": "https://imsemoo.github.io/kevla-campa/pages/gallery.html",
+                "label": "Gallery",
+                "alt": "The gallery: filter chips for all, exterior, detail and environment above a grid of photos."
+              }
+            ]
+          }
+        },
+        "story": [
+          {
+            "h": "Four scenes, one timeline each",
+            "p": "The home page pins four scenes: the hero, a scan that turns raw laminate into the finished shell, a track through the places it goes, and a closing call to action. Each one is a keyframe animation on the view timeline of its section, so it runs off the main thread. Browsers without scroll timelines get a small script that seeks the same keyframes, and with reduced motion or JavaScript off the page is a plain, fully visible layout."
+          },
+          {
+            "h": "Measured before it was changed",
+            "p": "The adventure track felt jerky. Rendering held 60 fps, with a 95th-percentile frame of 16.8 ms even at four times CPU throttling, so the fault was the motion itself: each move was squeezed into 12% of the scene and jumped up to 296 px in a frame. The track now rests on each panel and glides over 16% on a sine curve, which cut the jump to 73 px at 1440 px wide and 16 px on a phone, and no headline is ever shown clipped."
+          },
+          {
+            "h": "What the browser already does",
+            "p": "The menu, the enquiry drawer and the gallery lightbox are native dialogs, so focus trapping and Escape come from the browser. They animate out as well as in, and pages crossfade in 220 ms with cross-document view transitions while the header holds still."
+          },
+          {
+            "h": "Photos that hold still",
+            "p": "On the caravan page the hotspots stay locked to the photo at every size, and each one fills the detail panel with its own photo and notes. The next photo swaps in only once it has decoded, so the panel never flashes empty."
+          },
+          {
+            "h": "Placeholders that say so",
+            "p": "The figures from the maker were not supplied, so none were invented: the specification sheet reads Awaiting client figures, the story copy is marked DUMMY, and the phone number sits in a range reserved for fiction. The README lists everything to replace before launch."
+          },
+          {
+            "h": "Fonts that do not move the page",
+            "p": "Archivo and Azeret Mono are self-hosted variable fonts with fallbacks sized from the font files, so the text takes nearly the same space before and after the fonts arrive, and layout shift stays at 0 on every page."
+          }
+        ],
+        "result": [
+          "A design concept: not launched, and every stand-in on it is marked as one.",
+          "No axe-core violations across 24 states, every page at desktop and phone widths plus the open dialogs and form errors, and 100 for accessibility, best practices and SEO in Lighthouse on every page, from the runs recorded in the repository.",
+          "The code, the README and the six motion plans behind the changes are public."
+        ],
+        "reflection": "Put the buttons in the hero on screen sooner. They finish arriving at about 2.35 seconds; the motion audit in the repository noted it and left it for later, and a shorter, regular stagger would fix it.",
+        "links": [
+          {
+            "label": "Open the live demo",
+            "href": "https://imsemoo.github.io/kevla-campa/"
+          },
+          {
+            "label": "Code on GitHub",
+            "href": "https://github.com/imsemoo/kevla-campa"
+          },
+          {
+            "label": "The motion audit",
+            "href": "https://github.com/imsemoo/kevla-campa/tree/master/plans"
+          }
+        ],
+        "todo": [
+          "Kevla Campa is shown as a design concept. If the maker saw it or it led to work, add that here; until then the case says concept.",
+          "The repository says the KEVLA CAMPA name, marks and photography belong to their owner. Check you are fine showing them in the portfolio."
+        ]
+      }
+    },
+    {
+      "slug": "qasioun",
+      "name": "Qasioun Center for Studies",
+      "ar": "مركز قاسيون",
+      "tier": 1,
+      "client": "Strategic studies centre",
+      "where": "Syria, Türkiye",
+      "lang": "bi",
+      "role": "Design, front-end and back-end",
+      "stack": [
+        "Laravel",
+        "Livewire",
+        "Bilingual"
+      ],
+      "tags": [
+        "research",
+        "design",
+        "rtl"
+      ],
+      "summary": "Papers, library and media in Arabic and English, with a separate URL per language and long-form pages built to be read.",
+      "url": "https://qasiounstudies.org/",
+      "image": "qasioun.png"
+    },
+    {
+      "slug": "ozcar",
+      "name": "OzCar",
+      "tier": 1,
+      "client": "Car marketplace and dealer group",
+      "where": "Australia",
+      "lang": "en",
+      "role": "Front-end, built from Adobe XD designs",
+      "stack": [
+        "HTML",
+        "SCSS",
+        "JavaScript",
+        "jQuery",
+        "Bootstrap"
+      ],
+      "tags": [
+        "apps",
+        "commerce",
+        "figma"
+      ],
+      "summary": "One of the biggest used-car marketplaces in its market: search, vehicle pages with finance calculators, live video presentations and an online auction dashboard.",
+      "url": "https://www.ozcar.com.au/",
+      "image": [
+        "oz/OzCar-home-3.png",
+        "oz/OzCar-home-1.png",
+        "oz/OzCar-auc1.png"
+      ],
+      "brief": {
+        "kind": "Used-car marketplace",
+        "text": "A used-car marketplace and an auction dashboard for an Australian dealer group. The designs came as Adobe XD files, and every screen had to become markup a back-end team could wire up without redrawing anything.",
+        "notes_title": "Notes from the build",
+        "notes": [
+          "Make and model search with dependent filters, the vehicle page with its finance calculator and live video request, and the reviews and dealer pages.",
+          "The auction side as its own application shell: a left navigation of filters (make, model, series, year, variant, kilometres) driving a dashboard of upcoming auctions.",
+          "The same card, filter and form patterns repeat across both sides, on a small SCSS component layer over the Bootstrap grid.",
+          "Filters and calculators work as plain forms first, and jQuery adds the live behaviour on top.",
+          "The public site is now limited to visitors in Australia after a wave of attacks, so the image shows the screens as they were built."
+        ],
+        "link_note": "Australia only"
+      }
     },
     {
       "slug": "calimero",
@@ -168,96 +732,10 @@
         "GSAP"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "commerce"
       ],
       "summary": "Online ordering in German and English: a menu of eleven-plus categories, a custom pizza builder, a live cart, delivery or pickup, and checkout through PayPal, Stripe, Klarna, Apple Pay and Google Pay, with a dark mode for the whole UI system. The shop now sits behind an access login, so there is no public link.",
       "url": ""
-    },
-    {
-      "slug": "mo3ta",
-      "name": "Mo3ta",
-      "ar": "معطي",
-      "tier": 1,
-      "client": "Palestine information centre",
-      "where": "Palestine",
-      "lang": "ar",
-      "role": "Design and full-stack",
-      "stack": [
-        "Laravel",
-        "Inertia",
-        "Vue 3",
-        "SSR",
-        "Charts"
-      ],
-      "tags": [
-        "laravel",
-        "vue",
-        "design",
-        "rtl"
-      ],
-      "summary": "A data platform rather than a website: dashboards, an interactive map and charts over a large Arabic dataset, rendered on the server so the numbers are indexable.",
-      "url": "https://www.mo3ta.ps/",
-      "image": "mo3ta.png",
-      "case": {
-        "category": "Data platform",
-        "problem": "Statistics about Palestine were scattered across PDFs and spreadsheets. The centre wanted one place where a journalist, a researcher or a student could find a number, see it in context on a map or a chart, and cite it. The page had to be readable by search engines, which rules out a client-only dashboard.",
-        "did": [
-          "Designed the visual language for numbers in Arabic: a mono scale for figures, a restrained palette so the map and the charts carry the colour, and a right-to-left layout that keeps axes and legends readable.",
-          "Built the platform on Laravel with Inertia and Vue 3, server-side rendered, so every indicator page arrives as real HTML and the interactivity layers on top.",
-          "Built the map and chart components as one reusable set fed from the same indicator model, with export and share per figure."
-        ],
-        "tech": [
-          "Inertia SSR for indexable first paint, Vue 3 for the interactive layer",
-          "Indicator model with sources and dates on every figure, so a number is never shown without where it came from",
-          "Dashboards, maps and charts share tokens with the marketing pages, so the product and the site read as one system"
-        ],
-        "result": [
-          "Live at mo3ta.ps with the indicator library, map and dashboards in production."
-        ]
-      }
-    },
-    {
-      "slug": "musnad",
-      "name": "Musnad",
-      "ar": "مسند",
-      "tier": 1,
-      "client": "News and claim verification",
-      "where": "Yemen",
-      "lang": "ar",
-      "role": "Design and full-stack",
-      "stack": [
-        "Laravel",
-        "Livewire",
-        "Schema",
-        "SEO"
-      ],
-      "tags": [
-        "laravel",
-        "design",
-        "rtl"
-      ],
-      "summary": "Arabic fact-checking: every claim carries its verdict on the card. Scores 100 in all four Lighthouse categories on desktop, re-measured weekly.",
-      "url": "https://musnadye.com/",
-      "image": "musnad.png",
-      "case": {
-        "category": "Fact-checking platform",
-        "problem": "A fact-checking team needed a site where the verdict is the first thing a reader sees, in Arabic, on a phone, and where each investigation can be found by the claim people are actually searching for. Speed and trust signals mattered more than decoration.",
-        "did": [
-          "Designed the verdict system: a fixed set of labels (fabricated, misleading, old, true) with one colour each, shown on every card and every article header before anything else.",
-          "Built the platform on Laravel and Livewire with the reading page tuned for long Arabic text: type scale, line length and the placement of sources.",
-          "Wrote a technical SEO and AI-search audit of the live site, 20 findings ranked by impact, and turned it into the fix plan for the next release."
-        ],
-        "tech": [
-          "Server-rendered pages with Livewire pagination kept crawlable",
-          "Organization, Article and ClaimReview structured data on the roadmap from the audit",
-          "Weekly PageSpeed measurement with the raw JSON kept in the open"
-        ],
-        "result": [
-          "Desktop: 100 for performance, accessibility, best practices and SEO on 20 September 2026.",
-          "Mobile performance dropped to 78 in the same run. It stays on this page until the fix ships, because a table that only shows the good weeks is a screenshot with extra steps."
-        ]
-      }
     },
     {
       "slug": "toolora",
@@ -266,7 +744,7 @@
       "client": "My own product, in development",
       "where": "",
       "lang": "en",
-      "role": "Design, architecture and full-stack",
+      "role": "Design, architecture, front-end and back-end",
       "stack": [
         "Laravel 13",
         "Vue 3",
@@ -275,111 +753,13 @@
         "Pest"
       ],
       "tags": [
-        "product",
-        "laravel",
-        "vue",
-        "design",
-        "english"
+        "apps",
+        "design"
       ],
       "summary": "45 privacy-first online tools, each on its own indexable page and each running in the browser: no account, no analytics, no third-party request. Laravel 13 with Vue 3 islands and TypeScript, tests at three layers. Not public yet.",
       "url": "",
       "image": "toolora.png",
       "caption": "toolora, not public yet"
-    },
-    {
-      "slug": "qasioun",
-      "name": "Qasioun Center for Studies",
-      "ar": "مركز قاسيون",
-      "tier": 1,
-      "client": "Strategic studies centre",
-      "where": "Syria, Türkiye",
-      "lang": "bi",
-      "role": "Design and full-stack",
-      "stack": [
-        "Laravel",
-        "Livewire",
-        "Bilingual"
-      ],
-      "tags": [
-        "laravel",
-        "design",
-        "rtl",
-        "english"
-      ],
-      "summary": "Papers, library and media in Arabic and English, with a separate URL per language and long-form pages built to be read.",
-      "url": "https://qasiounstudies.org/",
-      "image": "qasioun.png"
-    },
-    {
-      "slug": "iwad",
-      "name": "IWAD",
-      "ar": "إيواد",
-      "tier": 1,
-      "client": "Defence research institute",
-      "where": "",
-      "lang": "ar",
-      "role": "UI design from the brand book, and the front-end",
-      "stack": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Design system",
-        "RTL"
-      ],
-      "tags": [
-        "frontend",
-        "design",
-        "rtl"
-      ],
-      "summary": "A 24-page research platform built from the institute's brand book: studies, researcher profiles, thematic sections, a glossary and file dossiers, right-to-left throughout. Delivered as a theme; the public launch is the client's.",
-      "url": "",
-      "image": [
-        "iwad-index.png",
-        "iwad-study.png",
-        "iwad-researchers.png"
-      ],
-      "caption": "IWAD theme, 24 pages"
-    },
-    {
-      "slug": "qudsn",
-      "name": "Quds News Network",
-      "ar": "قدس الإخبارية",
-      "tier": 1,
-      "client": "Palestinian news network",
-      "where": "Palestine",
-      "lang": "ar",
-      "role": "Design and full-stack, on Devlo CMS",
-      "stack": [
-        "Laravel",
-        "Livewire",
-        "RTL"
-      ],
-      "tags": [
-        "laravel",
-        "design",
-        "rtl"
-      ],
-      "summary": "A high-volume Arabic newsroom publishing all day. Real Chrome users load it inside Google's FAST band.",
-      "url": "https://qudsn.co/",
-      "image": "qudsn.png",
-      "case": {
-        "category": "High-traffic newsroom",
-        "problem": "A newsroom that publishes around the clock, in Arabic, to an audience that is overwhelmingly on phones and often on poor connections. The front page changes every few minutes and has to stay fast while carrying video, podcasts, live tickers and a dark mode.",
-        "did": [
-          "Designed the reading experience for right-to-left first: the grid, the type scale and the density were set on real Arabic headlines, not on Latin placeholder text.",
-          "Built the front page on Devlo modules: breaking strip, lead story, headline rail, audio briefing, podcast and translation sections, each switchable by the editors.",
-          "Ran the performance pass described in the newsroom audit case study: fonts cut from 749 KB to 78 KB, a preload that was hurting removed, and the Cloudflare rule that explained a TTFB nobody could move."
-        ],
-        "tech": [
-          "Server-rendered Blade with Livewire only where the page actually changes",
-          "Article schema, share images and hreflang generated per story",
-          "Measured weekly against Google's PageSpeed API from my GitHub profile"
-        ],
-        "result": [
-          "Field data from real Chrome users over 28 days: FAST, with LCP at 2.33 s and INP at 104 ms.",
-          "Lab scores on 20 September 2026: 99 on desktop, 82 on mobile, with accessibility and SEO at 100 on both."
-        ]
-      }
     },
     {
       "slug": "ahsebli",
@@ -397,8 +777,7 @@
         "RTL"
       ],
       "tags": [
-        "product",
-        "frontend",
+        "apps",
         "design",
         "rtl"
       ],
@@ -414,14 +793,14 @@
       "client": "My own CMS for hand-built sites",
       "where": "",
       "lang": "bi",
-      "role": "Design and full-stack",
+      "role": "Design, front-end and back-end",
       "stack": [
         "CakePHP 5",
         "PHPUnit",
         "PHPStan"
       ],
       "tags": [
-        "product",
+        "apps",
         "design",
         "rtl"
       ],
@@ -435,6 +814,120 @@
       "caption": "imsemoo.github.io/matn-site"
     },
     {
+      "slug": "nuqta",
+      "name": "Nuqta Ledger",
+      "ar": "دفتر النقطة",
+      "tier": 2,
+      "client": "My own Android app",
+      "where": "Egypt",
+      "lang": "ar",
+      "role": "Product design and the build, in Flutter",
+      "stack": [
+        "Flutter",
+        "Drift",
+        "Riverpod"
+      ],
+      "tags": [
+        "apps",
+        "design",
+        "rtl"
+      ],
+      "summary": "An offline gift ledger for Egyptian families: who gave what at which wedding, kept on the phone and nowhere else. A wedding-night quick-entry mode, a two-sided ledger with no net balance, PDF reports and 200% text scaling.",
+      "url": "",
+      "image": "nuqta-sheet.png",
+      "caption": "Android app, private"
+    },
+    {
+      "slug": "arbetsbil",
+      "name": "Arbetsbil Stockholm",
+      "tier": 2,
+      "client": "Work-vehicle dealer, a design proposal",
+      "where": "Sweden",
+      "lang": "sv",
+      "role": "Design and a clickable prototype, desktop and mobile",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "commerce",
+        "company",
+        "design"
+      ],
+      "summary": "A clickable design proposal for a Stockholm work-vehicle dealer, desktop and mobile, made as a pitch. The photos, logo and prices belong to the dealer. Not production code.",
+      "url": "",
+      "code": "https://github.com/imsemoo/arbetsbil-koncept",
+      "image": "arbetsbil-desk.png",
+      "brief": {
+        "kind": "Design proposal",
+        "text": "A pitch to a Stockholm work-vehicle dealer: a new site designed as a clickable prototype at 1440 and 390, with the dealer's own photos, stock and prices. Made unasked and labelled as a proposal. Not production code."
+      }
+    },
+    {
+      "slug": "samclerk",
+      "name": "SAMClerk",
+      "tier": 2,
+      "client": "US federal contracting intelligence",
+      "where": "USA",
+      "lang": "en",
+      "role": "Front-end",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "apps"
+      ],
+      "summary": "The research surface a contractor works from when deciding what to bid on: opportunities, agencies, a NAICS directory and award calendars, about twenty screens on one shared asset system.",
+      "url": "",
+      "image": "samclerk-desk.png",
+      "caption": "private build"
+    },
+    {
+      "slug": "metalyol",
+      "name": "Metalyol",
+      "tier": 2,
+      "client": "Structural steel supplier and contractor",
+      "where": "",
+      "lang": "en",
+      "role": "Front-end and motion",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "company"
+      ],
+      "summary": "Mill supply, fabrication and turnkey delivery for a structural steel company, with a motion pass: a preloader that plays once per session, and particles and cursor effects that respect reduced motion.",
+      "url": "",
+      "image": "metalyol-desk.png",
+      "caption": "private build"
+    },
+    {
+      "slug": "tide",
+      "name": "The Tide of Change",
+      "tier": 2,
+      "client": "Independent voices microsite",
+      "where": "",
+      "lang": "en",
+      "role": "Front-end",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "tags": [
+        "news"
+      ],
+      "summary": "An editorial microsite of voices on what is shifting, set like a printed quarterly, with a story submission form.",
+      "url": "",
+      "image": "tide-desk.png",
+      "caption": "private build"
+    },
+    {
       "slug": "aljarmaq",
       "name": "Al-Jarmaq",
       "ar": "الجرمق",
@@ -442,14 +935,14 @@
       "client": "Palestinian media network",
       "where": "Palestine",
       "lang": "ar",
-      "role": "Design and full-stack",
+      "role": "Design, front-end and back-end",
       "stack": [
         "Laravel",
         "Livewire",
         "RTL"
       ],
       "tags": [
-        "laravel",
+        "news",
         "design",
         "rtl"
       ],
@@ -464,20 +957,23 @@
       "client": "Humanitarian aid charity",
       "where": "UK",
       "lang": "en",
-      "role": "Full-stack, Laravel, UI designed from scratch",
+      "role": "UI design, front-end and the Laravel back-end",
       "stack": [
         "Laravel",
         "Blade",
         "Payments"
       ],
       "tags": [
-        "laravel",
-        "design",
-        "english"
+        "commerce",
+        "design"
       ],
       "summary": "Campaigns, quick donate, sponsorship and multi-currency giving for a UK charity.",
       "url": "https://yedibasak.uk/",
-      "image": "yedibasak.png"
+      "image": "yedibasak.png",
+      "brief": {
+        "kind": "Charity site",
+        "text": "Campaigns, quick donations, sponsorship and giving in several currencies, for a UK aid charity. I designed the interface from scratch and built it, the Laravel back-end included."
+      }
     },
     {
       "slug": "tayqan",
@@ -487,14 +983,14 @@
       "client": "Community verification platform",
       "where": "Palestine",
       "lang": "ar",
-      "role": "Design and full-stack, on Devlo CMS",
+      "role": "Design, front-end and back-end, on Devlo CMS",
       "stack": [
         "Laravel",
         "Livewire",
         "RTL"
       ],
       "tags": [
-        "laravel",
+        "news",
         "design",
         "rtl"
       ],
@@ -503,27 +999,26 @@
       "image": "tayqan.png"
     },
     {
-      "slug": "kevla",
-      "name": "Kevla Campa",
+      "slug": "maktoob",
+      "name": "Maktoob Media",
       "tier": 2,
-      "client": "Kevlar and carbon-fibre caravan",
-      "where": "Australia",
+      "client": "Independent outlet on rights and minorities",
+      "where": "India",
       "lang": "en",
-      "role": "Design and front-end",
+      "role": "Front-end from Figma, then the performance and security pass, on Devlo CMS",
       "stack": [
-        "HTML",
-        "CSS",
-        "ES modules"
+        "Laravel",
+        "Livewire",
+        "Figma"
       ],
       "tags": [
-        "frontend",
-        "design",
-        "english"
+        "news",
+        "figma"
       ],
-      "summary": "Marketing site with scroll scenes on CSS view timelines, page transitions and no build step. No axe-core violations across 24 page states.",
-      "url": "https://imsemoo.github.io/kevla-campa/",
-      "code": "https://github.com/imsemoo/kevla-campa",
-      "image": "kevla.png"
+      "summary": "An English-language newsroom on the same platform as the Arabic ones. I ran its performance audit, written up in the Devlo case study.",
+      "url": "https://maktoobmedia.com/",
+      "image": "maktoob.png",
+      "in_case": "devlo"
     },
     {
       "slug": "besa",
@@ -540,35 +1035,17 @@
         "Figma"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "research",
+        "figma"
       ],
       "summary": "University search, programmes, scholarships and applications, built page by page from Figma.",
       "url": "https://www.besaeg.com/",
       "code": "https://github.com/imsemoo/besa",
-      "image": "besa.png"
-    },
-    {
-      "slug": "maktoob",
-      "name": "Maktoob Media",
-      "tier": 2,
-      "client": "Independent outlet on rights and minorities",
-      "where": "India",
-      "lang": "en",
-      "role": "Front-end from Figma, then the performance and security pass, on Devlo CMS",
-      "stack": [
-        "Laravel",
-        "Livewire",
-        "Figma"
-      ],
-      "tags": [
-        "laravel",
-        "frontend",
-        "english"
-      ],
-      "summary": "An English-language newsroom on the same platform as the Arabic ones, which is the point of the platform.",
-      "url": "https://maktoobmedia.com/",
-      "image": "maktoob.png"
+      "image": "besa.png",
+      "brief": {
+        "kind": "Study-abroad platform",
+        "text": "University search, pathway programmes, destination guides, scholarships and registration for education fairs. The designs came from Figma, and I built more than thirty pages from them by hand."
+      }
     },
     {
       "slug": "hodhod",
@@ -578,14 +1055,15 @@
       "client": "Palestinian news network",
       "where": "Palestine",
       "lang": "ar",
-      "role": "Full-stack from Figma, on Devlo CMS",
+      "role": "Front-end and back-end from Figma, on Devlo CMS",
       "stack": [
         "Laravel",
         "Livewire",
         "Figma"
       ],
       "tags": [
-        "laravel",
+        "news",
+        "figma",
         "rtl"
       ],
       "summary": "News network with a heavy visual front page and a live ticker.",
@@ -600,14 +1078,14 @@
       "client": "Independent podcast platform",
       "where": "Yemen",
       "lang": "ar",
-      "role": "Design and full-stack, on Devlo CMS",
+      "role": "Design, front-end and back-end, on Devlo CMS",
       "stack": [
         "Laravel",
         "Livewire",
         "Audio"
       ],
       "tags": [
-        "laravel",
+        "news",
         "design",
         "rtl"
       ],
@@ -630,7 +1108,7 @@
         "RTL"
       ],
       "tags": [
-        "laravel",
+        "news",
         "design",
         "rtl"
       ],
@@ -653,8 +1131,8 @@
         "Adobe XD"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "news",
+        "figma"
       ],
       "summary": "A streaming front page: shows, categories, premieres and a presenter sign-up, built from XD.",
       "url": "https://handsontv.co.uk/",
@@ -674,8 +1152,7 @@
         "JavaScript"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "company"
       ],
       "summary": "Product catalogue and distribution pages for a US hardware brand, no page builder anywhere.",
       "url": "https://hardwareandglass.com/",
@@ -695,8 +1172,7 @@
         "jQuery"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "commerce"
       ],
       "summary": "Quote, book and track flows for an Australian courier, with a dense quick-quote form as the home page.",
       "url": "https://www.bhfcouriers.com.au/",
@@ -716,8 +1192,8 @@
         "JavaScript"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "commerce",
+        "figma"
       ],
       "summary": "Five-step shipment booking flow, built from XD.",
       "url": "https://couriernow.com.au/",
@@ -736,9 +1212,8 @@
         "Elementor"
       ],
       "tags": [
-        "wordpress",
-        "rtl",
-        "english"
+        "company",
+        "rtl"
       ],
       "summary": "Bilingual studio site with portfolio and media sections.",
       "url": "https://hivestudio.net/",
@@ -757,9 +1232,8 @@
         "Elementor"
       ],
       "tags": [
-        "wordpress",
-        "rtl",
-        "english"
+        "company",
+        "rtl"
       ],
       "summary": "Conference site with schedule, speakers, sponsors and live stream.",
       "url": "https://innovation-driven-desalination.com/",
@@ -773,7 +1247,7 @@
       "client": "Marriage-support platform",
       "where": "",
       "lang": "ar",
-      "role": "Full-stack, open source",
+      "role": "Front-end and back-end, open source",
       "stack": [
         "Laravel",
         "Vue",
@@ -781,8 +1255,7 @@
         "Sanctum"
       ],
       "tags": [
-        "laravel",
-        "vue",
+        "apps",
         "rtl"
       ],
       "summary": "Candidate matching, premarital courses, guarantee-fund savings circles and digital contracts.",
@@ -803,9 +1276,9 @@
         "JavaScript"
       ],
       "tags": [
-        "frontend",
-        "rtl",
-        "english"
+        "apps",
+        "company",
+        "rtl"
       ],
       "summary": "Hosting site and client dashboard, English and Arabic, multi-currency.",
       "url": "",
@@ -825,9 +1298,8 @@
         "JavaScript"
       ],
       "tags": [
-        "frontend",
-        "design",
-        "english"
+        "apps",
+        "design"
       ],
       "summary": "Multi-page dashboard UI for a creative agency: pricing, sign-up and a guided tour.",
       "url": "",
@@ -845,8 +1317,7 @@
         "WordPress"
       ],
       "tags": [
-        "wordpress",
-        "english"
+        "commerce"
       ],
       "summary": "Lesson booking for a family-owned driving school on Sydney's North Shore.",
       "url": "https://skillsbeyond.com.au/",
@@ -865,8 +1336,7 @@
         "Elementor"
       ],
       "tags": [
-        "wordpress",
-        "english"
+        "company"
       ],
       "summary": "Brand site for an Australian aquaculture farm.",
       "url": "https://infinitybluebarramundi.com.au/",
@@ -884,8 +1354,7 @@
         "WordPress"
       ],
       "tags": [
-        "wordpress",
-        "english"
+        "company"
       ],
       "summary": "Corporate site for a wellbore survey and engineering services company.",
       "url": "https://powerlineegypt.com/",
@@ -904,7 +1373,7 @@
         "WordPress"
       ],
       "tags": [
-        "wordpress",
+        "company",
         "rtl"
       ],
       "summary": "Corporate site for an events company.",
@@ -923,8 +1392,7 @@
         "WordPress"
       ],
       "tags": [
-        "wordpress",
-        "english"
+        "commerce"
       ],
       "summary": "E-visa information and application site.",
       "url": "https://visaoman.com/",
@@ -944,8 +1412,7 @@
         "JavaScript"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "research"
       ],
       "summary": "Corporate site with a multi-step application form.",
       "url": "https://imsemoo.github.io/Buruj/",
@@ -966,8 +1433,7 @@
         "AOS"
       ],
       "tags": [
-        "frontend",
-        "english"
+        "company"
       ],
       "summary": "Agency site with scroll-driven animation.",
       "url": "https://imsemoo.github.io/Intimedev/",
@@ -989,13 +1455,75 @@
         "RTL"
       ],
       "tags": [
-        "frontend",
+        "news",
         "rtl"
       ],
       "summary": "Fully right-to-left news template set.",
       "url": "https://imsemoo.github.io/mohajer/",
       "code": "https://github.com/imsemoo/mohajer",
       "image": "mohajer.png"
+    },
+    {
+      "slug": "threadstudio",
+      "name": "ThreadStudio",
+      "tier": 3,
+      "client": "Garment customiser, a demo",
+      "where": "",
+      "lang": "en",
+      "role": "Front-end with a small PHP API",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "PHP"
+      ],
+      "tags": [
+        "commerce"
+      ],
+      "summary": "A browser-based garment customiser: colours, uploads and text on a shirt, a live unit price and a mockup export.",
+      "url": "",
+      "image": "garment-desk.png",
+      "caption": "demo, private"
     }
-  ]
+  ],
+  "filter_groups": {
+    "type": "Project type",
+    "need": "What you need"
+  },
+  "featured": [
+    "mo3ta",
+    "devlo",
+    "kevla"
+  ],
+  "briefs": [
+    "ozcar",
+    "arbetsbil",
+    "besa",
+    "yedibasak"
+  ],
+  "index_open": 12,
+  "hero": [
+    {
+      "slug": "mo3ta",
+      "desk": "work:mo3ta",
+      "phone": "mo3ta-home-phone",
+      "note": "A data platform, in Arabic",
+      "cap": "mo3ta.ps on a laptop and a phone"
+    },
+    {
+      "slug": "devlo",
+      "desk": "work:qudsn",
+      "phone": "qudsn-phone",
+      "note": "24 newsrooms on one codebase",
+      "cap": "Quds News Network, one of the 24 sites on Devlo"
+    },
+    {
+      "slug": "kevla",
+      "desk": "work:kevla",
+      "phone": "kevla-home-phone",
+      "note": "A caravan site, a design concept",
+      "cap": "Kevla Campa on a laptop and a phone, a concept"
+    }
+  ],
+  "local_images": "images for the new projects come from local captures; see README"
 }

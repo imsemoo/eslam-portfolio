@@ -1,61 +1,226 @@
 /* Motion.
-   Above the fold is pure CSS and runs on load: the headline lines rise out of
-   their masks, the lede and the actions follow, the three screens settle.
-   Below the fold, GSAP adds scroll reveals after the first paint, and only to
-   elements that are not yet in view, so nothing on screen ever flickers and
-   nothing depends on the script to be visible. */
+   The load: the headline rises out of its masks, "in the design" is drawn as
+   an outline and fills in, and the stage builds the first case: the
+   blueprint is up from the first frame, a scan line wipes it away to leave
+   the shipped screen, the phone slides in. As the white sheet rises over the
+   hero, the hero sinks back. Then scrolling: headings out of masks, blocks
+   rising in groups, the decision line word by word, evidence uncovered from
+   the top. The nav carries a reading-progress hairline driven by the scroll
+   position alone.
 
-.line-mask {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
-}
-.motion-line {
-  display: block;
+   Content is visible by default. JS only hides what is still below the fold,
+   and hides it without a transition. The load itself is CSS, so it never
+   waits on a script. With reduced motion none of the movement runs. */
+
+/* reading progress: a scroll timeline, no script (skipped where unsupported) */
+@supports (animation-timeline: scroll()) {
+  .nav__progress {
+    animation: progress linear both;
+    animation-timeline: scroll(root block);
+  }
+  @keyframes progress {
+    to { transform: scaleX(1); }
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes rise-in {
-    from { transform: translateY(0.55em); opacity: 0; }
-    to { transform: none; opacity: 1; }
+  /* ---------- load: the headline */
+  @keyframes line-up {
+    from { transform: translateY(105%); }
+    to { transform: none; }
+  }
+  @keyframes fill-in {
+    from { color: transparent; -webkit-text-stroke-color: var(--text-on-ink-2); }
+    to { color: var(--text-on-ink); -webkit-text-stroke-color: transparent; }
   }
   @keyframes fade-up {
     from { transform: translateY(var(--rise)); opacity: 0; }
     to { transform: none; opacity: 1; }
   }
-  @keyframes settle {
-    from { transform: translateY(40px); opacity: 0; }
-    to { transform: none; opacity: 1; }
-  }
-
   .hero__title .line {
-    display: block;
-    animation: rise-in 1.1s var(--ease-out) both;
+    overflow: hidden;
+    padding: 0 0.05em 0.12em;
+    margin: 0 -0.05em -0.12em;
   }
-  .hero__title .line:nth-child(2) { animation-delay: 0.09s; }
-  .hero__title .line:nth-child(3) { animation-delay: 0.18s; }
-  .hero__lede { animation: fade-up var(--dur-reveal) var(--ease-out) 0.3s both; }
-  .hero__actions { animation: fade-up var(--dur-reveal) var(--ease-out) 0.42s both; }
-  .hero__data .datum { animation: fade-up var(--dur-reveal) var(--ease-out) both; }
-  .hero__data .datum:nth-child(2) { animation-delay: 0.07s; }
-  .hero__data .datum:nth-child(3) { animation-delay: 0.14s; }
-  .hero__data .datum:nth-child(4) { animation-delay: 0.21s; }
-  .hero__layer { animation: settle 1.2s var(--ease-out) both; }
-  .hero__layer--2 { animation-delay: 0.12s; }
-  .hero__layer--3 { animation-delay: 0.24s; }
+  .line__in {
+    display: block;
+    animation: line-up 1.1s var(--ease-out) both;
+  }
+  .line:nth-child(2) .line__in { animation-delay: 0.08s; }
+  .line:nth-child(3) .line__in { animation-delay: 0.16s; }
+  /* "in the design" starts as an outline, a wireframe, and fills in as the
+     stage finishes building: approved, then shipped */
+  .hero__title .line--outline {
+    -webkit-text-stroke: 1.5px transparent;
+    animation: fill-in 0.9s var(--ease-out) 1.5s both;
+  }
+  .hero__lede { animation: fade-up var(--dur-reveal) var(--ease-out) 0.28s both; }
+  .hero__actions { animation: fade-up var(--dur-reveal) var(--ease-out) 0.4s both; }
+  .hero__rail li { animation: fade-up var(--dur-reveal) var(--ease-out) both; }
+  .hero__rail li:nth-child(1) { animation-delay: 0.55s; }
+  .hero__rail li:nth-child(2) { animation-delay: 0.63s; }
+  .hero__rail li:nth-child(3) { animation-delay: 0.71s; }
 
+  /* ---------- load: the stage. --t scales the timeline; a rebuild from the
+     rail runs at a little over half speed */
+  @keyframes bp-wipe {
+    from { opacity: 1; clip-path: inset(0 0 0 0); }
+    to { opacity: 1; clip-path: inset(100% 0 0 0); }
+  }
+  @keyframes scan {
+    0% { transform: translateY(-100%); opacity: 0; }
+    6%, 94% { opacity: 1; }
+    100% { transform: translateY(0); opacity: 0; }
+  }
+  @keyframes select-in {
+    from { opacity: 0; transform: scale(1.025); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes phone-in {
+    from { opacity: 0; transform: translate3d(0, 48px, 40px); }
+    to { opacity: 1; transform: translateZ(40px); }
+  }
+  @keyframes cap-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .stage {
+    --t: 1;
+  }
+  .stage.is-quick {
+    --t: 0.55;
+  }
+  .stage__scan {
+    inset: 0;
+    height: auto;
+    background: linear-gradient(to bottom, transparent calc(100% - 2px), var(--accent-on-ink) calc(100% - 2px));
+    box-shadow: none;
+    filter: drop-shadow(0 4px 10px rgb(95 211 165 / 0.55));
+  }
+  /* the blueprint shows from the first frame and the scan wipes it off,
+     top to bottom, in step with the line */
+  .stage__blueprint {
+    animation: bp-wipe calc(1.1s * var(--t)) var(--ease-in-out) calc(0.7s * var(--t)) backwards;
+  }
+  .stage__scan {
+    animation: scan calc(1.1s * var(--t)) var(--ease-in-out) calc(0.7s * var(--t)) both;
+  }
+  .stage__select {
+    animation: select-in calc(0.6s * var(--t)) var(--ease-out) calc(0.12s * var(--t)) both;
+  }
+  .stage__phone {
+    animation: phone-in calc(0.9s * var(--t)) var(--ease-out) calc(1.4s * var(--t)) both;
+  }
+  .stage__cap {
+    animation: cap-in 0.6s ease calc(1.9s * var(--t)) both;
+  }
+
+  /* ---------- the hero sinks back as the white sheet rises over it */
+  @supports (timeline-scope: --curtain) and (animation-timeline: view()) {
+    main {
+      timeline-scope: --curtain;
+    }
+    .curtain--lead {
+      view-timeline: --curtain block;
+    }
+    @keyframes recede {
+      to { transform: translateY(-3%) scale(0.94); opacity: 0.3; }
+    }
+    .hero__grid,
+    .hero__rail {
+      animation: recede linear both;
+      animation-timeline: --curtain;
+      animation-range: entry 0% entry 100%;
+      transform-origin: 50% 0;
+    }
+  }
+
+  /* ---------- scroll reveals, armed by motion.js below the fold only */
+  .rv {
+    transition:
+      opacity 0.8s var(--ease-out) calc(var(--rv-i, 0) * 70ms),
+      transform 0.8s var(--ease-out) calc(var(--rv-i, 0) * 70ms);
+  }
+  .row.rv {
+    transition:
+      opacity 0.8s var(--ease-out) calc(var(--rv-i, 0) * 50ms),
+      transform 0.8s var(--ease-out) calc(var(--rv-i, 0) * 50ms),
+      background-color var(--dur-fast) ease;
+  }
+  .rv-off {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: none;
+  }
+  .mask {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.08em 0.14em;
+    margin-block: -0.08em -0.14em;
+  }
+  .mask__in {
+    display: block;
+    transition: transform 1s var(--ease-out);
+  }
+  .rh-off .mask__in {
+    transform: translateY(112%);
+    transition: none;
+  }
+  .word {
+    display: inline-block;
+    transition:
+      opacity 0.6s var(--ease-out) calc(var(--w, 0) * 26ms),
+      transform 0.6s var(--ease-out) calc(var(--w, 0) * 26ms);
+  }
+  .rw-off .word {
+    opacity: 0;
+    transform: translateY(0.4em);
+    transition: none;
+  }
+  /* evidence: uncovered from the top, the caption after it. The open state
+     reaches past the frame so its shadow is never cut */
+  .uc .shot,
+  .uc .phone,
+  .uc .fleet,
+  .uc .vgrid {
+    clip-path: inset(-100px);
+    transition: clip-path 1.1s var(--ease-out) calc(var(--rv-i, 0) * 120ms);
+  }
+  .uc .ev__cap {
+    transition: opacity var(--dur) ease calc(var(--rv-i, 0) * 120ms + 0.35s);
+  }
+  .uc-off .shot,
+  .uc-off .phone,
+  .uc-off .fleet,
+  .uc-off .vgrid {
+    clip-path: inset(0 0 100% 0);
+    transition: none;
+  }
+  .uc-off .ev__cap {
+    opacity: 0;
+    transition: none;
+  }
+
+  /* ---------- hover detail */
   .shot__img,
   .row__thumb img {
     transition: transform var(--dur-slow) var(--ease-out);
   }
   @media (hover: hover) and (pointer: fine) {
     .row:hover .row__thumb img {
-      transform: scale(1.05);
+      transform: scale(1.06);
     }
-    .case__visual:hover .shot__img {
-      transform: scale(1.025);
+    .ev--wide:hover .shot__img {
+      transform: scale(1.015);
     }
+  }
+  [data-magnetic] {
+    transition:
+      translate 0.35s var(--ease-out),
+      background-color var(--dur-fast) ease,
+      border-color var(--dur-fast) ease,
+      color var(--dur-fast) ease,
+      transform var(--dur-fast) var(--ease-out);
   }
 }
 
@@ -65,18 +230,35 @@
   .chip,
   .row,
   .row__ext,
-  .hero__card,
-  .hero__next,
-  .hero__next .icon,
+  .rail,
+  .rail .icon,
   .preview,
   .nav,
-  .case__back,
-  .case__back .icon,
-  .nav__links a::after {
+  .nav__mark .mark-line,
+  .brief__notes summary::before,
+  .nav__links a::after,
+  .stage__rig {
     transition: none;
   }
   .btn:hover .icon,
-  .row:hover .row__ext {
+  .row:hover .row__ext,
+  .rail:hover .icon {
     transform: none;
+  }
+}
+
+@media print {
+  .rv-off,
+  .rw-off .word,
+  .rh-off .mask__in,
+  .uc-off .ev__cap {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .uc-off .shot,
+  .uc-off .phone,
+  .uc-off .fleet,
+  .uc-off .vgrid {
+    clip-path: none !important;
   }
 }

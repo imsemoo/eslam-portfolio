@@ -1,42 +1,35 @@
-/* Pointer-following preview over the index. Desktop with a fine pointer
-   only; phones get the inline thumbnails. The image element is reused, the
-   position is eased with requestAnimationFrame and the loop only runs while
-   the pointer is over a row. The card leans a few degrees into the direction
-   the pointer is moving and settles when it stops, so it reads as something
-   carried rather than something pinned. */
+/* Pointer preview over the index. Desktop with a fine pointer only; phones
+   get the inline thumbnails. The frame rides along the right edge of the
+   list at the pointer's height, so it covers the stack and language columns
+   while the name and the role stay readable. The image element is reused
+   and the eased position only animates while the pointer is over a row. */
 
 export function initPreview({ reduce }) {
   const box = document.querySelector("[data-preview-box]");
   const rows = document.querySelector("[data-rows]");
   const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (!box || !rows || !fine || reduce) return;
+  if (!box || !rows || !fine) return;
 
   const img = box.querySelector("img");
-  const state = { x: 0, y: 0, tx: 0, ty: 0, rot: 0, frame: 0, on: false };
-  const OFFSET_X = 220; // keep the preview to the right of the pointer, off the text
-  const LEAN = 0.06; // degrees per pixel of horizontal velocity
-  const MAX_LEAN = 4;
+  const bar = document.querySelector("[data-nav]");
+  const state = { y: 0, ty: 0, x: 0, frame: 0, on: false };
 
-  function loop() {
-    const dx = state.tx - state.x;
-    state.x += dx * 0.16;
-    state.y += (state.ty - state.y) * 0.16;
-    const lean = Math.max(-MAX_LEAN, Math.min(MAX_LEAN, dx * LEAN));
-    state.rot += (lean - state.rot) * 0.12;
-    box.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) translate(-50%, -50%) rotate(${state.rot}deg) scale(${state.on ? 1 : 0.96})`;
-    if (Math.abs(dx) > 0.3 || Math.abs(state.ty - state.y) > 0.3 || Math.abs(state.rot) > 0.05 || state.on) {
-      state.frame = requestAnimationFrame(loop);
-    } else {
-      state.frame = 0;
-    }
+  function place() {
+    state.frame = 0;
+    const dy = state.ty - state.y;
+    state.y = reduce ? state.ty : state.y + dy * 0.2;
+    box.style.transform = `translate3d(${state.x}px, ${state.y}px, 0) translateY(-50%)`;
+    if (!reduce && Math.abs(dy) > 0.3) state.frame = requestAnimationFrame(place);
   }
 
-  function place(e) {
-    const w = box.offsetWidth;
-    const maxX = window.innerWidth - w / 2 - 16;
-    state.tx = Math.min(e.clientX + OFFSET_X, maxX);
-    state.ty = e.clientY;
-    if (!state.frame) state.frame = requestAnimationFrame(loop);
+  function target(e) {
+    const r = rows.getBoundingClientRect();
+    state.x = r.right - box.offsetWidth - 8;
+    const half = box.offsetHeight / 2 + 12;
+    // never under the sticky nav: the frame stops just below it
+    const top = (bar ? bar.offsetHeight : 0) + half;
+    state.ty = Math.min(Math.max(e.clientY, top), window.innerHeight - half);
+    if (!state.frame) state.frame = requestAnimationFrame(place);
   }
 
   rows.addEventListener("pointerover", (e) => {
@@ -44,17 +37,13 @@ export function initPreview({ reduce }) {
     if (!row) return;
     const src = row.dataset.preview;
     if (img.getAttribute("src") !== src) img.src = src;
-    if (!state.on) {
-      state.x = e.clientX + OFFSET_X;
-      state.y = e.clientY;
-      state.rot = 0;
-    }
+    if (!state.on) state.y = e.clientY;
     state.on = true;
     box.classList.add("is-on");
-    place(e);
+    target(e);
   });
   rows.addEventListener("pointermove", (e) => {
-    if (state.on) place(e);
+    if (state.on) target(e);
   });
   rows.addEventListener("pointerout", (e) => {
     const to = e.relatedTarget;
