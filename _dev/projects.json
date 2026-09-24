@@ -52,6 +52,7 @@
       "qasioun",
       "freightzone",
       "mo3ta",
+      "watad",
       "arbetsbil",
       "aljarmaq",
       "devlo",
@@ -773,6 +774,49 @@
             "href": "https://www.figma.com/design/KLzNmrJ5ljExMreBmA9e5Y/FreightZone-App?node-id=1-2",
             "label": "Open the case study in Figma"
           }
+        ]
+      }
+    },
+    {
+      "slug": "watad",
+      "name": "Watad",
+      "ar": "وتد",
+      "tier": 1,
+      "client": "Arabic media site",
+      "where": "",
+      "lang": "ar",
+      "role": "UI design from the brand identity, and the front-end",
+      "stack": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "RTL"
+      ],
+      "tags": [
+        "news",
+        "design",
+        "rtl"
+      ],
+      "summary": "A new front-end theme for watad.media: eleven right-to-left page templates in plain HTML, CSS and JavaScript, built on one axis line with motion drawn from the name, ready for Blade.",
+      "url": "https://taktek-dev.github.io/watad-theme/",
+      "code": "https://github.com/TakTek-Dev/watad-theme",
+      "image": "watad.png",
+      "caption": "taktek-dev.github.io/watad-theme",
+      "brief": {
+        "kind": "Arabic media theme",
+        "wide": true,
+        "text": "A new front-end for watad.media, an Arabic site of analysis, news and a revolution wiki: eleven page templates in plain HTML, CSS and JavaScript, ready to be cut into Blade. Every page hangs on one line, the axis, and since the name means a peg, the motion drives one into it.",
+        "notes_title": "Notes from the build",
+        "notes": [
+          "One line runs down every page between the rail and the body. The six brand marks sit on it as wedges, and nothing else touches it.",
+          "On load the axis draws itself and the wedges drop into place. Posters lift off the wall on hover and are always shown whole, never cropped or zoomed.",
+          "The client's revisions are built in: an archive by month and year, page numbers on every list, a sections row that stays in view, and a news timeline whose posts open in a popup with their own address.",
+          "The 45 writers from the live site can be searched by name or field, and the search treats the different forms of alef, taa marbuta and yaa as the same letter.",
+          "The brand grey went one step darker so 12 px dates reach 4.5:1. The sand numerals stay below AA as a brand decision, written down for the client."
+        ],
+        "link_note": "theme preview",
+        "todo": [
+          "When the theme goes live on watad.media, move the link there from the TakTek preview."
         ]
       }
     },
@@ -1623,6 +1667,7 @@
     "freightzone"
   ],
   "briefs": [
+    "watad",
     "ozcar",
     "arbetsbil",
     "besa",

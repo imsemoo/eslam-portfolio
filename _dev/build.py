@@ -309,9 +309,12 @@ def brief(p):
         links.append(f'<a href="{esc(p["code"])}" target="_blank" rel="noopener">Code on GitHub{icon("arrow-up-right")}</a>')
     if not links and b.get("status"):
         links.append(f'<span class="brief__note">{esc(b["status"])}</span>')
+    # a wide brief takes the whole row, picture and text side by side
+    wide = b.get("wide")
+    sizes = "(min-width: 900px) 56vw, 94vw" if wide else "(min-width: 900px) 34vw, 94vw"
     return f"""
-<article class="brief" id="brief-{slug}" aria-labelledby="brief-{slug}-title">
-  <div class="brief__media">{shot(p, "(min-width: 900px) 34vw, 94vw")}</div>
+<article class="brief{' brief--wide' if wide else ''}" id="brief-{slug}" aria-labelledby="brief-{slug}-title">
+  <div class="brief__media">{shot(p, sizes)}</div>
   <div class="brief__body">
     <h4 id="brief-{slug}-title">{esc(p['name'])}{arabic(p)}</h4>
     <p class="brief__meta">{esc(b['kind'])}. {esc(p['role'])}.</p>

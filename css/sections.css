@@ -996,6 +996,13 @@
   align-content: start;
   scroll-margin-top: calc(var(--nav-h) + 12px);
 }
+/* the newest brief takes the whole row: the picture beside the text */
+.brief--wide {
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: var(--s-4) clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
 .brief h4 {
   font-family: var(--font-display);
   font-size: var(--fs-h3);
@@ -1094,6 +1101,9 @@
 @media (max-width: 760px) {
   .briefs__grid {
     grid-template-columns: 1fr;
+  }
+  .brief--wide {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

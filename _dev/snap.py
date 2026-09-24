@@ -17,7 +17,9 @@ The live sites are newsrooms and dashboards, so a capture is a snapshot of
 one day.
 
 Run from the repository root:
-    python _dev/snap.py <raw-dir> [--root iwad=<path-to-theme>] [slug ...]
+    python _dev/snap.py <raw-dir> [--root iwad=<path-to-theme>] [slug-or-file ...]
+Naming a case slug captures all of its evidence; naming a file (say
+iwad-sec-global) captures only that item.
 Needs:  pip install playwright   (it drives the Chrome already installed)
 """
 import json
@@ -61,13 +63,13 @@ def items(data, only):
     """Every capture a case asks for: its evidence, and the grid inside its system block."""
     for p in data["projects"]:
         c = p.get("case") or {}
-        if only and p["slug"] not in only:
-            continue
+        every = not only or p["slug"] in only
         for e in c.get("evidence", []):
-            if e.get("file"):
+            if e.get("file") and (every or e["file"] in only):
                 yield e
         for e in (c.get("system") or {}).get("grid", {}).get("items", []):
-            yield {"device": "desktop", **e}
+            if every or e["file"] in only:
+                yield {"device": "desktop", **e}
 
 
 def main():
