@@ -225,6 +225,11 @@
           ]
         ],
         "decision": "A site may differ in configuration, not in behaviour. Every newsroom runs the same modules and the same code; what changes is the theme, the languages and which modules are switched on.",
+        "film": {
+          "file": "devlo-intro",
+          "label": "Devlo CMS case study intro",
+          "caption": "A 15-second intro made from six of the sites' own front pages. Its middle beat is the case's decision: one frame takes on three other sites' themes and languages while the modules and the code stay put."
+        },
         "evidence": [
           {
             "kind": "fleet",
