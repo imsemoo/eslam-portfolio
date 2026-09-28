@@ -725,6 +725,11 @@
           }
         ],
         "decision": "Every bid looks the same. Clients choose between people and prices, so each bid card carries the same five facts in the same place: price, pickup time, delivery estimate, vehicle and rating. A compare view lines up to three bids in one table and marks the best value in each row.",
+        "film": {
+          "file": "freightzone-intro",
+          "label": "FreightZone case study intro",
+          "caption": "A 17-second intro built from the Figma file's own tokens, components, copy and motion rules, ending on its cover. Its middle beat is the case's decision: every bid carries the same five facts in the same place."
+        },
         "system": {
           "title": "The system: the client's red, made to pass",
           "swatches": [
