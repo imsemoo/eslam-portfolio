@@ -14,6 +14,7 @@ const modules = [
   ["preview", "initPreview"],
   ["measured", "initMeasured"],
   ["motion", "initMotion"],
+  ["film", "initFilm"],
 ];
 
 for (const [file, fn] of modules) {

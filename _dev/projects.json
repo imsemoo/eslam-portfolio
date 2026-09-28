@@ -505,6 +505,11 @@
           "label": "Live demo",
           "text": "imsemoo.github.io/kevla-campa"
         },
+        "film": {
+          "file": "kevla-intro",
+          "label": "Kevla Campa case study intro",
+          "caption": "An 11-second intro, rendered from HTML with the site's own fonts, colours and photos. It opens on the laminate scan from the home page."
+        },
         "evidence": [
           {
             "file": "kevla-home",

@@ -709,6 +709,61 @@
   font-size: var(--fs-micro);
   line-height: 1.5;
 }
+
+/* film: a short intro made from the project's own assets, framed like the screenshots.
+   Only cases with a film get the extra row, so the others keep their spacing. */
+.feature--film {
+  grid-template-areas:
+    "head glance"
+    "film film"
+    "evidence evidence"
+    "decision decision"
+    "system system"
+    "story story"
+    "outcome outcome"
+    "links links";
+}
+.film {
+  grid-area: film;
+}
+.film__frame {
+  position: relative;
+}
+.film__video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r);
+  box-shadow:
+    0 1px 0 rgb(15 17 21 / 0.04),
+    0 30px 60px -40px rgb(15 17 21 / 0.45);
+}
+/* The one control on the film: a plain ink button, because glass would fight the footage. */
+.film__toggle {
+  position: absolute;
+  inset-inline-start: var(--s-4);
+  inset-block-end: var(--s-4);
+  min-height: var(--target);
+  padding: 0 var(--s-4);
+  border: 1px solid rgb(255 255 255 / 0.24);
+  border-radius: var(--r);
+  background: rgb(15 17 21 / 0.82);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: var(--fs-micro);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.film__toggle:hover {
+  background: rgb(15 17 21 / 0.95);
+}
+/* the page's green ring is about 3:1 on the dark footage; white is not */
+.film__toggle:focus-visible {
+  outline-color: #fff;
+}
 .fleet {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -913,6 +968,9 @@
   .feature {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas: "head" "glance" "evidence" "decision" "system" "story" "outcome" "links";
+  }
+  .feature--film {
+    grid-template-areas: "head" "glance" "film" "evidence" "decision" "system" "story" "outcome" "links";
   }
   .evidence {
     grid-template-columns: repeat(2, minmax(0, 1fr));

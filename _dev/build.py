@@ -242,6 +242,22 @@ def system(c, slug):
     )
 
 
+def film(c):
+    """A case's short intro film, made from the project's own fonts, colours and
+    photos. Native controls are the fallback; js/film.js swaps them for one
+    play/pause button and plays the film only while it is on screen."""
+    f = c.get("film")
+    if not f:
+        return ""
+    base = f"img/work/ev/{f['file']}"
+    return (
+        f'<figure class="film" data-film data-reveal-ev><div class="film__frame">'
+        f'<video class="film__video" src="{base}-720.mp4" poster="{base}-still.webp" width="1280" height="720" '
+        f'controls muted playsinline preload="none" aria-label="{esc(f["label"])}"></video></div>'
+        f'<figcaption class="ev__cap">{esc(f["caption"])}</figcaption></figure>'
+    )
+
+
 # ------------------------------------------------------------------ featured cases
 def feature(p, by):
     c = p["case"]
@@ -278,12 +294,13 @@ def feature(p, by):
         for l in c.get("links", [])
     )
     return f"""
-<article class="feature" id="case-{slug}" aria-labelledby="case-{slug}-title">
+<article class="feature{' feature--film' if c.get('film') else ''}" id="case-{slug}" aria-labelledby="case-{slug}-title">
   <header class="feature__head">
     <h3 class="feature__title" id="case-{slug}-title">{esc(p['name'])}{arabic(p)}</h3>
     <p class="feature__lede">{esc(c['lede'])}</p>
   </header>
   <dl class="glance">{glance}</dl>
+  {film(c)}
   {evidence}
   <p class="decision"><strong class="decision__lead">The decision.</strong> {esc(c['decision'])}</p>
   {system(c, slug)}
