@@ -77,7 +77,8 @@ def main():
     os.makedirs(raw, exist_ok=True)
     data = json.load(open(os.path.join(ROOT, "_dev", "projects.json"), encoding="utf-8"))
     with sync_playwright() as pw:
-        # Ward Twin draws with WebGL, which headless Chrome renders only through SwiftShader.
+        # Ward Twin draws with WebGL. Headless Chrome uses the GPU when it can and falls
+        # back to SwiftShader, which needs the first flag.
         browser = pw.chromium.launch(channel="chrome", headless=True, args=["--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
         for e in items(data, only):
             if e.get("export"):  # a design file, not a site: exported by hand, nothing to capture

@@ -243,9 +243,10 @@ def system(c, slug):
 
 
 def film(c):
-    """A case's short intro film, made from the project's own fonts, colours and
-    photos. Native controls are the fallback; js/film.js swaps them for one
-    play/pause button and plays the film only while it is on screen."""
+    """A case's short film: an intro made from the project's own fonts, colours
+    and photos, or a recording of a live demo. Native controls are the
+    fallback; js/film.js swaps them for one play/pause button and plays the
+    film only while it is on screen."""
     f = c.get("film")
     if not f:
         return ""
