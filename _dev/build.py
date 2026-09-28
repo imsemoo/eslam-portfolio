@@ -425,7 +425,8 @@ def footprint(tpl):
     css = bundle_css()
     jsdir = os.path.join(ROOT, "js")
     js_files = [f for f in os.listdir(jsdir) if f.endswith(".js")]
-    js = round(sum(os.path.getsize(os.path.join(jsdir, f)) for f in js_files) / 1024)
+    # LF bytes, as served: a CRLF checkout would count one extra byte per line
+    js = round(sum(len(open(os.path.join(jsdir, f), "rb").read().replace(b"\r\n", b"\n")) for f in js_files) / 1024)
     n = 1 + len(js_files) + tpl.count("data-psi=")
     return css, js, n
 
@@ -474,8 +475,9 @@ def main():
     rows = "\n".join(row(p, i, ranks, open_n) for i, p in enumerate(projects))
     hero_stage, hero_rail = hero_parts(data["hero"], by)
     css, js_kb, requests = footprint(tpl)
+    # hash the LF content, so a CRLF checkout (autocrlf on Windows) gives the same ?v=
     version = hashlib.sha1(
-        b"".join(open(os.path.join(ROOT, "js", f), "rb").read() for f in sorted(os.listdir(os.path.join(ROOT, "js"))) if f.endswith(".js"))
+        b"".join(open(os.path.join(ROOT, "js", f), "rb").read().replace(b"\r\n", b"\n") for f in sorted(os.listdir(os.path.join(ROOT, "js"))) if f.endswith(".js"))
     ).hexdigest()[:8]
     css_kb = round(len(css.encode("utf-8")) / 1024)
 
