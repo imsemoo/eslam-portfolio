@@ -112,6 +112,11 @@
           ]
         ],
         "decision": "Keep everything around the data quiet so the map and the charts carry the colour, and never show a number without its date and its source.",
+        "film": {
+          "file": "mo3ta-intro",
+          "label": "Mo3ta case study intro",
+          "caption": "A 12-second intro made from Mo3ta's own logo, colours and map outline. Its middle beat is the case's rule: a number arrives with its date and its source."
+        },
         "evidence": [
           {
             "file": "mo3ta-dashboard",
