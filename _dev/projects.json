@@ -51,6 +51,7 @@
       "iwad",
       "qasioun",
       "freightzone",
+      "wardtwin",
       "mo3ta",
       "watad",
       "arbetsbil",
@@ -791,6 +792,190 @@
             "href": "https://www.figma.com/design/KLzNmrJ5ljExMreBmA9e5Y/FreightZone-App?node-id=1-2",
             "label": "Open the case study in Figma"
           }
+        ]
+      }
+    },
+    {
+      "slug": "wardtwin",
+      "name": "Ward Twin",
+      "tier": 1,
+      "client": "Hospital floor digital twin, a concept",
+      "lang": "en",
+      "role": "Concept, 3D, interface and build",
+      "stack": [
+        "React Three Fiber",
+        "three.js",
+        "TypeScript",
+        "React",
+        "Web Worker"
+      ],
+      "tags": [
+        "apps",
+        "design"
+      ],
+      "summary": "A concept digital twin of one hospital floor: a 28-bed ward and ICU as a live 3D model that replays a simulated day of bed turnover, room climate, call lights and equipment. React Three Fiber, 31 draw calls a frame on desktop. Simulated data, not a client product.",
+      "url": "https://imsemoo.github.io/ward-twin/",
+      "code": "https://github.com/imsemoo/ward-twin",
+      "image": "wardtwin.png",
+      "case": {
+        "lede": "A digital twin of one hospital floor, built as a concept: a 28-bed ward and ICU as a 3D model in the browser, replaying one simulated day. Beds turn over from occupied to cleaning to ready, a room warms through an HVAC fault, call lights wait too long at shift change and pumps move from room to room. I designed it and built all of it, the simulation included, and every number on it is simulated.",
+        "glance": [
+          [
+            "Role",
+            "Concept, design and build"
+          ],
+          [
+            "Focus",
+            "A 3D model that answers one operational question at a time, and stays fast"
+          ],
+          [
+            "Built with",
+            "React Three Fiber, three.js and TypeScript; the day simulated in a Web Worker"
+          ]
+        ],
+        "live": {
+          "label": "Live demo",
+          "text": "imsemoo.github.io/ward-twin"
+        },
+        "evidence": [
+          {
+            "file": "wardtwin-home",
+            "kind": "wide",
+            "device": "desktop",
+            "url": "https://imsemoo.github.io/ward-twin/",
+            "wait": 7000,
+            "alt": "Ward Twin at 14:30: a white 3D model of the ward with rooms coloured by bed state, and a side panel with the bed board and four open alerts.",
+            "caption": "The floor at 14:30, coloured by bed state. The panel carries the bed board and the four alerts open at that minute, from a warm room to a pump on 14 % battery."
+          },
+          {
+            "file": "wardtwin-home-phone",
+            "kind": "phone",
+            "device": "phone",
+            "url": "https://imsemoo.github.io/ward-twin/",
+            "wait": 7000,
+            "alt": "The model on a phone, turned lengthwise, above the layer switch, its key and the timeline.",
+            "caption": "At phone width the building turns lengthwise to fit the screen, above the layer key and the timeline."
+          },
+          {
+            "file": "wardtwin-room-phone",
+            "kind": "phone",
+            "device": "phone",
+            "url": "https://imsemoo.github.io/ward-twin/?select=4A09&layer=temp&t=15:30",
+            "wait": 7000,
+            "alt": "Room 4A09 close up on a phone, its floor red in the temperature layer, with a tag reading its temperature.",
+            "caption": "Room 4A09 at 15:30, in the temperature layer. The camera flew to it from a link that names the room, the layer and the time."
+          }
+        ],
+        "decision": "The floors carry the data, one question at a time. A layer colours every room by bed state, temperature, air or call-light wait, with its key beside it, on a white model that never competes with the colour. Picking a room flies the camera to it and opens that room's day beside the model.",
+        "system": {
+          "title": "The system: an architect's white model, data on the floors",
+          "swatches": [
+            {
+              "name": "Ground",
+              "hex": "#E8ECF0",
+              "role": "The drafting ground under the model"
+            },
+            {
+              "name": "Model",
+              "hex": "#FBFBFC",
+              "role": "Walls, beds and fixtures, the white model"
+            },
+            {
+              "name": "Ink",
+              "hex": "#2A3441",
+              "role": "The walls in plan view, cut and inked"
+            },
+            {
+              "name": "Blue line",
+              "hex": "#2946C7",
+              "role": "Selection, focus and actions, 7.5:1 on white"
+            },
+            {
+              "name": "Ready",
+              "hex": "#157A4C",
+              "role": "A clean bed; its soft tint fills the floor"
+            },
+            {
+              "name": "Waiting",
+              "hex": "#B86E00",
+              "role": "A bed waiting for cleaning, and warnings"
+            }
+          ],
+          "note": "Schibsted Grotesk carries the interface and Fragment Mono the room numbers, times and readings, with tabular figures. Every status comes in two strengths: a strong one for chips and icons in the panel, a soft one for the floors, so the model stays white and colour always means data. Temperature and air get their own ramps, with the key beside the model.",
+          "grid": {
+            "caption": "Four views of the same day: the plan drawing, the air layer at 18:00, room 4A09 during its HVAC fault, and the list view.",
+            "items": [
+              {
+                "file": "wardtwin-plan",
+                "url": "https://imsemoo.github.io/ward-twin/?view=plan",
+                "wait": 6500,
+                "label": "Plan view",
+                "alt": "The floor as a plan: walls cut and inked, rooms coloured by bed state."
+              },
+              {
+                "file": "wardtwin-air",
+                "url": "https://imsemoo.github.io/ward-twin/?view=plan&layer=air&t=18:00&select=FAM",
+                "wait": 6500,
+                "label": "Air at 18:00",
+                "alt": "The plan coloured by CO2 at 18:00, the family lounge darkest, its alert in the side panel."
+              },
+              {
+                "file": "wardtwin-room",
+                "url": "https://imsemoo.github.io/ward-twin/?select=4A09&layer=temp&t=15:30",
+                "wait": 6500,
+                "label": "Room 4A09",
+                "alt": "Room 4A09 close up in the temperature layer, beside its 24-hour temperature chart crossing the limit."
+              },
+              {
+                "file": "wardtwin-list",
+                "url": "https://imsemoo.github.io/ward-twin/?view=list&t=18:00",
+                "wait": 4500,
+                "label": "List view",
+                "alt": "Every room in a table: bed state, since when, temperature, CO2, call light and equipment."
+              }
+            ]
+          }
+        },
+        "story": [
+          {
+            "h": "A day that behaves like a ward",
+            "p": "The simulation is written to tell a ward's afternoon: discharges cluster late in the morning and admissions arrive through the evening, so beds sit dirty, then in cleaning, then ready and waiting. One room warms through an HVAC fault, the family lounge gets stuffy in visiting hours, a pump runs low until someone plugs it in, and call lights wait longer at shift change. It runs in a Web Worker from a fixed seed, so every visitor replays the same day and the scene never waits for it."
+          },
+          {
+            "h": "The drawing and the model are one scene",
+            "p": "Plan view does not swap in a flat map. Every wall sinks to a section cut 15 cm above the floor and darkens to ink, so the model turns into the architect's drawing and back, and the first load plays the same move the other way: the plan rises into the building. List view carries the same data as a table, for keyboards, screen readers and anyone who wants to scan."
+          },
+          {
+            "h": "Alerts that know only the present",
+            "p": "An alert keeps only what was known when it opened, and it is worded at the minute on the timeline: pressed at 14:21, nine minutes without an answer. Scrub to any time and nothing gives away what happens next. Severity is read at that minute too, so a warming room turns critical only once it passes 26.5 °C."
+          },
+          {
+            "h": "Fast because it draws less",
+            "p": "The canvas renders only when something changes, so an idle ward costs no GPU time. The 38 room floors are one instanced mesh and the pick target, each equipment type is one more, the walls are merged, and the 38 room labels are two batched text meshes. The sun and the building never move, so the shadow map is redrawn only when a bed fills or a pump rolls, and orbiting reuses it. A frame is 31 draw calls on desktop with ambient occlusion and 17 on a phone."
+          },
+          {
+            "h": "Framed for every screen",
+            "p": "The camera fits the building by projecting its corners through a trial camera, so the model always clears the overlays, and a tall phone screen turns the building lengthwise. Every view is also a link: the address bar keeps the view, layer, time and selection, which is how the screens in this case were captured."
+          }
+        ],
+        "result": [
+          "A concept: the hospital, the patients and the readings are simulated, and the page says so on every view.",
+          "Live on GitHub Pages, with the code public. The interface loads first at 83 kB gzipped, the 3D scene follows at 309 kB, and ambient occlusion loads last, on desktop only, at 97 kB.",
+          "Orbiting holds about 67 fps with ambient occlusion on the laptop it was built on, at 1280 by 800."
+        ],
+        "reflection": "Test on a range of real devices. The frame rates here come from one laptop and emulated phones, and a low-end Android phone is the test it still needs.",
+        "links": [
+          {
+            "label": "Open the live demo",
+            "href": "https://imsemoo.github.io/ward-twin/"
+          },
+          {
+            "label": "Code on GitHub",
+            "href": "https://github.com/imsemoo/ward-twin"
+          }
+        ],
+        "todo": [
+          "Ward Twin is a concept with simulated data. If it leads to a real twin project, add that here; until then the case says concept."
         ]
       }
     },
@@ -1681,7 +1866,8 @@
     "mo3ta",
     "devlo",
     "kevla",
-    "freightzone"
+    "freightzone",
+    "wardtwin"
   ],
   "briefs": [
     "watad",
