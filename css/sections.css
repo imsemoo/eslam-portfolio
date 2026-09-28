@@ -741,10 +741,10 @@
     0 1px 0 rgb(15 17 21 / 0.04),
     0 30px 60px -40px rgb(15 17 21 / 0.45);
 }
-/* The one control on the film: a plain ink button, because glass would fight the footage. */
-.film__toggle {
+/* The film's two controls: plain ink buttons, because glass would fight the footage. */
+.film__toggle,
+.film__expand {
   position: absolute;
-  inset-inline-start: var(--s-4);
   inset-block-end: var(--s-4);
   min-height: var(--target);
   padding: 0 var(--s-4);
@@ -757,12 +757,31 @@
   letter-spacing: 0.04em;
   cursor: pointer;
 }
-.film__toggle:hover {
+.film__toggle {
+  inset-inline-start: var(--s-4);
+}
+.film__expand {
+  inset-inline-end: var(--s-4);
+}
+.film__toggle:hover,
+.film__expand:hover {
   background: rgb(15 17 21 / 0.95);
 }
 /* the page's green ring is about 3:1 on the dark footage; white is not */
-.film__toggle:focus-visible {
+.film__toggle:focus-visible,
+.film__expand:focus-visible {
   outline-color: #fff;
+}
+/* Full screen: the frame fills the screen, the film keeps its shape on its own ink. */
+.film__frame:fullscreen {
+  background: var(--ink);
+}
+.film__frame:fullscreen .film__video {
+  height: 100%;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 .fleet {
   display: grid;

@@ -1365,9 +1365,9 @@ box-shadow:
 0 1px 0 rgb(15 17 21 / 0.04),
 0 30px 60px -40px rgb(15 17 21 / 0.45);
 }
-.film__toggle {
+.film__toggle,
+.film__expand {
 position: absolute;
-inset-inline-start: var(--s-4);
 inset-block-end: var(--s-4);
 min-height: var(--target);
 padding: 0 var(--s-4);
@@ -1380,11 +1380,29 @@ font-size: var(--fs-micro);
 letter-spacing: 0.04em;
 cursor: pointer;
 }
-.film__toggle:hover {
+.film__toggle {
+inset-inline-start: var(--s-4);
+}
+.film__expand {
+inset-inline-end: var(--s-4);
+}
+.film__toggle:hover,
+.film__expand:hover {
 background: rgb(15 17 21 / 0.95);
 }
-.film__toggle:focus-visible {
+.film__toggle:focus-visible,
+.film__expand:focus-visible {
 outline-color: #fff;
+}
+.film__frame:fullscreen {
+background: var(--ink);
+}
+.film__frame:fullscreen .film__video {
+height: 100%;
+object-fit: contain;
+border: 0;
+border-radius: 0;
+box-shadow: none;
 }
 .fleet {
 display: grid;
@@ -3011,7 +3029,7 @@ clip-path: none !important;
 
       <div class="footprint" data-psi="imsemoo-github-io">
         <h3>This page</h3>
-        <p class="small">53 KB of CSS inlined in the HTML and 29 KB of my own JavaScript. No framework and no third-party scripts. 12 requests before images and fonts, three of them for the tables above. Built 28 September 2026 from one JSON file by a Python script.</p>
+        <p class="small">54 KB of CSS inlined in the HTML and 30 KB of my own JavaScript. No framework and no third-party scripts. 12 requests before images and fonts, three of them for the tables above. Built 28 September 2026 from one JSON file by a Python script.</p>
         <p class="small footprint__self" data-self>The same weekly job measures it: performance <b class="num" data-self-mobile>100</b> on mobile and <b class="num" data-self-desktop>100</b> on desktop, with accessibility, best practices and SEO at <b class="num" data-self-rest>100</b>.</p>
       </div>
       <p class="score__legend small">Lighthouse scores out of 100. Under 90 is marked in brown. LCP is how long the largest thing on the first screen takes to appear.</p>
@@ -3145,6 +3163,6 @@ clip-path: none !important;
 <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
 </svg>
 
-<script src="js/main.js?v=4b8decbd" type="module"></script>
+<script src="js/main.js?v=c7ddc404" type="module"></script>
 </body>
 </html>
