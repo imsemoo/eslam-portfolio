@@ -201,7 +201,7 @@
         "design",
         "rtl"
       ],
-      "summary": "One Laravel application running 24 Arabic news sites, each with its own theme, modules, languages and editorial team.",
+      "summary": "One Laravel application running 24 news and media sites, most of them in Arabic, each with its own theme, modules, languages and editorial team.",
       "url": "https://demo.taktek.co/dashboard",
       "image": [
         "qudsn.png",
@@ -209,7 +209,7 @@
         "maktoob.png"
       ],
       "case": {
-        "lede": "One Laravel application runs 24 Arabic news sites, each with its own theme, modules, languages and editorial team. I designed the editorial panel and the theming model, then built both.",
+        "lede": "One Laravel application runs 24 news and media sites, most of them in Arabic, each with its own theme, modules, languages and editorial team. I designed the editorial panel and the theming model, then built both.",
         "glance": [
           [
             "Role",
@@ -268,7 +268,7 @@
           },
           {
             "h": "A panel that shows only what a newsroom uses",
-            "p": "The editorial panel works in Arabic, English and Turkish, right to left by default. Switching a module off removes its route, its sidebar entry and its permission together, so an editor never meets a menu item that leads nowhere. Every label is a translation key, 5,874 of them, checked in CI."
+            "p": "The editorial panel works in Arabic, English and Turkish, right to left by default. Switching a module off removes its route, its sidebar entry and its permission together, so an editor never meets a menu item that leads nowhere. Every label is a translation key, 5,874 of them, checked before each commit."
           },
           {
             "h": "Small details, decided once",
@@ -276,7 +276,7 @@
           },
           {
             "h": "Checks for what nobody can see",
-            "p": "Some failures never throw an error: an English string that renders in Arabic because Arabic is the fallback, a share image a crawler quietly refuses, a permission that exists on one route and nowhere else. Each has a command that fails before a commit lands, across 456 Livewire components and 839 Blade views."
+            "p": "Some failures never throw an error: an English string that renders in Arabic because Arabic is the fallback, a share image a crawler quietly refuses, a permission that exists on one route and nowhere else. A teammate wrote a command for each that fails before a commit lands, across 456 Livewire components and 839 Blade views."
           },
           {
             "h": "Measuring a live newsroom",
@@ -305,7 +305,9 @@
         "todo": [
           "Devlo's evidence is the sites, not the panel: demo.taktek.co/dashboard redirects to a login, so the editorial panel could not be captured. A screenshot of the panel (dashboard, sidebar, a module switched off) would show the design side directly.",
           "The old Quds case credited Quds with the 749 KB to 78 KB font cut. Your GitHub write-up places that audit on maktoobmedia.com, so it now sits under Maktoob. If Quds got the same pass, add it back to the Quds paragraph.",
-          "IWAD is live at wardefense.institute, but its sections are still empty, so the grid shows the theme build with sample content. Recapture the hubs from the live site once the first publications are out."
+          "IWAD is live at wardefense.institute, but its sections are still empty, so the grid shows the theme build with sample content. Recapture the hubs from the live site once the first publications are out.",
+          "Site count: you said about 25 live on 2026-09-28. The page and the intro film say 24, so give the exact live count and both get updated together (the film's text lives in the motion workspace, devlo-intro).",
+          "The guard commands were written by a teammate, so the story now credits one."
         ],
         "live": {
           "label": "Demo",
