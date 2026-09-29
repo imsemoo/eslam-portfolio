@@ -878,7 +878,7 @@
             "caption": "Room 4A09 at 15:30, in the temperature layer. The camera flew to it from a link that names the room, the layer and the time."
           }
         ],
-        "decision": "The floors carry the data, one question at a time. A layer colours every room, in one wing or across all six levels, by bed state, temperature, air or call-light wait, with its key beside it, on a white model that never competes with the colour. Picking a room flies the camera to it and opens that room's day beside the model.",
+        "decision": "The floors carry the data, one question at a time. A layer colours every room, in one wing or across all six levels, by bed state, temperature, air or call-light wait, with its key beside it, on a white model that never competes with the colour. In temperature and air a room shows its own sensor and only the corridors, which have none, are estimated, from the doors that open onto them. Picking a room flies the camera to it and opens that room's day beside the model.",
         "system": {
           "title": "The system: an architect's white model, data on the floors",
           "swatches": [
@@ -929,7 +929,7 @@
                 "url": "https://imsemoo.github.io/ward-twin/?view=plan&layer=air&t=18:00&select=FAM",
                 "wait": 6500,
                 "label": "Air at 18:00",
-                "alt": "The plan coloured by CO2 at 18:00, the family lounge darkest, its alert in the side panel."
+                "alt": "The plan coloured by CO2 at 18:00, the family lounge darkest and its stale air estimated spilling into the corridor outside its door, its alert in the side panel."
               },
               {
                 "file": "wardtwin-level",
@@ -975,16 +975,16 @@
           },
           {
             "h": "Fast because it draws less",
-            "p": "The canvas renders only when something changes, so an idle hospital costs no GPU time. Every wing is built to one plan, so each part of the shell is one instanced mesh for all 36 wings, and the 1,368 room floors are one more, which is also the pick target. Only what is in view is packed into what the GPU draws: the first build of the hospital hid the other wings but still sent them to the GPU, 207,000 triangles for one wing, and packing brought that back to 15,000. Beds, patients, bedside furniture and equipment are glTF models, 17,208 triangles compressed to 129 KB, drawn as instances with a shader that tints only the parts that carry state, such as a blanket or a pump's housing. Each switches to a plain proxy by its distance from where the camera looks, and to a box in the whole-hospital view, which draws in 33 draw calls, fewer than one wing up close."
+            "p": "The canvas renders only when something changes, so an idle hospital costs no GPU time. Every wing is built to one plan, so each part of the shell is one instanced mesh for all 36 wings, and the 1,368 room floors are one more, which is also the pick target. Only what is in view is packed into what the GPU draws: the first build of the hospital hid the other wings but still sent them to the GPU, 207,000 triangles for one wing, and packing brought that back to 15,000. Beds, patients, bedside furniture and equipment are glTF models, 17,208 triangles compressed to 129 KB, drawn as instances with a shader that tints only the parts that carry state, such as a blanket or a pump's housing. Each switches to a plain proxy by its distance from where the camera looks, and to a box in the whole-hospital view, which draws in 33 draw calls, fewer than one wing up close. The corridors' temperature and air are estimated in the fragment shader, from each wing's 38 doors weighted by how wide they are, with isolines and the alert limit drawn from screen-space derivatives; switching that layer on costs 1 or 2 fps."
           },
           {
             "h": "It adapts, recovers and is tested",
-            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 49 unit tests, 13 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
+            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 51 unit tests, 14 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
           }
         ],
         "result": [
           "A concept: the hospital, the patients and the readings are simulated, and the page says so on every view.",
-          "Live on GitHub Pages, with the code public. The interface loads first at under 90 kB gzipped, the scene and three.js follow at 213 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them; the wayfinding search loads on first use, at 1.4 kB.",
+          "Live on GitHub Pages, with the code public. The interface loads first at under 90 kB gzipped, the scene and three.js follow at 215 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them; the wayfinding search loads on first use, at 1.4 kB.",
           "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA, over three runs: the whole hospital at 72 to 90 fps in 33 draw calls, a level at 74 to 90 fps, one wing at 69 to 81 fps in 43, and close to a room at 61 to 77 fps."
         ],
         "reflection": "Test on a range of real devices. The frame rates here come from one laptop and emulated phones, and a low-end Android phone is the test it still needs.",
@@ -1008,8 +1008,7 @@
         ],
         "todo": [
           "Ward Twin is a concept with simulated data. If it leads to a real twin project, add that here; until then the case says concept.",
-          "Test on real phones: open https://imsemoo.github.io/ward-twin/?stats=orbit on a low-end Android phone and an iPhone, note the frame rate and the quality level, then update the result and the reflection.",
-          "Once ward-twin's local commits are pushed (the panel fix and its browser test), the tested story block should say 14 browser tests, not 13."
+          "Test on real phones: open https://imsemoo.github.io/ward-twin/?stats=orbit on a low-end Android phone and an iPhone, note the frame rate and the quality level, then update the result and the reflection."
         ]
       }
     },
