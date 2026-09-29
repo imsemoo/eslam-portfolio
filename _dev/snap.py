@@ -1,7 +1,7 @@
 """Capture the screenshots that the case studies use as evidence.
 
 Every evidence item in projects.json names the page, the device and, when it
-matters, how far down to scroll. This script opens each one in the installed
+matters, how far down to scroll or which button to press first. This script opens each one in the installed
 Chrome (through Playwright) and saves the viewport as a PNG in <raw-dir>;
 images.py then crops and converts them. Phones are emulated properly
 (390 x 844 CSS px, 2x, touch, mobile UA), so what lands in the portfolio is
@@ -99,6 +99,8 @@ def main():
                 print("  slow:", e["file"], type(err).__name__)
             if e.get("scroll"):
                 page.evaluate(f"window.scrollTo(0, {int(e['scroll'])})")
+            if e.get("click"):  # a state no link can open, such as Ward Twin's route: the button, by its name
+                page.get_by_role("button", name=e["click"], exact=True).click()
             page.wait_for_timeout(e.get("wait", 3500))
             page.screenshot(path=os.path.join(raw, e["file"] + ".png"))
             ctx.close()

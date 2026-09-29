@@ -804,7 +804,7 @@
       "slug": "wardtwin",
       "name": "Ward Twin",
       "tier": 1,
-      "client": "Hospital floor digital twin, a concept",
+      "client": "Hospital digital twin, a concept",
       "lang": "en",
       "role": "Concept, 3D, interface and build",
       "stack": [
@@ -819,12 +819,12 @@
         "apps",
         "design"
       ],
-      "summary": "A concept digital twin of one hospital floor: a 28-bed ward and ICU as a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream. React Three Fiber with compressed glTF models, at 75 fps or more on an integrated GPU. Simulated data, not a client product.",
+      "summary": "A concept digital twin of a hospital: six levels of six wings, 1,008 beds and 3,006 tracked pieces of equipment in a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream, with the walk from any bed to the nearest free pump. React Three Fiber and compressed glTF; the whole hospital draws at 72 fps or more on an integrated GPU. Simulated data, not a client product.",
       "url": "https://imsemoo.github.io/ward-twin/",
       "code": "https://github.com/imsemoo/ward-twin",
       "image": "wardtwin.png",
       "case": {
-        "lede": "A digital twin of one hospital floor, built as a concept: a 28-bed ward and ICU as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, a room warms through an HVAC fault, call lights wait too long at shift change and pumps move from room to room. I designed it and built all of it, the simulation included, and every number on it is simulated.",
+        "lede": "A digital twin of a hospital, built as a concept: six levels of six wings as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, rooms warm through HVAC faults, call lights wait too long at shift change and pumps move between rooms. It opens on one wing, pulls out to a level or the whole building, and from any bed finds the nearest free equipment and the walk to it. I designed it and built all of it, the simulation included, and every number on it is simulated.",
         "glance": [
           [
             "Role",
@@ -832,11 +832,11 @@
           ],
           [
             "Focus",
-            "A 3D model that answers one operational question at a time, and stays fast"
+            "A 3D model that answers one operational question at a time, and stays fast at the scale of a hospital"
           ],
           [
             "Built with",
-            "React Three Fiber, three.js and TypeScript; compressed glTF; the day simulated in a Web Worker"
+            "React Three Fiber, three.js and TypeScript; compressed glTF; the day simulated in a Web Worker; wayfinding on a graph of the building"
           ]
         ],
         "live": {
@@ -846,17 +846,18 @@
         "film": {
           "file": "wardtwin-film",
           "label": "Ward Twin demo film",
-          "caption": "A 34-second recording of the live demo, captured frame by frame on a fixed clock: the opening shot, the four layers, room 4A09 warming until its alert turns critical, the plan, and the low pump found by search."
+          "caption": "A 40-second recording of the live demo, captured frame by frame on a fixed clock: the opening shot, the four layers, room 4A09 heating past its limit through the afternoon, the walk to the nearest free pump in the next wing, the whole hospital drawn apart, and level 4 in 3D and as a plan."
         },
         "evidence": [
           {
-            "file": "wardtwin-home",
+            "file": "wardtwin-route",
             "kind": "wide",
             "device": "desktop",
-            "url": "https://imsemoo.github.io/ward-twin/",
-            "wait": 12000,
-            "alt": "Ward Twin at 14:30: a white 3D model of the ward with rooms coloured by bed state, and a side panel with the bed board and four open alerts.",
-            "caption": "The floor at 14:30, coloured by bed state. The panel carries the bed board and the four alerts open at that minute, from a warm room to a pump on 14 % battery."
+            "url": "https://imsemoo.github.io/ward-twin/?select=4A09&t=21:00",
+            "click": "Infusion pump",
+            "wait": 9000,
+            "alt": "Level 4 in 3D with a dashed blue line from room 4A09 along the corridor and across a glazed link to a pump in the next wing, tagged 1 min away, beside the room's panel.",
+            "caption": "At 21:00 no pump is free in 4A09's own wing. The nearest is in the next one, and the walk is drawn down the corridor and across the glazed link: 87 m, about a minute."
           },
           {
             "file": "wardtwin-home-phone",
@@ -864,8 +865,8 @@
             "device": "phone",
             "url": "https://imsemoo.github.io/ward-twin/",
             "wait": 7000,
-            "alt": "The model on a phone, turned lengthwise, above the layer switch, its key and the timeline.",
-            "caption": "At phone width the building turns lengthwise to fit the screen, above the layer key and the timeline."
+            "alt": "Wing 4A on a phone, turned lengthwise, above the layer switch, its key and the timeline.",
+            "caption": "At phone width a wing turns lengthwise to fit the screen, above the layer key and the timeline."
           },
           {
             "file": "wardtwin-room-phone",
@@ -877,7 +878,7 @@
             "caption": "Room 4A09 at 15:30, in the temperature layer. The camera flew to it from a link that names the room, the layer and the time."
           }
         ],
-        "decision": "The floors carry the data, one question at a time. A layer colours every room by bed state, temperature, air or call-light wait, with its key beside it, on a white model that never competes with the colour. Picking a room flies the camera to it and opens that room's day beside the model.",
+        "decision": "The floors carry the data, one question at a time. A layer colours every room, in one wing or across all six levels, by bed state, temperature, air or call-light wait, with its key beside it, on a white model that never competes with the colour. Picking a room flies the camera to it and opens that room's day beside the model.",
         "system": {
           "title": "The system: an architect's white model, data on the floors",
           "swatches": [
@@ -914,14 +915,14 @@
           ],
           "note": "Schibsted Grotesk carries the interface and Fragment Mono the room numbers, times and readings, with tabular figures. Every status comes in two strengths: a strong one for chips and icons in the panel, a soft one for the floors, so the model stays white and colour always means data. Temperature and air get their own ramps, with the key beside the model.",
           "grid": {
-            "caption": "Four views of the same day: the plan drawing, the air layer at 18:00, room 4A09 during its HVAC fault, and the list view.",
+            "caption": "Four views of the same day: a wing as a plan drawing, the air layer at 18:00, level 4 with its six wings, and every wing of the hospital in a table.",
             "items": [
               {
                 "file": "wardtwin-plan",
                 "url": "https://imsemoo.github.io/ward-twin/?view=plan",
                 "wait": 6500,
                 "label": "Plan view",
-                "alt": "The floor as a plan: walls cut and inked, rooms coloured by bed state."
+                "alt": "A wing as a plan: walls cut and inked, rooms coloured by bed state."
               },
               {
                 "file": "wardtwin-air",
@@ -931,18 +932,18 @@
                 "alt": "The plan coloured by CO2 at 18:00, the family lounge darkest, its alert in the side panel."
               },
               {
-                "file": "wardtwin-room",
-                "url": "https://imsemoo.github.io/ward-twin/?select=4A09&layer=temp&t=15:30",
-                "wait": 6500,
-                "label": "Room 4A09",
-                "alt": "Room 4A09 close up in the temperature layer, beside its 24-hour temperature chart crossing the limit."
+                "file": "wardtwin-level",
+                "url": "https://imsemoo.github.io/ward-twin/?at=level-4",
+                "wait": 9000,
+                "label": "Level 4",
+                "alt": "Level 4 in 3D: six wings on one plate, joined by glazed links, each named."
               },
               {
                 "file": "wardtwin-list",
-                "url": "https://imsemoo.github.io/ward-twin/?view=list&t=18:00",
-                "wait": 4500,
+                "url": "https://imsemoo.github.io/ward-twin/?at=hospital&view=list",
+                "wait": 6000,
                 "label": "List view",
-                "alt": "Every room in a table: bed state, since when, temperature, CO2, call light and equipment."
+                "alt": "Every wing in a table: beds occupied, ready, being cleaned, waiting and out of service, and its open alerts."
               }
             ]
           }
@@ -950,11 +951,19 @@
         "story": [
           {
             "h": "A day that behaves like a ward",
-            "p": "The simulation is written to tell a ward's afternoon: discharges cluster late in the morning and admissions arrive through the evening, so beds sit dirty, then in cleaning, then ready and waiting. One room warms through an HVAC fault, the family lounge gets stuffy in visiting hours, a pump runs low until someone plugs it in, and call lights wait longer at shift change. It runs in a Web Worker from a fixed seed, so every visitor replays the same day and the scene never waits for it."
+            "p": "The simulation is written to tell a ward's afternoon: discharges cluster late in the morning and admissions arrive through the evening, so beds sit dirty, then in cleaning, then ready and waiting. Rooms warm through HVAC faults, the family lounge gets stuffy in visiting hours, pumps run low until someone plugs them in, and call lights wait longer at shift change. Each of the 36 wings runs from its own seed, so every visitor replays the same day and one wing's day never shifts another's; wing 4A, where the demo opens, keeps a scripted story on top. It all runs in a Web Worker, and the wing on show arrives first, in under 30 ms, with the rest of the hospital under a second behind."
+          },
+          {
+            "h": "From one wing to the whole hospital",
+            "p": "The model works at three scales. A wing is two wards and an ICU, close enough to read a bed. A level puts its six wings on one plate, joined by glazed links. All levels draws the six floors apart, an exploded section of the building, each coloured by the same layer, so a warm room shows from across the hospital. A map of the building sits beside the model, every wing shaded by how full it is and marked where something critical is open; a click on a wing flies into it, and a trail above the panel leads back up. The camera fits each scale by projecting its corners through a trial camera, so the model always clears the overlays, and the address bar keeps the scale, view, layer, time and selection, so every view is a link."
           },
           {
             "h": "The drawing and the model are one scene",
-            "p": "Plan view does not swap in a flat map. Every wall sinks to a section cut 15 cm above the floor and darkens to ink, so the model turns into the architect's drawing and back, and the first load plays the same move the other way: the plan rises into the building. List view carries the same data as a table, for keyboards, screen readers and anyone who wants to scan."
+            "p": "Plan view does not swap in a flat map. Every wall sinks to a section cut 15 cm above the floor and darkens to ink, so the model turns into the architect's drawing and back, for a wing or a whole level, and the first load plays the same move the other way: the plan rises into the building. List view carries the same data as a table, for keyboards, screen readers and anyone who wants to scan."
+          },
+          {
+            "h": "The nearest free pump, and the walk to it",
+            "p": "From any bed, Nearest free finds the infusion pump, wheelchair or bladder scanner, or from an ICU bay the ventilator, that is quickest to reach on foot anywhere in the hospital. The walk runs on a graph of the building, 4,296 points: every room and its door, both corridors of each wing, the crossing through the core, the glazed links and the lifts. Costs are seconds, 1.2 m/s on foot and a lift as a wait plus a few seconds a floor. The question has many possible answers, so one Dijkstra search from the room reaches them all, where A* would need a search for each pump; a search takes 2 to 11 ms. The walk is drawn over the walls, the view widens to the level or the building to hold it, and the search loads only when someone first asks, as its own 1.4 kB file."
           },
           {
             "h": "Alerts that know only the present",
@@ -962,31 +971,31 @@
           },
           {
             "h": "Live, from a stream of events",
-            "p": "Live mode builds the floor from events as they arrive instead of from a recorded day. A mock server in a Web Worker plays the day over the JSON protocol a real integration server would use, a simulated minute each second, and the page folds each event into the same day the views already read, so none of them had to change. Sequence numbers keep the stream whole: when the connection drops, the page says the floor is stale, waits longer before each retry, and asks for only the events it missed. A test replays the whole day as events and checks that it reads exactly like the recording at every five-minute reading."
+            "p": "Live mode builds the hospital from events as they arrive instead of from a recorded day. A mock server in a Web Worker plays the day over the JSON protocol a real integration server would use, a simulated minute each second, and the page folds each event into the same day the views already read, so none of them had to change. Sequence numbers keep the stream whole: when the connection drops, the page says the floor is stale, waits longer before each retry, and asks for only the events it missed, from the last 2,000 the server keeps. A test replays the whole day as events and checks that it reads exactly like the recording at every five-minute reading."
           },
           {
             "h": "Fast because it draws less",
-            "p": "The canvas renders only when something changes, so an idle ward costs no GPU time. The 38 room floors are one instanced mesh and the pick target, the walls are merged, and the room labels are two batched text meshes. Beds, patients, bedside furniture and equipment are glTF models, 17,208 triangles compressed to 129 KB, drawn as instances with a shader that tints only the parts that carry state, such as a blanket or a pump's housing. Each instance switches between its model and a plain proxy by its distance from where the camera looks, so the whole floor draws 15,000 triangles and a close-up about 130,000. The sun and the building never move, so the shadow map is redrawn only when a bed fills or a pump rolls."
-          },
-          {
-            "h": "Framed for every screen",
-            "p": "The camera fits the building by projecting its corners through a trial camera, so the model always clears the overlays, and a tall phone screen turns the building lengthwise. Every view is also a link: the address bar keeps the view, layer, time and selection, which is how the screens in this case were captured."
+            "p": "The canvas renders only when something changes, so an idle hospital costs no GPU time. Every wing is built to one plan, so each part of the shell is one instanced mesh for all 36 wings, and the 1,368 room floors are one more, which is also the pick target. Only what is in view is packed into what the GPU draws: the first build of the hospital hid the other wings but still sent them to the GPU, 207,000 triangles for one wing, and packing brought that back to 15,000. Beds, patients, bedside furniture and equipment are glTF models, 17,208 triangles compressed to 129 KB, drawn as instances with a shader that tints only the parts that carry state, such as a blanket or a pump's housing. Each switches to a plain proxy by its distance from where the camera looks, and to a box in the whole-hospital view, which draws in 33 draw calls, fewer than one wing up close."
           },
           {
             "h": "It adapts, recovers and is tested",
-            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 38 unit tests, 9 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
+            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 49 unit tests, 13 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
           }
         ],
         "result": [
           "A concept: the hospital, the patients and the readings are simulated, and the page says so on every view.",
-          "Live on GitHub Pages, with the code public. The interface loads first at 85 kB gzipped, the scene and three.js follow at 212 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them.",
-          "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA: 75 to 82 fps across two runs, in 43 draw calls for the whole floor and 49 close to a room."
+          "Live on GitHub Pages, with the code public. The interface loads first at under 90 kB gzipped, the scene and three.js follow at 213 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them; the wayfinding search loads on first use, at 1.4 kB.",
+          "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA, over three runs: the whole hospital at 72 to 90 fps in 33 draw calls, a level at 74 to 90 fps, one wing at 69 to 81 fps in 43, and close to a room at 61 to 77 fps."
         ],
         "reflection": "Test on a range of real devices. The frame rates here come from one laptop and emulated phones, and a low-end Android phone is the test it still needs.",
         "links": [
           {
             "label": "Open the live demo",
             "href": "https://imsemoo.github.io/ward-twin/"
+          },
+          {
+            "label": "Open the whole hospital",
+            "href": "https://imsemoo.github.io/ward-twin/?at=hospital"
           },
           {
             "label": "Code on GitHub",
@@ -999,7 +1008,8 @@
         ],
         "todo": [
           "Ward Twin is a concept with simulated data. If it leads to a real twin project, add that here; until then the case says concept.",
-          "Test on real phones: open https://imsemoo.github.io/ward-twin/?stats=orbit on a low-end Android phone and an iPhone, note the frame rate and the quality level, then update the result and the reflection."
+          "Test on real phones: open https://imsemoo.github.io/ward-twin/?stats=orbit on a low-end Android phone and an iPhone, note the frame rate and the quality level, then update the result and the reflection.",
+          "Once ward-twin's local commits are pushed (the panel fix and its browser test), the tested story block should say 14 browser tests, not 13."
         ]
       }
     },
