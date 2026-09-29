@@ -819,12 +819,12 @@
         "apps",
         "design"
       ],
-      "summary": "A concept digital twin of one hospital floor: a 28-bed ward and ICU as a live 3D model that replays a simulated day of bed turnover, room climate, call lights and equipment. React Three Fiber with compressed glTF models, at 75 fps or more on an integrated GPU. Simulated data, not a client product.",
+      "summary": "A concept digital twin of one hospital floor: a 28-bed ward and ICU as a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream. React Three Fiber with compressed glTF models, at 75 fps or more on an integrated GPU. Simulated data, not a client product.",
       "url": "https://imsemoo.github.io/ward-twin/",
       "code": "https://github.com/imsemoo/ward-twin",
       "image": "wardtwin.png",
       "case": {
-        "lede": "A digital twin of one hospital floor, built as a concept: a 28-bed ward and ICU as a 3D model in the browser, replaying one simulated day. Beds turn over from occupied to cleaning to ready, a room warms through an HVAC fault, call lights wait too long at shift change and pumps move from room to room. I designed it and built all of it, the simulation included, and every number on it is simulated.",
+        "lede": "A digital twin of one hospital floor, built as a concept: a 28-bed ward and ICU as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, a room warms through an HVAC fault, call lights wait too long at shift change and pumps move from room to room. I designed it and built all of it, the simulation included, and every number on it is simulated.",
         "glance": [
           [
             "Role",
@@ -961,6 +961,10 @@
             "p": "An alert keeps only what was known when it opened, and it is worded at the minute on the timeline: pressed at 14:21, nine minutes without an answer. Scrub to any time and nothing gives away what happens next. Severity is read at that minute too, so a warming room turns critical only once it passes 26.5 °C."
           },
           {
+            "h": "Live, from a stream of events",
+            "p": "Live mode builds the floor from events as they arrive instead of from a recorded day. A mock server in a Web Worker plays the day over the JSON protocol a real integration server would use, a simulated minute each second, and the page folds each event into the same day the views already read, so none of them had to change. Sequence numbers keep the stream whole: when the connection drops, the page says the floor is stale, waits longer before each retry, and asks for only the events it missed. A test replays the whole day as events and checks that it reads exactly like the recording at every five-minute reading."
+          },
+          {
             "h": "Fast because it draws less",
             "p": "The canvas renders only when something changes, so an idle ward costs no GPU time. The 38 room floors are one instanced mesh and the pick target, the walls are merged, and the room labels are two batched text meshes. Beds, patients, bedside furniture and equipment are glTF models, 17,208 triangles compressed to 129 KB, drawn as instances with a shader that tints only the parts that carry state, such as a blanket or a pump's housing. Each instance switches between its model and a plain proxy by its distance from where the camera looks, so the whole floor draws 15,000 triangles and a close-up about 130,000. The sun and the building never move, so the shadow map is redrawn only when a bed fills or a pump rolls."
           },
@@ -970,12 +974,12 @@
           },
           {
             "h": "It adapts, recovers and is tested",
-            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 23 unit tests, 8 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
+            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 38 unit tests, 9 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
           }
         ],
         "result": [
           "A concept: the hospital, the patients and the readings are simulated, and the page says so on every view.",
-          "Live on GitHub Pages, with the code public. The interface loads first at 83 kB gzipped, the scene and three.js follow at 212 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them.",
+          "Live on GitHub Pages, with the code public. The interface loads first at 85 kB gzipped, the scene and three.js follow at 212 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them.",
           "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA: 75 to 82 fps across two runs, in 43 draw calls for the whole floor and 49 close to a room."
         ],
         "reflection": "Test on a range of real devices. The frame rates here come from one laptop and emulated phones, and a low-end Android phone is the test it still needs.",
@@ -987,6 +991,10 @@
           {
             "label": "Code on GitHub",
             "href": "https://github.com/imsemoo/ward-twin"
+          },
+          {
+            "label": "How the live feed works",
+            "href": "https://github.com/imsemoo/ward-twin/blob/main/docs/live-feed.md"
           }
         ],
         "todo": [
