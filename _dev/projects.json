@@ -805,7 +805,7 @@
       "name": "Ward Twin",
       "tier": 1,
       "client": "Hospital digital twin, a concept",
-      "lang": "en",
+      "lang": "bi",
       "role": "Concept, 3D, interface and build",
       "stack": [
         "React Three Fiber",
@@ -817,14 +817,15 @@
       ],
       "tags": [
         "apps",
-        "design"
+        "design",
+        "rtl"
       ],
-      "summary": "A concept digital twin of a hospital: six levels of six wings, 1,008 beds and 3,006 tracked pieces of equipment in a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream, with the walk from any bed to the nearest free pump. React Three Fiber and compressed glTF; the whole hospital draws at 72 fps or more on an integrated GPU. Simulated data, not a client product.",
+      "summary": "A concept digital twin of a hospital, in English or in Arabic from right to left: six levels of six wings, 1,008 beds and 3,006 tracked pieces of equipment in a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream, with the walk from any bed to the nearest free pump. React Three Fiber and compressed glTF; the whole hospital draws at 72 fps or more on an integrated GPU. Simulated data, not a client product.",
       "url": "https://imsemoo.github.io/ward-twin/",
       "code": "https://github.com/imsemoo/ward-twin",
       "image": "wardtwin.png",
       "case": {
-        "lede": "A digital twin of a hospital, built as a concept: six levels of six wings as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, rooms warm through HVAC faults, call lights wait too long at shift change and pumps move between rooms. It opens on one wing, pulls out to a level or the whole building, and from any bed finds the nearest free equipment and the walk to it. I designed it and built all of it, the simulation included, and every number on it is simulated.",
+        "lede": "A digital twin of a hospital, built as a concept: six levels of six wings as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, rooms warm through HVAC faults, call lights wait too long at shift change and pumps move between rooms. It opens on one wing, pulls out to a level or the whole building, and from any bed finds the nearest free equipment and the walk to it. The whole interface also switches to Arabic, right to left. I designed it and built all of it, the simulation included, and every number on it is simulated.",
         "glance": [
           [
             "Role",
@@ -863,10 +864,10 @@
             "file": "wardtwin-home-phone",
             "kind": "phone",
             "device": "phone",
-            "url": "https://imsemoo.github.io/ward-twin/",
+            "url": "https://imsemoo.github.io/ward-twin/?lang=ar",
             "wait": 7000,
-            "alt": "Wing 4A on a phone, turned lengthwise, above the layer switch, its key and the timeline.",
-            "caption": "At phone width a wing turns lengthwise to fit the screen, above the layer key and the timeline."
+            "alt": "Wing 4A on a phone in Arabic: the top bar, the layer switch and its key right to left above the model, turned lengthwise, and the timeline.",
+            "caption": "At phone width a wing turns lengthwise to fit the screen. Here in Arabic: the bar, the layers and the key read right to left, and the timeline still runs left to right."
           },
           {
             "file": "wardtwin-room-phone",
@@ -913,7 +914,7 @@
               "role": "A bed waiting for cleaning, and warnings"
             }
           ],
-          "note": "Schibsted Grotesk carries the interface and Fragment Mono the room numbers, times and readings, with tabular figures. Every status comes in two strengths: a strong one for chips and icons in the panel, a soft one for the floors, so the model stays white and colour always means data. Temperature and air get their own ramps, with the key beside the model.",
+          "note": "Schibsted Grotesk carries the interface, Vazirmatn its Arabic, and Fragment Mono the room numbers, times and readings, with tabular figures. Every status comes in two strengths: a strong one for chips and icons in the panel, a soft one for the floors, so the model stays white and colour always means data. Temperature and air get their own ramps, with the key beside the model.",
           "grid": {
             "caption": "Four views of the same day: a wing as a plan drawing, the air layer at 18:00, level 4 with its six wings, and every wing of the hospital in a table.",
             "items": [
@@ -970,6 +971,10 @@
             "p": "An alert keeps only what was known when it opened, and it is worded at the minute on the timeline: pressed at 14:21, nine minutes without an answer. Scrub to any time and nothing gives away what happens next. Severity is read at that minute too, so a warming room turns critical only once it passes 26.5 °C."
           },
           {
+            "h": "In English or Arabic",
+            "p": "A switch in the top bar turns the whole interface to Arabic, right to left, and a link can open it that way. The layout mirrors, the panel moving to the left of the model and the overlays trading sides, while time and scales keep running left to right, as in a media player: the timeline, the charts, the colour ramps and the map of the building. The alerts are worded in Arabic with its six plural forms, and the room names are set in Arabic on the floors. Vazirmatn was chosen by setting the interface's own text in six Arabic faces beside Schibsted Grotesk. It and the Arabic catalogue load only for an Arabic visit, and a test that parses the source fails if the catalogue misses a string the interface says."
+          },
+          {
             "h": "Live, from a stream of events",
             "p": "Live mode builds the hospital from events as they arrive instead of from a recorded day. A mock server in a Web Worker plays the day over the JSON protocol a real integration server would use, a simulated minute each second, and the page folds each event into the same day the views already read, so none of them had to change. Sequence numbers keep the stream whole: when the connection drops, the page says the floor is stale, waits longer before each retry, and asks for only the events it missed, from the last 2,000 the server keeps. A test replays the whole day as events and checks that it reads exactly like the recording at every five-minute reading."
           },
@@ -979,12 +984,12 @@
           },
           {
             "h": "It adapts, recovers and is tested",
-            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 51 unit tests, 14 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
+            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 56 unit tests, 16 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
           }
         ],
         "result": [
           "A concept: the hospital, the patients and the readings are simulated, and the page says so on every view.",
-          "Live on GitHub Pages, with the code public. The interface loads first at under 90 kB gzipped, the scene and three.js follow at 215 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them; the wayfinding search loads on first use, at 1.4 kB.",
+          "Live on GitHub Pages, with the code public. What paints the interface loads first, at 89.7 kB gzipped; the scene and three.js follow at 215 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them, and the wayfinding search, live mode and the Arabic catalogue load on first use.",
           "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA, over three runs: the whole hospital at 72 to 90 fps in 33 draw calls, a level at 74 to 90 fps, one wing at 69 to 81 fps in 43, and close to a room at 61 to 77 fps."
         ],
         "reflection": "Test on a range of real devices. The frame rates here come from one laptop and emulated phones, and a low-end Android phone is the test it still needs.",
@@ -996,6 +1001,10 @@
           {
             "label": "Open the whole hospital",
             "href": "https://imsemoo.github.io/ward-twin/?at=hospital"
+          },
+          {
+            "label": "Open it in Arabic",
+            "href": "https://imsemoo.github.io/ward-twin/?lang=ar"
           },
           {
             "label": "Code on GitHub",
