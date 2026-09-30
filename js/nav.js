@@ -2,7 +2,8 @@
    header and moves focus to its first link; Escape or a chosen link closes
    it and returns focus to the button. Also the local-time readout, so a
    client in another time zone can see whether it is day in Egypt, and the
-   link to the other language, which keeps the reader's place. */
+   link to the other language, which keeps the reader's place and is
+   remembered. */
 
 const AR = document.documentElement.lang === "ar";
 
@@ -86,4 +87,11 @@ function samePlace() {
     link.href = here ? `${page}#${here.id}` : page;
   };
   ["pointerenter", "focus", "click"].forEach((type) => link.addEventListener(type, aim));
+  // the choice sticks: the main address sends a reader who picked Arabic
+  // straight to it (the script at the top of the English page's head)
+  link.addEventListener("click", () => {
+    try {
+      localStorage.setItem("lang", link.hreflang);
+    } catch {}
+  });
 }

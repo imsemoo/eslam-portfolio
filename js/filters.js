@@ -181,4 +181,16 @@ export function initFilters({ reduce }) {
   }
   follow();
   window.addEventListener("hashchange", follow);
+
+  // A link to a section below the index (the switch to the other language
+  // is one) may already have been scrolled to when the rows above it
+  // collapsed, leaving the reader at the end of the page. Put it back under
+  // the nav, at once rather than with the page's smooth scroll.
+  const target = location.hash.length > 1 && !/^#(index-|p-)/.test(location.hash) && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (target && list.compareDocumentPosition(target) & Node.DOCUMENT_POSITION_FOLLOWING) {
+    const html = document.documentElement;
+    html.style.scrollBehavior = "auto";
+    target.scrollIntoView();
+    html.style.scrollBehavior = "";
+  }
 }

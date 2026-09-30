@@ -781,7 +781,8 @@ color: var(--nav-fg-2);
 display: flex;
 gap: var(--s-5);
 }
-.nav__links a {
+.nav__links a,
+.nav__lang {
 position: relative;
 display: inline-flex;
 align-items: center;
@@ -791,7 +792,8 @@ color: var(--nav-fg-2);
 text-decoration: none;
 transition: color var(--dur-fast) ease;
 }
-.nav__links a::after {
+.nav__links a::after,
+.nav__lang::after {
 content: "";
 position: absolute;
 inset-inline: 0;
@@ -803,20 +805,18 @@ transform-origin: left;
 transition: transform var(--dur-fast) var(--ease-out);
 }
 .nav__links a:hover,
-.nav__links a[aria-current="true"] {
+.nav__links a[aria-current="true"],
+.nav__lang:hover {
 color: var(--nav-fg);
 }
 .nav__links a:hover::after,
-.nav__links a[aria-current="true"]::after {
+.nav__links a[aria-current="true"]::after,
+.nav__lang:hover::after {
 transform: scaleX(1);
 }
-.nav__links .nav__lang {
+.nav__lang {
 gap: 0.4rem;
-padding-inline-start: var(--s-5);
-border-inline-start: 1px solid var(--nav-rule);
-}
-.nav__links .nav__lang::after {
-inset-inline-start: var(--s-5);
+white-space: nowrap;
 }
 .nav__lang .icon {
 opacity: 0.75;
@@ -926,10 +926,6 @@ border-bottom: 1px solid var(--nav-rule);
 .js .nav__links a::after {
 display: none;
 }
-.js .nav__links .nav__lang {
-padding-inline-start: 0;
-border-inline-start: 0;
-}
 html:not(.js) .nav {
 height: auto;
 min-height: var(--nav-h);
@@ -942,6 +938,11 @@ html:not(.js) .nav__links {
 order: 3;
 flex-wrap: wrap;
 gap: 0 var(--s-4);
+}
+}
+@media (max-width: 440px) {
+.nav__id {
+display: none;
 }
 }
 .hero {
@@ -2763,7 +2764,8 @@ to { color: var(--text-on-ink); -webkit-text-stroke-color: transparent; }
 }
 }
 .nav__progress,
-.nav__links a::after {
+.nav__links a::after,
+.nav__lang::after {
 transform-origin: 100% 50%;
 }
 .hero__canvas {
@@ -2889,10 +2891,10 @@ unicode-bidi: isolate;
       <a href="#index">كل المشاريع</a>
       <a href="#process">طريقة العمل</a>
       <a href="#about">عنّي</a>
-      <a class="nav__lang" href="../" hreflang="en" lang="en" data-lang-switch><svg class="icon" aria-hidden="true"><use href="#i-translate"/></svg><bdi lang="en">English</bdi></a>
     </nav>
     <div class="nav__end">
       <p class="nav__time" data-clock hidden><span class="nav__pulse" aria-hidden="true"></span>مصر <time data-clock-time></time></p>
+      <a class="nav__lang" href="../" hreflang="en" lang="en" data-lang-switch><svg class="icon" aria-hidden="true"><use href="#i-translate"/></svg><bdi lang="en">English</bdi></a>
       <a class="btn btn--primary nav__cta" href="mailto:en.developer2@gmail.com">راسلني</a>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
         <span class="visually-hidden">القائمة</span>
@@ -2960,7 +2962,7 @@ unicode-bidi: isolate;
     <p class="feature__lede">إحصاءات فلسطين في مكان واحد: لوحات بيانات وخريطة ورسوم بيانية فوق قاعدة بيانات عربية كبيرة. على الصحفي أو الباحث أو الطالب أن يجد الرقم، ويراه في سياقه، ويستشهد به.</p>
   </header>
   <dl class="glance"><div><dt>الدور</dt><dd><span>تصميم <bdi lang="en">UX</bdi> و<bdi lang="en">UI</bdi>، ثم البناء كله</span></dd></div><div><dt>التركيز</dt><dd>الأرقام بالعربية، ومكوّنات الخريطة والرسوم البيانية، والعرض من الخادم</dd></div><div><dt>التقنيات</dt><dd><span><bdi lang="en">Vue&nbsp;3</bdi> و<bdi lang="en">Inertia</bdi> مع العرض من الخادم، على <bdi lang="en">Laravel</bdi></span></dd></div><div><dt>الموقع</dt><dd><a href="https://www.mo3ta.ps/" target="_blank" rel="noopener"><bdi lang="en">mo3ta.ps</bdi></a></dd></div></dl>
-  <figure class="film" data-film data-reveal-ev><div class="film__frame"><video class="film__video" src="../img/work/ev/mo3ta-intro-720.mp4" poster="../img/work/ev/mo3ta-intro-still.webp" width="1280" height="720" controls muted playsinline preload="none" aria-label="مقدمة دراسة حالة معطى"></video></div><figcaption class="ev__cap">مقدمة من 12 ثانية مصنوعة من شعار معطى وألوانه وحدود خريطته. ولحظتها الوسطى هي قاعدة الحالة: الرقم يصل ومعه تاريخه ومصدره.</figcaption></figure>
+  <figure class="film" data-film data-reveal-ev><div class="film__frame"><video class="film__video" src="../img/work/ev/mo3ta-intro-ar-720.mp4" poster="../img/work/ev/mo3ta-intro-ar-still.webp" width="1280" height="720" controls muted playsinline preload="none" aria-label="مقدمة دراسة حالة معطى"></video></div><figcaption class="ev__cap">مقدمة من 12 ثانية مصنوعة من شعار معطى وألوانه وحدود خريطته. ولحظتها الوسطى هي قاعدة الحالة: الرقم يصل ومعه تاريخه ومصدره.</figcaption></figure>
   <div class="evidence evidence--p2" style="--phones: 2"><figure class="ev ev--wide" data-reveal-ev><div class="shot "><div class="shot__bar"><span class="shot__cap" dir="ltr">mo3ta.ps/daily</span></div><img class="shot__img" src="../img/work/ev/mo3ta-dashboard-1400.webp" srcset="../img/work/ev/mo3ta-dashboard-800.webp 800w, ../img/work/ev/mo3ta-dashboard-1400.webp 1400w" sizes="(min-width: 900px) 58vw, 94vw" width="1400" height="875" alt="لوحة معطى اليومية بالعربية: ستة أرقام رئيسية، وحقل بحث، ومرشحات للمنطقة والفترة، وأعلى الخريطة." loading="lazy" decoding="async"></div><figcaption class="ev__cap">اللوحة اليومية. مرشحات المنطقة والفترة والمحافظة فوق الخريطة، وتاريخ آخر تحديث في الترويسة.</figcaption></figure><figure class="ev ev--phone" data-reveal-ev><div class="phone"><img src="../img/work/ev/mo3ta-home-phone-600.webp" srcset="../img/work/ev/mo3ta-home-phone-390.webp 390w, ../img/work/ev/mo3ta-home-phone-600.webp 600w" sizes="(min-width: 900px) 15vw, 44vw" width="600" height="1298" alt="الصفحة الرئيسية لمعطى على الهاتف: خريطة فلسطين وحولها أربعة أرقام رئيسية." loading="lazy" decoding="async"></div><figcaption class="ev__cap">الصفحة الرئيسية بعرض الهاتف. تبقى الخريطة في وسط الشاشة.</figcaption></figure><figure class="ev ev--phone" data-reveal-ev><div class="phone"><img src="../img/work/ev/mo3ta-dashboard-phone-600.webp" srcset="../img/work/ev/mo3ta-dashboard-phone-390.webp 390w, ../img/work/ev/mo3ta-dashboard-phone-600.webp 600w" sizes="(min-width: 900px) 15vw, 44vw" width="600" height="1298" alt="اللوحة اليومية على الهاتف: الأرقام في عمودين، ثم البحث، وأزرار المناطق، وقائمة المحافظات، وتبويبات الفترة." loading="lazy" decoding="async"></div><figcaption class="ev__cap">اللوحة نفسها على الهاتف. تنزل الأرقام إلى عمودين، وتتراص المرشحات تحت البحث.</figcaption></figure></div>
   <p class="decision"><strong class="decision__lead">القرار.</strong> كل ما حول البيانات هادئ، لتحمل الخريطة والرسوم البيانية اللون، ولا يظهر رقم أبدًا من دون تاريخه ومصدره.</p>
   
@@ -2975,7 +2977,7 @@ unicode-bidi: isolate;
     <p class="feature__lede"><span>تطبيق <bdi lang="en">Laravel</bdi> واحد يشغّل 24 موقعًا إخباريًا وإعلاميًا، معظمها بالعربية، ولكل منها قالبه ووحداته ولغاته وفريق تحريره. صممت لوحة التحرير ونموذج القوالب، ثم بنيتهما.</span></p>
   </header>
   <dl class="glance"><div><dt>الدور</dt><dd>التصميم والتطوير الكامل، ومالك منتج الواجهة الأمامية</dd></div><div><dt>التركيز</dt><dd>نموذج القوالب، ولوحة بثلاث لغات، وضوابط تمنع الأخطاء الصامتة</dd></div><div><dt>التقنيات</dt><dd><span><bdi lang="en">Blade</bdi> و<bdi lang="en">Livewire</bdi> و<bdi lang="en">Alpine</bdi> على <bdi lang="en">Laravel</bdi>، مع <bdi lang="en">MySQL</bdi> و<bdi lang="en">Redis</bdi></span></dd></div><div><dt>العرض التجريبي</dt><dd><a href="https://demo.taktek.co/dashboard" target="_blank" rel="noopener"><span><bdi lang="en">demo.taktek.co</bdi>، بتسجيل دخول</span></a></dd></div></dl>
-  <figure class="film" data-film data-reveal-ev><div class="film__frame"><video class="film__video" src="../img/work/ev/devlo-intro-720.mp4" poster="../img/work/ev/devlo-intro-still.webp" width="1280" height="720" controls muted playsinline preload="none" aria-label="مقدمة دراسة حالة ديفلو"></video></div><figcaption class="ev__cap">مقدمة من 15 ثانية مصنوعة من الصفحات الرئيسية لستة من المواقع. ولحظتها الوسطى هي قرار الحالة: إطار واحد يأخذ قوالب ثلاثة مواقع أخرى ولغاتها، بينما تبقى الوحدات والكود في مكانها.</figcaption></figure>
+  <figure class="film" data-film data-reveal-ev><div class="film__frame"><video class="film__video" src="../img/work/ev/devlo-intro-ar-720.mp4" poster="../img/work/ev/devlo-intro-ar-still.webp" width="1280" height="720" controls muted playsinline preload="none" aria-label="مقدمة دراسة حالة ديفلو"></video></div><figcaption class="ev__cap">مقدمة من 15 ثانية مصنوعة من الصفحات الرئيسية لستة من المواقع. ولحظتها الوسطى هي قرار الحالة: إطار واحد يأخذ قوالب ثلاثة مواقع أخرى ولغاتها، بينما تبقى الوحدات والكود في مكانها.</figcaption></figure>
   <div class="evidence evidence--p1" style="--phones: 1"><figure class="ev ev--fleet" data-reveal-ev><ul class="fleet"><li class="fleet__site"><img src="../img/work/qudsn-600.webp" width="600" height="375" alt="الصفحة الرئيسية لموقع قدس الإخبارية" loading="lazy" decoding="async"><span class="fleet__name">قدس الإخبارية <span class="lat" lang="en" dir="ltr">Quds News Network</span></span></li><li class="fleet__site"><img src="../img/work/maktoob-600.webp" width="600" height="375" alt="الصفحة الرئيسية لموقع Maktoob Media" loading="lazy" decoding="async"><span class="fleet__name"><span lang="en" dir="ltr">Maktoob Media</span></span></li><li class="fleet__site"><img src="../img/work/hodhod-600.webp" width="600" height="375" alt="الصفحة الرئيسية لموقع الهدهد" loading="lazy" decoding="async"><span class="fleet__name">الهدهد <span class="lat" lang="en" dir="ltr">Hodhod</span></span></li><li class="fleet__site"><img src="../img/work/tayqan-600.webp" width="600" height="375" alt="الصفحة الرئيسية لموقع تيقن" loading="lazy" decoding="async"><span class="fleet__name">تيقن <span class="lat" lang="en" dir="ltr">Tayaqan</span></span></li><li class="fleet__site"><img src="../img/work/adenicast-600.webp" width="600" height="375" alt="الصفحة الرئيسية لموقع عدني كاست" loading="lazy" decoding="async"><span class="fleet__name">عدني كاست <span class="lat" lang="en" dir="ltr">Adeni Cast</span></span></li><li class="fleet__site"><img src="../img/work/arouri-600.webp" width="600" height="375" alt="الصفحة الرئيسية لموقع أرشيف صالح العاروري" loading="lazy" decoding="async"><span class="fleet__name">أرشيف صالح العاروري <span class="lat" lang="en" dir="ltr">Saleh Al-Arouri Archive</span></span></li></ul><figcaption class="ev__cap">ستة من المواقع الأربعة والعشرين. قاعدة الكود نفسها والوحدات نفسها، وتختلف القوالب واللغات والوحدات المفعّلة.</figcaption></figure><figure class="ev ev--phone" data-reveal-ev><div class="phone"><img src="../img/work/ev/qudsn-phone-600.webp" srcset="../img/work/ev/qudsn-phone-390.webp 390w, ../img/work/ev/qudsn-phone-600.webp 600w" sizes="(min-width: 900px) 15vw, 44vw" width="600" height="1298" alt="الصفحة الرئيسية لشبكة قدس الإخبارية على الهاتف: الخبر الرئيسي فوق صورة، ثم قائمة عناوين بصور مصغرة." loading="lazy" decoding="async"></div><figcaption class="ev__cap">شبكة قدس الإخبارية بعرض الهاتف. صفحتها الرئيسية مجمّعة من الوحدات نفسها التي تستخدمها بقية المواقع.</figcaption></figure></div>
   <p class="decision"><strong class="decision__lead">القرار.</strong> قد يختلف موقع عن آخر في الإعدادات، لا في السلوك. كل غرفة أخبار تشغّل الوحدات نفسها والكود نفسه، وما يتغير هو القالب واللغات والوحدات المفعّلة.</p>
   <section class="system" aria-labelledby="case-devlo-system"><h4 id="case-devlo-system">قالب واحد، من دليل هوية من ست صفحات: إيواد</h4><ul class="swatches"><li class="sw"><span class="sw__chip" style="--c:#3D1720" aria-hidden="true"></span><span class="sw__name">عنابي</span><code>#3D1720</code><span class="sw__role">الأسطح الأساسية والعناوين</span></li><li class="sw"><span class="sw__chip" style="--c:#A8824A" aria-hidden="true"></span><span class="sw__name">ذهبي</span><code>#A8824A</code><span class="sw__role">للشعار فقط: المربعات والحدود والنص الكبير</span></li><li class="sw"><span class="sw__chip" style="--c:#7E5F31" aria-hidden="true"></span><span class="sw__name">ذهبي للنصوص</span><code>#7E5F31</code><span class="sw__role">أي نص ذهبي، 5.03:1 على الورق</span></li><li class="sw"><span class="sw__chip" style="--c:#F0EDE6" aria-hidden="true"></span><span class="sw__name">ورقي</span><code>#F0EDE6</code><span class="sw__role">أسطح التحرير</span></li><li class="sw"><span class="sw__chip" style="--c:#F3EEEA" aria-hidden="true"></span><span class="sw__name">كريمي</span><code>#F3EEEA</code><span class="sw__role">النص على العنابي</span></li><li class="sw"><span class="sw__chip" style="--c:#1A1A1A" aria-hidden="true"></span><span class="sw__name">حبري</span><code>#1A1A1A</code><span class="sw__role">نص المتن</span></li></ul><p class="system__note">جاء إيواد، وهو معهد أبحاث دفاعية، بشعار ومساحته الآمنة وستة ألوان. ومنها صممت سلّم الخطوط والمسافات والمكوّنات وألوان الأقسام. الذهبي الرسمي يبلغ 3.02:1 على الورق، وهذا لا يكفي للنص، فصار يُستخدم للتمييز فقط، ويحمل ذهبي أغمق كل كلمة ذهبية.</p><figure class="ev ev--grid" data-reveal-ev><ul class="vgrid" style="--n: 5"><li class="vgrid__item"><img src="../img/work/ev/iwad-sec-global-600.webp" width="600" height="375" alt="صفحة القسم العالمي، بلونه #33526B" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#33526B" aria-hidden="true"></span>القسم العالمي <code>#33526B</code> <span class="vgrid__ratio">7.02:1</span></span></li><li class="vgrid__item"><img src="../img/work/ev/iwad-sec-regional-600.webp" width="600" height="375" alt="صفحة القسم الإقليمي، بلونه #2F5D53" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#2F5D53" aria-hidden="true"></span>القسم الإقليمي <code>#2F5D53</code> <span class="vgrid__ratio">6.39:1</span></span></li><li class="vgrid__item"><img src="../img/work/ev/iwad-sec-doctrine-600.webp" width="600" height="375" alt="صفحة قسم العقائد، بلونه #3D1720" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#3D1720" aria-hidden="true"></span>قسم العقائد <code>#3D1720</code> <span class="vgrid__ratio">13.39:1</span></span></li><li class="vgrid__item"><img src="../img/work/ev/iwad-sec-education-600.webp" width="600" height="375" alt="صفحة القسم التعليمي، بلونه #7E5F31" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#7E5F31" aria-hidden="true"></span>القسم التعليمي <code>#7E5F31</code> <span class="vgrid__ratio">5.03:1</span></span></li><li class="vgrid__item"><img src="../img/work/ev/iwad-sec-heritage-600.webp" width="600" height="375" alt="صفحة قسم الإرث العسكري، بلونه #5C4632" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#5C4632" aria-hidden="true"></span>قسم الإرث العسكري <code>#5C4632</code> <span class="vgrid__ratio">7.56:1</span></span></li></ul><figcaption class="ev__cap">الصفحات الرئيسية للأقسام الخمسة، ملتقطة من نسخة القالب ومحتواه التجريبي. تتشارك تخطيطًا واحدًا ومجموعة مكوّنات واحدة، ولكل منها لونه المميز، مفحوصًا على الورق، ووحدة خاصة به: مصفوفة، وأطلس، وخريطة للمدارس الفكرية، ومسارات تعلّم، وسجل للمعارك.</figcaption></figure></section>
@@ -3222,7 +3224,7 @@ unicode-bidi: isolate;
 
       <div class="footprint" data-psi="imsemoo-github-io">
         <h3>هذه الصفحة</h3>
-        <p class="small"><span><bdi lang="en">57&nbsp;KB</bdi> من <bdi lang="en">CSS</bdi> مضمّنة في ملف <bdi lang="en">HTML</bdi>، و<bdi lang="en">34&nbsp;KB</bdi> من <bdi lang="en">JavaScript</bdi> كتبتها بنفسي. بلا إطار عمل، ولا سكربتات من طرف ثالث. 12 طلبًا قبل الصور والخطوط، ثلاثة منها للجداول أعلاه. بُنيت في 30 سبتمبر 2026 من ملف <bdi lang="en">JSON</bdi> واحد بسكربت <bdi lang="en">Python</bdi>.</span></p>
+        <p class="small"><span><bdi lang="en">57&nbsp;KB</bdi> من <bdi lang="en">CSS</bdi> مضمّنة في ملف <bdi lang="en">HTML</bdi>، و<bdi lang="en">35&nbsp;KB</bdi> من <bdi lang="en">JavaScript</bdi> كتبتها بنفسي. بلا إطار عمل، ولا سكربتات من طرف ثالث. 12 طلبًا قبل الصور والخطوط، ثلاثة منها للجداول أعلاه. بُنيت في 30 سبتمبر 2026 من ملف <bdi lang="en">JSON</bdi> واحد بسكربت <bdi lang="en">Python</bdi>.</span></p>
         <p class="small footprint__self" data-self>والمهمة الأسبوعية نفسها تقيسها: الأداء <b class="num" data-self-mobile>100</b> على الهاتف و<b class="num" data-self-desktop>100</b><span> على الحاسوب، وإمكانية الوصول وأفضل الممارسات و<bdi lang="en">SEO</bdi> عند </span><b class="num" data-self-rest>100</b>.</p>
       </div>
       <p class="score__legend small"><span>درجات <bdi lang="en">Lighthouse</bdi> من 100. ما دون 90 معلّم باللون البني. و<bdi lang="en">LCP</bdi> هو الوقت الذي يستغرقه أكبر عنصر في الشاشة الأولى حتى يظهر.</span></p>
@@ -3357,6 +3359,6 @@ unicode-bidi: isolate;
 <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
 </svg>
 
-<script src="../js/main.js?v=c492a215" type="module"></script>
+<script src="../js/main.js?v=f2aaaa6b" type="module"></script>
 </body>
 </html>

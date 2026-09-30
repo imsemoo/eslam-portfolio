@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{if(localStorage.getItem("lang")==="ar")location.replace("ar/"+location.search+location.hash)}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Islam Nasser. UI/UX designer and front-end developer</title>
 <meta name="description" content="UI/UX designer and front-end developer: flows, screens and component systems, then the HTML, CSS and JavaScript that ship them, in Arabic and English. Case studies, 46 projects and live PageSpeed numbers.">
@@ -782,7 +783,8 @@ color: var(--nav-fg-2);
 display: flex;
 gap: var(--s-5);
 }
-.nav__links a {
+.nav__links a,
+.nav__lang {
 position: relative;
 display: inline-flex;
 align-items: center;
@@ -792,7 +794,8 @@ color: var(--nav-fg-2);
 text-decoration: none;
 transition: color var(--dur-fast) ease;
 }
-.nav__links a::after {
+.nav__links a::after,
+.nav__lang::after {
 content: "";
 position: absolute;
 inset-inline: 0;
@@ -804,20 +807,18 @@ transform-origin: left;
 transition: transform var(--dur-fast) var(--ease-out);
 }
 .nav__links a:hover,
-.nav__links a[aria-current="true"] {
+.nav__links a[aria-current="true"],
+.nav__lang:hover {
 color: var(--nav-fg);
 }
 .nav__links a:hover::after,
-.nav__links a[aria-current="true"]::after {
+.nav__links a[aria-current="true"]::after,
+.nav__lang:hover::after {
 transform: scaleX(1);
 }
-.nav__links .nav__lang {
+.nav__lang {
 gap: 0.4rem;
-padding-inline-start: var(--s-5);
-border-inline-start: 1px solid var(--nav-rule);
-}
-.nav__links .nav__lang::after {
-inset-inline-start: var(--s-5);
+white-space: nowrap;
 }
 .nav__lang .icon {
 opacity: 0.75;
@@ -927,10 +928,6 @@ border-bottom: 1px solid var(--nav-rule);
 .js .nav__links a::after {
 display: none;
 }
-.js .nav__links .nav__lang {
-padding-inline-start: 0;
-border-inline-start: 0;
-}
 html:not(.js) .nav {
 height: auto;
 min-height: var(--nav-h);
@@ -943,6 +940,11 @@ html:not(.js) .nav__links {
 order: 3;
 flex-wrap: wrap;
 gap: 0 var(--s-4);
+}
+}
+@media (max-width: 440px) {
+.nav__id {
+display: none;
 }
 }
 .hero {
@@ -2757,10 +2759,10 @@ clip-path: none !important;
       <a href="#index">All projects</a>
       <a href="#process">Process</a>
       <a href="#about">About</a>
-      <a class="nav__lang" href="ar/" hreflang="ar" lang="ar" data-lang-switch><svg class="icon" aria-hidden="true"><use href="#i-translate"/></svg>العربية</a>
     </nav>
     <div class="nav__end">
       <p class="nav__time" data-clock hidden><span class="nav__pulse" aria-hidden="true"></span>Egypt <time data-clock-time></time></p>
+      <a class="nav__lang" href="ar/" hreflang="ar" lang="ar" data-lang-switch><svg class="icon" aria-hidden="true"><use href="#i-translate"/></svg>العربية</a>
       <a class="btn btn--primary nav__cta" href="mailto:en.developer2@gmail.com">Email me</a>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-nav-toggle>
         <span class="visually-hidden">Menu</span>
@@ -3090,7 +3092,7 @@ clip-path: none !important;
 
       <div class="footprint" data-psi="imsemoo-github-io">
         <h3>This page</h3>
-        <p class="small">55 KB of CSS inlined in the HTML and 34 KB of my own JavaScript. No framework and no third-party scripts. 12 requests before images and fonts, three of them for the tables above. Built 30 September 2026 from one JSON file by a Python script.</p>
+        <p class="small">54 KB of CSS inlined in the HTML and 35 KB of my own JavaScript. No framework and no third-party scripts. 12 requests before images and fonts, three of them for the tables above. Built 30 September 2026 from one JSON file by a Python script.</p>
         <p class="small footprint__self" data-self>The same weekly job measures it: performance <b class="num" data-self-mobile>100</b> on mobile and <b class="num" data-self-desktop>100</b> on desktop, with accessibility, best practices and SEO at <b class="num" data-self-rest>100</b>.</p>
       </div>
       <p class="score__legend small">Lighthouse scores out of 100. Under 90 is marked in brown. LCP is how long the largest thing on the first screen takes to appear.</p>
@@ -3225,6 +3227,6 @@ clip-path: none !important;
 <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
 </svg>
 
-<script src="js/main.js?v=c492a215" type="module"></script>
+<script src="js/main.js?v=f2aaaa6b" type="module"></script>
 </body>
 </html>

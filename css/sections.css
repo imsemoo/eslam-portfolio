@@ -122,7 +122,8 @@
   display: flex;
   gap: var(--s-5);
 }
-.nav__links a {
+.nav__links a,
+.nav__lang {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -132,7 +133,8 @@
   text-decoration: none;
   transition: color var(--dur-fast) ease;
 }
-.nav__links a::after {
+.nav__links a::after,
+.nav__lang::after {
   content: "";
   position: absolute;
   inset-inline: 0;
@@ -144,22 +146,21 @@
   transition: transform var(--dur-fast) var(--ease-out);
 }
 .nav__links a:hover,
-.nav__links a[aria-current="true"] {
+.nav__links a[aria-current="true"],
+.nav__lang:hover {
   color: var(--nav-fg);
 }
 .nav__links a:hover::after,
-.nav__links a[aria-current="true"]::after {
+.nav__links a[aria-current="true"]::after,
+.nav__lang:hover::after {
   transform: scaleX(1);
 }
-/* the same page in the other language: last in the list, set apart by a
-   rule, with the translate mark for a reader who cannot read its name */
-.nav__links .nav__lang {
+/* the same page in the other language sits with the call to action rather
+   than in the menu, so a reader on a phone finds it without opening
+   anything; the translate mark is for a reader who cannot read its name */
+.nav__lang {
   gap: 0.4rem;
-  padding-inline-start: var(--s-5);
-  border-inline-start: 1px solid var(--nav-rule);
-}
-.nav__links .nav__lang::after {
-  inset-inline-start: var(--s-5);
+  white-space: nowrap;
 }
 .nav__lang .icon {
   opacity: 0.75;
@@ -270,10 +271,6 @@
   .js .nav__links a::after {
     display: none;
   }
-  .js .nav__links .nav__lang {
-    padding-inline-start: 0;
-    border-inline-start: 0;
-  }
   /* without JS the links stay reachable: they wrap onto a second row */
   html:not(.js) .nav {
     height: auto;
@@ -287,6 +284,13 @@
     order: 3;
     flex-wrap: wrap;
     gap: 0 var(--s-4);
+  }
+}
+/* a phone's bar holds the mark, the other language, the email button and
+   the menu; the name opens the first paragraph of the page instead */
+@media (max-width: 440px) {
+  .nav__id {
+    display: none;
   }
 }
 

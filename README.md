@@ -39,7 +39,7 @@ css/
   site.css          generated bundle of the above, rtl.css aside; build.py inlines it into index.html
 js/
   main.js           entry; every module is guarded so the page works without it
-  nav.js            mobile menu as a disclosure (focus in, Escape out, focus back) and the local time in Egypt
+  nav.js            mobile menu as a disclosure (focus in, Escape out, focus back), the local time in Egypt, the link to the other language
   hero.js           the hero stage: rebuilds for the case under the pointer in the rail, lights the grid, leans towards the pointer
   filters.js        the index: grouped filters, per-filter order, first 12 rows then "Show all", deep links
   preview.js        pointer preview riding the right edge of the index, fine pointers only
@@ -103,7 +103,12 @@ built from the same data: `projects.ar.json` holds the Arabic for every string
 of `projects.json` that reaches the page, and `template.ar.html` the Arabic of
 the template, with the same ids, so an anchor such as `#case-devlo` means the
 same thing on both pages. The link to the other language keeps the reader's
-place: it points at the section, case or row at the top of the screen.
+place: it points at the section, case or row at the top of the screen. It sits
+in the bar beside the email button at every width, never inside the phone
+menu, and the choice sticks: the main address sends a reader who picked Arabic
+on to `ar/`, at the same place, until they pick English. The `ar/` address
+itself always opens in Arabic, so it can be sent to an Arabic-speaking client
+as it is.
 
 The build keeps the two in step:
 
@@ -128,7 +133,9 @@ What the Arabic page does differently, in `rtl.css` and in the build:
   its edges, and a number keeps its unit on the same line.
 - Counts agree with their noun (46 مشروعًا, 9 مشاريع) in the build and in the
   scripts, which read the page's language from `<html lang>`.
-- The case films are the English ones.
+- The Mo3ta and Devlo intros have Arabic cuts (`mo3ta-intro-ar`,
+  `devlo-intro-ar`), laid out right to left; the other films are the English
+  ones.
 
 ## Rules the page keeps
 

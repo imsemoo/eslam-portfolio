@@ -45,7 +45,8 @@
 
 /* ---------- things that grow or sit by the left edge */
 .nav__progress,
-.nav__links a::after {
+.nav__links a::after,
+.nav__lang::after {
   transform-origin: 100% 50%;
 }
 /* the canvas grid is brightest behind the stage, which is now on the left */
