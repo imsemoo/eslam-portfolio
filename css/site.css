@@ -87,7 +87,6 @@ box-sizing: border-box;
 }
 html {
 -webkit-text-size-adjust: 100%;
-scroll-behavior: smooth;
 background: var(--ink);
 scrollbar-color: var(--text-3) transparent;
 }
@@ -244,9 +243,10 @@ color: var(--white);
 .nobr {
 white-space: nowrap;
 }
-@media (prefers-reduced-motion: reduce) {
-html {
-scroll-behavior: auto;
+@media (prefers-reduced-motion: no-preference) {
+html:not(.js),
+html.is-loaded {
+scroll-behavior: smooth;
 }
 }
 @media print {

@@ -8,7 +8,6 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
   background: var(--ink);
   scrollbar-color: var(--text-3) transparent;
 }
@@ -200,9 +199,14 @@ abbr[title] {
   white-space: nowrap;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
+/* In-page links glide, but the jump to a link's target while the page
+   loads does not: a glide aims at where the target was when it set off, and
+   the index collapses above it on the way, which would leave the reader at
+   the foot of the page. The head script marks the page loaded. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.js),
+  html.is-loaded {
+    scroll-behavior: smooth;
   }
 }
 
