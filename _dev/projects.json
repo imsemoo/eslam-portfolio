@@ -1013,6 +1013,14 @@
           {
             "label": "How the live feed works",
             "href": "https://github.com/imsemoo/ward-twin/blob/main/docs/live-feed.md"
+          },
+          {
+            "label": "How it was made, with the numbers",
+            "href": "https://github.com/imsemoo/ward-twin/blob/main/docs/making-of.md"
+          },
+          {
+            "label": "The decisions behind it",
+            "href": "https://github.com/imsemoo/ward-twin/tree/main/docs/decisions"
           }
         ],
         "todo": [
