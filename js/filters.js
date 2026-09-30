@@ -17,6 +17,15 @@
    With reduced motion the list simply updates. */
 
 const EASE = "cubic-bezier(0.16, 1, 0.3, 1)";
+const AR = document.documentElement.lang === "ar";
+
+// Arabic says the count with the noun, and the noun agrees with the number
+const PLURAL = AR && typeof Intl !== "undefined" && Intl.PluralRules ? new Intl.PluralRules("ar") : null;
+function projects(n) {
+  if (!AR) return `${n} ${n === 1 ? "project" : "projects"}`;
+  const forms = { zero: "لا مشاريع", one: "مشروع واحد", two: "مشروعان", few: `${n} مشاريع`, many: `${n} مشروعًا`, other: `${n} مشروع` };
+  return PLURAL ? forms[PLURAL.select(n)] : `${n} ${forms.other}`;
+}
 
 export function initFilters({ reduce }) {
   const chips = [...document.querySelectorAll(".chip[data-filter]")];
@@ -55,7 +64,7 @@ export function initFilters({ reduce }) {
         : rows.filter((row) => matches(row, state.type, f)).length;
       const pressed = chip.getAttribute("aria-pressed") === "true";
       chip.querySelector("[data-n]").textContent = String(n);
-      chip.querySelector("[data-n-sr]").textContent = `, ${n} ${n === 1 ? "project" : "projects"}`;
+      chip.querySelector("[data-n-sr]").textContent = `${AR ? "،" : ","} ${projects(n)}`;
       chip.disabled = n === 0 && !pressed;
     });
   }
@@ -79,7 +88,7 @@ export function initFilters({ reduce }) {
       shown += 1;
       if (!before.has(row)) arriving.push(row);
     });
-    if (count) count.textContent = shown < total ? `${shown} of ${total}` : String(total);
+    if (count) count.textContent = shown < total ? `${shown} ${AR ? "من" : "of"} ${total}` : String(total);
     if (more) more.hidden = !(shown < total);
     counts();
 

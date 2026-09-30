@@ -5,6 +5,31 @@
 const BASE = "https://raw.githubusercontent.com/imsemoo/imsemoo/main/data/psi/";
 const KEYS = ["performance", "accessibility", "best-practices", "seo"];
 
+// the sentences this file writes, in the page's language
+const T = document.documentElement.lang === "ar"
+  ? {
+      locale: "ar-EG-u-nu-latn",
+      live: (day) => `الأرقام مباشرة من المستودع. آخر قياس: ${day}.`,
+      field: (overall, lcp, inp) => `مستخدمو Chrome الفعليون خلال 28 يومًا: ${overall}، وLCP عند ${lcp}، وINP عند ${inp}.`,
+      overall: { FAST: "سريع", AVERAGE: "متوسط", SLOW: "بطيء" },
+      s: (ms) => `${(ms / 1000).toFixed(2)} ثانية`,
+      ms: (ms) => `${ms} ملي ثانية`,
+      lcp: (shown) => shown.replace(/\s*s$/, "\u00a0ث"),
+      more: (v) => `${v} أو أكثر`,
+      none: "غير متاح",
+    }
+  : {
+      locale: "en-GB",
+      live: (day) => `Live from the repository. Last measured ${day}.`,
+      field: (overall, lcp, inp) => `Real Chrome users over 28 days: ${overall}, LCP ${lcp}, INP ${inp}.`,
+      overall: {},
+      s: (ms) => `${(ms / 1000).toFixed(2)}\u00a0s`,
+      ms: (ms) => `${ms}\u00a0ms`,
+      lcp: (shown) => shown.replace(/\s/g, "\u00a0"),
+      more: (v) => `${v} or more`,
+      none: "n/a",
+    };
+
 export function initMeasured() {
   const cards = document.querySelectorAll("[data-psi]");
   const status = document.querySelector("[data-psi-status]");
@@ -26,8 +51,8 @@ export function initMeasured() {
     })
   ).then(() => {
     if (status && latest) {
-      const day = latest.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-      status.textContent = `Live from the repository. Last measured ${day}.`;
+      const day = latest.toLocaleDateString(T.locale, { day: "numeric", month: "long", year: "numeric" });
+      status.textContent = T.live(day);
     }
   });
 }
@@ -47,15 +72,18 @@ function fill(card, data) {
     });
     const lcp = tr.querySelector('[data-k="lcp"]');
     if (lcp && r.metrics && r.metrics.lcp && r.metrics.lcp.display) {
-      lcp.textContent = r.metrics.lcp.display.replace(/\s/g, "\u00a0");
+      lcp.textContent = T.lcp(r.metrics.lcp.display);
     }
   });
   const note = card.querySelector("[data-field]");
   const field = data.results && (data.results.mobile || data.results.desktop);
   if (note && field && field.field && field.field.overall) {
     const f = field.field;
-    const s = (ms) => (ms == null ? "n/a" : `${(ms / 1000).toFixed(2)}\u00a0s`);
-    note.textContent = `Real Chrome users over 28 days: ${f.overall}, LCP ${s(f.lcp_ms)}, INP ${f.inp_ms == null ? "n/a" : f.inp_ms + "\u00a0ms"}.`;
+    note.textContent = T.field(
+      T.overall[f.overall] || f.overall,
+      f.lcp_ms == null ? T.none : T.s(f.lcp_ms),
+      f.inp_ms == null ? T.none : T.ms(f.inp_ms)
+    );
   }
 }
 
@@ -73,5 +101,5 @@ function fillSelf(card, data) {
   );
   card.querySelector("[data-self-mobile]").textContent = String(mob.performance);
   card.querySelector("[data-self-desktop]").textContent = String(desk.performance);
-  card.querySelector("[data-self-rest]").textContent = Number.isFinite(rest) ? (rest === 100 ? "100" : `${rest} or more`) : "n/a";
+  card.querySelector("[data-self-rest]").textContent = Number.isFinite(rest) ? (rest === 100 ? "100" : T.more(rest)) : T.none;
 }

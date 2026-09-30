@@ -151,6 +151,19 @@
 .nav__links a[aria-current="true"]::after {
   transform: scaleX(1);
 }
+/* the same page in the other language: last in the list, set apart by a
+   rule, with the translate mark for a reader who cannot read its name */
+.nav__links .nav__lang {
+  gap: 0.4rem;
+  padding-inline-start: var(--s-5);
+  border-inline-start: 1px solid var(--nav-rule);
+}
+.nav__links .nav__lang::after {
+  inset-inline-start: var(--s-5);
+}
+.nav__lang .icon {
+  opacity: 0.75;
+}
 .nav__end {
   display: flex;
   align-items: center;
@@ -256,6 +269,10 @@
   }
   .js .nav__links a::after {
     display: none;
+  }
+  .js .nav__links .nav__lang {
+    padding-inline-start: 0;
+    border-inline-start: 0;
   }
   /* without JS the links stay reachable: they wrap onto a second row */
   html:not(.js) .nav {
@@ -425,11 +442,11 @@
   border: 1px dashed rgb(95 211 165 / 0.75);
   border-radius: 3px;
 }
-.stage__blueprint i:nth-child(1) { inset: 5% 5% auto 5%; height: 9%; }
-.stage__blueprint i:nth-child(2) { inset: 22% 52% auto 5%; height: 46%; }
-.stage__blueprint i:nth-child(3) { inset: 22% 5% auto 52%; height: 20%; }
-.stage__blueprint i:nth-child(4) { inset: 48% 5% auto 52%; height: 20%; }
-.stage__blueprint i:nth-child(5) { inset: 76% 5% auto 5%; height: 16%; }
+.stage__blueprint i:nth-child(1) { inset-block: 5% auto; inset-inline: 5%; height: 9%; }
+.stage__blueprint i:nth-child(2) { inset-block: 22% auto; inset-inline: 5% 52%; height: 46%; }
+.stage__blueprint i:nth-child(3) { inset-block: 22% auto; inset-inline: 52% 5%; height: 20%; }
+.stage__blueprint i:nth-child(4) { inset-block: 48% auto; inset-inline: 52% 5%; height: 20%; }
+.stage__blueprint i:nth-child(5) { inset-block: 76% auto; inset-inline: 5%; height: 16%; }
 .stage__scan {
   position: absolute;
   inset-inline: 0;
@@ -1352,7 +1369,7 @@
   font-family: var(--font-mono);
   font-size: var(--fs-micro);
   color: var(--text-3);
-  text-align: right;
+  text-align: end;
 }
 .row__ext {
   position: relative;
@@ -1884,5 +1901,31 @@
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--text-3);
+  }
+  /* "in the design" is drawn and filled in on screen; on paper it is the
+     headline's second line, in the same ink */
+  .hero .hero__title .line--outline {
+    animation: none;
+  }
+  /* the Visit and Code arrows are for the screen. A case row's own site
+     prints its address on a line of its own under the row */
+  span.row__ext:not(.row__ext--none),
+  .row__ext .row__ext-text,
+  .row__ext .icon {
+    display: none;
+  }
+  a.row__ext {
+    grid-area: auto;
+    grid-column: 2 / -1;
+    justify-content: flex-start;
+    min-height: 0;
+    white-space: normal;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  a.row__ext::after {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
   }
 }

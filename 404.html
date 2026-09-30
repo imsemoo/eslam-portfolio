@@ -12,6 +12,7 @@
 <style>
   @font-face{font-family:"Bricolage Grotesque";font-weight:600;font-display:swap;src:url(/eslam-portfolio/fonts/bricolage-grotesque-600-latin.woff2) format("woff2")}
   @font-face{font-family:"Schibsted Grotesk";font-weight:400 700;font-display:swap;src:url(/eslam-portfolio/fonts/schibsted-grotesk-latin.woff2) format("woff2")}
+  @font-face{font-family:"Readex Pro";font-weight:400 600;font-display:swap;src:url(/eslam-portfolio/fonts/readex-pro-arabic.woff2) format("woff2");unicode-range:U+0600-06FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC}
   html{background:#0f1115;color-scheme:dark}
   body{margin:0;min-height:100dvh;box-sizing:border-box;display:grid;place-items:center;padding:24px;
     font-family:"Schibsted Grotesk",system-ui,sans-serif;color:#f4f5f7;
@@ -24,6 +25,7 @@
   a:hover{background:#5fd3a5}
   a.plain{display:inline;min-height:0;background:none;color:#5fd3a5;padding:0;font-weight:400;text-decoration:underline;text-underline-offset:.16em}
   a:focus-visible{outline:2px solid #5fd3a5;outline-offset:3px}
+  p.ar{margin-top:2rem;padding-top:1.25rem;border-top:1px solid rgb(244 245 247 / .12);font-family:"Readex Pro","Schibsted Grotesk",system-ui,sans-serif;line-height:1.8}
 </style>
 </head>
 <body>
@@ -31,6 +33,7 @@
   <h1>That page is <em>not here.</em></h1>
   <p>The whole site is one page. If a link brought you here, the project it pointed to is in the case studies or in <a class="plain" href="/eslam-portfolio/#index">the list of every project</a>.</p>
   <a href="/eslam-portfolio/#work">See the work</a>
+  <p class="ar" lang="ar" dir="rtl">هذه الصفحة غير موجودة. الموقع كله صفحة واحدة، وله نسخة عربية: <a class="plain" href="/eslam-portfolio/ar/#work" hreflang="ar">شاهد الأعمال بالعربية</a>.</p>
 </main>
 </body>
 </html>

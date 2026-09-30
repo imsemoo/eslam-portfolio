@@ -11,6 +11,10 @@
    Under prefers-reduced-motion, or with Save-Data on, it never starts by
    itself: the poster stays until the reader presses Play. */
 
+const T = document.documentElement.lang === "ar"
+  ? { play: "تشغيل", pause: "إيقاف مؤقت", replay: "إعادة التشغيل", full: "ملء الشاشة", exit: "الخروج من ملء الشاشة", film: "المقدمة" }
+  : { play: "Play", pause: "Pause", replay: "Replay", full: "Full screen", exit: "Exit full screen", film: "the intro" };
+
 export function initFilm({ reduce }) {
   const films = document.querySelectorAll("[data-film]");
   if (!films.length) return;
@@ -22,7 +26,7 @@ function setUp(fig, passive) {
   const video = fig.querySelector("video");
   const frame = fig.querySelector(".film__frame");
   if (!video || !frame) return;
-  const name = video.getAttribute("aria-label") || "the intro";
+  const name = video.getAttribute("aria-label") || T.film;
 
   video.removeAttribute("controls");
   const button = document.createElement("button");
@@ -35,7 +39,7 @@ function setUp(fig, passive) {
   let wanted = !passive;
 
   const label = () => {
-    const state = !video.paused ? "Pause" : video.ended ? "Replay" : "Play";
+    const state = !video.paused ? T.pause : video.ended ? T.replay : T.play;
     button.textContent = state;
     button.setAttribute("aria-label", `${state} ${name}`);
   };
@@ -95,7 +99,7 @@ function fullScreen(frame, video, name, play) {
 
   let turned = false;
   const label = () => {
-    const state = document.fullscreenElement === frame ? "Exit full screen" : "Full screen";
+    const state = document.fullscreenElement === frame ? T.exit : T.full;
     button.textContent = state;
     button.setAttribute("aria-label", `${state}: ${name}`);
   };

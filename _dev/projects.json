@@ -75,7 +75,7 @@
     {
       "slug": "mo3ta",
       "name": "Mo3ta",
-      "ar": "معطي",
+      "ar": "معطى",
       "tier": 1,
       "client": "Palestine information centre",
       "where": "Palestine",
@@ -257,7 +257,7 @@
         "story": [
           {
             "h": "Twenty-four forks",
-            "p": "Newsrooms used to be built one at a time, each a fork of the last. A fix in one site never reached the others, and every new client meant weeks of repeated work. Share previews show what that costs after a few years: each theme had grown its own share handler, and some fell back to a favicon, which WhatsApp will not turn into a card."
+            "p": "Newsrooms used to be built one at a time, each a fork of the last. A fix in one site never reached the others, and every new client meant weeks of repeated work."
           },
           {
             "h": "Modules, themes and switches",
@@ -288,7 +288,7 @@
           "Runs 24 sites, among them Quds News Network, Maktoob Media, Tayaqan, Hodhod, Adeni Cast and the Saleh Al-Arouri archive.",
           "Quds News Network, real Chrome users over 28 days: FAST, with LCP at 2.33 s and INP at 104 ms."
         ],
-        "reflection": "The guard commands arrived after the failures they catch, one at a time, each written the day something silent reached a client. They should have come first for each part of the system. Writing the check first forces you to decide what correct means, and that was the part that was actually missing.",
+        "reflection": "The guard commands came one at a time, later than they should have: each part of the system needed its check first. Writing the check first forces you to decide what correct means, and that was the part that was actually missing.",
         "links": [
           {
             "label": "Open the demo panel (login)",
@@ -1143,7 +1143,7 @@
           "The auction side as its own application shell: a left navigation of filters (make, model, series, year, variant, kilometres) driving a dashboard of upcoming auctions.",
           "The same card, filter and form patterns repeat across both sides, on a small SCSS component layer over the Bootstrap grid.",
           "Filters and calculators work as plain forms first, and jQuery adds the live behaviour on top.",
-          "The public site is now limited to visitors in Australia after a wave of attacks, so the image shows the screens as they were built."
+          "The public site is limited to visitors in Australia, so the image shows the screens as they were built."
         ],
         "link_note": "Australia only"
       }

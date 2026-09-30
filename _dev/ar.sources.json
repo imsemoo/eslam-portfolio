@@ -1,0 +1,499 @@
+{
+ "lists": {
+  "filter_groups": "7eb1861d9c",
+  "filters": "3d7b67cb0e",
+  "hero": "06d345270e",
+  "places": "37b9f5f5e2",
+  "stack": "f6464c1391"
+ },
+ "projects": {
+  "abaad": {
+   "client": "c872203c75",
+   "role": "2247a3a76d"
+  },
+  "adenicast": {
+   "client": "a350fd71d2",
+   "role": "f4c1a8066d"
+  },
+  "ahsebli": {
+   "client": "cf7d03334d",
+   "role": "2d33ec10cf"
+  },
+  "aljarmaq": {
+   "client": "f05922c213",
+   "role": "de0351bbff"
+  },
+  "arbetsbil": {
+   "brief.kind": "03f1afe35c",
+   "brief.text": "220b2ea7f7",
+   "client": "6f7987119b",
+   "role": "e082a62511"
+  },
+  "arouri": {
+   "client": "c8319339c4",
+   "role": "07e0e77fda"
+  },
+  "besa": {
+   "brief.kind": "d72343c3a1",
+   "brief.text": "b8f6e540a2",
+   "client": "d72343c3a1",
+   "role": "8911be52a8"
+  },
+  "bhf": {
+   "client": "30490f15e6",
+   "role": "fdff1e5a3c"
+  },
+  "buruj": {
+   "client": "98dee6fb95",
+   "role": "fdff1e5a3c"
+  },
+  "calimero": {
+   "client": "6adab1aa01",
+   "role": "3dc9dfdcf2"
+  },
+  "couriernow": {
+   "client": "481a4f2a76",
+   "role": "4a105f2b3f"
+  },
+  "creatives": {
+   "client": "ebfec4040c",
+   "role": "2aea02ec62"
+  },
+  "devlo": {
+   "caption": "2919f4c544",
+   "case.decision": "8c0b25e031",
+   "case.evidence.0.caption": "7e8441dcf2",
+   "case.evidence.1.alt": "63712f7399",
+   "case.evidence.1.caption": "5c31a9ff9a",
+   "case.film.caption": "7a5795a15f",
+   "case.film.label": "009f5a5c9b",
+   "case.glance.0.0": "83cf24b689",
+   "case.glance.0.1": "e18e1e3ed6",
+   "case.glance.1.0": "f9d167f6e1",
+   "case.glance.1.1": "7231ca3178",
+   "case.glance.2.0": "168c9309eb",
+   "case.glance.2.1": "f5ae2a303b",
+   "case.lede": "d7918cdd5a",
+   "case.links.0.label": "6c12a4e155",
+   "case.links.1.label": "2bf648ce59",
+   "case.links.2.label": "30d02859e0",
+   "case.live.label": "792614142d",
+   "case.live.text": "561b55f71e",
+   "case.reflection": "247c7ccf45",
+   "case.result.0": "2cc2c90adc",
+   "case.result.1": "a72ee06715",
+   "case.story.0.h": "8aad236682",
+   "case.story.0.p": "e530764921",
+   "case.story.1.h": "3c7a0e0bc3",
+   "case.story.1.p": "1274c98347",
+   "case.story.2.h": "6b59c8f6a9",
+   "case.story.2.p": "463aae670a",
+   "case.story.3.h": "c8d3fada65",
+   "case.story.3.p": "83dca289ab",
+   "case.story.4.h": "b86a671407",
+   "case.story.4.p": "e3226b3424",
+   "case.story.5.h": "498a330798",
+   "case.story.5.p": "853b0ca2eb",
+   "case.story.6.h": "ceb2c7e6a4",
+   "case.story.6.p": "c2f435a172",
+   "case.system.grid.caption": "615b573a8c",
+   "case.system.grid.items.0.label": "19b65fb7e4",
+   "case.system.grid.items.1.label": "af77aa3186",
+   "case.system.grid.items.2.label": "fed1a9e110",
+   "case.system.grid.items.3.label": "f1e3b6a382",
+   "case.system.grid.items.4.label": "e0bf640720",
+   "case.system.note": "74f8809082",
+   "case.system.swatches.0.name": "4460f2acda",
+   "case.system.swatches.0.role": "97b17b112c",
+   "case.system.swatches.1.name": "7a013a7849",
+   "case.system.swatches.1.role": "0dbd70454d",
+   "case.system.swatches.2.name": "4f5fb5e65d",
+   "case.system.swatches.2.role": "d415fc5257",
+   "case.system.swatches.3.name": "c4027f3eb3",
+   "case.system.swatches.3.role": "0f3cd4eefe",
+   "case.system.swatches.4.name": "6a12844d87",
+   "case.system.swatches.4.role": "d77a538ba1",
+   "case.system.swatches.5.name": "ecb2285178",
+   "case.system.swatches.5.role": "667beb72df",
+   "case.system.title": "365ce90ec4",
+   "client": "e2702ca8f0",
+   "role": "38b47dd077"
+  },
+  "freightzone": {
+   "alt": "78cbe23082",
+   "caption": "cb3b61cd47",
+   "case.decision": "b06aee52c5",
+   "case.evidence.0.alt": "2486fadcf5",
+   "case.evidence.0.bar": "acb03b7740",
+   "case.evidence.0.caption": "f257be6081",
+   "case.film.caption": "c7b2dbd9f0",
+   "case.film.label": "8ba5d445e5",
+   "case.glance.0.0": "83cf24b689",
+   "case.glance.0.1": "8ef2d8e2fd",
+   "case.glance.1.0": "4b3a2cfd8c",
+   "case.glance.1.1": "6a43cf8680",
+   "case.glance.2.0": "f826441b7f",
+   "case.glance.2.1": "3d7151099e",
+   "case.lede": "77581488f0",
+   "case.links.0.label": "cee8feb5f4",
+   "case.live.label": "70a861acfc",
+   "case.live.text": "3b514cc65e",
+   "case.result.0": "a2612dcbe0",
+   "case.result.1": "79a7cb8d2e",
+   "case.story.0.h": "a5f060dd8c",
+   "case.story.0.p": "68ed768f05",
+   "case.story.1.h": "98e30ea827",
+   "case.story.1.p": "18befc5903",
+   "case.story.2.h": "338a8cab22",
+   "case.story.2.p": "03a5d68435",
+   "case.story.3.h": "5c915bc5d3",
+   "case.story.3.p": "9dba63cdb2",
+   "case.story.4.h": "3af9854abb",
+   "case.story.4.p": "33d06a681c",
+   "case.system.note": "7ba90fed88",
+   "case.system.swatches.0.name": "315615e431",
+   "case.system.swatches.0.role": "e0d1d4e0c9",
+   "case.system.swatches.1.name": "ece21beb11",
+   "case.system.swatches.1.role": "8d872b1a50",
+   "case.system.swatches.2.name": "659358f0ff",
+   "case.system.swatches.2.role": "2dafd7cd53",
+   "case.system.swatches.3.name": "3b8cb67aba",
+   "case.system.swatches.3.role": "258fe08ef4",
+   "case.system.swatches.4.name": "6bf28bbcfa",
+   "case.system.swatches.4.role": "a826e54278",
+   "case.system.swatches.5.name": "45468208af",
+   "case.system.swatches.5.role": "f41898a639",
+   "case.system.title": "b1d186863e",
+   "client": "ca008cfccc",
+   "role": "01ca9ec255"
+  },
+  "handsontv": {
+   "client": "5d04b5f43e",
+   "role": "4a105f2b3f"
+  },
+  "hg": {
+   "client": "20b81e5e9b",
+   "role": "22c0d43ed7"
+  },
+  "hive": {
+   "client": "e5c30b4b13",
+   "role": "fabb26dd13"
+  },
+  "hodhod": {
+   "client": "35e696d84d",
+   "role": "fe7f129a24"
+  },
+  "ibb": {
+   "client": "61ae19e521",
+   "role": "2247a3a76d"
+  },
+  "idd": {
+   "client": "023c10cb15",
+   "role": "fabb26dd13"
+  },
+  "intimedev": {
+   "client": "aaf74c2ff4",
+   "role": "fdff1e5a3c"
+  },
+  "iwad": {
+   "caption": "d398c2fdfa",
+   "client": "a3656740ff",
+   "role": "5ab54ba7da"
+  },
+  "kevla": {
+   "case.decision": "a5e077e41e",
+   "case.evidence.0.alt": "1a9e0ff7c0",
+   "case.evidence.0.caption": "f443827d56",
+   "case.evidence.1.alt": "e64f6ea7fd",
+   "case.evidence.1.caption": "eaa05f89ce",
+   "case.evidence.2.alt": "32558ae267",
+   "case.evidence.2.caption": "98b7cac5e3",
+   "case.film.caption": "bc80e8ed48",
+   "case.film.label": "a494893211",
+   "case.glance.0.0": "83cf24b689",
+   "case.glance.0.1": "d848580b9a",
+   "case.glance.1.0": "f9d167f6e1",
+   "case.glance.1.1": "4bd3bed9f3",
+   "case.glance.2.0": "168c9309eb",
+   "case.glance.2.1": "36a3118292",
+   "case.lede": "89e5fe9439",
+   "case.links.0.label": "757fa81e1b",
+   "case.links.1.label": "5b16abfbe4",
+   "case.links.2.label": "0cf072ad55",
+   "case.live.label": "9038782116",
+   "case.reflection": "fba6eb4790",
+   "case.result.0": "d084645fae",
+   "case.result.1": "fe73b10875",
+   "case.result.2": "36e4177d78",
+   "case.story.0.h": "0dbac6f1e6",
+   "case.story.0.p": "ec865e4e90",
+   "case.story.1.h": "b6daf35535",
+   "case.story.1.p": "4f6a27a96c",
+   "case.story.2.h": "8f19c5dae1",
+   "case.story.2.p": "da6d30219e",
+   "case.story.3.h": "3ab531c7ff",
+   "case.story.3.p": "03028a6ef8",
+   "case.story.4.h": "33caf2808b",
+   "case.story.4.p": "217ccd24b2",
+   "case.story.5.h": "354a9c306b",
+   "case.story.5.p": "15c311e771",
+   "case.system.grid.caption": "2350b4757c",
+   "case.system.grid.items.0.alt": "03012f056c",
+   "case.system.grid.items.0.label": "5e85afc879",
+   "case.system.grid.items.1.alt": "954a61629a",
+   "case.system.grid.items.1.label": "4d6e8a70d9",
+   "case.system.grid.items.2.alt": "a43857adbe",
+   "case.system.grid.items.2.label": "6458d35456",
+   "case.system.grid.items.3.alt": "5f666a9d2e",
+   "case.system.grid.items.3.label": "4f1e30f97b",
+   "case.system.note": "7024c54eaa",
+   "case.system.swatches.0.name": "7b4dc484b8",
+   "case.system.swatches.0.role": "c525d9f36c",
+   "case.system.swatches.1.name": "5e5a8a19d7",
+   "case.system.swatches.1.role": "2087107715",
+   "case.system.swatches.2.name": "5170ad83b2",
+   "case.system.swatches.2.role": "8082d499d5",
+   "case.system.swatches.3.name": "403dff9fdc",
+   "case.system.swatches.3.role": "2a101f2163",
+   "case.system.swatches.4.name": "34f2cd7309",
+   "case.system.swatches.4.role": "a32ed9adf9",
+   "case.system.swatches.5.name": "b1fcf02b69",
+   "case.system.swatches.5.role": "ae6f1435d3",
+   "case.system.title": "b829a6702e",
+   "client": "5dc473c8d6",
+   "role": "ed5740d36d"
+  },
+  "maktoob": {
+   "client": "020dd85776",
+   "role": "df4bcb7e97"
+  },
+  "matn": {
+   "client": "186ef352cc",
+   "role": "de0351bbff"
+  },
+  "metalyol": {
+   "caption": "91feb17dc2",
+   "client": "bd8338cc71",
+   "role": "e3d8266db4"
+  },
+  "mo3ta": {
+   "case.decision": "0bd6f9185e",
+   "case.evidence.0.alt": "e669b15750",
+   "case.evidence.0.caption": "b3089e1c86",
+   "case.evidence.1.alt": "2a62684c12",
+   "case.evidence.1.caption": "2d035b7d7e",
+   "case.evidence.2.alt": "356b40ee72",
+   "case.evidence.2.caption": "602b5c5231",
+   "case.film.caption": "10369bbf14",
+   "case.film.label": "102b3d87af",
+   "case.glance.0.0": "83cf24b689",
+   "case.glance.0.1": "f7d902bb06",
+   "case.glance.1.0": "f9d167f6e1",
+   "case.glance.1.1": "4b6eb186bb",
+   "case.glance.2.0": "168c9309eb",
+   "case.glance.2.1": "f861dcdb38",
+   "case.lede": "81bf67db1c",
+   "case.links.0.label": "80dffc7ef1",
+   "case.result.0": "952a7f38ef",
+   "case.story.0.h": "fbfe61e63b",
+   "case.story.0.p": "d2cce32813",
+   "case.story.1.h": "5064dba7ce",
+   "case.story.1.p": "5e397f8f87",
+   "case.story.2.h": "c448488064",
+   "case.story.2.p": "c589f68e72",
+   "case.story.3.h": "d3424d81e8",
+   "case.story.3.p": "cf919dd942",
+   "client": "894ade1a31",
+   "role": "de0351bbff"
+  },
+  "mohajer": {
+   "client": "5d63e267d0",
+   "role": "ecfca19dca"
+  },
+  "musnad": {
+   "client": "e1879c0583",
+   "role": "de0351bbff"
+  },
+  "nuqta": {
+   "caption": "5872ea85a3",
+   "client": "1a67ffc4a6",
+   "role": "6788591a12"
+  },
+  "ozcar": {
+   "brief.kind": "c20bab9c7b",
+   "brief.link_note": "939e82ddda",
+   "brief.notes.0": "3c5d9a3e7a",
+   "brief.notes.1": "3b01b6deff",
+   "brief.notes.2": "ac5101b9dc",
+   "brief.notes.3": "4fbd512bc6",
+   "brief.notes.4": "2e88c8a388",
+   "brief.notes_title": "885ce366d5",
+   "brief.text": "bf3d77c42f",
+   "client": "b6ad9982bb",
+   "role": "f1287d5cee"
+  },
+  "powerline": {
+   "client": "65e50387a5",
+   "role": "2247a3a76d"
+  },
+  "qasioun": {
+   "client": "6e41d7331b",
+   "role": "de0351bbff"
+  },
+  "qudsn": {
+   "client": "35e696d84d",
+   "role": "f4c1a8066d"
+  },
+  "samclerk": {
+   "caption": "91feb17dc2",
+   "client": "0420bf5baf",
+   "role": "fdff1e5a3c"
+  },
+  "skillsbeyond": {
+   "client": "28ead19c76",
+   "role": "2247a3a76d"
+  },
+  "tayqan": {
+   "client": "a3df8bf9ca",
+   "role": "f4c1a8066d"
+  },
+  "threadstudio": {
+   "caption": "50aa25f3a8",
+   "client": "24ffd7eef1",
+   "role": "85ff392256"
+  },
+  "tide": {
+   "caption": "91feb17dc2",
+   "client": "22ec51bb44",
+   "role": "fdff1e5a3c"
+  },
+  "toolora": {
+   "caption": "5907417912",
+   "client": "1124020a7e",
+   "role": "7d838f566a"
+  },
+  "visaoman": {
+   "client": "a7130a586f",
+   "role": "2247a3a76d"
+  },
+  "wardtwin": {
+   "case.decision": "0d70332ff7",
+   "case.evidence.0.alt": "93d207e438",
+   "case.evidence.0.caption": "0a689cfc60",
+   "case.evidence.1.alt": "e5c5b3d7c6",
+   "case.evidence.1.caption": "876803e983",
+   "case.evidence.2.alt": "f00750a02d",
+   "case.evidence.2.caption": "b2d87e41de",
+   "case.film.caption": "db913878f7",
+   "case.film.label": "7cb01716bd",
+   "case.glance.0.0": "83cf24b689",
+   "case.glance.0.1": "ee23a1d139",
+   "case.glance.1.0": "f9d167f6e1",
+   "case.glance.1.1": "f1cedf6f3b",
+   "case.glance.2.0": "168c9309eb",
+   "case.glance.2.1": "189bc4d975",
+   "case.lede": "b0418db963",
+   "case.links.0.label": "757fa81e1b",
+   "case.links.1.label": "ae6eb78a7f",
+   "case.links.2.label": "d115120ba5",
+   "case.links.3.label": "58afa5cee8",
+   "case.links.4.label": "5b16abfbe4",
+   "case.links.5.label": "e94fde2068",
+   "case.links.6.label": "46eda475aa",
+   "case.links.7.label": "510d8ba879",
+   "case.live.label": "9038782116",
+   "case.reflection": "56444b7f5c",
+   "case.result.0": "ff7f52d16b",
+   "case.result.1": "962d71187c",
+   "case.result.2": "ab5ff0dec6",
+   "case.story.0.h": "497ed06021",
+   "case.story.0.p": "4be6d5db66",
+   "case.story.1.h": "cef9c6be69",
+   "case.story.1.p": "51315899a7",
+   "case.story.10.h": "d48ec98f49",
+   "case.story.10.p": "8554a83307",
+   "case.story.2.h": "6bf7a30c6d",
+   "case.story.2.p": "0f71e4ba88",
+   "case.story.3.h": "846679b857",
+   "case.story.3.p": "750d74ce2f",
+   "case.story.4.h": "35fea49ab7",
+   "case.story.4.p": "18bd4e3fba",
+   "case.story.5.h": "36cf0c774b",
+   "case.story.5.p": "c06b8d8656",
+   "case.story.6.h": "8eb3811e31",
+   "case.story.6.p": "7cf70a242e",
+   "case.story.7.h": "6acf91dc6f",
+   "case.story.7.p": "d5fbb7fa3f",
+   "case.story.8.h": "667bc3a4a9",
+   "case.story.8.p": "49eff6ab0f",
+   "case.story.9.h": "bebec126ac",
+   "case.story.9.p": "12d366b65e",
+   "case.system.grid.caption": "06c4f96534",
+   "case.system.grid.items.0.alt": "72e5f34e52",
+   "case.system.grid.items.0.label": "63c81a3278",
+   "case.system.grid.items.1.alt": "428f19a07c",
+   "case.system.grid.items.1.label": "0a9c277c79",
+   "case.system.grid.items.2.alt": "e7db64cf2d",
+   "case.system.grid.items.2.label": "9c49289f63",
+   "case.system.grid.items.3.alt": "86855fb7a3",
+   "case.system.grid.items.3.label": "c6b9797a5c",
+   "case.system.note": "b14d2650f3",
+   "case.system.swatches.0.name": "7b4dc484b8",
+   "case.system.swatches.0.role": "27ddffc210",
+   "case.system.swatches.1.name": "c522c54aff",
+   "case.system.swatches.1.role": "c5f2d5bf89",
+   "case.system.swatches.2.name": "ecb2285178",
+   "case.system.swatches.2.role": "9ddd5e13c4",
+   "case.system.swatches.3.name": "8a7b0a1e61",
+   "case.system.swatches.3.role": "7af52af17f",
+   "case.system.swatches.4.name": "22a88a22d2",
+   "case.system.swatches.4.role": "cfe26fe67f",
+   "case.system.swatches.5.name": "64b1aceb6f",
+   "case.system.swatches.5.role": "09f496f34f",
+   "case.system.title": "ee42f21678",
+   "client": "0fc9b50851",
+   "role": "59eea832ed"
+  },
+  "watad": {
+   "brief.kind": "bc9525d004",
+   "brief.link_note": "4b6da10484",
+   "brief.notes.0": "50d6e47bc0",
+   "brief.notes.1": "02fa063d96",
+   "brief.notes.2": "600c34c0db",
+   "brief.notes.3": "4db9317ea6",
+   "brief.notes.4": "a1ad9f5e1a",
+   "brief.notes_title": "885ce366d5",
+   "brief.text": "1f9daf35cd",
+   "client": "435a7fb0be",
+   "role": "39ba526f1a"
+  },
+  "yassiru": {
+   "client": "5982f792b7",
+   "role": "1045da462f"
+  },
+  "yedibasak": {
+   "brief.kind": "80ff9249ee",
+   "brief.text": "36a41a3b6e",
+   "client": "6023652205",
+   "role": "4d71546aa6"
+  },
+  "yottasrc": {
+   "client": "9264b260c2",
+   "role": "9ae2c1d08a"
+  }
+ },
+ "template": {
+  "about": "c52c92d05c",
+  "briefs": "0080560f8c",
+  "contact": "f8bab80161",
+  "foot": "a4bb566057",
+  "head": "1cd9131cf7",
+  "hero": "2858903472",
+  "index": "484bd956cc",
+  "measured": "bc6823164d",
+  "nav": "cb0aa6a806",
+  "process": "95d799d080",
+  "reviews": "ec01c4b842",
+  "work": "546170500b"
+ }
+}

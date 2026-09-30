@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>og card, Arabic</title>
+<!-- The Arabic page's link-preview card, 1200 x 630, og.html turned round:
+     the copy on the right in Readex Pro, the framed screen on the left.
+     Rendered to img/og-ar.png by python _dev/og.py. -->
+<style>
+@font-face{font-family:'Readex Pro';font-weight:400 600;src:url(../fonts/readex-pro-arabic.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+08A0-08FF,U+200C-200E,U+FB50-FDFF,U+FE70-FEFC;}
+@font-face{font-family:'Schibsted Grotesk';font-weight:400 700;src:url(../fonts/schibsted-grotesk-latin.woff2) format('woff2');}
+@font-face{font-family:'Fragment Mono';font-weight:400;src:url(../fonts/fragment-mono-latin.woff2) format('woff2');}
+:root{--ink:#0f1115;--ink-2:#181b21;--ink-3:#23272f;--on-ink:#f4f5f7;--on-ink-2:rgb(244 245 247 / .7);--on-ink-3:rgb(244 245 247 / .56);
+  --line:rgb(244 245 247 / .12);--line-strong:rgb(244 245 247 / .24);--glow:#5fd3a5}
+*{box-sizing:border-box;margin:0}
+html,body{width:1200px;height:630px;background:var(--ink);overflow:hidden;font-family:'Readex Pro','Schibsted Grotesk',sans-serif}
+.canvas{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px,rgb(244 245 247 / .13) 1px,transparent 1.4px);background-size:24px 24px;
+  mask-image:radial-gradient(ellipse 90% 85% at 30% 45%,#000 30%,transparent 100%)}
+.copy{position:absolute;right:64px;top:52px;width:600px}
+.brand{display:flex;align-items:center;gap:14px;color:var(--on-ink)}
+.brand svg{width:40px;height:40px}
+.brand b{display:block;font-weight:600;font-size:23px;line-height:1.2}
+.brand span{display:block;font-size:15px;line-height:1.4;color:var(--on-ink-3)}
+h1{margin-top:34px;font-weight:600;font-size:70px;line-height:1.24;color:var(--on-ink)}
+h1 span{display:block}
+h1 em{font-style:normal;color:var(--glow)}
+p{margin-top:22px;font-size:23px;line-height:1.6;color:var(--on-ink-2);width:540px}
+bdi{font-family:'Fragment Mono'}
+.foot{position:absolute;left:64px;right:64px;bottom:40px;display:flex;justify-content:space-between;padding-top:18px;border-top:1px solid var(--line);
+  font-size:18px;line-height:1;color:var(--on-ink-3)}
+.foot .addr{font-family:'Fragment Mono'}
+.stage{position:absolute;right:704px;top:118px;width:460px}
+.desk{border:1px solid var(--line-strong);border-radius:9px;overflow:hidden;background:var(--ink-2);box-shadow:0 50px 90px -40px rgb(0 0 0 / .8)}
+.bar{height:30px;display:flex;align-items:center;gap:6px;padding:0 12px;border-bottom:1px solid var(--line);background:var(--ink-3);font:400 13px 'Fragment Mono';color:var(--on-ink-3)}
+.bar i{width:7px;height:7px;border-radius:50%;background:var(--line-strong)}
+.bar span{margin-right:6px}
+.desk img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.select{position:absolute;inset:-7px;border:1px solid var(--glow)}
+.select b{position:absolute;width:8px;height:8px;background:var(--ink);border:1px solid var(--glow)}
+.select b:nth-child(1){top:-4px;left:-4px}.select b:nth-child(2){top:-4px;right:-4px}
+.select b:nth-child(3){bottom:-4px;left:-4px}.select b:nth-child(4){bottom:-4px;right:-4px}
+.size{position:absolute;bottom:calc(100% + 6px);right:-1px;padding:3px 8px;border-radius:3px;background:var(--glow);color:var(--ink);font:400 13px 'Fragment Mono';direction:ltr}
+.phone{position:absolute;right:-58px;top:120px;width:128px;padding:5px;border:1px solid var(--line-strong);border-radius:20px;background:var(--ink-2);box-shadow:0 30px 60px -24px rgb(0 0 0 / .85)}
+.phone img{display:block;width:100%;aspect-ratio:390/844;object-fit:cover;object-position:top;border-radius:15px}
+</style>
+</head>
+<body>
+<div class="canvas"></div>
+<div class="copy">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#f4f5f7"/><rect x="7" y="8" width="11" height="3" rx="1.5" fill="#0f1115"/><rect x="7" y="14.5" width="9" height="3" rx="1.5" fill="#0f1115"/><rect x="7" y="21" width="7" height="3" rx="1.5" fill="#0f1115"/><circle cx="22" cy="21" r="4" fill="#5fd3a5"/></svg>
+    <div><b>إسلام ناصر</b><span>تصميم <bdi lang="en" style="font-family:'Schibsted Grotesk'">UI/UX</bdi> والواجهات الأمامية</span></div>
+  </div>
+  <h1><span>ما توافق عليه</span><span>في التصميم</span><span>هو ما <em>يُنفَّذ.</em></span></h1>
+  <p>دراسات حالة من المواقع المنشورة، على حاسوب وعلى هاتف، بالعربية والإنجليزية.</p>
+</div>
+<div class="stage">
+  <div class="desk"><div class="bar"><i></i><i></i><i></i><span>mo3ta.ps</span></div><img src="../img/work/mo3ta-1200.webp" alt=""></div>
+  <div class="select"><b></b><b></b><b></b><b></b><span class="size">1440 &#215; 900</span></div>
+  <div class="phone"><img src="../img/work/ev/mo3ta-home-phone-600.webp" alt=""></div>
+</div>
+<div class="foot"><span>5 دراسات حالة، و46 مشروعًا</span><span class="addr" dir="ltr">imsemoo.github.io/eslam-portfolio/ar</span></div>
+</body>
+</html>

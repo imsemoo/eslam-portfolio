@@ -303,14 +303,14 @@
 }
 .score__table th,
 .score__table td {
-  text-align: right;
+  text-align: end;
   padding: 0.5rem 0.3rem;
   border-bottom: 1px solid var(--line);
   white-space: nowrap;
 }
 .score__table th:first-child,
 .score__table td:first-child {
-  text-align: left;
+  text-align: start;
   font-family: var(--font-body);
   color: var(--text-3);
   font-weight: 400;

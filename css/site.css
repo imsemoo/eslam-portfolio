@@ -218,6 +218,9 @@ cursor: help;
 font-family: var(--font-arabic);
 font-size: 0.92em;
 }
+:lang(ar) {
+letter-spacing: 0 !important;
+}
 .visually-hidden {
 position: absolute !important;
 width: 1px;
@@ -558,14 +561,14 @@ font-variant-numeric: tabular-nums;
 }
 .score__table th,
 .score__table td {
-text-align: right;
+text-align: end;
 padding: 0.5rem 0.3rem;
 border-bottom: 1px solid var(--line);
 white-space: nowrap;
 }
 .score__table th:first-child,
 .score__table td:first-child {
-text-align: left;
+text-align: start;
 font-family: var(--font-body);
 color: var(--text-3);
 font-weight: 400;
@@ -772,6 +775,17 @@ color: var(--nav-fg);
 .nav__links a[aria-current="true"]::after {
 transform: scaleX(1);
 }
+.nav__links .nav__lang {
+gap: 0.4rem;
+padding-inline-start: var(--s-5);
+border-inline-start: 1px solid var(--nav-rule);
+}
+.nav__links .nav__lang::after {
+inset-inline-start: var(--s-5);
+}
+.nav__lang .icon {
+opacity: 0.75;
+}
 .nav__end {
 display: flex;
 align-items: center;
@@ -876,6 +890,10 @@ border-bottom: 1px solid var(--nav-rule);
 }
 .js .nav__links a::after {
 display: none;
+}
+.js .nav__links .nav__lang {
+padding-inline-start: 0;
+border-inline-start: 0;
 }
 html:not(.js) .nav {
 height: auto;
@@ -1035,11 +1053,11 @@ position: absolute;
 border: 1px dashed rgb(95 211 165 / 0.75);
 border-radius: 3px;
 }
-.stage__blueprint i:nth-child(1) { inset: 5% 5% auto 5%; height: 9%; }
-.stage__blueprint i:nth-child(2) { inset: 22% 52% auto 5%; height: 46%; }
-.stage__blueprint i:nth-child(3) { inset: 22% 5% auto 52%; height: 20%; }
-.stage__blueprint i:nth-child(4) { inset: 48% 5% auto 52%; height: 20%; }
-.stage__blueprint i:nth-child(5) { inset: 76% 5% auto 5%; height: 16%; }
+.stage__blueprint i:nth-child(1) { inset-block: 5% auto; inset-inline: 5%; height: 9%; }
+.stage__blueprint i:nth-child(2) { inset-block: 22% auto; inset-inline: 5% 52%; height: 46%; }
+.stage__blueprint i:nth-child(3) { inset-block: 22% auto; inset-inline: 52% 5%; height: 20%; }
+.stage__blueprint i:nth-child(4) { inset-block: 48% auto; inset-inline: 52% 5%; height: 20%; }
+.stage__blueprint i:nth-child(5) { inset-block: 76% auto; inset-inline: 5%; height: 16%; }
 .stage__scan {
 position: absolute;
 inset-inline: 0;
@@ -1925,7 +1943,7 @@ gap: 0.3rem;
 font-family: var(--font-mono);
 font-size: var(--fs-micro);
 color: var(--text-3);
-text-align: right;
+text-align: end;
 }
 .row__ext {
 position: relative;
@@ -2434,6 +2452,28 @@ position: static;
 font-family: var(--font-mono);
 font-size: 0.75rem;
 color: var(--text-3);
+}
+.hero .hero__title .line--outline {
+animation: none;
+}
+span.row__ext:not(.row__ext--none),
+.row__ext .row__ext-text,
+.row__ext .icon {
+display: none;
+}
+a.row__ext {
+grid-area: auto;
+grid-column: 2 / -1;
+justify-content: flex-start;
+min-height: 0;
+white-space: normal;
+text-transform: none;
+letter-spacing: 0;
+font-weight: 400;
+}
+a.row__ext::after {
+font-family: var(--font-mono);
+font-size: 0.75rem;
 }
 }
 /* motion */

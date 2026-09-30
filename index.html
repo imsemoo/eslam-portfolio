@@ -6,6 +6,9 @@
 <title>Islam Nasser. UI/UX designer and front-end developer</title>
 <meta name="description" content="UI/UX designer and front-end developer: flows, screens and component systems, then the HTML, CSS and JavaScript that ship them, in Arabic and English. Case studies, 46 projects and live PageSpeed numbers.">
 <link rel="canonical" href="https://imsemoo.github.io/eslam-portfolio/">
+<link rel="alternate" hreflang="en" href="https://imsemoo.github.io/eslam-portfolio/">
+<link rel="alternate" hreflang="ar" href="https://imsemoo.github.io/eslam-portfolio/ar/">
+<link rel="alternate" hreflang="x-default" href="https://imsemoo.github.io/eslam-portfolio/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Islam Nasser. UI/UX designer and front-end developer">
 <meta property="og:description" content="What you approve in the design is what ships. Case studies on an Arabic data platform, a newsroom platform running 24 sites, a concept site for a Kevlar caravan, a freight marketplace app and a 3D twin of a whole hospital.">
@@ -15,6 +18,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="What you approve in the design is what ships. Islam Nasser, UI/UX designer and front-end developer.">
 <meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Islam Nasser. UI/UX designer and front-end developer">
 <meta name="twitter:description" content="What you approve in the design is what ships. Case studies on an Arabic data platform, a newsroom platform running 24 sites, a concept site for a Kevlar caravan, a freight marketplace app and a 3D twin of a whole hospital.">
@@ -249,6 +253,9 @@ cursor: help;
 .ar {
 font-family: var(--font-arabic);
 font-size: 0.92em;
+}
+:lang(ar) {
+letter-spacing: 0 !important;
 }
 .visually-hidden {
 position: absolute !important;
@@ -590,14 +597,14 @@ font-variant-numeric: tabular-nums;
 }
 .score__table th,
 .score__table td {
-text-align: right;
+text-align: end;
 padding: 0.5rem 0.3rem;
 border-bottom: 1px solid var(--line);
 white-space: nowrap;
 }
 .score__table th:first-child,
 .score__table td:first-child {
-text-align: left;
+text-align: start;
 font-family: var(--font-body);
 color: var(--text-3);
 font-weight: 400;
@@ -804,6 +811,17 @@ color: var(--nav-fg);
 .nav__links a[aria-current="true"]::after {
 transform: scaleX(1);
 }
+.nav__links .nav__lang {
+gap: 0.4rem;
+padding-inline-start: var(--s-5);
+border-inline-start: 1px solid var(--nav-rule);
+}
+.nav__links .nav__lang::after {
+inset-inline-start: var(--s-5);
+}
+.nav__lang .icon {
+opacity: 0.75;
+}
 .nav__end {
 display: flex;
 align-items: center;
@@ -908,6 +926,10 @@ border-bottom: 1px solid var(--nav-rule);
 }
 .js .nav__links a::after {
 display: none;
+}
+.js .nav__links .nav__lang {
+padding-inline-start: 0;
+border-inline-start: 0;
 }
 html:not(.js) .nav {
 height: auto;
@@ -1067,11 +1089,11 @@ position: absolute;
 border: 1px dashed rgb(95 211 165 / 0.75);
 border-radius: 3px;
 }
-.stage__blueprint i:nth-child(1) { inset: 5% 5% auto 5%; height: 9%; }
-.stage__blueprint i:nth-child(2) { inset: 22% 52% auto 5%; height: 46%; }
-.stage__blueprint i:nth-child(3) { inset: 22% 5% auto 52%; height: 20%; }
-.stage__blueprint i:nth-child(4) { inset: 48% 5% auto 52%; height: 20%; }
-.stage__blueprint i:nth-child(5) { inset: 76% 5% auto 5%; height: 16%; }
+.stage__blueprint i:nth-child(1) { inset-block: 5% auto; inset-inline: 5%; height: 9%; }
+.stage__blueprint i:nth-child(2) { inset-block: 22% auto; inset-inline: 5% 52%; height: 46%; }
+.stage__blueprint i:nth-child(3) { inset-block: 22% auto; inset-inline: 52% 5%; height: 20%; }
+.stage__blueprint i:nth-child(4) { inset-block: 48% auto; inset-inline: 52% 5%; height: 20%; }
+.stage__blueprint i:nth-child(5) { inset-block: 76% auto; inset-inline: 5%; height: 16%; }
 .stage__scan {
 position: absolute;
 inset-inline: 0;
@@ -1957,7 +1979,7 @@ gap: 0.3rem;
 font-family: var(--font-mono);
 font-size: var(--fs-micro);
 color: var(--text-3);
-text-align: right;
+text-align: end;
 }
 .row__ext {
 position: relative;
@@ -2467,6 +2489,28 @@ font-family: var(--font-mono);
 font-size: 0.75rem;
 color: var(--text-3);
 }
+.hero .hero__title .line--outline {
+animation: none;
+}
+span.row__ext:not(.row__ext--none),
+.row__ext .row__ext-text,
+.row__ext .icon {
+display: none;
+}
+a.row__ext {
+grid-area: auto;
+grid-column: 2 / -1;
+justify-content: flex-start;
+min-height: 0;
+white-space: normal;
+text-transform: none;
+letter-spacing: 0;
+font-weight: 400;
+}
+a.row__ext::after {
+font-family: var(--font-mono);
+font-size: 0.75rem;
+}
 }
 /* motion */
 @supports (animation-timeline: scroll()) {
@@ -2713,6 +2757,7 @@ clip-path: none !important;
       <a href="#index">All projects</a>
       <a href="#process">Process</a>
       <a href="#about">About</a>
+      <a class="nav__lang" href="ar/" hreflang="ar" lang="ar" data-lang-switch><svg class="icon" aria-hidden="true"><use href="#i-translate"/></svg>العربية</a>
     </nav>
     <div class="nav__end">
       <p class="nav__time" data-clock hidden><span class="nav__pulse" aria-hidden="true"></span>Egypt <time data-clock-time></time></p>
@@ -2779,7 +2824,7 @@ clip-path: none !important;
     
 <article class="feature feature--film" id="case-mo3ta" aria-labelledby="case-mo3ta-title">
   <header class="feature__head">
-    <h3 class="feature__title" id="case-mo3ta-title">Mo3ta <span class="ar" lang="ar" dir="rtl">معطي</span></h3>
+    <h3 class="feature__title" id="case-mo3ta-title">Mo3ta <span class="ar" lang="ar" dir="rtl">معطى</span></h3>
     <p class="feature__lede">Palestine&#x27;s statistics in one place: dashboards, a map and charts over a large Arabic dataset. A journalist, a researcher or a student should be able to find a number, see it in context and cite it.</p>
   </header>
   <dl class="glance"><div><dt>Role</dt><dd>UX and UI design, then the whole build</dd></div><div><dt>Focus</dt><dd>Numbers in Arabic, map and chart components, server rendering</dd></div><div><dt>Built with</dt><dd>Vue 3 and Inertia with SSR, on Laravel</dd></div><div><dt>Live</dt><dd><a href="https://www.mo3ta.ps/" target="_blank" rel="noopener">mo3ta.ps</a></dd></div></dl>
@@ -2802,8 +2847,8 @@ clip-path: none !important;
   <div class="evidence evidence--p1" style="--phones: 1"><figure class="ev ev--fleet" data-reveal-ev><ul class="fleet"><li class="fleet__site"><img src="img/work/qudsn-600.webp" width="600" height="375" alt="Quds News Network front page" loading="lazy" decoding="async"><span class="fleet__name">Quds News Network <span class="ar" lang="ar" dir="rtl">قدس الإخبارية</span></span></li><li class="fleet__site"><img src="img/work/maktoob-600.webp" width="600" height="375" alt="Maktoob Media front page" loading="lazy" decoding="async"><span class="fleet__name">Maktoob Media</span></li><li class="fleet__site"><img src="img/work/hodhod-600.webp" width="600" height="375" alt="Hodhod front page" loading="lazy" decoding="async"><span class="fleet__name">Hodhod <span class="ar" lang="ar" dir="rtl">الهدهد</span></span></li><li class="fleet__site"><img src="img/work/tayqan-600.webp" width="600" height="375" alt="Tayaqan front page" loading="lazy" decoding="async"><span class="fleet__name">Tayaqan <span class="ar" lang="ar" dir="rtl">تيقن</span></span></li><li class="fleet__site"><img src="img/work/adenicast-600.webp" width="600" height="375" alt="Adeni Cast front page" loading="lazy" decoding="async"><span class="fleet__name">Adeni Cast <span class="ar" lang="ar" dir="rtl">عدني كاست</span></span></li><li class="fleet__site"><img src="img/work/arouri-600.webp" width="600" height="375" alt="Saleh Al-Arouri Archive front page" loading="lazy" decoding="async"><span class="fleet__name">Saleh Al-Arouri Archive <span class="ar" lang="ar" dir="rtl">أرشيف صالح العاروري</span></span></li></ul><figcaption class="ev__cap">Six of the 24 sites. Same codebase and same modules; the themes, the languages and the switched-on modules differ.</figcaption></figure><figure class="ev ev--phone" data-reveal-ev><div class="phone"><img src="img/work/ev/qudsn-phone-600.webp" srcset="img/work/ev/qudsn-phone-390.webp 390w, img/work/ev/qudsn-phone-600.webp 600w" sizes="(min-width: 900px) 15vw, 44vw" width="600" height="1298" alt="Quds News Network&#x27;s front page on a phone: the lead story over a photo, then a list of headlines with thumbnails." loading="lazy" decoding="async"></div><figcaption class="ev__cap">Quds News Network at phone width. Its front page is assembled from the same modules as the others.</figcaption></figure></div>
   <p class="decision"><strong class="decision__lead">The decision.</strong> A site may differ in configuration, not in behaviour. Every newsroom runs the same modules and the same code; what changes is the theme, the languages and which modules are switched on.</p>
   <section class="system" aria-labelledby="case-devlo-system"><h4 id="case-devlo-system">One theme, from a six-page brand book: IWAD</h4><ul class="swatches"><li class="sw"><span class="sw__chip" style="--c:#3D1720" aria-hidden="true"></span><span class="sw__name">Maroon</span><code>#3D1720</code><span class="sw__role">Primary surfaces and headings</span></li><li class="sw"><span class="sw__chip" style="--c:#A8824A" aria-hidden="true"></span><span class="sw__name">Gold</span><code>#A8824A</code><span class="sw__role">The mark only: squares, borders, large type</span></li><li class="sw"><span class="sw__chip" style="--c:#7E5F31" aria-hidden="true"></span><span class="sw__name">Gold for text</span><code>#7E5F31</code><span class="sw__role">Any gold text, 5.03:1 on paper</span></li><li class="sw"><span class="sw__chip" style="--c:#F0EDE6" aria-hidden="true"></span><span class="sw__name">Paper</span><code>#F0EDE6</code><span class="sw__role">Editorial surfaces</span></li><li class="sw"><span class="sw__chip" style="--c:#F3EEEA" aria-hidden="true"></span><span class="sw__name">Cream</span><code>#F3EEEA</code><span class="sw__role">Text on maroon</span></li><li class="sw"><span class="sw__chip" style="--c:#1A1A1A" aria-hidden="true"></span><span class="sw__name">Ink</span><code>#1A1A1A</code><span class="sw__role">Body text</span></li></ul><p class="system__note">IWAD, a defence research institute, came with a logo, clear space and six colours. The type scale, spacing, components and section colours were designed from those. The brand gold is 3.02:1 on paper, which fails for text, so it only marks things and a darker gold carries every gold word.</p><figure class="ev ev--grid" data-reveal-ev><ul class="vgrid" style="--n: 5"><li class="vgrid__item"><img src="img/work/ev/iwad-sec-global-600.webp" width="600" height="375" alt="The Global section hub, in its #33526B accent" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#33526B" aria-hidden="true"></span>Global <code>#33526B</code> <span class="vgrid__ratio">7.02:1</span></span></li><li class="vgrid__item"><img src="img/work/ev/iwad-sec-regional-600.webp" width="600" height="375" alt="The Regional section hub, in its #2F5D53 accent" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#2F5D53" aria-hidden="true"></span>Regional <code>#2F5D53</code> <span class="vgrid__ratio">6.39:1</span></span></li><li class="vgrid__item"><img src="img/work/ev/iwad-sec-doctrine-600.webp" width="600" height="375" alt="The Doctrine section hub, in its #3D1720 accent" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#3D1720" aria-hidden="true"></span>Doctrine <code>#3D1720</code> <span class="vgrid__ratio">13.39:1</span></span></li><li class="vgrid__item"><img src="img/work/ev/iwad-sec-education-600.webp" width="600" height="375" alt="The Education section hub, in its #7E5F31 accent" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#7E5F31" aria-hidden="true"></span>Education <code>#7E5F31</code> <span class="vgrid__ratio">5.03:1</span></span></li><li class="vgrid__item"><img src="img/work/ev/iwad-sec-heritage-600.webp" width="600" height="375" alt="The Heritage section hub, in its #5C4632 accent" loading="lazy" decoding="async"><span class="vgrid__label"><span class="vgrid__dot" style="--c:#5C4632" aria-hidden="true"></span>Heritage <code>#5C4632</code> <span class="vgrid__ratio">7.56:1</span></span></li></ul><figcaption class="ev__cap">The five section hubs, captured from the theme build with its sample content. They share one layout and one set of components; each gets its accent, checked against the paper, and a module of its own: a matrix, an atlas, a map of schools, learning paths, a record of battles.</figcaption></figure></section>
-  <div class="story"><div class="story__blocks"><section class="story__block"><h4>Twenty-four forks</h4><p>Newsrooms used to be built one at a time, each a fork of the last. A fix in one site never reached the others, and every new client meant weeks of repeated work. Share previews show what that costs after a few years: each theme had grown its own share handler, and some fell back to a favicon, which WhatsApp will not turn into a card.</p></section><section class="story__block"><h4>Modules, themes and switches</h4><p>Front pages are built from shared modules: a breaking strip, a lead story, a headline rail, an audio briefing, podcast and translation sections. Editors switch them on per site. A new feature starts switched off everywhere and is turned on for one site in the same commit that writes it, so the question of who gets it is answered before it ships.</p></section><section class="story__block"><h4>A theme from a brand book</h4><p>IWAD is one of the themes: a research platform for a defence institute, 24 pages, right to left. The brand book was six pages and had no type scale, spacing or components, so those were designed first, in two written documents, and the pages were built on them. Sections are told apart by colour instead of icons, because anything military reads as combat. It is live at wardefense.institute.</p></section><section class="story__block"><h4>A panel that shows only what a newsroom uses</h4><p>The editorial panel works in Arabic, English and Turkish, right to left by default. Switching a module off removes its route, its sidebar entry and its permission together, so an editor never meets a menu item that leads nowhere. Every label is a translation key, 5,874 of them, checked before each commit.</p></section><section class="story__block"><h4>Small details, decided once</h4><p>Share previews run through one controller for every site. The site name is not added to the title, because WhatsApp and Telegram give the title a single line and the prefix was eating the part of the headline that earns the click. Descriptions stop at 200 characters, which still reads as a full sentence on every platform.</p></section><section class="story__block"><h4>Checks for what nobody can see</h4><p>Some failures never throw an error: an English string that renders in Arabic because Arabic is the fallback, a share image a crawler quietly refuses, a permission that exists on one route and nowhere else. A teammate wrote a command for each that fails before a commit lands, across 456 Livewire components and 839 Blade views.</p></section><section class="story__block"><h4>Measuring a live newsroom</h4><p>Maktoob Media, the English site on the platform, felt slow on mobile. Lighthouse against production moved 20 points between identical runs, so before touching the site I built a rig that could tell two builds apart. Fonts went from 749 KB to 78 KB and icons from 302 KB to 31.6 KB. The usual advice, content-visibility on the off-screen sections, measured 84 against 83 and was thrown away.</p></section></div></div>
-  <div class="outcome outcome--two"><div class="outcome__result"><h4>Result</h4><ul><li>Runs 24 sites, among them Quds News Network, Maktoob Media, Tayaqan, Hodhod, Adeni Cast and the Saleh Al-Arouri archive.</li><li>Quds News Network, real Chrome users over 28 days: FAST, with LCP at 2.33 s and INP at 104 ms.</li></ul></div><div class="outcome__reflect"><h4>What I would do differently</h4><p>The guard commands arrived after the failures they catch, one at a time, each written the day something silent reached a client. They should have come first for each part of the system. Writing the check first forces you to decide what correct means, and that was the part that was actually missing.</p></div></div>
+  <div class="story"><div class="story__blocks"><section class="story__block"><h4>Twenty-four forks</h4><p>Newsrooms used to be built one at a time, each a fork of the last. A fix in one site never reached the others, and every new client meant weeks of repeated work.</p></section><section class="story__block"><h4>Modules, themes and switches</h4><p>Front pages are built from shared modules: a breaking strip, a lead story, a headline rail, an audio briefing, podcast and translation sections. Editors switch them on per site. A new feature starts switched off everywhere and is turned on for one site in the same commit that writes it, so the question of who gets it is answered before it ships.</p></section><section class="story__block"><h4>A theme from a brand book</h4><p>IWAD is one of the themes: a research platform for a defence institute, 24 pages, right to left. The brand book was six pages and had no type scale, spacing or components, so those were designed first, in two written documents, and the pages were built on them. Sections are told apart by colour instead of icons, because anything military reads as combat. It is live at wardefense.institute.</p></section><section class="story__block"><h4>A panel that shows only what a newsroom uses</h4><p>The editorial panel works in Arabic, English and Turkish, right to left by default. Switching a module off removes its route, its sidebar entry and its permission together, so an editor never meets a menu item that leads nowhere. Every label is a translation key, 5,874 of them, checked before each commit.</p></section><section class="story__block"><h4>Small details, decided once</h4><p>Share previews run through one controller for every site. The site name is not added to the title, because WhatsApp and Telegram give the title a single line and the prefix was eating the part of the headline that earns the click. Descriptions stop at 200 characters, which still reads as a full sentence on every platform.</p></section><section class="story__block"><h4>Checks for what nobody can see</h4><p>Some failures never throw an error: an English string that renders in Arabic because Arabic is the fallback, a share image a crawler quietly refuses, a permission that exists on one route and nowhere else. A teammate wrote a command for each that fails before a commit lands, across 456 Livewire components and 839 Blade views.</p></section><section class="story__block"><h4>Measuring a live newsroom</h4><p>Maktoob Media, the English site on the platform, felt slow on mobile. Lighthouse against production moved 20 points between identical runs, so before touching the site I built a rig that could tell two builds apart. Fonts went from 749 KB to 78 KB and icons from 302 KB to 31.6 KB. The usual advice, content-visibility on the off-screen sections, measured 84 against 83 and was thrown away.</p></section></div></div>
+  <div class="outcome outcome--two"><div class="outcome__result"><h4>Result</h4><ul><li>Runs 24 sites, among them Quds News Network, Maktoob Media, Tayaqan, Hodhod, Adeni Cast and the Saleh Al-Arouri archive.</li><li>Quds News Network, real Chrome users over 28 days: FAST, with LCP at 2.33 s and INP at 104 ms.</li></ul></div><div class="outcome__reflect"><h4>What I would do differently</h4><p>The guard commands came one at a time, later than they should have: each part of the system needed its check first. Writing the check first forces you to decide what correct means, and that was the part that was actually missing.</p></div></div>
   <p class="feature__links"><a class="btn btn--ghost" href="https://demo.taktek.co/dashboard" target="_blank" rel="noopener">Open the demo panel (login) <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a><a class="btn btn--ghost" href="https://github.com/imsemoo/imsemoo/blob/main/case-studies/devlo-cms.md" target="_blank" rel="noopener">Full write-up on GitHub <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a><a class="btn btn--ghost" href="https://github.com/imsemoo/imsemoo/blob/main/case-studies/newsroom-performance-audit.md" target="_blank" rel="noopener">The performance audit <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></p>
 </article>
 
@@ -2876,7 +2921,7 @@ clip-path: none !important;
     <h4 id="brief-ozcar-title">OzCar</h4>
     <p class="brief__meta">Used-car marketplace. Front-end, built from Adobe XD designs.</p>
     <p class="brief__text">A used-car marketplace and an auction dashboard for an Australian dealer group. The designs came as Adobe XD files, and every screen had to become markup a back-end team could wire up without redrawing anything.</p>
-    <details class="brief__notes"><summary>Notes from the build</summary><ul><li>Make and model search with dependent filters, the vehicle page with its finance calculator and live video request, and the reviews and dealer pages.</li><li>The auction side as its own application shell: a left navigation of filters (make, model, series, year, variant, kilometres) driving a dashboard of upcoming auctions.</li><li>The same card, filter and form patterns repeat across both sides, on a small SCSS component layer over the Bootstrap grid.</li><li>Filters and calculators work as plain forms first, and jQuery adds the live behaviour on top.</li><li>The public site is now limited to visitors in Australia after a wave of attacks, so the image shows the screens as they were built.</li></ul></details>
+    <details class="brief__notes"><summary>Notes from the build</summary><ul><li>Make and model search with dependent filters, the vehicle page with its finance calculator and live video request, and the reviews and dealer pages.</li><li>The auction side as its own application shell: a left navigation of filters (make, model, series, year, variant, kilometres) driving a dashboard of upcoming auctions.</li><li>The same card, filter and form patterns repeat across both sides, on a small SCSS component layer over the Bootstrap grid.</li><li>Filters and calculators work as plain forms first, and jQuery adds the live behaviour on top.</li><li>The public site is limited to visitors in Australia, so the image shows the screens as they were built.</li></ul></details>
     <p class="brief__links"><a href="https://www.ozcar.com.au/" target="_blank" rel="noopener">ozcar.com.au<svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a> <span class="brief__note">(Australia only)</span></p>
   </div>
 </article>
@@ -2929,7 +2974,7 @@ clip-path: none !important;
       <p class="index__count" aria-live="polite"><span data-count>46</span> shown</p>
     </div>
     <ol class="rows" id="index-rows" data-rows data-open="12">
-      <li class="row row--t1" id="p-mo3ta" data-tags="apps design rtl" data-preview="img/work/mo3ta-600.webp" data-rank-design="5"><span class="row__thumb"><img src="img/work/mo3ta-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><span class="row__title"><a class="row__link" href="#case-mo3ta"><span class="row__name">Mo3ta <span class="ar" lang="ar" dir="rtl">معطي</span></span></a><span class="row__badge">Case study</span></span><span class="row__client">Palestine information centre<span class="row__where">Palestine</span></span></div><span class="row__role">Design, <span class="nobr">front-end</span> and back-end</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Inertia</span><span class="tag">Vue 3</span></span><span class="row__lang" title="Arabic"><span class="visually-hidden">Arabic</span><span aria-hidden="true">AR</span></span><a class="row__ext" href="https://www.mo3ta.ps/" target="_blank" rel="noopener" aria-label="Visit mo3ta.ps"><span class="row__ext-text">Visit</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
+      <li class="row row--t1" id="p-mo3ta" data-tags="apps design rtl" data-preview="img/work/mo3ta-600.webp" data-rank-design="5"><span class="row__thumb"><img src="img/work/mo3ta-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><span class="row__title"><a class="row__link" href="#case-mo3ta"><span class="row__name">Mo3ta <span class="ar" lang="ar" dir="rtl">معطى</span></span></a><span class="row__badge">Case study</span></span><span class="row__client">Palestine information centre<span class="row__where">Palestine</span></span></div><span class="row__role">Design, <span class="nobr">front-end</span> and back-end</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Inertia</span><span class="tag">Vue 3</span></span><span class="row__lang" title="Arabic"><span class="visually-hidden">Arabic</span><span aria-hidden="true">AR</span></span><a class="row__ext" href="https://www.mo3ta.ps/" target="_blank" rel="noopener" aria-label="Visit mo3ta.ps"><span class="row__ext-text">Visit</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
 <li class="row row--t1" id="p-devlo" data-tags="news apps design rtl" data-preview="img/work/devlo-600.webp" data-rank-design="9"><span class="row__thumb"><img src="img/work/devlo-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><span class="row__title"><a class="row__link" href="#case-devlo"><span class="row__name">Devlo CMS <span class="ar" lang="ar" dir="rtl">ديفلو</span></span></a><span class="row__badge">Case study</span></span><span class="row__client">Newsroom platform running 24 sites<span class="row__where">Türkiye, Palestine, Yemen</span></span></div><span class="row__role">Design, <span class="nobr">front-end</span> and back-end; product owner of the <span class="nobr">front-end</span></span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">MySQL</span></span><span class="row__lang" title="Arabic and English"><span class="visually-hidden">Arabic and English</span><span aria-hidden="true">AR/EN</span></span><a class="row__ext" href="https://demo.taktek.co/dashboard" target="_blank" rel="noopener" aria-label="Visit demo.taktek.co/dashboard"><span class="row__ext-text">Visit</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
 <li class="row row--t1" id="p-musnad" data-tags="news design rtl" data-preview="img/work/musnad-600.webp" data-rank-design="21"><span class="row__thumb"><img src="img/work/musnad-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><span class="row__title"><a class="row__link" href="https://musnadye.com/" target="_blank" rel="noopener"><span class="row__name">Musnad <span class="ar" lang="ar" dir="rtl">مسند</span></span></a></span><span class="row__client">News and claim verification<span class="row__where">Yemen</span></span></div><span class="row__role">Design, <span class="nobr">front-end</span> and back-end</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">Schema</span></span><span class="row__lang" title="Arabic"><span class="visually-hidden">Arabic</span><span aria-hidden="true">AR</span></span><span class="row__ext" aria-hidden="true"><span class="row__ext-text">Visit</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></span></li>
 <li class="row row--t1" id="p-qudsn" data-tags="news design rtl" data-preview="img/work/qudsn-600.webp" data-rank-design="12"><span class="row__thumb"><img src="img/work/qudsn-thumb.webp" width="240" height="150" alt="" loading="lazy" decoding="async"></span><div class="row__main"><span class="row__title"><a class="row__link" href="#case-devlo"><span class="row__name">Quds News Network <span class="ar" lang="ar" dir="rtl">قدس الإخبارية</span></span></a><span class="row__badge">In the Devlo case study</span></span><span class="row__client">Palestinian news network<span class="row__where">Palestine</span></span></div><span class="row__role">Design, <span class="nobr">front-end</span> and back-end, on Devlo CMS</span><span class="row__stack"><span class="tag">Laravel</span><span class="tag">Livewire</span><span class="tag">RTL</span></span><span class="row__lang" title="Arabic"><span class="visually-hidden">Arabic</span><span aria-hidden="true">AR</span></span><a class="row__ext" href="https://qudsn.co/" target="_blank" rel="noopener" aria-label="Visit qudsn.co"><span class="row__ext-text">Visit</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"/></svg></a></li>
@@ -3045,7 +3090,7 @@ clip-path: none !important;
 
       <div class="footprint" data-psi="imsemoo-github-io">
         <h3>This page</h3>
-        <p class="small">54 KB of CSS inlined in the HTML and 30 KB of my own JavaScript. No framework and no third-party scripts. 12 requests before images and fonts, three of them for the tables above. Built 30 September 2026 from one JSON file by a Python script.</p>
+        <p class="small">55 KB of CSS inlined in the HTML and 34 KB of my own JavaScript. No framework and no third-party scripts. 12 requests before images and fonts, three of them for the tables above. Built 30 September 2026 from one JSON file by a Python script.</p>
         <p class="small footprint__self" data-self>The same weekly job measures it: performance <b class="num" data-self-mobile>100</b> on mobile and <b class="num" data-self-desktop>100</b> on desktop, with accessibility, best practices and SEO at <b class="num" data-self-rest>100</b>.</p>
       </div>
       <p class="score__legend small">Lighthouse scores out of 100. Under 90 is marked in brown. LCP is how long the largest thing on the first screen takes to appear.</p>
@@ -3175,10 +3220,11 @@ clip-path: none !important;
             </g>
         </g>
     </g></symbol>
+<symbol id="i-translate" viewBox="0 0 256 256"><path d="M247.15,212.42l-56-112a8,8,0,0,0-14.31,0l-21.71,43.43A88,88,0,0,1,108,126.93,103.65,103.65,0,0,0,135.69,64H160a8,8,0,0,0,0-16H104V32a8,8,0,0,0-16,0V48H32a8,8,0,0,0,0,16h87.63A87.76,87.76,0,0,1,96,116.35a87.74,87.74,0,0,1-19-31,8,8,0,1,0-15.08,5.34A103.63,103.63,0,0,0,84,127a87.55,87.55,0,0,1-52,17,8,8,0,0,0,0,16,103.46,103.46,0,0,0,64-22.08,104.18,104.18,0,0,0,51.44,21.31l-26.6,53.19a8,8,0,0,0,14.31,7.16L148.94,192h70.11l13.79,27.58A8,8,0,0,0,240,224a8,8,0,0,0,7.15-11.58ZM156.94,176,184,121.89,211.05,176Z"/></symbol>
 <symbol id="i-upwork" viewBox="0 0 24 24"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.548-1.405-.002-2.543-1.143-2.545-2.548V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></symbol>
 <symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol>
 </svg>
 
-<script src="js/main.js?v=c7ddc404" type="module"></script>
+<script src="js/main.js?v=c492a215" type="module"></script>
 </body>
 </html>

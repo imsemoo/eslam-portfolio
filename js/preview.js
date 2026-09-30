@@ -1,8 +1,9 @@
 /* Pointer preview over the index. Desktop with a fine pointer only; phones
-   get the inline thumbnails. The frame rides along the right edge of the
-   list at the pointer's height, so it covers the stack and language columns
-   while the name and the role stay readable. The image element is reused
-   and the eased position only animates while the pointer is over a row. */
+   get the inline thumbnails. The frame rides along the end edge of the list
+   (the right, or the left on the Arabic page) at the pointer's height, so it
+   covers the stack and language columns while the name and the role stay
+   readable. The image element is reused and the eased position only
+   animates while the pointer is over a row. */
 
 export function initPreview({ reduce }) {
   const box = document.querySelector("[data-preview-box]");
@@ -12,6 +13,7 @@ export function initPreview({ reduce }) {
 
   const img = box.querySelector("img");
   const bar = document.querySelector("[data-nav]");
+  const rtl = getComputedStyle(rows).direction === "rtl";
   const state = { y: 0, ty: 0, x: 0, frame: 0, on: false };
 
   function place() {
@@ -24,7 +26,7 @@ export function initPreview({ reduce }) {
 
   function target(e) {
     const r = rows.getBoundingClientRect();
-    state.x = r.right - box.offsetWidth - 8;
+    state.x = rtl ? r.left + 8 : r.right - box.offsetWidth - 8;
     const half = box.offsetHeight / 2 + 12;
     // never under the sticky nav: the frame stops just below it
     const top = (bar ? bar.offsetHeight : 0) + half;

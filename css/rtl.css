@@ -1,0 +1,176 @@
+/* The Arabic page, ar/index.html, and only that page. dir="rtl" and the
+   logical properties in the other files mirror the layout by themselves;
+   this file holds what cannot turn round on its own (transforms, their
+   origins, a gradient placed by percentage) and what Arabic type needs.
+   Arabic is never tracked on either page; that rule is in base.css. */
+
+:root {
+  /* Readex Pro first: the Latin faces carry only the Latin words */
+  --font-display: "Readex Pro", "Bricolage Grotesque", "Schibsted Grotesk", system-ui, sans-serif;
+  --font-body: "Readex Pro", "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* a mono line with Arabic in it (a caption, a date) borrows Readex's letters */
+  --font-mono: "Fragment Mono", "Readex Pro", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* the tall letters, the dots and the marks above them need the room */
+  --lh-tight: 1.28;
+  --lh-snug: 1.4;
+  --lh-body: 1.8;
+}
+
+/* ---------- the masks the headings rise out of reach further down: Arabic
+   letters and their dots hang well below the line, and the marks sit high */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__title .line {
+    padding: 0.1em 0.05em 0.36em;
+    margin: -0.1em -0.05em -0.36em;
+  }
+  .mask {
+    padding-block: 0.12em 0.3em;
+    margin-block: -0.12em -0.3em;
+  }
+  /* "في التصميم" is still drawn as an outline first, but a stroked Arabic
+     line shows the seams where its letters join, so the letters are filled
+     with the canvas and the stroke is painted under them: only the outline
+     of the whole word is left, which then fills in */
+  .hero__title .line--outline {
+    paint-order: stroke fill;
+    -webkit-text-stroke-width: 3px;
+    animation-name: fill-in-ar;
+  }
+  @keyframes fill-in-ar {
+    from { color: var(--ink); -webkit-text-stroke-color: var(--text-on-ink-2); }
+    to { color: var(--text-on-ink); -webkit-text-stroke-color: transparent; }
+  }
+}
+
+/* ---------- things that grow or sit by the left edge */
+.nav__progress,
+.nav__links a::after {
+  transform-origin: 100% 50%;
+}
+/* the canvas grid is brightest behind the stage, which is now on the left */
+.hero__canvas {
+  mask-image: radial-gradient(ellipse 95% 80% at 38% 42%, #000 35%, transparent 100%);
+}
+
+/* ---------- the arrows point the way the page reads (build.py mirrors
+   them in the sprite), and their nudge on hover follows */
+.rail:hover .icon,
+.rail[aria-current="true"] .icon {
+  transform: translate(-2px, 2px);
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover .icon {
+    transform: translate(-2px, -2px);
+  }
+  .row:hover .row__ext:not(.row__ext--none) {
+    transform: translate(-2px, -2px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover .icon,
+  .row:hover .row__ext,
+  .rail:hover .icon {
+    transform: none;
+  }
+}
+
+/* code reads left to right wherever it sits: --ink, not ink-- */
+code {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+/* and where it has a line of its own it still starts on the right, with
+   the Arabic around it: the colour cards and the case swatches */
+.swatch {
+  align-items: flex-start;
+}
+.sw code {
+  justify-self: start;
+}
+
+/* a mono face gives Arabic words a monospace gap, so where Arabic shares a
+   mono slot the words go in Readex and only the Latin stays mono */
+.film__toggle,
+.film__expand {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+}
+.tl__when,
+.score__table td[data-k="lcp"] {
+  font-family: var(--font-body);
+}
+.shot__cap:not([dir="ltr"]) {
+  font-family: var(--font-body);
+}
+.shot__cap bdi {
+  font-family: var(--font-mono);
+}
+
+/* the notes chevron points down, then up, whichever side its borders are on */
+.brief__notes summary::before {
+  transform: translateY(-2px) rotate(-45deg);
+}
+.brief__notes[open] summary::before {
+  transform: translateY(1px) rotate(-225deg);
+}
+
+/* ---------- names: the Arabic name leads, the English one follows in grey */
+.feature__title .lat {
+  font-size: 0.6em;
+  color: var(--text-3);
+  margin-inline-end: 0.25em;
+}
+.brief h4 .lat {
+  font-size: 0.72em;
+  color: var(--text-3);
+}
+.row__name .lat,
+.fleet__name .lat {
+  color: var(--text-3);
+}
+
+/* ---------- the score tables: the Arabic column names are longer than
+   Perf and A11y, so on a phone the cells give up some of their padding */
+@media (max-width: 560px) {
+  .score__table th,
+  .score__table td {
+    padding-inline: 0.15rem;
+  }
+}
+@media (max-width: 370px) {
+  .score__table {
+    font-size: var(--fs-micro);
+  }
+}
+
+/* a case's links are buttons that never wrap; a long Arabic label may, on
+   the narrowest phones, rather than run off the screen */
+@media (max-width: 420px) {
+  .feature__links .btn {
+    white-space: normal;
+    text-align: start;
+  }
+}
+
+/* ---------- reviews: the translation, then the English as the client wrote it */
+.quote p {
+  line-height: 1.9;
+}
+.quote .quote__orig {
+  margin-top: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px dashed var(--line);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--text-3);
+}
+
+/* ---------- print: a link's address reads left to right after it */
+@media print {
+  a[href^="http"]::after,
+  a.row__link[href^="http"]::after {
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+}

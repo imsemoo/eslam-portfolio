@@ -3,7 +3,8 @@
 My personal site: UI/UX design and the front-end behind it. Static HTML, CSS
 and a little JavaScript, hosted on GitHub Pages.
 
-**Live:** https://imsemoo.github.io/eslam-portfolio/
+**Live:** https://imsemoo.github.io/eslam-portfolio/ and, in Arabic,
+https://imsemoo.github.io/eslam-portfolio/ar/
 
 ## The idea
 
@@ -25,7 +26,8 @@ page never shows it.
 
 ```
 index.html          generated, do not edit by hand
-404.html            GitHub Pages fallback, points back at the work
+ar/index.html       the same page in Arabic, right to left; generated too
+404.html            GitHub Pages fallback, points back at the work, in both languages
 css/
   tokens.css        every colour, size, space and easing on the page
   base.css          reset, document, type defaults, the rounded sheet on the ink ground
@@ -33,7 +35,8 @@ css/
   sections.css      one block per section, each with its own mobile collapse
   motion.css        the hero build on load, the hero sinking under the white sheet, scroll reveals, the reading-progress line
   fonts.css         self-hosted subsets: Bricolage Grotesque 600, Schibsted Grotesk and Fragment Mono (latin), Readex Pro (arabic)
-  site.css          generated bundle of the above; build.py inlines it into index.html
+  rtl.css           the Arabic page only: what cannot mirror by itself (transforms, origins), and Arabic type
+  site.css          generated bundle of the above, rtl.css aside; build.py inlines it into index.html
 js/
   main.js           entry; every module is guarded so the page works without it
   nav.js            mobile menu as a disclosure (focus in, Escape out, focus back) and the local time in Egypt
@@ -46,11 +49,14 @@ img/work/           WebP screenshots at 1200, 800 and 600 wide, plus 240 wide th
 img/work/ev/        case-study evidence captured from the live sites: phones at 390 and 600, desktops at 800 and 1400
 _dev/
   projects.json     projects, filters, featured cases, briefs, evidence and todo notes
+  projects.ar.json  the Arabic copy of every string in projects.json that reaches the page
+  ar.sources.json   generated: a fingerprint of the English each Arabic string was written from
   template.html     the page with placeholders
-  build.py          template + JSON  ->  index.html, css/site.css; prints what still needs me
+  template.ar.html  the Arabic page with the same placeholders and the same ids
+  build.py          templates + JSON  ->  index.html, ar/index.html, css/site.css; prints what still needs me
   images.py         raw screenshots  ->  img/work;  --evidence raw captures  ->  img/work/ev
   snap.py           captures the evidence listed in projects.json from the live sites, or from a local build with --root
-  og.html, og.py    the link-preview card  ->  img/og.png
+  og.html, og.py    the link-preview cards  ->  img/og.png, and img/og-ar.png from og.ar.html
   icons/            the Phosphor SVGs; build.py inlines only the ones the page uses
 ```
 
@@ -89,6 +95,40 @@ of one day; the captions say what was on screen.
 
 New project screenshots still go through `python _dev/images.py <raw-dir> <legacy-dir>`:
 1440 wide, above the fold, cropped to 16:10.
+
+## The Arabic page
+
+`ar/` is the same page, written in Arabic rather than machine-translated, and
+built from the same data: `projects.ar.json` holds the Arabic for every string
+of `projects.json` that reaches the page, and `template.ar.html` the Arabic of
+the template, with the same ids, so an anchor such as `#case-devlo` means the
+same thing on both pages. The link to the other language keeps the reader's
+place: it points at the section, case or row at the top of the screen.
+
+The build keeps the two in step:
+
+- A string with no Arabic yet is shown in English and listed after the build.
+- A change to the English (a project's copy, a block of the template) is
+  listed too, string by string. The Arabic pairs a case's stories, results
+  and links by position, so a story added in the middle moves every one after
+  it: the list names each of them. Once the Arabic is brought up to date, and
+  only then, record it:
+
+  ```bash
+  python _dev/build.py --stamp
+  ```
+
+What the Arabic page does differently, in `rtl.css` and in the build:
+
+- It reads right to left: the layout mirrors through logical properties, the
+  arrows point left, and the preview rides the left edge of the index.
+- Arabic is never letter-spaced, on either page (`:lang(ar)` in base.css).
+- Every Latin run in the Arabic text (Laravel, `<ward-twin>`, A*, 360 × 800)
+  is wrapped in a `<bdi>`, so it keeps its order whatever punctuation sits at
+  its edges, and a number keeps its unit on the same line.
+- Counts agree with their noun (46 مشروعًا, 9 مشاريع) in the build and in the
+  scripts, which read the page's language from `<html lang>`.
+- The case films are the English ones.
 
 ## Rules the page keeps
 
