@@ -820,12 +820,12 @@
         "design",
         "rtl"
       ],
-      "summary": "A concept digital twin of a hospital, in English or in Arabic from right to left: six levels of six wings, 1,008 beds and 3,006 tracked pieces of equipment in a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream, with the walk from any bed to the nearest free pump. React Three Fiber and compressed glTF; the whole hospital draws at 72 fps or more on an integrated GPU. Simulated data, not a client product.",
+      "summary": "A concept digital twin of a hospital, in English or in Arabic from right to left: six levels of six wings, 1,008 beds and 3,006 tracked pieces of equipment in a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream, with the walk from any bed to the nearest free pump, and one tag that puts it inside another dashboard. React Three Fiber and compressed glTF; the whole hospital draws at 72 fps or more on an integrated GPU. Simulated data, not a client product.",
       "url": "https://imsemoo.github.io/ward-twin/",
       "code": "https://github.com/imsemoo/ward-twin",
       "image": "wardtwin.png",
       "case": {
-        "lede": "A digital twin of a hospital, built as a concept: six levels of six wings as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, rooms warm through HVAC faults, call lights wait too long at shift change and pumps move between rooms. It opens on one wing, pulls out to a level or the whole building, and from any bed finds the nearest free equipment and the walk to it. The whole interface also switches to Arabic, right to left. I designed it and built all of it, the simulation included, and every number on it is simulated.",
+        "lede": "A digital twin of a hospital, built as a concept: six levels of six wings as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, rooms warm through HVAC faults, call lights wait too long at shift change and pumps move between rooms. It opens on one wing, pulls out to a level or the whole building, and from any bed finds the nearest free equipment and the walk to it. The whole interface also switches to Arabic, right to left, and another dashboard can put the twin inside itself with one tag, open it on any room and hear its alerts. I designed it and built all of it, the simulation included, and every number on it is simulated.",
         "glance": [
           [
             "Role",
@@ -979,17 +979,21 @@
             "p": "Live mode builds the hospital from events as they arrive instead of from a recorded day. A mock server in a Web Worker plays the day over the JSON protocol a real integration server would use, a simulated minute each second, and the page folds each event into the same day the views already read, so none of them had to change. Sequence numbers keep the stream whole: when the connection drops, the page says the floor is stale, waits longer before each retry, and asks for only the events it missed, from the last 2,000 the server keeps. A test replays the whole day as events and checks that it reads exactly like the recording at every five-minute reading."
           },
           {
+            "h": "Inside another dashboard",
+            "p": "A twin rarely has the screen to itself, so any page can embed this one: one script of 1 kB and one tag, <ward-twin at=\"level-4\">. The page talks to the twin in the words a link already uses. It opens a room, a layer or a minute and plays the day, and it hears what someone selects, the alerts open and each alert as it opens, worded in the twin's language. The twin runs in an iframe, so its React, three.js and WebGL never meet the host's own framework or styles, and after a handshake it takes commands from that one origin and reports only to it. Every command is checked by the same function that reads a link, and one it cannot take comes back as an error by name. A mock operations page shows it working, and a browser test embeds the twin in a page on another origin, moves it and listens to it."
+          },
+          {
             "h": "Fast because it draws less",
             "p": "The canvas renders only when something changes, so an idle hospital costs no GPU time. Every wing is built to one plan, so each part of the shell is one instanced mesh for all 36 wings, and the 1,368 room floors are one more, which is also the pick target. Only what is in view is packed into what the GPU draws: the first build of the hospital hid the other wings but still sent them to the GPU, 207,000 triangles for one wing, and packing brought that back to 15,000. Beds, patients, bedside furniture and equipment are glTF models, 17,208 triangles compressed to 129 KB, drawn as instances with a shader that tints only the parts that carry state, such as a blanket or a pump's housing. Each switches to a plain proxy by its distance from where the camera looks, and to a box in the whole-hospital view, which draws in 33 draw calls, fewer than one wing up close. The corridors' temperature and air are estimated in the fragment shader, from each wing's 38 doors weighted by how wide they are, with isolines and the alert limit drawn from screen-space derivatives; switching that layer on costs 1 or 2 fps."
           },
           {
             "h": "It adapts, recovers and is tested",
-            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 56 unit tests, 16 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
+            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself. Every push runs 62 unit tests, 19 browser tests with real WebGL at desktop and phone size, lint, types and a size budget for each bundle, and a failure stops the deploy."
           }
         ],
         "result": [
           "A concept: the hospital, the patients and the readings are simulated, and the page says so on every view.",
-          "Live on GitHub Pages, with the code public. What paints the interface loads first, at 89.7 kB gzipped; the scene and three.js follow at 215 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them, and the wayfinding search, live mode and the Arabic catalogue load on first use.",
+          "Live on GitHub Pages, with the code public. What paints the interface loads first, at 90.6 kB gzipped; the scene and three.js follow at 215 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them, and the wayfinding search, live mode and the Arabic catalogue load on first use, and the embed's side only inside a frame.",
           "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA, over three runs: the whole hospital at 72 to 90 fps in 33 draw calls, a level at 74 to 90 fps, one wing at 69 to 81 fps in 43, and close to a room at 61 to 77 fps."
         ],
         "reflection": "Test on a range of real devices. The frame rates here come from one laptop and emulated phones, and a low-end Android phone is the test it still needs.",
@@ -1005,6 +1009,10 @@
           {
             "label": "Open it in Arabic",
             "href": "https://imsemoo.github.io/ward-twin/?lang=ar"
+          },
+          {
+            "label": "See it inside another page",
+            "href": "https://imsemoo.github.io/ward-twin/host/"
           },
           {
             "label": "Code on GitHub",
