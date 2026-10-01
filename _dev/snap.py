@@ -77,7 +77,7 @@ def main():
     os.makedirs(raw, exist_ok=True)
     data = json.load(open(os.path.join(ROOT, "_dev", "projects.json"), encoding="utf-8"))
     with sync_playwright() as pw:
-        # Ward Twin draws with WebGL. Headless Chrome uses the GPU when it can and falls
+        # Cutaway draws with WebGL. Headless Chrome uses the GPU when it can and falls
         # back to SwiftShader, which needs the first flag.
         browser = pw.chromium.launch(channel="chrome", headless=True, args=["--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
         for e in items(data, only):
@@ -99,7 +99,7 @@ def main():
                 print("  slow:", e["file"], type(err).__name__)
             if e.get("scroll"):
                 page.evaluate(f"window.scrollTo(0, {int(e['scroll'])})")
-            if e.get("click"):  # a state no link can open, such as Ward Twin's route: the button, by its name
+            if e.get("click"):  # a state no link can open, such as Cutaway's route: the button, by its name
                 page.get_by_role("button", name=e["click"], exact=True).click()
             page.wait_for_timeout(e.get("wait", 3500))
             page.screenshot(path=os.path.join(raw, e["file"] + ".png"))

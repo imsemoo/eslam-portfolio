@@ -11,7 +11,7 @@ https://imsemoo.github.io/eslam-portfolio/ar/
 Show the work, not a list of adjectives. The page opens with five case
 studies told through the decision that shaped each product: three live
 sites as they are today on a laptop and on a phone, one app design
-(FreightZone) shown from its Figma file, and a 3D concept (Ward Twin)
+(FreightZone) shown from its Figma file, and a 3D concept (Cutaway)
 that runs in the browser. Five shorter write-ups follow, then the index
 of every project with my actual role on it. The PageSpeed section reads
 the JSON that a weekly GitHub Action commits to my profile, and the page
@@ -128,7 +128,7 @@ What the Arabic page does differently, in `rtl.css` and in the build:
 - It reads right to left: the layout mirrors through logical properties, the
   arrows point left, and the preview rides the left edge of the index.
 - Arabic is never letter-spaced, on either page (`:lang(ar)` in base.css).
-- Every Latin run in the Arabic text (Laravel, `<ward-twin>`, A*, 360 × 800)
+- Every Latin run in the Arabic text (Laravel, `<cutaway-twin>`, A*, 360 × 800)
   is wrapped in a `<bdi>`, so it keeps its order whatever punctuation sits at
   its edges, and a number keeps its unit on the same line.
 - Counts agree with their noun (46 مشروعًا, 9 مشاريع) in the build and in the

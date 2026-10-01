@@ -51,7 +51,7 @@
       "iwad",
       "qasioun",
       "freightzone",
-      "wardtwin",
+      "cutaway",
       "mo3ta",
       "watad",
       "arbetsbil",
@@ -801,8 +801,9 @@
       }
     },
     {
-      "slug": "wardtwin",
-      "name": "Ward Twin",
+      "slug": "cutaway",
+      "name": "Cutaway",
+      "ar": "مقطع",
       "tier": 1,
       "client": "Hospital digital twin, a concept",
       "lang": "bi",
@@ -821,9 +822,9 @@
         "rtl"
       ],
       "summary": "A concept digital twin of a hospital, in English or in Arabic from right to left: six levels of six wings, 1,008 beds and 3,006 tracked pieces of equipment in a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream, with the walk from any bed to the nearest free pump, and one tag that puts it inside another dashboard. React Three Fiber and compressed glTF; the whole hospital draws at 72 fps or more on an integrated GPU. Simulated data, not a client product.",
-      "url": "https://imsemoo.github.io/ward-twin/",
-      "code": "https://github.com/imsemoo/ward-twin",
-      "image": "wardtwin.png",
+      "url": "https://imsemoo.github.io/cutaway/",
+      "code": "https://github.com/imsemoo/cutaway",
+      "image": "cutaway.png",
       "case": {
         "lede": "A digital twin of a hospital, built as a concept: six levels of six wings as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, rooms warm through HVAC faults, call lights wait too long at shift change and pumps move between rooms. It opens on one wing, pulls out to a level or the whole building, and from any bed finds the nearest free equipment and the walk to it. The whole interface also switches to Arabic, right to left, and another dashboard can put the twin inside itself with one tag, open it on any room and hear its alerts. I designed it and built all of it, the simulation included, and every number on it is simulated.",
         "glance": [
@@ -842,38 +843,38 @@
         ],
         "live": {
           "label": "Live demo",
-          "text": "imsemoo.github.io/ward-twin"
+          "text": "imsemoo.github.io/cutaway"
         },
         "film": {
-          "file": "wardtwin-film",
-          "label": "Ward Twin demo film",
+          "file": "cutaway-film",
+          "label": "Cutaway demo film",
           "caption": "A 58-second recording of the live demo, captured frame by frame on a fixed clock: the opening shot, the four layers, room 4A09 heating past its limit through the afternoon, the walk to the nearest free pump in the next wing, the whole hospital drawn apart, level 4 in 3D and as a plan, the interface turning to Arabic, and a mock operations page that frames the twin, opens a room in it, plays the day and hears each alert as it opens."
         },
         "evidence": [
           {
-            "file": "wardtwin-route",
+            "file": "cutaway-route",
             "kind": "wide",
             "device": "desktop",
-            "url": "https://imsemoo.github.io/ward-twin/?select=4A09&t=21:00",
+            "url": "https://imsemoo.github.io/cutaway/?select=4A09&t=21:00",
             "click": "Infusion pump",
             "wait": 9000,
             "alt": "Level 4 in 3D with a dashed blue line from room 4A09 along the corridor and across a glazed link to a pump in the next wing, tagged 1 min away, beside the room's panel.",
             "caption": "At 21:00 no pump is free in 4A09's own wing. The nearest is in the next one, and the walk is drawn down the corridor and across the glazed link: 87 m, about a minute."
           },
           {
-            "file": "wardtwin-home-phone",
+            "file": "cutaway-home-phone",
             "kind": "phone",
             "device": "phone",
-            "url": "https://imsemoo.github.io/ward-twin/?lang=ar",
+            "url": "https://imsemoo.github.io/cutaway/?lang=ar",
             "wait": 7000,
             "alt": "Wing 4A on a phone in Arabic: the top bar, the layer switch and its key right to left above the model, turned lengthwise, and the timeline.",
             "caption": "At phone width a wing turns lengthwise to fit the screen. Here in Arabic: the bar, the layers and the key read right to left, and the timeline still runs left to right."
           },
           {
-            "file": "wardtwin-room-phone",
+            "file": "cutaway-room-phone",
             "kind": "phone",
             "device": "phone",
-            "url": "https://imsemoo.github.io/ward-twin/?select=4A09&layer=temp&t=15:30",
+            "url": "https://imsemoo.github.io/cutaway/?select=4A09&layer=temp&t=15:30",
             "wait": 7000,
             "alt": "Room 4A09 close up on a phone, its floor red in the temperature layer, with a tag reading its temperature.",
             "caption": "Room 4A09 at 15:30, in the temperature layer. The camera flew to it from a link that names the room, the layer and the time."
@@ -919,29 +920,29 @@
             "caption": "Four views of the same day: a wing as a plan drawing, the air layer at 18:00, level 4 with its six wings, and every wing of the hospital in a table.",
             "items": [
               {
-                "file": "wardtwin-plan",
-                "url": "https://imsemoo.github.io/ward-twin/?view=plan",
+                "file": "cutaway-plan",
+                "url": "https://imsemoo.github.io/cutaway/?view=plan",
                 "wait": 6500,
                 "label": "Plan view",
                 "alt": "A wing as a plan: walls cut and inked, rooms coloured by bed state."
               },
               {
-                "file": "wardtwin-air",
-                "url": "https://imsemoo.github.io/ward-twin/?view=plan&layer=air&t=18:00&select=FAM",
+                "file": "cutaway-air",
+                "url": "https://imsemoo.github.io/cutaway/?view=plan&layer=air&t=18:00&select=FAM",
                 "wait": 6500,
                 "label": "Air at 18:00",
                 "alt": "The plan coloured by CO2 at 18:00, the family lounge darkest and its stale air estimated spilling into the corridor outside its door, its alert in the side panel."
               },
               {
-                "file": "wardtwin-level",
-                "url": "https://imsemoo.github.io/ward-twin/?at=level-4",
+                "file": "cutaway-level",
+                "url": "https://imsemoo.github.io/cutaway/?at=level-4",
                 "wait": 9000,
                 "label": "Level 4",
                 "alt": "Level 4 in 3D: six wings on one plate, joined by glazed links, each named."
               },
               {
-                "file": "wardtwin-list",
-                "url": "https://imsemoo.github.io/ward-twin/?at=hospital&view=list",
+                "file": "cutaway-list",
+                "url": "https://imsemoo.github.io/cutaway/?at=hospital&view=list",
                 "wait": 6000,
                 "label": "List view",
                 "alt": "Every wing in a table: beds occupied, ready, being cleaned, waiting and out of service, and its open alerts."
@@ -980,7 +981,7 @@
           },
           {
             "h": "Inside another dashboard",
-            "p": "A twin rarely has the screen to itself, so any page can embed this one: one script of 1 kB and one tag, <ward-twin at=\"level-4\">. The page talks to the twin in the words a link already uses. It opens a room, a layer or a minute and plays the day, and it hears what someone selects, the alerts open and each alert as it opens, worded in the twin's language. The twin runs in an iframe, so its React, three.js and WebGL never meet the host's own framework or styles, and after a handshake it takes commands from that one origin and reports only to it. Every command is checked by the same function that reads a link, and one it cannot take comes back as an error by name. A mock operations page shows it working, and a browser test embeds the twin in a page on another origin, moves it and listens to it."
+            "p": "A twin rarely has the screen to itself, so any page can embed this one: one script of 1 kB and one tag, <cutaway-twin at=\"level-4\">. The page talks to the twin in the words a link already uses. It opens a room, a layer or a minute and plays the day, and it hears what someone selects, the alerts open and each alert as it opens, worded in the twin's language. The twin runs in an iframe, so its React, three.js and WebGL never meet the host's own framework or styles, and after a handshake it takes commands from that one origin and reports only to it. Every command is checked by the same function that reads a link, and one it cannot take comes back as an error by name. A mock operations page shows it working, and a browser test embeds the twin in a page on another origin, moves it and listens to it."
           },
           {
             "h": "By keyboard and screen reader",
@@ -1004,40 +1005,40 @@
         "links": [
           {
             "label": "Open the live demo",
-            "href": "https://imsemoo.github.io/ward-twin/"
+            "href": "https://imsemoo.github.io/cutaway/"
           },
           {
             "label": "Open the whole hospital",
-            "href": "https://imsemoo.github.io/ward-twin/?at=hospital"
+            "href": "https://imsemoo.github.io/cutaway/?at=hospital"
           },
           {
             "label": "Open it in Arabic",
-            "href": "https://imsemoo.github.io/ward-twin/?lang=ar"
+            "href": "https://imsemoo.github.io/cutaway/?lang=ar"
           },
           {
             "label": "See it inside another page",
-            "href": "https://imsemoo.github.io/ward-twin/host/"
+            "href": "https://imsemoo.github.io/cutaway/host/"
           },
           {
             "label": "Code on GitHub",
-            "href": "https://github.com/imsemoo/ward-twin"
+            "href": "https://github.com/imsemoo/cutaway"
           },
           {
             "label": "How the live feed works",
-            "href": "https://github.com/imsemoo/ward-twin/blob/main/docs/live-feed.md"
+            "href": "https://github.com/imsemoo/cutaway/blob/main/docs/live-feed.md"
           },
           {
             "label": "How it was made, with the numbers",
-            "href": "https://github.com/imsemoo/ward-twin/blob/main/docs/making-of.md"
+            "href": "https://github.com/imsemoo/cutaway/blob/main/docs/making-of.md"
           },
           {
             "label": "The decisions behind it",
-            "href": "https://github.com/imsemoo/ward-twin/tree/main/docs/decisions"
+            "href": "https://github.com/imsemoo/cutaway/tree/main/docs/decisions"
           }
         ],
         "todo": [
-          "Ward Twin is a concept with simulated data. If it leads to a real twin project, add that here; until then the case says concept.",
-          "Test on real phones: open https://imsemoo.github.io/ward-twin/?stats=orbit on a low-end Android phone and an iPhone, note the frame rate and the quality level, then update the result and the reflection."
+          "Cutaway is a concept with simulated data. If it leads to a real twin project, add that here; until then the case says concept.",
+          "Test on real phones: open https://imsemoo.github.io/cutaway/?stats=orbit on a low-end Android phone and an iPhone, note the frame rate and the quality level, then update the result and the reflection."
         ]
       }
     },
@@ -1929,7 +1930,7 @@
     "devlo",
     "kevla",
     "freightzone",
-    "wardtwin"
+    "cutaway"
   ],
   "briefs": [
     "watad",
