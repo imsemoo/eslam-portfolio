@@ -821,12 +821,12 @@
         "design",
         "rtl"
       ],
-      "summary": "A concept digital twin of a hospital, in English or in Arabic from right to left: six levels of six wings, 1,008 beds and 3,006 tracked pieces of equipment in a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream, with the walk from any bed to the nearest free pump, and one tag that puts it inside another dashboard. React Three Fiber and compressed glTF; the whole hospital draws at 72 fps or more on an integrated GPU. Simulated data, not a client product.",
+      "summary": "A concept digital twin of a hospital, in English or in Arabic from right to left: six levels of six wings, 1,008 beds and 3,006 tracked pieces of equipment in a 3D model of bed turnover, room climate, call lights and equipment, replaying a simulated day or following it live from an event stream, with alerts an operator acknowledges and sends to the right team, a four-hour forecast of ward beds checked against the day, the walk from any bed to the nearest free pump, and one tag that puts it inside another dashboard. React Three Fiber and compressed glTF; the whole hospital draws at 72 fps or more on an integrated GPU. Simulated data, not a client product.",
       "url": "https://imsemoo.github.io/cutaway/",
       "code": "https://github.com/imsemoo/cutaway",
       "image": "cutaway.png",
       "case": {
-        "lede": "A digital twin of a hospital, built as a concept: six levels of six wings as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, rooms warm through HVAC faults, call lights wait too long at shift change and pumps move between rooms. It opens on one wing, pulls out to a level or the whole building, and from any bed finds the nearest free equipment and the walk to it. The whole interface also switches to Arabic, right to left, and another dashboard can put the twin inside itself with one tag, open it on any room and hear its alerts. I designed it and built all of it, the simulation included, and every number on it is simulated.",
+        "lede": "A digital twin of a hospital, built as a concept: six levels of six wings as a 3D model in the browser, replaying one simulated day or following it live, event by event. Beds turn over from occupied to cleaning to ready, rooms warm through HVAC faults, call lights wait too long at shift change and pumps move between rooms. It opens on one wing, pulls out to a level or the whole building, and from any bed finds the nearest free equipment and the walk to it. The whole interface also switches to Arabic, right to left, and another dashboard can put the twin inside itself with one tag, open it on any room and hear its alerts. An operator acknowledges an alert and sends it to the team that owns it, and every overview forecasts the next four hours of ward beds as a range, checked against what the day went on to do. I designed it and built all of it, the simulation included, and every number on it is simulated.",
         "glance": [
           [
             "Role",
@@ -838,7 +838,7 @@
           ],
           [
             "Built with",
-            "React Three Fiber, three.js and TypeScript; compressed glTF; the day simulated in a Web Worker; wayfinding on a graph of the building"
+            "React Three Fiber, three.js and TypeScript; compressed glTF; the day simulated in a Web Worker; wayfinding on a graph of the building; a seeded Monte Carlo forecast, backtested"
           ]
         ],
         "live": {
@@ -871,13 +871,15 @@
             "caption": "At phone width a wing turns lengthwise to fit the screen. Here in Arabic: the bar, the layers and the key read right to left, and the timeline still runs left to right."
           },
           {
-            "file": "cutaway-room-phone",
+            "file": "cutaway-ops-phone",
             "kind": "phone",
             "device": "phone",
-            "url": "https://imsemoo.github.io/cutaway/?select=4A09&layer=temp&t=15:30",
+            "url": "https://imsemoo.github.io/cutaway/",
+            "scroll": 1284,
+            "click": "Acknowledge: Room too warm, 4A09",
             "wait": 7000,
-            "alt": "Room 4A09 close up on a phone, its floor red in the temperature layer, with a tag reading its temperature.",
-            "caption": "Room 4A09 at 15:30, in the temperature layer. The camera flew to it from a link that names the room, the layer and the time."
+            "alt": "Wing 4A's panel on a phone at 14:30: four alerts, the warm room's acknowledged with a button to send it to facilities, and below them the next four hours of ward beds as a stepped line, a shaded range and a sentence.",
+            "caption": "The warm room's alert, acknowledged at 14:30, with its next step: send it to facilities. Below, the next four hours of ward beds: 2 ready now, and by 18:30 most likely 3 to spare, 1 to 5 four times in five."
           }
         ],
         "decision": "The floors carry the data, one question at a time. A layer colours every room, in one wing or across all six levels, by bed state, temperature, air or call-light wait, with its key beside it, on a white model that never competes with the colour. In temperature and air a room shows its own sensor and only the corridors, which have none, are estimated, from the doors that open onto them. Picking a room flies the camera to it and opens that room's day beside the model.",
@@ -972,6 +974,14 @@
             "p": "An alert keeps only what was known when it opened, and it is worded at the minute on the timeline: pressed at 14:21, nine minutes without an answer. Scrub to any time and nothing gives away what happens next. Severity is read at that minute too, so a warming room turns critical only once it passes 26.5 °C."
           },
           {
+            "h": "Alerts someone can answer",
+            "p": "An operator acknowledges an alert and sends it to the team that owns it: facilities for a warm room, nursing for an unanswered call light, housekeeping for a bed waiting to be cleaned, bed management for a clean bed with no patient. The alert still clears only when its condition does. In alarm management, acknowledging belongs to the operator and clearing to the process, so no button pretends to cool a room. Each action joins the day with its minute: scrub back before an acknowledgement and the alert is new again, and each room keeps a log that says when an alert cleared before anyone acknowledged it. Live, an action goes to the server and comes back to every screen as an event. One taken while the server is down waits in an outbox and arrives once the connection is back, logged once however often it is sent, which a browser test checks through the demo's own outage."
+          },
+          {
+            "h": "The next four hours of ward beds",
+            "p": "Every overview forecasts how many ward beds will be free in the next four hours, net of the patients waiting for one: a likely number, and a range meant to hold four times in five, drawn beside the last four hours. It is made only from what is known at that minute, the beds being cleaned, the discharges the morning round planned and the usual pace of admissions, and a test checks it: built from the live feed up to a minute and from the whole recording, the two forecasts must match. A backtest makes it every half hour in every wing and compares it with what the day went on to do. The first version looked right on screen and held its range half the time; the backtest found the two faults behind that."
+          },
+          {
             "h": "In English or Arabic",
             "p": "A switch in the top bar turns the whole interface to Arabic, right to left, and a link can open it that way. The layout mirrors, the panel moving to the left of the model and the overlays trading sides, while time and scales keep running left to right, as in a media player: the timeline, the charts, the colour ramps and the map of the building. The alerts are worded in Arabic with its six plural forms, and the room names are set in Arabic on the floors. Vazirmatn was chosen by setting the interface's own text in six Arabic faces beside Schibsted Grotesk. It and the Arabic catalogue load only for an Arabic visit, and a test that parses the source fails if the catalogue misses a string the interface says."
           },
@@ -993,15 +1003,16 @@
           },
           {
             "h": "It adapts, recovers and is tested",
-            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself, tested both with the effects already running and with them arriving after the loss, a race CI caught. Every push runs 66 unit tests, 21 browser tests with real WebGL at desktop and phone size, accessibility checks of eight views, lint, types and a size budget for each bundle, and a failure stops the deploy."
+            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself, tested both with the effects already running and with them arriving after the loss, a race CI caught. Every push runs 86 unit tests, 24 browser tests with real WebGL at desktop and phone size, accessibility checks of eight views, lint, types and a size budget for each bundle, and a failure stops the deploy."
           }
         ],
         "result": [
           "A concept: the hospital, the patients and the readings are simulated, and the page says so on every view.",
-          "Live on GitHub Pages, with the code public. What paints the interface loads first, at 90.7 kB gzipped; the scene and three.js follow at 215 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them, and the wayfinding search, live mode and the Arabic catalogue load on first use, and the embed's side only inside a frame.",
-          "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA, over three runs: the whole hospital at 72 to 90 fps in 33 draw calls, a level at 74 to 90 fps, one wing at 69 to 81 fps in 43, and close to a room at 61 to 77 fps."
+          "Live on GitHub Pages, with the code public. What paints the interface loads first, at 90.8 kB gzipped; the scene and three.js follow at 215 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them. The alert list and the forecast arrive just after the first paint, the wayfinding search, live mode and the Arabic catalogue on first use, and the embed's side only inside a frame.",
+          "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA, over three runs: the whole hospital at 72 to 90 fps in 33 draw calls, a level at 74 to 90 fps, one wing at 69 to 81 fps in 43, and close to a room at 61 to 77 fps.",
+          "The forecast, backtested against the simulated day: four hours ahead, each wing's range held 93.6% of the time and missed by 0.68 of a bed on average; over twelve other simulated days, the whole hospital's held 80%, as a range meant for four times in five should."
         ],
-        "reflection": "Test on a range of real devices. The frame rates here come from one laptop and emulated phones, and a low-end Android phone is the test it still needs. The keyboard model, too, should be tried by someone who uses a screen reader every day, not only by automated checks.",
+        "reflection": "Test on a range of real devices. The frame rates here come from one laptop and emulated phones, and a low-end Android phone is the test it still needs. The keyboard model, too, should be tried by someone who uses a screen reader every day, not only by automated checks. And the forecast should meet a real hospital's history: here it knows the simulation's own averages, so the backtest measures how well it reasons from them, not how well it would learn them.",
         "links": [
           {
             "label": "Open the live demo",
@@ -1034,6 +1045,10 @@
           {
             "label": "The decisions behind it",
             "href": "https://github.com/imsemoo/cutaway/tree/main/docs/decisions"
+          },
+          {
+            "label": "How the forecast is checked",
+            "href": "https://github.com/imsemoo/cutaway/blob/main/docs/decisions/0013-a-forecast-checked-against-the-day.md"
           }
         ],
         "todo": [
