@@ -838,7 +838,7 @@
           ],
           [
             "Built with",
-            "React Three Fiber, three.js and TypeScript; compressed glTF; the day simulated in a Web Worker; wayfinding on a graph of the building; a seeded Monte Carlo forecast, backtested"
+            "React Three Fiber, three.js and TypeScript; compressed glTF; the day simulated in a Web Worker; wayfinding on a graph of the building; a seeded Monte Carlo forecast, backtested; an integration server over MQTT; a real clinic read from IFC at build time"
           ]
         ],
         "live": {
@@ -880,6 +880,15 @@
             "wait": 7000,
             "alt": "Wing 4A's panel on a phone at 14:30: four alerts, the warm room's acknowledged with a button to send it to facilities, and below them the next four hours of ward beds as a stepped line, a shaded range and a sentence.",
             "caption": "The warm room's alert, acknowledged at 14:30, with its next step: send it to facilities. Below, the next four hours of ward beds: 2 ready now, and by 18:30 most likely 3 to spare, 1 to 5 four times in five."
+          },
+          {
+            "file": "cutaway-clinic",
+            "kind": "wide",
+            "device": "desktop",
+            "url": "https://imsemoo.github.io/cutaway/?building=clinic",
+            "wait": 9000,
+            "alt": "The clinic in 3D: its two floors side by side, each labelled, the care rooms coloured by state, beside a panel with the board of its 49 care rooms and the switch between its floors.",
+            "caption": "buildingSMART's Medical-Dental Clinic, read from its IFC model: both floors at 14:30, 18 of its 49 care rooms in use, and the day's alerts in the panel. The plan is the building's own; the day on it is simulated."
           }
         ],
         "decision": "The floors carry the data, one question at a time. A layer colours every room, in one wing or across all six levels, by bed state, temperature, air or call-light wait, with its key beside it, on a white model that never competes with the colour. In temperature and air a room shows its own sensor and only the corridors, which have none, are estimated, from the doors that open onto them. Picking a room flies the camera to it and opens that room's day beside the model.",
@@ -966,6 +975,10 @@
             "p": "Plan view does not swap in a flat map. Every wall sinks to a section cut 15 cm above the floor and darkens to ink, so the model turns into the architect's drawing and back, for a wing or a whole level, and the first load plays the same move the other way: the plan rises into the building. List view carries the same data as a table, for keyboards, screen readers and anyone who wants to scan."
           },
           {
+            "h": "A real building, from its BIM model",
+            "p": "Every wing of the demo hospital is built to one plan, and no real building is. So the twin also reads one: buildingSMART's Medical-Dental Clinic, a real two-storey clinic published for testing as a 13 MB IFC file. At build time the IFC is read in Node and each room's outline is cut from its own mesh, with its name, its category and the area the model states; the page loads 34 kB of outlines, walls and doors, and never the parser. The check is the model's own figures: the model measures a room to the middle of its walls, and once that half wall is counted, 258 of the 259 rooms are within 5% of the area it states. The clinic opens from a link with the same layers, views, alerts and languages, and a simulated day on its own rooms."
+          },
+          {
             "h": "The nearest free pump, and the walk to it",
             "p": "From any bed, Nearest free finds the infusion pump, wheelchair or bladder scanner, or from an ICU bay the ventilator, that is quickest to reach on foot anywhere in the hospital. The walk runs on a graph of the building, 4,296 points: every room and its door, both corridors of each wing, the crossing through the core, the glazed links and the lifts. Costs are seconds, 1.2 m/s on foot and a lift as a wait plus a few seconds a floor. The question has many possible answers, so one Dijkstra search from the room reaches them all, where A* would need a search for each pump; a search takes 2 to 11 ms. The walk is drawn over the walls, the view widens to the level or the building to hold it, and the search loads only when someone first asks, as its own 1.4 kB file."
           },
@@ -988,6 +1001,10 @@
           {
             "h": "Live, from a stream of events",
             "p": "Live mode builds the hospital from events as they arrive instead of from a recorded day. A mock server in a Web Worker plays the day over the JSON protocol a real integration server would use, a simulated minute each second, and the page folds each event into the same day the views already read, so none of them had to change. Sequence numbers keep the stream whole: when the connection drops, the page says the floor is stale, waits longer before each retry, and asks for only the events it missed, from the last 2,000 the server keeps. A test replays the whole day as events and checks that it reads exactly like the recording at every five-minute reading."
+          },
+          {
+            "h": "From a hospital's own systems",
+            "p": "A hospital's systems do not speak the twin's feed: building sensors, bed status, nurse call and location tags each speak their own protocol, and most can reach MQTT through a gateway. So an integration server stands between them. It subscribes to one topic per room, asset and flow, checks every message, gathers readings into one frame every five minutes and works out every alert itself, by the same limits the simulation uses, then serves the feed the page already reads. One command runs a whole simulated hospital on one machine: a broker, the systems publishing the day as raw messages, the server and the twin. A test publishes the whole day, 1,005,153 messages, and the server must turn them into exactly the recorded 21,904 events with all 881 alerts, which it is never given."
           },
           {
             "h": "Inside another dashboard",
@@ -1049,6 +1066,18 @@
           {
             "label": "How the forecast is checked",
             "href": "https://github.com/imsemoo/cutaway/blob/main/docs/decisions/0013-a-forecast-checked-against-the-day.md"
+          },
+          {
+            "label": "Open a real clinic's plan",
+            "href": "https://imsemoo.github.io/cutaway/?building=clinic"
+          },
+          {
+            "label": "How a building is read",
+            "href": "https://github.com/imsemoo/cutaway/blob/main/docs/buildings.md"
+          },
+          {
+            "label": "How the integration server works",
+            "href": "https://github.com/imsemoo/cutaway/blob/main/docs/integration.md"
           }
         ],
         "todo": [
