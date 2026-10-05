@@ -976,7 +976,7 @@
           },
           {
             "h": "A real building, from its BIM model",
-            "p": "Every wing of the demo hospital is built to one plan, and no real building is. So the twin also reads one: buildingSMART's Medical-Dental Clinic, a real two-storey clinic published for testing as a 13 MB IFC file. At build time the IFC is read in Node and each room's outline is cut from its own mesh, with its name, its category and the area the model states; the page loads 34 kB of outlines, walls and doors, and never the parser. The check is the model's own figures: the model measures a room to the middle of its walls, and once that half wall is counted, 258 of the 259 rooms are within 5% of the area it states. The clinic opens from a link with the same layers, views, alerts and languages, and a simulated day on its own rooms."
+            "p": "Every wing of the demo hospital is built to one plan, and no real building is. So the twin also reads one: buildingSMART's Medical-Dental Clinic, a real two-storey clinic published for testing as a 13 MB IFC file. At build time the IFC is read in Node and each room's outline is cut from its own mesh, with its name, its category and the area the model states; the page loads 34 kB of outlines, walls and doors, and never the parser. The check is the model's own figures: the model measures a room to the middle of its walls, and once that half wall is counted, 258 of the 259 rooms are within 5% of the area it states. The clinic opens from a link with the same layers, views, alerts and languages, and a simulated day on its own rooms, replayed or live: the integration server serves it as a building of its own, under its own topics, by its own rules, on a feed of its own."
           },
           {
             "h": "The nearest free pump, and the walk to it",
@@ -1004,7 +1004,7 @@
           },
           {
             "h": "From a hospital's own systems",
-            "p": "A hospital's systems do not speak the twin's feed: building sensors, bed status, nurse call and location tags each speak their own protocol, and most can reach MQTT through a gateway. So an integration server stands between them. It subscribes to one topic per room, asset and flow, checks every message, gathers readings into one frame every five minutes and works out every alert itself, by the same limits the simulation uses, then serves the feed the page already reads. One command runs a whole simulated hospital on one machine: a broker, the systems publishing the day as raw messages, the server and the twin. A test publishes the whole day, 1,005,153 messages, and the server must turn them into exactly the recorded 21,904 events with all 881 alerts, which it is never given."
+            "p": "A hospital's systems do not speak the twin's feed: building sensors, bed status, nurse call and location tags each speak their own protocol, and most can reach MQTT through a gateway. So an integration server stands between them. It subscribes to one topic per room, asset and flow, checks every message, gathers readings into one frame every five minutes and works out every alert itself, by the same limits the simulation uses, then serves the feed the page already reads. One command runs a whole simulated hospital on one machine, and the clinic beside it: a broker, the systems publishing the day as raw messages, a server for each building and the twin. A test publishes the whole day, 1,005,153 messages, and the server must turn them into exactly the recorded 21,904 events with all 881 alerts, which it is never given."
           },
           {
             "h": "Inside another dashboard",
@@ -1020,7 +1020,7 @@
           },
           {
             "h": "It adapts, recovers and is tested",
-            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself, tested both with the effects already running and with them arriving after the loss, a race CI caught. Every push runs 111 unit tests, 29 browser tests with real WebGL at desktop and phone size, accessibility checks of eleven views, lint, types and a size budget for each bundle, and a failure stops the deploy."
+            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself, tested both with the effects already running and with them arriving after the loss, a race CI caught. Every push runs 113 unit tests, 30 browser tests with real WebGL at desktop and phone size, accessibility checks of twelve views, lint, types and a size budget for each bundle, and a failure stops the deploy."
           }
         ],
         "result": [
@@ -1070,6 +1070,10 @@
           {
             "label": "Open a real clinic's plan",
             "href": "https://imsemoo.github.io/cutaway/?building=clinic"
+          },
+          {
+            "label": "Open the clinic live",
+            "href": "https://imsemoo.github.io/cutaway/?building=clinic&mode=live"
           },
           {
             "label": "How a building is read",
