@@ -1003,12 +1003,12 @@
           },
           {
             "h": "It adapts, recovers and is tested",
-            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself, tested both with the effects already running and with them arriving after the loss, a race CI caught. Every push runs 86 unit tests, 24 browser tests with real WebGL at desktop and phone size, accessibility checks of eight views, lint, types and a size budget for each bundle, and a failure stops the deploy."
+            "p": "Quality adapts to the device: four levels, from ambient occlusion with SMAA down to plain rendering at a lower pixel ratio, stepped by the frame rate measured while the scene moves. If the graphics driver resets, the view says it has paused and rebuilds itself, tested both with the effects already running and with them arriving after the loss, a race CI caught. Every push runs 111 unit tests, 29 browser tests with real WebGL at desktop and phone size, accessibility checks of eleven views, lint, types and a size budget for each bundle, and a failure stops the deploy."
           }
         ],
         "result": [
           "A concept: the hospital, the patients and the readings are simulated, and the page says so on every view.",
-          "Live on GitHub Pages, with the code public. What paints the interface loads first, at 90.8 kB gzipped; the scene and three.js follow at 215 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them. The alert list and the forecast arrive just after the first paint, the wayfinding search, live mode and the Arabic catalogue on first use, and the embed's side only inside a frame.",
+          "Live on GitHub Pages, with the code public. What paints the interface loads first, at 89.7 kB gzipped; the scene and three.js follow at 217 kB and 99 kB, then the models at 129 KB. Ambient occlusion and SMAA load last, at 157 kB, and only when the quality level uses them. The alert list, the forecast and a room's details arrive just after the first paint, the wayfinding search, live mode and the Arabic catalogue on first use, and the embed's side only inside a frame.",
           "Measured in September 2026 on an integrated Intel GPU at 1280 by 800, orbiting with ambient occlusion and SMAA, over three runs: the whole hospital at 72 to 90 fps in 33 draw calls, a level at 74 to 90 fps, one wing at 69 to 81 fps in 43, and close to a room at 61 to 77 fps.",
           "The forecast, backtested against the simulated day: four hours ahead, each wing's range held 93.6% of the time and missed by 0.68 of a bed on average; over twelve other simulated days, the whole hospital's held 80%, as a range meant for four times in five should."
         ],
