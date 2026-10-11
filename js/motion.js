@@ -81,9 +81,29 @@ function print() {
   });
 }
 
+const GROUPS = [
+  ".section-head .lede", ".feature__lede", ".contact .lede", ".contact__actions", ".links",
+  ".glance > div", ".story__block", ".outcome > div", ".feature__links",
+  ".system h4", ".sw", ".system__note",
+  ".briefs__head p", ".brief", ".step", ".score", ".footprint", ".score__legend",
+  ".measured__copy > :not(h2)", ".about__intro .lede", ".facts > div", ".timeline h3", ".tl",
+  ".skills h3", ".skill-group", ".tokens__head", ".swatch, .type-sample, .space-sample",
+  ".quote", ".index__bar", ".row", ".index__more",
+];
+
 function reveals() {
   const fold = window.innerHeight * 0.9;
-  const below = (el) => el.getBoundingClientRect().top > fold;
+  const heads = [...document.querySelectorAll("main h2, .feature__title, .briefs__head h3")];
+  const decisions = [...document.querySelectorAll(".decision")];
+  const evidence = [...document.querySelectorAll("[data-reveal-ev]")];
+  // Read every position before changing anything. Reading one, then writing a
+  // class, then reading the next forced a fresh layout per element.
+  const blocks = GROUPS.flatMap((sel) => [...document.querySelectorAll(sel)]);
+  const isBelow = new Map();
+  [...heads, ...blocks, ...decisions, ...evidence].forEach((el) => {
+    if (!isBelow.has(el)) isBelow.set(el, el.getBoundingClientRect().top > fold);
+  });
+  const below = (el) => isBelow.get(el) ?? el.getBoundingClientRect().top > fold;
   const armed = [];
 
   const arm = (el, cls, i = 0) => {
@@ -107,16 +127,7 @@ function reveals() {
   });
 
   // blocks rise in, staggered inside their group
-  const groups = [
-    ".section-head .lede", ".feature__lede", ".contact .lede", ".contact__actions", ".links",
-    ".glance > div", ".story__block", ".outcome > div", ".feature__links",
-    ".system h4", ".sw", ".system__note",
-    ".briefs__head p", ".brief", ".step", ".score", ".footprint", ".score__legend",
-    ".measured__copy > :not(h2)", ".about__intro .lede", ".facts > div", ".timeline h3", ".tl",
-    ".skills h3", ".skill-group", ".tokens__head", ".swatch, .type-sample, .space-sample",
-    ".quote", ".index__bar", ".row", ".index__more",
-  ];
-  groups.forEach((sel) => {
+  GROUPS.forEach((sel) => {
     const byParent = new Map();
     document.querySelectorAll(sel).forEach((el) => {
       const list = byParent.get(el.parentElement) || [];
