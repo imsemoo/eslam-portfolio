@@ -1198,29 +1198,6 @@
       }
     },
     {
-      "slug": "calimero",
-      "name": "Calimero",
-      "tier": 1,
-      "client": "Calimero Pizzaservice, restaurant and online ordering",
-      "where": "Germany",
-      "lang": "de",
-      "role": "Front-end, in a team, over a year",
-      "stack": [
-        "Next.js 14",
-        "TypeScript",
-        "Tailwind",
-        "Framer Motion",
-        "GSAP"
-      ],
-      "tags": [
-        "commerce"
-      ],
-      "summary": "Online ordering in German and English: a menu of eleven-plus categories, a custom pizza builder, a live cart, delivery or pickup, and checkout through PayPal, Stripe, Klarna, Apple Pay and Google Pay, with a dark mode for the whole UI system. The live shop sits behind an access login; the development build is public.",
-      "url": "https://dev.calimeroshop.de/de",
-      "image": "calimero.png",
-      "caption": "dev.calimeroshop.de"
-    },
-    {
       "slug": "toolora",
       "name": "Toolora",
       "tier": 1,

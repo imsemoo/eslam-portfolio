@@ -3,8 +3,8 @@
   "filter_groups": "7eb1861d9c",
   "filters": "3d7b67cb0e",
   "hero": "06d345270e",
-  "places": "37b9f5f5e2",
-  "stack": "f6464c1391"
+  "places": "27f5cfaa25",
+  "stack": "7e185100a8"
  },
  "projects": {
   "abaad": {
@@ -46,10 +46,6 @@
   "buruj": {
    "client": "98dee6fb95",
    "role": "fdff1e5a3c"
-  },
-  "calimero": {
-   "client": "6adab1aa01",
-   "role": "3dc9dfdcf2"
   },
   "couriernow": {
    "client": "481a4f2a76",
@@ -501,13 +497,13 @@
  "template": {
   "about": "c52c92d05c",
   "briefs": "0080560f8c",
-  "contact": "f8bab80161",
-  "foot": "a4bb566057",
-  "head": "59be93c468",
+  "contact": "c5f94516a9",
+  "foot": "6bd3c8e914",
+  "head": "b08169ea6b",
   "hero": "2858903472",
   "index": "484bd956cc",
   "measured": "bc6823164d",
-  "nav": "5aaf5130a9",
+  "nav": "dd1d8c56a8",
   "process": "95d799d080",
   "reviews": "ec01c4b842",
   "work": "546170500b"
