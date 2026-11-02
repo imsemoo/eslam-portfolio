@@ -2,7 +2,7 @@
  "en": {
   "dir": "ltr",
   "name": "Islam Nasser",
-  "role": "Front-end team lead",
+  "role": "Senior front-end developer",
   "nav": [
    [
     "Work",
@@ -20,10 +20,10 @@
   "other": "العربية",
   "email_btn": "Email me",
   "skip": "Skip to the work",
-  "title_home": "Islam Nasser, front-end team lead",
-  "desc_home": "Front-end team lead who designs the interface, builds it and measures it. Web apps, dashboards and multi-site platforms, in English, Arabic or both.",
+  "title_home": "Islam Nasser, senior front-end developer",
+  "desc_home": "Senior front-end developer who designs the interface, builds it and measures it. Web apps, dashboards and multi-site platforms, in English, Arabic or both.",
   "h1": "What you approve in the design is what <em>ships.</em>",
-  "lede": "I’m Islam Nasser, <strong>front-end team lead at TakTek</strong>. I design the screens and the components behind them, then build them myself, in English, Arabic or both.",
+  "lede": "I’m Islam Nasser, <strong>senior front-end developer at TakTek</strong>. I design the screens and the components behind them, then build them myself, in English, Arabic or both.",
   "cta1": "See the work",
   "cta2": "All 45 projects",
   "say": "I design it, build it, measure it.",
@@ -155,7 +155,7 @@
   "meas_note": "Mobile, median of three runs. Under 90 is marked in red. Last measured:",
   "about_h": "Who you would be working with.",
   "about_p": [
-   "I’m Islam, sometimes written Eslam. I lead the front-end team at TakTek, where we build Devlo and the sites that run on it, and I take freelance work alongside.",
+   "I’m Islam, sometimes written Eslam. I’m a senior front-end developer at TakTek, where we build Devlo and the sites that run on it, and I take freelance work alongside.",
    "I have good Laravel back-end experience; the front end is where I’m strongest. I check every screen at 375 px before I call it done."
   ],
   "facts": [
@@ -169,7 +169,7 @@
    ],
    [
     "Role today",
-    "Front-end team lead at TakTek, freelance alongside"
+    "Senior front-end developer at TakTek, freelance alongside"
    ],
    [
     "How I work",
@@ -195,13 +195,13 @@
   "case_crumb": "Work",
   "next": "Next case",
   "back": "Back to the work",
-  "hero_role": "Front-end team lead · remote from Egypt",
-  "hero_lede": "I lead the front-end team at <strong>TakTek</strong>. I design the screens and the components behind them, then build them myself, in English, Arabic or both."
+  "hero_role": "Senior front-end developer · remote from Egypt",
+  "hero_lede": "Senior front-end developer at <strong>TakTek</strong>. I design the screens and the components behind them, then build them myself, in English, Arabic or both."
  },
  "ar": {
   "dir": "rtl",
   "name": "إسلام ناصر",
-  "role": "قائد فريق الواجهات الأمامية",
+  "role": "مطوّر واجهات أمامية أول",
   "nav": [
    [
     "الأعمال",
@@ -219,10 +219,10 @@
   "other": "English",
   "email_btn": "راسلني",
   "skip": "انتقل إلى الأعمال",
-  "title_home": "إسلام ناصر، قائد فريق الواجهات الأمامية",
-  "desc_home": "قائد فريق واجهات أمامية يصمّم الواجهة ويبنيها ويقيسها. تطبيقات ويب ولوحات تحكم ومنصات متعددة المواقع، بالعربية أو الإنجليزية أو كلتيهما.",
+  "title_home": "إسلام ناصر، مطوّر واجهات أمامية أول",
+  "desc_home": "مطوّر واجهات أمامية أول يصمّم الواجهة ويبنيها ويقيسها. تطبيقات ويب ولوحات تحكم ومنصات متعددة المواقع، بالعربية أو الإنجليزية أو كلتيهما.",
   "h1": "ما توافق عليه في التصميم هو ما <em>يُنفَّذ.</em>",
-  "lede": "أنا إسلام ناصر، <strong>قائد فريق الواجهات الأمامية في <bdi>TakTek</bdi></strong>. أصمّم الشاشات والمكوّنات التي تقوم عليها، ثم أبنيها بنفسي، بالعربية أو الإنجليزية أو كلتيهما.",
+  "lede": "أنا إسلام ناصر، <strong>مطوّر واجهات أمامية أول في <bdi>TakTek</bdi></strong>. أصمّم الشاشات والمكوّنات التي تقوم عليها، ثم أبنيها بنفسي، بالعربية أو الإنجليزية أو كلتيهما.",
   "cta1": "شاهد الأعمال",
   "cta2": "كل المشاريع الـ45",
   "say": "أصمّمها، وأبنيها، وأقيسها.",
@@ -354,7 +354,7 @@
   "meas_note": "على الهاتف، الوسيط من ثلاث قياسات. ما دون 90 بالأحمر. آخر قياس:",
   "about_h": "مع من ستعمل.",
   "about_p": [
-   "أنا إسلام، ويُكتب اسمي أحيانًا Eslam. أقود فريق الواجهات الأمامية في <bdi>TakTek</bdi>، وهناك نبني ديفلو والمواقع التي تعمل عليه، وإلى جانب ذلك أعمل على مشاريع حرة.",
+   "أنا إسلام، ويُكتب اسمي أحيانًا Eslam. أعمل مطوّر واجهات أمامية أول في <bdi>TakTek</bdi>، وهناك نبني ديفلو والمواقع التي تعمل عليه، وإلى جانب ذلك أعمل على مشاريع حرة.",
    "لديّ خبرة جيدة في الواجهة الخلفية بـ<bdi>Laravel</bdi>، لكن الواجهة الأمامية هي أقوى ما عندي. وأراجع كل شاشة على عرض 375 بكسل قبل أن أعتبرها منتهية."
   ],
   "facts": [
@@ -368,7 +368,7 @@
    ],
    [
     "الدور الآن",
-    "قائد فريق الواجهات الأمامية في <bdi>TakTek</bdi>، مع عمل حر"
+    "مطوّر واجهات أمامية أول في <bdi>TakTek</bdi>، مع عمل حر"
    ],
    [
     "طريقة العمل",
@@ -394,7 +394,7 @@
   "case_crumb": "الأعمال",
   "next": "الحالة التالية",
   "back": "العودة إلى الأعمال",
-  "hero_role": "قائد فريق الواجهات الأمامية · عن بُعد من مصر",
-  "hero_lede": "أقود فريق الواجهات الأمامية في <strong><bdi>TakTek</bdi></strong>. أصمّم الشاشات والمكوّنات التي تقوم عليها، ثم أبنيها بنفسي، بالعربية أو الإنجليزية أو كلتيهما."
+  "hero_role": "مطوّر واجهات أمامية أول · عن بُعد من مصر",
+  "hero_lede": "مطوّر واجهات أمامية أول في <strong><bdi>TakTek</bdi></strong>. أصمّم الشاشات والمكوّنات التي تقوم عليها، ثم أبنيها بنفسي، بالعربية أو الإنجليزية أو كلتيهما."
  }
 }
