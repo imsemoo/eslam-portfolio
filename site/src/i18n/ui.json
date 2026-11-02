@@ -194,7 +194,9 @@
   "foot": "Prototype for Phase 5. The live site is unchanged.",
   "case_crumb": "Work",
   "next": "Next case",
-  "back": "Back to the work"
+  "back": "Back to the work",
+  "hero_role": "Front-end team lead · remote from Egypt",
+  "hero_lede": "I lead the front-end team at <strong>TakTek</strong>. I design the screens and the components behind them, then build them myself, in English, Arabic or both."
  },
  "ar": {
   "dir": "rtl",
@@ -391,6 +393,8 @@
   "foot": "نموذج المرحلة الخامسة. الموقع الحي لم يتغير.",
   "case_crumb": "الأعمال",
   "next": "الحالة التالية",
-  "back": "العودة إلى الأعمال"
+  "back": "العودة إلى الأعمال",
+  "hero_role": "قائد فريق الواجهات الأمامية · عن بُعد من مصر",
+  "hero_lede": "أقود فريق الواجهات الأمامية في <strong><bdi>TakTek</bdi></strong>. أصمّم الشاشات والمكوّنات التي تقوم عليها، ثم أبنيها بنفسي، بالعربية أو الإنجليزية أو كلتيهما."
  }
 }

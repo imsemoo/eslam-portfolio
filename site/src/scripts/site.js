@@ -82,6 +82,7 @@ const tag = (t, x, y, ltr) => `<span class="tagx"${ltr ? ' dir="ltr"' : ""} styl
 
   const pick = (k) => {
     $$(".stage__layer", stage).forEach((l) => l.classList.toggle("is-on", l.dataset.layer === k));
+    $$("[data-layer-facts]").forEach((l) => l.classList.toggle("is-on", l.dataset.layerFacts === k));
     $$(".layer-btn").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.layer === k)));
     if (k === "measure") paint();
   };
@@ -103,6 +104,7 @@ const tag = (t, x, y, ltr) => `<span class="tagx"${ltr ? ' dir="ltr"' : ""} styl
     ? { t: "هذه الزيارة، مقيسة الآن", lcp: "أكبر رسم", cls: "إزاحة التخطيط", kb: "المنقول", n: "العناصر", wait: "جارٍ القياس…", s: "ث" }
     : { t: "This visit, measured now", lcp: "Largest paint", cls: "Layout shift", kb: "Transferred", n: "Elements", wait: "measuring…", s: "s" };
   function paint() {
+    if (!stage.hasAttribute("data-live")) return;
     const r = $(".readout", stage);
     if (!r) return;
     const lcp = live.lcp == null ? L.wait : `${(live.lcp / 1000).toFixed(2)} ${L.s}`;

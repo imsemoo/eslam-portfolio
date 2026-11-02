@@ -1,0 +1,31 @@
+---
+/* Devlo's rule, made to run: switch the theme and the modules, the markup stays. */
+import { t, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+---
+<div class="platform-block">
+  <h3>{s.plat_h}</h3>
+  <p class="lede">{s.plat_l}</p>
+  <div class="platform">
+    <div class="controls">
+      <fieldset><legend>{s.plat_theme}</legend>{s.plat_themes.map(([v, n]: [string, string]) => <label><input type="radio" name="np-theme" value={v} checked={v === "a"} /> {n}</label>)}</fieldset>
+      <fieldset><legend>{s.plat_mods}</legend>{s.plat_modules.map(([v, n]: [string, string]) => <label><input type="checkbox" data-np-mod={v} checked /> {n}</label>)}</fieldset>
+      <p class="note">{s.plat_note}</p>
+    </div>
+    <div class="np" data-np data-theme-id="a" dir="rtl" lang="ar" aria-live="polite">
+      <div class="np__top"><span data-np-text data-ar="غرفة أخبار" data-en="Newsroom">غرفة أخبار</span><span class="num">09:41</span></div>
+      <div class="np__mod np__breaking" data-mod="breaking" data-np-text data-ar="عاجل · عنوان خبر عاجل للعرض" data-en="Breaking · a sample headline">عاجل · عنوان خبر عاجل للعرض</div>
+      <div class="np__grid">
+        <div class="np__mod np__lead" data-mod="lead" data-np-text data-ar="عنوان الخبر الرئيسي يمتد على سطرين في هذا المثال" data-en="The lead story’s headline runs to two lines here">عنوان الخبر الرئيسي يمتد على سطرين في هذا المثال</div>
+        <div class="np__mod np__rail" data-mod="rail"><i data-np-text data-ar="عنوان قصير أول" data-en="A first short headline">عنوان قصير أول</i><i data-np-text data-ar="عنوان قصير ثانٍ" data-en="A second short headline">عنوان قصير ثانٍ</i><i data-np-text data-ar="عنوان قصير ثالث" data-en="A third short headline">عنوان قصير ثالث</i></div>
+      </div>
+      <div class="np__row">
+        <div class="np__mod" data-mod="podcast"><b data-np-text data-ar="البودكاست" data-en="Podcast">البودكاست</b><span data-np-text data-ar="الحلقة 12، 24 دقيقة" data-en="Episode 12, 24 minutes">الحلقة 12، 24 دقيقة</span></div>
+        <div class="np__mod" data-mod="translation"><b data-np-text data-ar="مترجم" data-en="Translated">مترجم</b><span data-np-text data-ar="من الإنجليزية إلى العربية" data-en="From Arabic to English">من الإنجليزية إلى العربية</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>

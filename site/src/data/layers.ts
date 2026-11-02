@@ -10,6 +10,7 @@ export type Block =
   | "swatches"
   | "grid"
   | "numbers"
+  | "platform"
   | { fig: string[]; alt: Both }
   | { absent: Both };
 
@@ -36,7 +37,7 @@ export const LAYERS: Record<string, CaseLayers> = {
     kind: { en: "Production, team work at TakTek", ar: "إنتاج، عمل فريق في <bdi>TakTek</bdi>" },
     live: { en: "demo.taktek.co, behind a login", ar: "<bdi>demo.taktek.co</bdi>، بتسجيل دخول" },
     design: [3, 2, "swatches", { fig: ["iwad-home-1400", "iwad-home-phone-390"], alt: { en: "IWAD home page on a laptop|IWAD home page on a phone", ar: "الصفحة الرئيسية لإيواد على الحاسوب|الصفحة الرئيسية لإيواد على الهاتف" } }, 4],
-    build: [0, 1, { fig: ["qudsn-phone-390"], alt: { en: "Quds News Network at phone width", ar: "شبكة قدس الإخبارية على عرض الهاتف" } }, 5],
+    build: [0, 1, "platform", { fig: ["qudsn-phone-390"], alt: { en: "Quds News Network at phone width", ar: "شبكة قدس الإخبارية على عرض الهاتف" } }, 5],
     measure: [6, "numbers"],
     numbers: {
       en: [["749 → 78 KB", "Fonts on Maktoob Media"], ["302 → 31.6 KB", "Icons on Maktoob Media"], ["84 vs 83", "content-visibility, measured and thrown away", true], ["2.33 s", "Quds News Network, real users’ LCP over 28 days"], ["104 ms", "Quds News Network, real users’ INP"]],

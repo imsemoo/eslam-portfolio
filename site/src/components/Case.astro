@@ -5,6 +5,7 @@
 import { caseOf } from "../data/projects";
 import { LAYERS, ORDER, type Block } from "../data/layers";
 import { t, url, type Lang } from "../lib";
+import Platform from "./Platform.astro";
 
 interface Props { slug: string; lang: Lang }
 const { slug, lang } = Astro.props;
@@ -74,6 +75,7 @@ const figCols = (files: string[]) => files.map((f) => (f.endsWith("-390") ? "min
                 </figure>
               );
             }
+            if (b === "platform") return <Platform lang={lang} />;
             if (b === "numbers") {
               return <div class="numbers">{L.numbers![lang].map(([v, label, gone]) => <div class={gone ? "discarded" : undefined}><b>{v}</b><span>{label}</span></div>)}</div>;
             }

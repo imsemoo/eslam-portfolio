@@ -20,10 +20,6 @@ const host = (u: string) => u.split("//")[1].split("/")[0];
             <div class="case-row__top"><span class="kind">{d.kind}</span></div>
             <h3><a href={caseHref(c)}>{d.name}</a></h3>
             <p>{d.line}</p>
-            <p class="role">{d.role}</p>
-            <dl class="readings">
-              {d.r.map((r: any) => <div class={`reading reading--${r.layer}${r.absent ? " is-absent" : ""}`}><dt>{s.layers[r.layer]}</dt><dd set:html={r.text} /></div>)}
-            </dl>
             <div class="links">
               <a class="link-arrow" href={caseHref(c)}>{s.read_case}</a>
               {c.url && <a class="link-arrow" href={c.url}>{host(c.url)}</a>}

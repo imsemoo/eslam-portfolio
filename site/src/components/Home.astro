@@ -1,6 +1,9 @@
 ---
 import CaseRows from "./CaseRows.astro";
 import { loadPsi } from "../data/psi";
+import { HERO } from "../data/hero";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { t, url, EMAIL, CURRENT_SITE, type Lang } from "../lib";
 
 interface Props { lang: Lang }
@@ -10,28 +13,42 @@ const ar = lang === "ar";
 const psi = await loadPsi();
 const lastMeasured = Object.values(psi).map((p) => p.at).sort().pop() || "";
 const under = (v: number | "") => (typeof v === "number" && v < 90 ? " under" : "");
+/* the portrait shows up as soon as public/img/me.webp exists; until then the name stands alone */
+const photo = existsSync(join(process.cwd(), "public", "img", "me.webp"));
+const shot = url(`img/work/ev/${HERO.image}.webp`);
+const boxStyle = (b: any) => `--x:${b.x};--y:${b.y};--w:${b.w};--h:${b.h}`;
 ---
 <script is:inline>(function(){var h=location.hash;if(/^#index/.test(h)){location.replace("work/#archive")}})()</script>
 <main id="top">
 <section class="shell hero" aria-labelledby="hero-title">
+  <div class={photo ? "hero__id has-photo" : "hero__id"}>
+    <h1 id="hero-title" class="hero__name">{s.name}</h1>
+    {photo && <img class="hero__photo" src={url("img/me.webp")} alt={ar ? "إسلام ناصر" : "Islam Nasser"} width="480" height="600" />}
+  </div>
   <div class="hero__grid">
     <div class="hero__copy">
-      <h1 id="hero-title" set:html={s.h1} />
-      <p class="lede" set:html={s.lede} />
+      <p class="hero__role">{s.hero_role}</p>
+      <p class="statement" set:html={s.h1} />
+      <p class="lede" set:html={s.hero_lede} />
       <div class="actions"><a class="btn btn--solid" href="#work">{s.cta1}</a><a class="btn btn--quiet" href={url(`${ar ? "ar/" : ""}work/#archive`)}>{s.cta2}</a></div>
+    </div>
+    <div class="hero__visual">
       <div class="layer-pick" role="group" aria-label={s.pick_label}>
-        <p>{s.say}</p>
         {Object.entries(s.layers).map(([k, v]) => <button type="button" class="layer-btn" data-layer={k} aria-pressed="false">{v as string}</button>)}
       </div>
-    </div>
-    <div>
-      <div class="stage" data-stage aria-hidden="true">
-        <div class="mini mini--base" data-mini="base"></div>
-        <div class="stage__layer" data-layer="design"><div class="mini mini--design" data-mini="design"></div></div>
-        <div class="stage__layer" data-layer="build"><div class="mini mini--build" data-mini="build"></div></div>
-        <div class="stage__layer" data-layer="measure"><div class="mini mini--measure" data-mini="measure"><div class="readout"></div></div></div>
-        <span class="stage__line"><i></i></span>
+      <div class="stage" data-stage>
+        <div class="shot"><img src={shot} alt={HERO.alt[lang]} width="1400" height="875" fetchpriority="high" /></div>
+        <div class="stage__layer" data-layer="design" aria-hidden="true"><div class="shot shot--design"><img src={shot} alt="" width="1400" height="875" />{HERO.design.map((b) => <div class="box" style={boxStyle(b)}><span class={`tagx${b.inside ? " inside" : ""}${b.below ? " below" : ""}${b.after ? " after" : ""}`}>{b.label[lang]}</span></div>)}</div></div>
+        <div class="stage__layer" data-layer="build" aria-hidden="true"><div class="shot shot--build"><img src={shot} alt="" width="1400" height="875" />{HERO.build.map((b) => <div class="box" style={boxStyle(b)}><span class={`tagx${b.inside ? " inside" : ""}${b.below ? " below" : ""}${b.after ? " after" : ""}`}>{b.label[lang]}</span></div>)}</div></div>
+        <div class="stage__layer" data-layer="measure" aria-hidden="true"><div class="shot shot--measure"><img src={shot} alt="" width="1400" height="875" /><div class="readout"><small>{HERO.measure.title[lang]}</small>{HERO.measure.rows[lang].map(([v, k]) => <span><b>{v}</b> {k}</span>)}<small>{HERO.measure.source[lang]}</small></div></div></div>
+        <span class="stage__line" aria-hidden="true"><i></i></span>
       </div>
+      <div class="layer-facts" aria-live="polite">
+        <ul data-layer-facts="design">{HERO.design.map((b) => <li>{b.label[lang]}</li>)}</ul>
+        <ul data-layer-facts="build">{HERO.build.map((b) => <li>{b.label[lang]}</li>)}</ul>
+        <ul data-layer-facts="measure">{HERO.measure.rows[lang].map(([v, k]) => <li><b>{v}</b> {k}</li>)}</ul>
+      </div>
+      <p class="hero__caption">{HERO.caption[lang]} <a href={url(`${ar ? "ar/" : ""}${HERO.link}`)}>{s.read_case}</a></p>
       <label class="cutbar"><span>{s.move}</span><input type="range" min="0" max="100" value="38" data-range><output data-out>38%</output></label>
     </div>
   </div>
@@ -40,29 +57,6 @@ const under = (v: number | "") => (typeof v === "number" && v < 90 ? " under" : 
 <section class="section" id="work" aria-labelledby="work-title"><div class="shell">
   <div class="section-head"><h2 id="work-title">{s.work_h}</h2><p class="lede">{s.work_l}</p></div>
   <CaseRows lang={lang} />
-</div></section>
-
-<section class="section" id="platform" aria-labelledby="plat-title"><div class="shell">
-  <div class="section-head"><h2 id="plat-title">{s.plat_h}</h2><p class="lede">{s.plat_l}</p></div>
-  <div class="platform">
-    <div class="controls">
-      <fieldset><legend>{s.plat_theme}</legend>{s.plat_themes.map(([v, n]: [string, string]) => <label><input type="radio" name="np-theme" value={v} checked={v === "a"} /> {n}</label>)}</fieldset>
-      <fieldset><legend>{s.plat_mods}</legend>{s.plat_modules.map(([v, n]: [string, string]) => <label><input type="checkbox" data-np-mod={v} checked /> {n}</label>)}</fieldset>
-      <p class="note">{s.plat_note}</p>
-    </div>
-    <div class="np" data-np data-theme-id="a" dir="rtl" lang="ar" aria-live="polite">
-      <div class="np__top"><span data-np-text data-ar="غرفة أخبار" data-en="Newsroom">غرفة أخبار</span><span class="num">09:41</span></div>
-      <div class="np__mod np__breaking" data-mod="breaking" data-np-text data-ar="عاجل · عنوان خبر عاجل للعرض" data-en="Breaking · a sample headline">عاجل · عنوان خبر عاجل للعرض</div>
-      <div class="np__grid">
-        <div class="np__mod np__lead" data-mod="lead" data-np-text data-ar="عنوان الخبر الرئيسي يمتد على سطرين في هذا المثال" data-en="The lead story’s headline runs to two lines here">عنوان الخبر الرئيسي يمتد على سطرين في هذا المثال</div>
-        <div class="np__mod np__rail" data-mod="rail"><i data-np-text data-ar="عنوان قصير أول" data-en="A first short headline">عنوان قصير أول</i><i data-np-text data-ar="عنوان قصير ثانٍ" data-en="A second short headline">عنوان قصير ثانٍ</i><i data-np-text data-ar="عنوان قصير ثالث" data-en="A third short headline">عنوان قصير ثالث</i></div>
-      </div>
-      <div class="np__row">
-        <div class="np__mod" data-mod="podcast"><b data-np-text data-ar="البودكاست" data-en="Podcast">البودكاست</b><span data-np-text data-ar="الحلقة 12، 24 دقيقة" data-en="Episode 12, 24 minutes">الحلقة 12، 24 دقيقة</span></div>
-        <div class="np__mod" data-mod="translation"><b data-np-text data-ar="مترجم" data-en="Translated">مترجم</b><span data-np-text data-ar="من الإنجليزية إلى العربية" data-en="From Arabic to English">من الإنجليزية إلى العربية</span></div>
-      </div>
-    </div>
-  </div>
 </div></section>
 
 <section class="section" id="directions" aria-labelledby="dir-title"><div class="shell">
