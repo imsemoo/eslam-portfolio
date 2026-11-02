@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Schibsted Grotesk"; src: url("../public/fonts/schibsted-grotesk-latin.woff2") format("woff2"); font-weight: 400 900; }
+  @font-face { font-family: "Vazirmatn"; src: url("../public/fonts/vazirmatn-arabic.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Fragment Mono"; src: url("../public/fonts/fragment-mono-latin.woff2") format("woff2"); }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; }
+  body { background: #f4f5f8; color: #0f1115; font-family: "Schibsted Grotesk", sans-serif; display: grid; grid-template-columns: 560px 1fr; overflow: hidden; }
+  html[lang="ar"] body { font-family: "Vazirmatn", sans-serif; }
+  .copy { padding: 64px 0 56px 64px; display: grid; grid-template-rows: auto 1fr auto; }
+  html[lang="ar"] .copy { padding: 64px 64px 56px 0; }
+  .mark { width: 64px; height: 64px; }
+  .name { align-self: end; font-size: 92px; line-height: 0.92; letter-spacing: -0.05em; font-weight: 800; }
+  html[lang="ar"] .name { letter-spacing: 0; line-height: 1.2; font-size: 92px; }
+  .line { margin-top: 26px; font-size: 32px; line-height: 1.18; font-weight: 700; letter-spacing: -0.02em; max-width: 470px; text-wrap: balance; }
+  html[lang="ar"] .line { letter-spacing: 0; line-height: 1.5; font-size: 30px; }
+  .line em { font-style: normal; color: #0b6e4f; }
+  .keys { display: flex; gap: 22px; font: 17px "Fragment Mono", monospace; color: #434954; margin-top: 30px; }
+  html[lang="ar"] .keys { font-family: "Vazirmatn", sans-serif; font-size: 19px; }
+  .keys span { display: inline-flex; align-items: center; gap: 9px; }
+  .keys span::before { content: ""; width: 13px; height: 13px; background: var(--c); }
+  .shot { position: relative; margin: 64px -2px 64px 0; border: 2px solid #0f1115; border-right: 0; border-radius: 10px 0 0 10px; overflow: hidden; background: #fff; }
+  html[lang="ar"] .shot { margin: 64px 0 64px -2px; border-right: 2px solid #0f1115; border-left: 0; border-radius: 0 10px 10px 0; }
+  .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+  .shot .layer { position: absolute; inset: 0; clip-path: inset(0 0 0 46%); }
+  html[lang="ar"] .shot .layer { clip-path: inset(0 54% 0 0); }
+  .shot .layer img { filter: grayscale(1) contrast(0.9) brightness(1.04); }
+  .shot .layer::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, rgb(27 94 138 / .13) 0 46px, transparent 46px 54px); }
+  .cut { position: absolute; top: 0; bottom: 0; left: 46%; width: 3px; margin-left: -1.5px; background: #0f1115; }
+  html[lang="ar"] .cut { left: 46%; }
+  .cut i { position: absolute; top: 30%; left: 50%; width: 22px; height: 22px; background: #0f1115; transform: translate(-50%, -50%) rotate(45deg); }
+</style>
+</head>
+<body>
+  <div class="copy">
+    <svg class="mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#0f1115"/><rect x="14.75" y="6" width="2.5" height="17" fill="#f4f5f7"/><rect x="12.4" y="22.4" width="7.2" height="7.2" transform="rotate(45 16 26)" fill="#5fd3a5"/></svg>
+    <div>
+      <h1 class="name" data-name>Islam Nasser</h1>
+      <p class="line" data-line>What you approve in the design is what <em>ships.</em></p>
+      <p class="keys"><span style="--c:#1b5e8a" data-k1>Design</span><span style="--c:#0b6e4f" data-k2>Build</span><span style="--c:#c8102e" data-k3>Measure</span></p>
+    </div>
+  </div>
+  <div class="shot">
+    <img src="../public/img/work/ev/cutaway-route-1400.webp" alt="">
+    <div class="layer"><img src="../public/img/work/ev/cutaway-route-1400.webp" alt=""></div>
+    <span class="cut"><i></i></span>
+  </div>
+</body>
+</html>

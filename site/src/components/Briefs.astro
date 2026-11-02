@@ -1,0 +1,39 @@
+---
+/* Five more, briefly: the projects that earn a paragraph but not a page.
+   Copy and order come from "briefs" in _dev/projects.json, Arabic from the overlay. */
+import en from "../../../_dev/projects.json";
+import arData from "../../../_dev/projects.ar.json";
+import { url, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === "ar";
+const E: any = en;
+const A: any = arData;
+const P: Record<string, any> = Object.fromEntries(E.projects.map((p: any) => [p.slug, p]));
+const items = E.briefs.map((slug: string) => {
+  const p = P[slug];
+  const o = ar ? A.projects[slug]?.brief || {} : {};
+  return { slug, name: ar && p.ar ? p.ar : p.name, kind: o.kind || p.brief.kind, text: o.text || p.brief.text, url: p.url, code: p.code };
+});
+const host = (u: string) => u.split("//")[1].replace(/\/$/, "");
+---
+<section class="section" id="briefs" aria-labelledby="briefs-title"><div class="shell">
+  <div class="section-head">
+    <h2 id="briefs-title">{ar ? "خمسة أخرى، باختصار." : "Five more, briefly."}</h2>
+    <p class="lede">{ar ? "مشاريع تستحق فقرة لا صفحة: قالب إعلامي عربي، وسوق بُني من تصميم غيري، وعرض لتاجر سويدي، وأكثر من ثلاثين صفحة من ملف Figma، وموقع خيري صممته من الصفر." : "Projects that earn a paragraph rather than a page: an Arabic media theme, a marketplace built from someone else’s design, a pitch to a Swedish dealer, thirty-odd pages from a Figma file, and a charity site designed from scratch."}</p>
+  </div>
+  <div class="briefs">
+    {items.map((b: any) => (
+      <article class="brief" id={`brief-${b.slug}`}>
+        <img src={url(`img/work/${b.slug}-800.webp`)} alt="" width="800" height="500" loading="lazy" decoding="async" />
+        <span class="kind">{b.kind}</span>
+        <h3>{b.url ? <a href={b.url}>{b.name}</a> : b.name}</h3>
+        <p>{b.text}</p>
+        <div class="links">
+          {b.url && <a class="link-arrow" href={b.url}>{host(b.url)}</a>}
+          {b.code && <a class="link-arrow" href={b.code}>{ar ? "الكود" : "Code"}</a>}
+        </div>
+      </article>
+    ))}
+  </div>
+</div></section>

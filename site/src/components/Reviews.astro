@@ -1,0 +1,33 @@
+---
+/* Published reviews from Upwork and Mostaql, quoted as written; on the Arabic
+   page the English ones are translated with the original underneath.
+   No ratings or success percentages here: those change, and the platforms show them. */
+import { type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === "ar";
+type Q = { en?: string; ar?: string; orig: "en" | "ar"; who: { en: string; ar: string }; what: { en: string; ar: string } };
+const Q: Q[] = [
+  { orig: "en", en: "“Islam is a superstar. I wanted to elevate a site for a product launch and his combined design and marketing hooks were exceptional.”", ar: "«إسلام نجم حقيقي. أردت الارتقاء بموقع لإطلاق منتج، وكان جمعه بين التصميم وأفكار التسويق الجاذبة استثنائيًا.»", who: { en: "Upwork client", ar: "عميل على Upwork" }, what: { en: "business homepage redesign", ar: "إعادة تصميم الصفحة الرئيسية لشركة" } },
+  { orig: "en", en: "“He understood the scope immediately and implemented everything in a clean, structured, and future-proof way.”", ar: "«فهم نطاق العمل فورًا، ونفّذ كل شيء بطريقة نظيفة ومنظمة وقابلة للتطوير مستقبلًا.»", who: { en: "Upwork client", ar: "عميل على Upwork" }, what: { en: "landing page and bond calculator", ar: "صفحة هبوط وحاسبة سندات" } },
+  { orig: "ar", ar: "«كل الشكر لك أخي الفاضل إسلام. احترافية وإخلاص وجودة تستحق الإشادة، ولن أتردد بالتعاون معك مستقبلا.»", who: { en: "Zaid A.", ar: "زيد ا." }, what: { en: "client on Mostaql", ar: "عميل على مستقل" } },
+  { orig: "en", en: "“He understood the requirements well and was reliable, helpful, and solution-oriented throughout the implementation.”", ar: "«فهم المتطلبات جيدًا، وكان موثوقًا ومتعاونًا يبحث عن الحلول طوال التنفيذ.»", who: { en: "Upwork client", ar: "عميل على Upwork" }, what: { en: "ordering interface for a restaurant", ar: "واجهة طلبات لمطعم" } },
+  { orig: "ar", ar: "«التجربة مرضية لأقصى حد والنتائج تجاوزت سقف التوقعات. الاهتمام والخبرة والجهد أنتجت عملًا مميزًا.»", who: { en: "Nass A.", ar: "Nass A." }, what: { en: "client on Mostaql", ar: "عميل على مستقل" } },
+];
+---
+<section class="section" id="reviews" aria-labelledby="reviews-title"><div class="shell">
+  <div class="section-head">
+    <h2 id="reviews-title">{ar ? "ما كتبه العملاء بعد انتهاء العمل." : "What clients wrote afterwards."}</h2>
+    <p class="lede">{ar ? "مراجعات منشورة على Upwork ومستقل، منقولة كما كتبها أصحابها، والإنجليزية منها مترجمة ونصها الأصلي تحتها." : "Published reviews from Upwork and Mostaql, quoted as written. The Arabic ones are in Arabic, as their writers left them."}</p>
+  </div>
+  <div class="quotes">
+    {Q.map((q) => (
+      <blockquote class="quote">
+        {ar
+          ? <><p>{q.ar}</p>{q.orig === "en" && <p class="quote__orig" lang="en" dir="ltr">{q.en}</p>}</>
+          : q.orig === "en" ? <p>{q.en}</p> : <p lang="ar" dir="rtl">{q.ar}</p>}
+        <footer><b>{q.who[lang]}</b>{ar ? "، " : ", "}{q.what[lang]}</footer>
+      </blockquote>
+    ))}
+  </div>
+</div></section>

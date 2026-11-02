@@ -1,5 +1,6 @@
 ---
 import CaseRows from "./CaseRows.astro";
+import Reviews from "./Reviews.astro";
 import { loadPsi } from "../data/psi";
 import { HERO } from "../data/hero";
 import { existsSync } from "node:fs";
@@ -81,6 +82,8 @@ const boxStyle = (b: any) => `--x:${b.x};--y:${b.y};--w:${b.w};--h:${b.h}`;
   </table></div>
   <p class="measured-note">{s.meas_note} <span data-psi-date class="num">{lastMeasured}</span></p>
 </div></section>
+
+<Reviews lang={lang} />
 
 <section class="section" id="about" aria-labelledby="about-title"><div class="shell about">
   <div style="display:grid;gap:24px">

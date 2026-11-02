@@ -2,6 +2,7 @@
 /* /work/: the five cases first, then every project. */
 import CaseRows from "./CaseRows.astro";
 import Archive from "./Archive.astro";
+import Briefs from "./Briefs.astro";
 import { t, type Lang } from "../lib";
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -12,5 +13,6 @@ const s = t(lang);
     <div class="section-head"><h1 id="work-title" class="page-h1">{s.work_h}</h1><p class="lede">{s.work_l}</p></div>
     <CaseRows lang={lang} />
   </div></section>
+  <Briefs lang={lang} />
   <Archive lang={lang} />
 </main>

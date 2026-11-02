@@ -16,6 +16,22 @@ const canonical = new URL(self, Astro.site).href;
 const altAbs = new URL(alt, Astro.site).href;
 const enAbs = new URL(url(path), Astro.site).href;
 const arAbs = new URL(url("ar/" + path), Astro.site).href;
+const og = new URL(url(lang === "ar" ? "img/og-ar.png" : "img/og.png"), Astro.site).href;
+const person = {
+  "@type": "Person",
+  "@id": new URL(url("#person"), Astro.site).href,
+  name: "Islam Nasser",
+  alternateName: ["إسلام ناصر", "Eslam Nasser", "Eslam Abdel Nasser"],
+  jobTitle: t("en").role,
+  url: new URL(url(""), Astro.site).href,
+  email: `mailto:${EMAIL}`,
+  image: og,
+  knowsLanguage: ["ar", "en"],
+  address: { "@type": "PostalAddress", addressLocality: "10th of Ramadan City", addressCountry: "EG" },
+  worksFor: { "@type": "Organization", name: "TakTek" },
+  sameAs: ["https://github.com/imsemoo", "https://www.linkedin.com/in/imsemooo/", "https://www.behance.net/eslamnasserui", "https://dribbble.com/imsemoo2", "https://www.upwork.com/freelancers/imsemoo", "https://mostaql.com/u/imsemoo/portfolio"],
+};
+const ld = { "@context": "https://schema.org", "@graph": [person, { "@type": "WebPage", "@id": canonical, url: canonical, name: title, description, inLanguage: lang, about: { "@id": person["@id"] }, isPartOf: { "@type": "WebSite", name: "Islam Nasser", url: new URL(url(""), Astro.site).href } }] };
 const favicon = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#0f1115"/><rect x="14.75" y="6" width="2.5" height="17" fill="#f4f5f7"/><rect x="12.4" y="22.4" width="7.2" height="7.2" transform="rotate(45 16 26)" fill="#5fd3a5"/></svg>');
 ---
 <!doctype html>
@@ -34,7 +50,14 @@ const favicon = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://w
 <meta property="og:description" content={description}>
 <meta property="og:url" content={canonical}>
 <meta property="og:locale" content={lang === "ar" ? "ar_AR" : "en_GB"}>
+<meta property="og:image" content={og}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={lang === "ar" ? "إسلام ناصر: ما توافق عليه في التصميم هو ما يُنفَّذ." : "Islam Nasser: what you approve in the design is what ships."}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content={og}>
 <meta name="theme-color" content="#0c0e12">
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />
 <link rel="icon" href={favicon}>
 <link rel="preload" as="font" type="font/woff2" href={url(lang === "ar" ? "fonts/vazirmatn-arabic.woff2" : "fonts/schibsted-grotesk-latin.woff2")} crossorigin>
 <script is:inline>try{var m=localStorage.getItem("theme");if(m&&m!=="system")document.documentElement.setAttribute("data-theme",m)}catch(e){}</script>
