@@ -1,0 +1,110 @@
+---
+/* A case page, ordered by the three layers: what was designed, what was built,
+   what was measured. The copy comes from projects.json through caseOf(); the
+   order and the extra blocks come from data/layers.ts. */
+import { caseOf } from "../data/projects";
+import { LAYERS, ORDER, type Block } from "../data/layers";
+import { t, url, type Lang } from "../lib";
+
+interface Props { slug: string; lang: Lang }
+const { slug, lang } = Astro.props;
+const s = t(lang);
+const ar = lang === "ar";
+const c = caseOf(slug, lang);
+const L = LAYERS[slug];
+const ev = (f: string, ext = "webp") => url(`img/work/ev/${f}.${ext}`);
+const home = url(ar ? "ar/" : "");
+const spec: [string, string][] = [...c.glance, [ar ? "النوع" : "Kind", L.kind[lang]], [ar ? "الرابط" : "Live", L.live[lang]]];
+const heads = ar ? ["ما صمّمته", "ما بُني، وكيف", "ما قيس"] : ["What I designed", "What was built, and how", "What was measured"];
+const layers = ["design", "build", "measure"] as const;
+const blocks: Record<string, Block[]> = { design: L.design, build: L.build, measure: L.measure };
+const film = L.film[lang];
+const next = ORDER[(ORDER.indexOf(slug as any) + 1) % ORDER.length];
+const nextHref = url(`${ar ? "ar/" : ""}work/${next}/`);
+/* a wide screenshot first, then any phone shots beside it */
+const figCols = (files: string[]) => files.map((f) => (f.endsWith("-390") ? "minmax(0,1fr)" : "minmax(0,3fr)")).join(" ");
+---
+<main id="top">
+<div class="shell">
+  <section class="case-hero" aria-labelledby="case-title">
+    <div class="case-hero__copy">
+      <p class="crumbs"><a href={url(`${ar ? "ar/" : ""}work/`)}>{s.case_crumb}</a><span aria-hidden="true">/</span><span>{L.title[lang]}</span></p>
+      <h1 id="case-title" set:html={L.h1[lang]} />
+      <p class="lede">{c.lede}</p>
+    </div>
+    <dl class="spec">{spec.map(([a, b]) => <div><dt>{a}</dt><dd set:html={b} /></div>)}</dl>
+  </section>
+
+  <figure class="case-film">
+    <video controls preload="none" playsinline poster={ev(`${film}-still`)} width="1280" height="720" aria-label={c.film.label}>
+      <source src={ev(`${film}-720`, "mp4")} type="video/mp4" />
+    </video>
+    <figcaption>{c.film.caption}</figcaption>
+  </figure>
+  <div class="decision" id="decision"><span>{ar ? "القرار" : "The decision"}</span><p>{c.decision}</p></div>
+
+  <div class="case-body">
+    <nav class="toc" aria-label={ar ? "الطبقات" : "Layers"}>
+      {layers.map((k) => <a href={`#${k}`} style={`--c:var(--${k})`}>{s.layers[k]}</a>)}
+    </nav>
+    <div>
+      {layers.map((k, i) => (
+        <section class={`layer layer--${k}`} id={k} aria-labelledby={`l-${k}`}>
+          <header><span class={`key key--${k}`}>{s.layers[k]}</span><h2 id={`l-${k}`}>{heads[i]}</h2></header>
+          {blocks[k].map((b) => {
+            if (typeof b === "number") {
+              const st = c.story[b];
+              return <div class="story"><h3>{st.h}</h3><p>{st.p}</p></div>;
+            }
+            if (b === "swatches") {
+              return (
+                <div class="system">
+                  {c.system.title && <h3 class="system__title">{c.system.title}</h3>}
+                  <div class="swatches">{c.system.swatches.map((w: any) => <div class="sw" style={`--hex:${w.hex}`}><i></i><span><b>{w.name}</b><code>{w.hex}</code>{w.role}</span></div>)}</div>
+                  {c.system.note && <p class="system__note">{c.system.note}</p>}
+                </div>
+              );
+            }
+            if (b === "grid") {
+              const g = c.system.grid;
+              return (
+                <figure class="fig grid4">
+                  <div>{g.items.map((it: any) => <div><img src={ev(`${it.file}-600`)} alt={it.alt} width="600" height="375" loading="lazy" decoding="async" /><span>{it.label}</span></div>)}</div>
+                  <figcaption>{g.caption}</figcaption>
+                </figure>
+              );
+            }
+            if (b === "numbers") {
+              return <div class="numbers">{L.numbers![lang].map(([v, label, gone]) => <div class={gone ? "discarded" : undefined}><b>{v}</b><span>{label}</span></div>)}</div>;
+            }
+            if ("absent" in b) {
+              return <p class="absent"><span>{ar ? "غير موجود" : "Not here"}</span>{b.absent[lang]}</p>;
+            }
+            const alts = b.alt[lang].split("|");
+            const narrow = b.fig.length === 1 && b.fig[0].endsWith("-390");
+            return (
+              <figure class="fig figrow" style={narrow ? "max-width:300px" : `grid-template-columns:${figCols(b.fig)}`}>
+                {b.fig.map((f, j) => <img src={ev(f)} alt={alts[j]} loading="lazy" decoding="async" />)}
+              </figure>
+            );
+          })}
+        </section>
+      ))}
+
+      <section class="story" style="padding-block:48px" aria-labelledby="res">
+        <h2 id="res" style="font-size:var(--fs-h3)">{ar ? "النتيجة" : "Result"}</h2>
+        {c.result.map((r: string) => <p>{r}</p>)}
+      </section>
+      {c.reflection && <aside class="reflection" aria-labelledby="refl"><h2 id="refl">{ar ? "ما كنت سأفعله أبكر" : "What I would do earlier"}</h2><p>{c.reflection}</p></aside>}
+      <div class="links" style="display:flex;flex-wrap:wrap;gap:4px 24px;margin-top:32px">
+        {c.links.map((l: any) => <a class="link-arrow" href={l.href}>{l.label}</a>)}
+      </div>
+    </div>
+  </div>
+
+  <nav class="next" aria-label={s.next}>
+    <a class="link-arrow" href={url(`${ar ? "ar/" : ""}work/`)}>{s.back}</a>
+    <a class="link-arrow" href={nextHref}><span>{s.next}: <b>{LAYERS[next].title[lang]}</b></span></a>
+  </nav>
+</div>
+</main>

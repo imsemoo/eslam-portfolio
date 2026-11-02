@@ -1,0 +1,93 @@
+---
+/* Every project, with what I actually did on it. Rows come from
+   _dev/projects.json in its own order (strongest first), with the Arabic
+   overlay on /ar/. The filters are the current site's: project type and what
+   you need. Without JavaScript the whole list shows. */
+import en from "../../../_dev/projects.json";
+import arData from "../../../_dev/projects.ar.json";
+import { ORDER } from "../data/layers";
+import { url, type Lang } from "../lib";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === "ar";
+const E: any = en;
+const A: any = arData;
+const label = (id: string) => (ar ? A.filters[id] : E.filters.find((f: any) => f.id === id)?.label) || id;
+const groups = ["type", "need"].map((g) => ({
+  id: g,
+  name: ar ? A.filter_groups[g] : E.filter_groups[g],
+  chips: E.filters.filter((f: any) => f.group === g && f.id !== "all").map((f: any) => f.id),
+}));
+const place = (w: string) => (!w ? "" : ar ? w.split(", ").map((p) => A.places[p] || p).join("، ") : w);
+const LANG = ar ? { ar: "عربي", en: "إنجليزي", bi: "عربي/إنجليزي", de: "ألماني/إنجليزي", sv: "سويدي" } : { ar: "AR", en: "EN", bi: "AR/EN", de: "DE/EN", sv: "SV" };
+const featured = new Set<string>(ORDER as unknown as string[]);
+const rows = E.projects.map((p: any) => {
+  const o = ar ? A.projects[p.slug] || {} : {};
+  const href = featured.has(p.slug) ? url(`${ar ? "ar/" : ""}work/${p.slug}/`) : p.url || p.code || "";
+  return {
+    slug: p.slug,
+    name: ar && p.ar ? p.ar : p.name,
+    client: o.client || p.client,
+    where: place(p.where),
+    role: o.role || p.role,
+    lang: (LANG as any)[p.lang] || "",
+    tags: p.tags as string[],
+    href,
+    isCase: featured.has(p.slug),
+    ext: !featured.has(p.slug) && !!href,
+  };
+});
+---
+<section class="section" id="archive" aria-labelledby="archive-title"><div class="shell">
+  <div class="section-head">
+    <h2 id="archive-title">{ar ? `كل المشاريع، ${rows.length} مشروعًا` : `Every project, all ${rows.length}`}</h2>
+    <p class="lede">{ar ? "ما فعلته فعلًا في كل مشروع. الحالات الخمس تفتح صفحتها هنا، والبقية تفتح الموقع أو الكود حيث يكون عامًا." : "What I actually did on each one. The five cases open their page here; the rest open the site, or the code where it is public."}</p>
+  </div>
+  <div class="arch-filters" data-filters>
+    {groups.map((g) => (
+      <div class="arch-group" role="group" aria-label={g.name}>
+        <span>{g.name}</span>
+        {g.chips.map((id: string) => <button type="button" class="chip" data-filter={id} aria-pressed="false">{label(id)}</button>)}
+      </div>
+    ))}
+    <p class="arch-count" aria-live="polite"><span class="num" data-count>{rows.length}</span> {ar ? "معروضة" : "shown"}</p>
+  </div>
+  <ol class="arch">
+    {rows.map((r: any) => (
+      <li class="arch-row" data-tags={r.tags.join(" ")} id={`p-${r.slug}`}>
+        <div class="arch-name">
+          {r.href ? <a href={r.href}>{r.name}</a> : <span>{r.name}</span>}
+          {r.isCase && <span class="kind">{ar ? "دراسة حالة" : "Case study"}</span>}
+        </div>
+        <div class="arch-client">{r.client}{r.where && <span> · {r.where}</span>}</div>
+        <div class="arch-role">{r.role}</div>
+        <div class="arch-lang num">{r.lang}</div>
+      </li>
+    ))}
+  </ol>
+</div></section>
+
+<script>
+  const box = document.querySelector("[data-filters]");
+  if (box) {
+    const chips = [...box.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+    const rows = [...document.querySelectorAll<HTMLElement>(".arch-row")];
+    const count = box.querySelector("[data-count]");
+    const apply = () => {
+      const on = chips.filter((c) => c.getAttribute("aria-pressed") === "true").map((c) => c.dataset.filter!);
+      let n = 0;
+      rows.forEach((r) => {
+        const tags = (r.dataset.tags || "").split(" ");
+        const show = on.every((f) => tags.includes(f));
+        r.hidden = !show;
+        if (show) n++;
+      });
+      if (count) count.textContent = String(n);
+    };
+    chips.forEach((c) => c.addEventListener("click", () => {
+      c.setAttribute("aria-pressed", String(c.getAttribute("aria-pressed") !== "true"));
+      apply();
+    }));
+  }
+</script>

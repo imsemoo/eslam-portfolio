@@ -1,0 +1,396 @@
+{
+ "en": {
+  "dir": "ltr",
+  "name": "Islam Nasser",
+  "role": "Front-end team lead",
+  "nav": [
+   [
+    "Work",
+    "work/"
+   ],
+   [
+    "Lab",
+    "lab/"
+   ],
+   [
+    "About",
+    "about/"
+   ]
+  ],
+  "other": "العربية",
+  "email_btn": "Email me",
+  "skip": "Skip to the work",
+  "title_home": "Islam Nasser, front-end team lead",
+  "desc_home": "Front-end team lead who designs the interface, builds it and measures it. Web apps, dashboards and multi-site platforms, in English, Arabic or both.",
+  "h1": "What you approve in the design is what <em>ships.</em>",
+  "lede": "I’m Islam Nasser, <strong>front-end team lead at TakTek</strong>. I design the screens and the components behind them, then build them myself, in English, Arabic or both.",
+  "cta1": "See the work",
+  "cta2": "All 45 projects",
+  "say": "I design it, build it, measure it.",
+  "layers": {
+   "design": "Design",
+   "build": "Build",
+   "measure": "Measure"
+  },
+  "move": "Move the cut",
+  "pick_label": "Layer behind the cut",
+  "work_h": "Five projects, cut open.",
+  "work_l": "Each one shows what I designed, what I built and what was measured. Where a layer is someone else’s work, or was never measured, it says so.",
+  "read_case": "Read the case",
+  "read_case_old": "Read the case on the current site",
+  "plat_h": "One codebase, many newsrooms.",
+  "plat_l": "The rule behind Devlo: a site may differ in configuration, not in behaviour. Switch the theme and the modules here. The markup underneath stays the same.",
+  "plat_theme": "Theme",
+  "plat_mods": "Modules",
+  "plat_themes": [
+   [
+    "a",
+    "Theme A, Arabic"
+   ],
+   [
+    "b",
+    "Theme B, Arabic, dark"
+   ],
+   [
+    "c",
+    "Theme C, English"
+   ]
+  ],
+  "plat_modules": [
+   [
+    "breaking",
+    "Breaking strip"
+   ],
+   [
+    "lead",
+    "Lead story"
+   ],
+   [
+    "rail",
+    "Headline rail"
+   ],
+   [
+    "podcast",
+    "Podcast"
+   ],
+   [
+    "translation",
+    "Translation"
+   ]
+  ],
+  "plat_note": "Example themes drawn for this page. The module names are Devlo’s own.",
+  "dir_h": "Built in both directions.",
+  "dir_l": "The Arabic page is written, not translated, and it mirrors through logical properties. What does not mirror by itself is decided by hand:",
+  "dir_notes": [
+   [
+    "Clips and transforms",
+    "They have no logical form. The cut on this page flips its clip for right to left in one line of CSS."
+   ],
+   [
+    "Latin inside Arabic",
+    "A run like Laravel or <code>3.2 s</code> is isolated, so the punctuation at its edge cannot reorder it."
+   ],
+   [
+    "Arrows",
+    "An arrow is drawn, not typed. It turns for Arabic, and a hover nudges it the other way."
+   ]
+  ],
+  "dir_cta": "Read this page in Arabic",
+  "proc_h": "How a project runs.",
+  "proc_l": "The same six steps for a landing page or a platform. Every step ends with something written down or measured.",
+  "steps": [
+   {
+    "layer": "design",
+    "h": "Brief",
+    "p": "You send the goal and whatever exists: content, a brand book, a Figma file, the current site. I send back questions in writing, so the decisions are on record for your team."
+   },
+   {
+    "layer": "design",
+    "h": "Structure",
+    "p": "Flows, the page list and what each screen has to do. On Arabic and bilingual products this is also where right to left gets decided, before any layout."
+   },
+   {
+    "layer": "design",
+    "h": "First screen",
+    "p": "One screen, designed and agreed before the rest exists. If the direction is wrong, we lose a day."
+   },
+   {
+    "layer": "build",
+    "h": "Build",
+    "p": "Components first, then pages, delivered in stages you can review. The same person designs it and writes the code, so nothing gets lost in a handover."
+   },
+   {
+    "layer": "measure",
+    "h": "Measure",
+    "p": "PageSpeed on both devices, accessibility checks and a pass at 375 px before anything is called finished. The table below is this step, still running."
+   },
+   {
+    "layer": "build",
+    "h": "Keep it running",
+    "p": "Most of my work lands in systems that already run. I read the existing code before I change it, and keep what works."
+   }
+  ],
+  "meas_h": "Measured every Monday.",
+  "meas_l": "A GitHub Action runs Google’s PageSpeed API against these sites each week and commits the result. This table reads those files when the page opens, so a bad week shows here too.",
+  "meas_cols": [
+   "Site",
+   "Performance",
+   "Accessibility",
+   "Largest paint"
+  ],
+  "meas_rows": [
+   [
+    "imsemoo-github-io",
+    "This portfolio, today’s version"
+   ],
+   [
+    "qudsn-co",
+    "Quds News Network, on Devlo"
+   ],
+   [
+    "musnadye-com",
+    "Musnad"
+   ]
+  ],
+  "meas_note": "Mobile, median of three runs. Under 90 is marked in red. Last measured:",
+  "about_h": "Who you would be working with.",
+  "about_p": [
+   "I’m Islam, sometimes written Eslam. I lead the front-end team at TakTek, where we build Devlo and the sites that run on it, and I take freelance work alongside.",
+   "I have good Laravel back-end experience; the front end is where I’m strongest. I check every screen at 375 px before I call it done."
+  ],
+  "facts": [
+   [
+    "Based in",
+    "10th of Ramadan City, Egypt. UTC+2, remote"
+   ],
+   [
+    "Languages",
+    "Arabic, native. English: C1 reading and writing"
+   ],
+   [
+    "Role today",
+    "Front-end team lead at TakTek, freelance alongside"
+   ],
+   [
+    "How I work",
+    "In writing: briefs, staged deliveries, replies within a few hours"
+   ]
+  ],
+  "contact_h": "Two ways in.",
+  "paths": [
+   [
+    "You have a project",
+    "Send the goal and whatever exists: a design, a brand book, the current site.",
+    "Project"
+   ],
+   [
+    "You are hiring",
+    "Front-end and UI roles, remote. CV in English and Arabic on request.",
+    "Role"
+   ]
+  ],
+  "copy": "Copy",
+  "clock": "Time in Egypt now:",
+  "foot": "Prototype for Phase 5. The live site is unchanged.",
+  "case_crumb": "Work",
+  "next": "Next case",
+  "back": "Back to the work"
+ },
+ "ar": {
+  "dir": "rtl",
+  "name": "إسلام ناصر",
+  "role": "قائد فريق الواجهات الأمامية",
+  "nav": [
+   [
+    "الأعمال",
+    "work/"
+   ],
+   [
+    "المختبر",
+    "lab/"
+   ],
+   [
+    "عني",
+    "about/"
+   ]
+  ],
+  "other": "English",
+  "email_btn": "راسلني",
+  "skip": "انتقل إلى الأعمال",
+  "title_home": "إسلام ناصر، قائد فريق الواجهات الأمامية",
+  "desc_home": "قائد فريق واجهات أمامية يصمّم الواجهة ويبنيها ويقيسها. تطبيقات ويب ولوحات تحكم ومنصات متعددة المواقع، بالعربية أو الإنجليزية أو كلتيهما.",
+  "h1": "ما توافق عليه في التصميم هو ما <em>يُنفَّذ.</em>",
+  "lede": "أنا إسلام ناصر، <strong>قائد فريق الواجهات الأمامية في <bdi>TakTek</bdi></strong>. أصمّم الشاشات والمكوّنات التي تقوم عليها، ثم أبنيها بنفسي، بالعربية أو الإنجليزية أو كلتيهما.",
+  "cta1": "شاهد الأعمال",
+  "cta2": "كل المشاريع الـ45",
+  "say": "أصمّمها، وأبنيها، وأقيسها.",
+  "layers": {
+   "design": "التصميم",
+   "build": "البناء",
+   "measure": "القياس"
+  },
+  "move": "حرّك خط القطع",
+  "pick_label": "الطبقة خلف خط القطع",
+  "work_h": "خمسة مشاريع، مقطوعة لترى ما بداخلها.",
+  "work_l": "كل مشروع يعرض ما صمّمته، وما بنيته، وما قيس منه. وحين تكون طبقة من عمل غيري، أو لم تُقس أبدًا، يُقال ذلك صراحة.",
+  "read_case": "اقرأ دراسة الحالة",
+  "read_case_old": "اقرأ الحالة في الموقع الحالي",
+  "plat_h": "كود واحد، وغرف أخبار كثيرة.",
+  "plat_l": "القاعدة خلف ديفلو: قد يختلف موقع عن آخر في الإعدادات، لا في السلوك. بدّل القالب والوحدات هنا، ويبقى ما تحتها كما هو.",
+  "plat_theme": "القالب",
+  "plat_mods": "الوحدات",
+  "plat_themes": [
+   [
+    "a",
+    "القالب أ، بالعربية"
+   ],
+   [
+    "b",
+    "القالب ب، بالعربية، داكن"
+   ],
+   [
+    "c",
+    "القالب ج، بالإنجليزية"
+   ]
+  ],
+  "plat_modules": [
+   [
+    "breaking",
+    "شريط العاجل"
+   ],
+   [
+    "lead",
+    "الخبر الرئيسي"
+   ],
+   [
+    "rail",
+    "شريط العناوين"
+   ],
+   [
+    "podcast",
+    "البودكاست"
+   ],
+   [
+    "translation",
+    "الترجمة"
+   ]
+  ],
+  "plat_note": "قوالب توضيحية رُسمت لهذه الصفحة. أسماء الوحدات هي أسماء ديفلو نفسها.",
+  "dir_h": "مبنيّ في الاتجاهين.",
+  "dir_l": "الصفحة العربية مكتوبة لا مترجمة، وتنعكس عبر الخصائص المنطقية. وما لا ينعكس وحده يُحسم يدويًا:",
+  "dir_notes": [
+   [
+    "القص والتحويلات",
+    "لا صيغة منطقية لهما. خط القطع في هذه الصفحة يقلب قصّه من اليمين إلى اليسار بسطر CSS واحد."
+   ],
+   [
+    "اللاتيني داخل العربي",
+    "كلمة مثل <bdi>Laravel</bdi> أو رقم مثل <code>3.2 s</code> معزولان، فلا تعيد علامات الترقيم على طرفيهما ترتيبهما."
+   ],
+   [
+    "الأسهم",
+    "السهم مرسوم لا مكتوب. ينقلب للعربية، والمرور عليه يدفعه في الاتجاه الآخر."
+   ]
+  ],
+  "dir_cta": "اقرأ هذه الصفحة بالإنجليزية",
+  "proc_h": "كيف يسير المشروع.",
+  "proc_l": "الخطوات الست نفسها لصفحة هبوط أو لمنصة كاملة. وكل خطوة تنتهي بشيء مكتوب أو مقيس.",
+  "steps": [
+   {
+    "layer": "design",
+    "h": "الموجز",
+    "p": "ترسل الهدف وكل ما هو موجود: المحتوى، أو دليل الهوية، أو ملف Figma، أو الموقع الحالي. وأرد بأسئلة مكتوبة، فتبقى القرارات موثّقة لفريقك."
+   },
+   {
+    "layer": "design",
+    "h": "البنية",
+    "p": "مسارات الاستخدام، وقائمة الصفحات، وما على كل شاشة أن تؤديه. وفي المنتجات العربية وثنائية اللغة، هنا أيضًا يُحسم الاتجاه من اليمين إلى اليسار، قبل أي تخطيط."
+   },
+   {
+    "layer": "design",
+    "h": "الشاشة الأولى",
+    "p": "شاشة واحدة، أصممها ونتفق عليها قبل أن يوجد أي شيء آخر. وإن كان الاتجاه خاطئًا، فالخسارة يوم واحد."
+   },
+   {
+    "layer": "build",
+    "h": "البناء",
+    "p": "المكوّنات أولًا ثم الصفحات، على مراحل تراجعها بنفسك. الشخص نفسه يصمم ويكتب الكود، فلا يضيع شيء في التسليم."
+   },
+   {
+    "layer": "measure",
+    "h": "القياس",
+    "p": "PageSpeed على الهاتف والحاسوب، وفحوص إمكانية الوصول، ومراجعة على عرض 375 بكسل قبل أن أعتبر أي شيء منتهيًا. والجدول في الأسفل هو هذه الخطوة، وما زال يعمل."
+   },
+   {
+    "layer": "build",
+    "h": "الحفاظ على ما يعمل",
+    "p": "معظم عملي يدخل أنظمة تعمل بالفعل. أقرأ الكود الموجود قبل أن أغيّره، وأبقي على ما يعمل."
+   }
+  ],
+  "meas_h": "يُقاس كل اثنين.",
+  "meas_l": "يشغّل GitHub Action واجهة PageSpeed من Google على هذه المواقع كل أسبوع ويحفظ النتيجة. ويقرأ هذا الجدول تلك الملفات عند فتح الصفحة، فيظهر الأسبوع السيئ هنا أيضًا.",
+  "meas_cols": [
+   "الموقع",
+   "الأداء",
+   "إمكانية الوصول",
+   "أكبر رسم"
+  ],
+  "meas_rows": [
+   [
+    "imsemoo-github-io",
+    "هذا البورتفوليو، نسخته الحالية"
+   ],
+   [
+    "qudsn-co",
+    "شبكة قدس الإخبارية، على ديفلو"
+   ],
+   [
+    "musnadye-com",
+    "مسند"
+   ]
+  ],
+  "meas_note": "على الهاتف، الوسيط من ثلاث قياسات. ما دون 90 بالأحمر. آخر قياس:",
+  "about_h": "مع من ستعمل.",
+  "about_p": [
+   "أنا إسلام، ويُكتب اسمي أحيانًا Eslam. أقود فريق الواجهات الأمامية في <bdi>TakTek</bdi>، وهناك نبني ديفلو والمواقع التي تعمل عليه، وإلى جانب ذلك أعمل على مشاريع حرة.",
+   "لديّ خبرة جيدة في الواجهة الخلفية بـ<bdi>Laravel</bdi>، لكن الواجهة الأمامية هي أقوى ما عندي. وأراجع كل شاشة على عرض 375 بكسل قبل أن أعتبرها منتهية."
+  ],
+  "facts": [
+   [
+    "المكان",
+    "مدينة العاشر من رمضان، مصر. <bdi>UTC+2</bdi>، عن بُعد"
+   ],
+   [
+    "اللغات",
+    "العربية، لغتي الأم. والإنجليزية: قراءة وكتابة بمستوى C1"
+   ],
+   [
+    "الدور الآن",
+    "قائد فريق الواجهات الأمامية في <bdi>TakTek</bdi>، مع عمل حر"
+   ],
+   [
+    "طريقة العمل",
+    "كتابةً: موجز، وتسليم على مراحل، وردود خلال ساعات قليلة"
+   ]
+  ],
+  "contact_h": "طريقان للتواصل.",
+  "paths": [
+   [
+    "لديك مشروع",
+    "أرسل الهدف وكل ما هو موجود: تصميم، أو دليل هوية، أو الموقع الحالي.",
+    "Project"
+   ],
+   [
+    "توظّف",
+    "أدوار الواجهات الأمامية وواجهات المستخدم، عن بُعد. السيرة الذاتية بالعربية والإنجليزية عند الطلب.",
+    "Role"
+   ]
+  ],
+  "copy": "انسخ",
+  "clock": "الوقت في مصر الآن:",
+  "foot": "نموذج المرحلة الخامسة. الموقع الحي لم يتغير.",
+  "case_crumb": "الأعمال",
+  "next": "الحالة التالية",
+  "back": "العودة إلى الأعمال"
+ }
+}

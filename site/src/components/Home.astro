@@ -1,0 +1,104 @@
+---
+import CaseRows from "./CaseRows.astro";
+import { loadPsi } from "../data/psi";
+import { t, url, EMAIL, CURRENT_SITE, type Lang } from "../lib";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const ar = lang === "ar";
+const psi = await loadPsi();
+const lastMeasured = Object.values(psi).map((p) => p.at).sort().pop() || "";
+const under = (v: number | "") => (typeof v === "number" && v < 90 ? " under" : "");
+---
+<script is:inline>(function(){var h=location.hash;if(/^#index/.test(h)){location.replace("work/#archive")}})()</script>
+<main id="top">
+<section class="shell hero" aria-labelledby="hero-title">
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <h1 id="hero-title" set:html={s.h1} />
+      <p class="lede" set:html={s.lede} />
+      <div class="actions"><a class="btn btn--solid" href="#work">{s.cta1}</a><a class="btn btn--quiet" href={url(`${ar ? "ar/" : ""}work/#archive`)}>{s.cta2}</a></div>
+      <div class="layer-pick" role="group" aria-label={s.pick_label}>
+        <p>{s.say}</p>
+        {Object.entries(s.layers).map(([k, v]) => <button type="button" class="layer-btn" data-layer={k} aria-pressed="false">{v as string}</button>)}
+      </div>
+    </div>
+    <div>
+      <div class="stage" data-stage aria-hidden="true">
+        <div class="mini mini--base" data-mini="base"></div>
+        <div class="stage__layer" data-layer="design"><div class="mini mini--design" data-mini="design"></div></div>
+        <div class="stage__layer" data-layer="build"><div class="mini mini--build" data-mini="build"></div></div>
+        <div class="stage__layer" data-layer="measure"><div class="mini mini--measure" data-mini="measure"><div class="readout"></div></div></div>
+        <span class="stage__line"><i></i></span>
+      </div>
+      <label class="cutbar"><span>{s.move}</span><input type="range" min="0" max="100" value="38" data-range><output data-out>38%</output></label>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work" aria-labelledby="work-title"><div class="shell">
+  <div class="section-head"><h2 id="work-title">{s.work_h}</h2><p class="lede">{s.work_l}</p></div>
+  <CaseRows lang={lang} />
+</div></section>
+
+<section class="section" id="platform" aria-labelledby="plat-title"><div class="shell">
+  <div class="section-head"><h2 id="plat-title">{s.plat_h}</h2><p class="lede">{s.plat_l}</p></div>
+  <div class="platform">
+    <div class="controls">
+      <fieldset><legend>{s.plat_theme}</legend>{s.plat_themes.map(([v, n]: [string, string]) => <label><input type="radio" name="np-theme" value={v} checked={v === "a"} /> {n}</label>)}</fieldset>
+      <fieldset><legend>{s.plat_mods}</legend>{s.plat_modules.map(([v, n]: [string, string]) => <label><input type="checkbox" data-np-mod={v} checked /> {n}</label>)}</fieldset>
+      <p class="note">{s.plat_note}</p>
+    </div>
+    <div class="np" data-np data-theme-id="a" dir="rtl" lang="ar" aria-live="polite">
+      <div class="np__top"><span data-np-text data-ar="غرفة أخبار" data-en="Newsroom">غرفة أخبار</span><span class="num">09:41</span></div>
+      <div class="np__mod np__breaking" data-mod="breaking" data-np-text data-ar="عاجل · عنوان خبر عاجل للعرض" data-en="Breaking · a sample headline">عاجل · عنوان خبر عاجل للعرض</div>
+      <div class="np__grid">
+        <div class="np__mod np__lead" data-mod="lead" data-np-text data-ar="عنوان الخبر الرئيسي يمتد على سطرين في هذا المثال" data-en="The lead story’s headline runs to two lines here">عنوان الخبر الرئيسي يمتد على سطرين في هذا المثال</div>
+        <div class="np__mod np__rail" data-mod="rail"><i data-np-text data-ar="عنوان قصير أول" data-en="A first short headline">عنوان قصير أول</i><i data-np-text data-ar="عنوان قصير ثانٍ" data-en="A second short headline">عنوان قصير ثانٍ</i><i data-np-text data-ar="عنوان قصير ثالث" data-en="A third short headline">عنوان قصير ثالث</i></div>
+      </div>
+      <div class="np__row">
+        <div class="np__mod" data-mod="podcast"><b data-np-text data-ar="البودكاست" data-en="Podcast">البودكاست</b><span data-np-text data-ar="الحلقة 12، 24 دقيقة" data-en="Episode 12, 24 minutes">الحلقة 12، 24 دقيقة</span></div>
+        <div class="np__mod" data-mod="translation"><b data-np-text data-ar="مترجم" data-en="Translated">مترجم</b><span data-np-text data-ar="من الإنجليزية إلى العربية" data-en="From Arabic to English">من الإنجليزية إلى العربية</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section" id="directions" aria-labelledby="dir-title"><div class="shell">
+  <div class="section-head"><h2 id="dir-title">{s.dir_h}</h2><p class="lede">{s.dir_l}</p></div>
+  <ol class="dir-notes">{s.dir_notes.map(([h, p]: [string, string]) => <li><h3>{h}</h3><p set:html={p} /></li>)}</ol>
+  <p style="margin-top:32px"><a class="link-arrow" href={url(ar ? "" : "ar/")} hreflang={ar ? "en" : "ar"}>{s.dir_cta}</a></p>
+</div></section>
+
+<section class="section" id="process" aria-labelledby="proc-title"><div class="shell">
+  <div class="section-head"><h2 id="proc-title">{s.proc_h}</h2><p class="lede">{s.proc_l}</p></div>
+  <ol class="steps">{s.steps.map((st: any) => <li class={`s-${st.layer}`}><h3>{st.h}</h3><p>{st.p}</p></li>)}</ol>
+</div></section>
+
+<section class="section" id="measured" aria-labelledby="meas-title"><div class="shell">
+  <div class="section-head"><h2 id="meas-title">{s.meas_h}</h2><p class="lede">{s.meas_l}</p></div>
+  <div class="table-wrap" tabindex="0" role="region" aria-labelledby="meas-title"><table class="measured">
+    <thead><tr>{s.meas_cols.map((c: string) => <th scope="col">{c}</th>)}</tr></thead>
+    <tbody>{s.meas_rows.map(([slug, label]: [string, string]) => {
+      const p = psi[slug];
+      return <tr data-psi={slug}><th scope="row">{label}</th><td class={`n${under(p.perf)}`} data-k="perf">{p.perf}</td><td class={`n${under(p.a11y)}`} data-k="a11y">{p.a11y}</td><td class="n" data-k="lcp">{ar ? p.lcp.replace(" s", " ث") : p.lcp}</td></tr>;
+    })}</tbody>
+  </table></div>
+  <p class="measured-note">{s.meas_note} <span data-psi-date class="num">{lastMeasured}</span></p>
+</div></section>
+
+<section class="section" id="about" aria-labelledby="about-title"><div class="shell about">
+  <div style="display:grid;gap:24px">
+    <h2 id="about-title" style="font-size:var(--fs-h2);line-height:var(--lh-head)">{s.about_h}</h2>
+    {s.about_p.map((p: string) => <p class="lede" set:html={p} />)}
+    <dl class="facts">{s.facts.map(([a, b]: [string, string]) => <div><dt>{a}</dt><dd set:html={b} /></div>)}</dl>
+  </div>
+  <div class="contact" id="contact">
+    <h3>{s.contact_h}</h3>
+    <div class="paths">{s.paths.map(([h, p, subj]: [string, string, string]) => <a href={`mailto:${EMAIL}?subject=${subj}`}><b>{h}</b><span>{p}</span></a>)}</div>
+    <p class="email"><span data-address dir="ltr">{EMAIL}</span><button class="btn btn--quiet" type="button" data-copy={EMAIL}>{s.copy}</button><output data-copied aria-live="polite"></output></p>
+    <p class="clock">{s.clock} <time class="num" data-clock></time></p>
+  </div>
+</div></section>
+</main>

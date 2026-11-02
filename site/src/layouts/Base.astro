@@ -1,0 +1,62 @@
+---
+import "../styles/fonts.css";
+import "../styles/tokens.css";
+import "../styles/site.css";
+import Mark from "../components/Mark.astro";
+import { t, url, EMAIL, type Lang } from "../lib";
+
+interface Props { lang: Lang; title: string; description: string; path: string; current?: string }
+const { lang, title, description, path, current } = Astro.props;
+const s = t(lang);
+const other: Lang = lang === "en" ? "ar" : "en";
+const home = url(lang === "ar" ? "ar/" : "");
+const self = url((lang === "ar" ? "ar/" : "") + path);
+const alt = url((other === "ar" ? "ar/" : "") + path);
+const canonical = new URL(self, Astro.site).href;
+const altAbs = new URL(alt, Astro.site).href;
+const enAbs = new URL(url(path), Astro.site).href;
+const arAbs = new URL(url("ar/" + path), Astro.site).href;
+const favicon = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#0f1115"/><rect x="14.75" y="6" width="2.5" height="17" fill="#f4f5f7"/><rect x="12.4" y="22.4" width="7.2" height="7.2" transform="rotate(45 16 26)" fill="#5fd3a5"/></svg>');
+---
+<!doctype html>
+<html lang={lang} dir={s.dir}>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+<link rel="alternate" hreflang="en" href={enAbs}>
+<link rel="alternate" hreflang="ar" href={arAbs}>
+<link rel="alternate" hreflang="x-default" href={enAbs}>
+<meta property="og:type" content="website">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+<meta property="og:locale" content={lang === "ar" ? "ar_AR" : "en_GB"}>
+<meta name="theme-color" content="#0c0e12">
+<link rel="icon" href={favicon}>
+<link rel="preload" as="font" type="font/woff2" href={url(lang === "ar" ? "fonts/vazirmatn-arabic.woff2" : "fonts/schibsted-grotesk-latin.woff2")} crossorigin>
+<script is:inline>try{var m=localStorage.getItem("theme");if(m&&m!=="system")document.documentElement.setAttribute("data-theme",m)}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#top">{s.skip}</a>
+<header class="bar"><div class="shell bar__in">
+  <a class="brand" href={home}><Mark /><span><b>{s.name}</b><span>{s.role}</span></span></a>
+  <nav aria-label={lang === "ar" ? "الأقسام" : "Sections"}>
+    {s.nav.map(([n, h]: [string, string]) => <a href={`${home}${h}`} aria-current={current === h ? "page" : undefined}>{n}</a>)}
+  </nav>
+  <div class="bar__end">
+    <a class="lang" href={alt} hreflang={other} lang={other} data-lang-link>{s.other}</a>
+    <button class="icon-btn" type="button" data-theme-btn aria-label={lang === "ar" ? "المظهر" : "Theme"}><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17Z" fill="currentColor"/></svg></button>
+    <a class="btn btn--solid" href={`mailto:${EMAIL}`}>{s.email_btn}</a>
+  </div>
+</div></header>
+<slot />
+<footer class="foot"><div class="shell">
+  <p>{s.name} · {lang === "ar" ? "مبنيّ بـ" : "Built with "}<bdi>Astro</bdi>{lang === "ar" ? "، ومن دون سكربتات خارجية." : ", with no third-party scripts."}</p>
+  <p><a href="https://www.linkedin.com/in/imsemooo/">LinkedIn</a> · <a href="https://github.com/imsemoo">GitHub</a> · <a href="https://www.behance.net/eslamnasserui">Behance</a> · <a href="https://dribbble.com/imsemoo2">Dribbble</a></p>
+</div></footer>
+<script src="../scripts/site.js"></script>
+</body>
+</html>

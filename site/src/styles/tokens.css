@@ -1,0 +1,101 @@
+/* Design tokens, direction C "Section". Every colour, size, space and easing
+   lives here; site.css reads from here and nowhere else.
+
+   Colour carries meaning: three layer colours (design, build, measure), each
+   strong for text and keys and soft for fills. Grounds are neutral with a
+   faint cool cast. No cream, no beige. Dark is a full second palette, chosen
+   by the system or by the toggle. */
+
+:root {
+  color-scheme: light;
+
+  /* grounds */
+  --ground: #f4f5f8;
+  --surface: #ffffff;
+  --sunk: #eceef2;
+
+  /* text */
+  --text: #0f1115;
+  --text-2: #434954;
+  --text-3: #5d6470;
+
+  /* lines */
+  --line: rgb(15 17 21 / 0.12);
+  --line-strong: rgb(15 17 21 / 0.3);
+
+  /* the three layers */
+  --design: #1b5e8a;
+  --build: #0b6e4f;
+  --measure: #c8102e;
+  --design-soft: rgb(27 94 138 / 0.11);
+  --build-soft: rgb(11 110 79 / 0.11);
+  --measure-soft: rgb(200 16 46 / 0.09);
+
+  /* what is not there: a layer someone else did, or a number not measured */
+  --absent: #6b717c;
+
+  /* type: Interface pairing, approved 2026-11-02 */
+  --font-latin: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-arabic: "Vazirmatn", "Segoe UI", "SF Arabic", system-ui, sans-serif;
+  --font-mono: "Fragment Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-body: var(--font-latin);
+
+  --fs-display: clamp(2.4rem, 1.3rem + 3.9vw, 4.6rem);
+  --fs-h2: clamp(1.8rem, 1.2rem + 2.2vw, 3rem);
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.6rem);
+  --fs-decision: clamp(1.3rem, 1.05rem + 1vw, 1.9rem);
+  --fs-lede: clamp(1.0625rem, 1rem + 0.3vw, 1.2rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-micro: 0.75rem;
+
+  --lh-display: 1.02;
+  --lh-head: 1.15;
+  --lh-body: 1.62;
+  --track-display: -0.03em;
+  --track-head: -0.018em;
+
+  /* space, 4 px base */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+  --section: clamp(64px, 40px + 6vw, 128px);
+  --gutter: clamp(16px, 1rem + 2.4vw, 48px);
+
+  /* layout: 12 columns inside a 1280 shell; breakpoints 390, 768, 1024, 1440, 1920 */
+  --shell: 1280px;
+  --measure-text: 64ch;
+  --bar-h: 72px;
+  --target: 44px;
+
+  /* shape: square by default, a radius only on things you press */
+  --r-press: 4px;
+  --r-frame: 6px;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 180ms;
+  --dur: 420ms;
+  --dur-cut: 2400ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #0c0e12; --surface: #151821; --sunk: #1b1f29;
+    --text: #eef0f4; --text-2: #b9bfca; --text-3: #8e95a2;
+    --line: rgb(238 240 244 / 0.12); --line-strong: rgb(238 240 244 / 0.32);
+    --design: #84bde4; --build: #5fd3a5; --measure: #ff8a96;
+    --design-soft: rgb(132 189 228 / 0.15); --build-soft: rgb(95 211 165 / 0.13); --measure-soft: rgb(255 138 150 / 0.13);
+    --absent: #8a919e;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #0c0e12; --surface: #151821; --sunk: #1b1f29;
+  --text: #eef0f4; --text-2: #b9bfca; --text-3: #8e95a2;
+  --line: rgb(238 240 244 / 0.12); --line-strong: rgb(238 240 244 / 0.32);
+  --design: #84bde4; --build: #5fd3a5; --measure: #ff8a96;
+  --design-soft: rgb(132 189 228 / 0.15); --build-soft: rgb(95 211 165 / 0.13); --measure-soft: rgb(255 138 150 / 0.13);
+  --absent: #8a919e;
+}
+
+:root:lang(ar) { --font-body: var(--font-arabic); }

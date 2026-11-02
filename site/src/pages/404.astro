@@ -1,0 +1,11 @@
+---
+import Base from "../layouts/Base.astro";
+import { url } from "../lib";
+---
+<Base lang="en" title="Not found · Islam Nasser" description="This page does not exist." path="">
+  <main id="top"><div class="shell page-head">
+    <h1>This page does not exist.</h1>
+    <p class="lede">The work is still here: <a href={url("work/")}>every project</a>, or <a href={url("")}>the home page</a>.</p>
+    <p class="lede" lang="ar" dir="rtl">هذه الصفحة غير موجودة. الأعمال ما زالت هنا: <a href={url("ar/work/")}>كل المشاريع</a>، أو <a href={url("ar/")}>الصفحة الرئيسية</a>.</p>
+  </div></main>
+</Base>

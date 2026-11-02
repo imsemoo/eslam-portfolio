@@ -1,0 +1,35 @@
+---
+/* The five case rows, each with its three layer readings. Used on the home page and on /work/. */
+import cases from "../data/cases.json";
+import { t, url, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const ar = lang === "ar";
+const img = (f: string) => url(`img/work/ev/${f}.webp`);
+const caseHref = (c: any) => url((ar ? "ar/" : "") + "work/" + c.slug + "/");
+const host = (u: string) => u.split("//")[1].split("/")[0];
+---
+  <div class="cases">
+    {cases.map((c: any) => {
+      const d = c[lang];
+      return (
+        <article class="case-row" id={`case-${c.slug}`}>
+          <figure><img src={img(c.img)} alt={d.alt} width="1400" height="875" loading="lazy" decoding="async" /></figure>
+          <div class="case-row__body">
+            <div class="case-row__top"><span class="kind">{d.kind}</span></div>
+            <h3><a href={caseHref(c)}>{d.name}</a></h3>
+            <p>{d.line}</p>
+            <p class="role">{d.role}</p>
+            <dl class="readings">
+              {d.r.map((r: any) => <div class={`reading reading--${r.layer}${r.absent ? " is-absent" : ""}`}><dt>{s.layers[r.layer]}</dt><dd set:html={r.text} /></div>)}
+            </dl>
+            <div class="links">
+              <a class="link-arrow" href={caseHref(c)}>{s.read_case}</a>
+              {c.url && <a class="link-arrow" href={c.url}>{host(c.url)}</a>}
+            </div>
+          </div>
+        </article>
+      );
+    })}
+  </div>

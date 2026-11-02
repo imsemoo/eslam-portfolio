@@ -1,0 +1,14 @@
+---
+import Base from "../../layouts/Base.astro";
+import Case from "../../components/Case.astro";
+import { LAYERS } from "../../data/layers";
+import { caseOf } from "../../data/projects";
+
+export function getStaticPaths() {
+  return Object.keys(LAYERS).map((slug) => ({ params: { slug } }));
+}
+const { slug } = Astro.params;
+const c = caseOf(slug!, "en");
+const title = `${LAYERS[slug!].title.en}, a case study · Islam Nasser`;
+---
+<Base lang="en" title={title} description={c.lede} path={`work/${slug}/`} current="work/"><Case slug={slug!} lang="en" /></Base>

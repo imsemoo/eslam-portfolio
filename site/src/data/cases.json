@@ -1,0 +1,271 @@
+[
+ {
+  "slug": "devlo",
+  "img": "devlo-intro-still",
+  "page": true,
+  "en": {
+   "name": "Devlo CMS",
+   "line": "One Laravel application runs 24 news and media sites, each with its own theme, modules and languages.",
+   "kind": "Production · team at TakTek",
+   "role": "Design and full-stack; product owner of the front-end",
+   "alt": "Devlo CMS intro: 24 news and media sites, one Laravel application, with six of the sites below.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "The editorial panel and the theming model, in Arabic, English and Turkish",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "Blade, Livewire and Alpine on Laravel; one codebase for 24 sites",
+     "absent": false
+    },
+    {
+     "layer": "measure",
+     "text": "Maktoob fonts <b>749 → 78 KB</b>; Quds real users: fast, LCP <b>2.33 s</b>",
+     "absent": false
+    }
+   ]
+  },
+  "ar": {
+   "name": "ديفلو",
+   "line": "تطبيق Laravel واحد يشغّل 24 موقعًا إخباريًا وإعلاميًا، لكل منها قالبه ووحداته ولغاته.",
+   "kind": "إنتاج · فريق في TakTek",
+   "role": "التصميم والتطوير الكامل، ومالك منتج الواجهة الأمامية",
+   "alt": "مقدمة ديفلو: 24 موقعًا إخباريًا وإعلاميًا وتطبيق Laravel واحد، وتحتها ستة من المواقع.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "لوحة التحرير ونموذج القوالب، بالعربية والإنجليزية والتركية",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "Blade وLivewire وAlpine على Laravel، وكود واحد لـ24 موقعًا",
+     "absent": false
+    },
+    {
+     "layer": "measure",
+     "text": "خطوط مكتوب ميديا <b>749 → 78 KB</b>، ومستخدمو قدس الفعليون: سريع، <bdi>LCP</bdi> <b>2.33 s</b>",
+     "absent": false
+    }
+   ]
+  }
+ },
+ {
+  "slug": "mo3ta",
+  "img": "mo3ta-dashboard-1400",
+  "url": "https://www.mo3ta.ps/",
+  "en": {
+   "name": "Mo3ta",
+   "line": "Palestine’s statistics in one place: dashboards, a map and charts over a large Arabic dataset.",
+   "kind": "Production · independent",
+   "role": "UX and UI design, then the whole build",
+   "alt": "Mo3ta’s daily dashboard in Arabic: headline counts, filters and the top of a map.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "Quiet around the data; never a number without its date and source",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "Vue 3 and Inertia, rendered on the server, on Laravel",
+     "absent": false
+    },
+    {
+     "layer": "measure",
+     "text": "Not on the weekly speed run yet",
+     "absent": true
+    }
+   ]
+  },
+  "ar": {
+   "name": "معطى",
+   "line": "إحصاءات فلسطين في مكان واحد: لوحات بيانات وخريطة ورسوم بيانية فوق قاعدة بيانات عربية كبيرة.",
+   "kind": "إنتاج · عمل مستقل",
+   "role": "تصميم تجربة المستخدم والواجهة، ثم البناء كاملًا",
+   "alt": "لوحة معطى اليومية: الأرقام الرئيسية والمرشحات وأعلى الخريطة.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "هدوء حول البيانات، ولا رقم من دون تاريخه ومصدره",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "Vue 3 وInertia بعرض من الخادم، على Laravel",
+     "absent": false
+    },
+    {
+     "layer": "measure",
+     "text": "ليس ضمن القياس الأسبوعي بعد",
+     "absent": true
+    }
+   ]
+  },
+  "page": true
+ },
+ {
+  "slug": "cutaway",
+  "img": "cutaway-route-1400",
+  "url": "https://imsemoo.github.io/cutaway/",
+  "en": {
+   "name": "Cutaway",
+   "line": "A concept digital twin of a hospital in the browser, with simulated beds, rooms and equipment, in English or Arabic.",
+   "kind": "Concept · independent",
+   "role": "Concept, design and build",
+   "alt": "Cutaway: one wing of the hospital in 3D with a route drawn to a room, and the room’s day beside it.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "A white model; colour only ever means data",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "React Three Fiber and TypeScript; the day simulated in a Web Worker",
+     "absent": false
+    },
+    {
+     "layer": "measure",
+     "text": "Whole hospital at <b>72–90 fps</b> on an integrated GPU",
+     "absent": false
+    }
+   ]
+  },
+  "ar": {
+   "name": "Cutaway",
+   "line": "توأم رقمي لمستشفى كتصور تصميمي داخل المتصفح، بأسرّة وغرف ومعدات مُحاكاة، بالعربية أو الإنجليزية.",
+   "kind": "تصور · عمل مستقل",
+   "role": "الفكرة والتصميم والبناء",
+   "alt": "Cutaway: جناح من المستشفى ثلاثي الأبعاد ومسار مرسوم إلى غرفة، ويوم الغرفة بجانبه.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "نموذج أبيض، واللون لا يعني إلا البيانات",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "React Three Fiber وTypeScript، واليوم مُحاكى في Web Worker",
+     "absent": false
+    },
+    {
+     "layer": "measure",
+     "text": "المستشفى كاملًا بين <b>72–90 fps</b> على معالج رسوم مدمج",
+     "absent": false
+    }
+   ]
+  },
+  "page": true
+ },
+ {
+  "slug": "freightzone",
+  "img": "freightzone-cover-1400",
+  "url": "https://www.figma.com/design/KLzNmrJ5ljExMreBmA9e5Y/FreightZone-App?node-id=1-2",
+  "en": {
+   "name": "FreightZone",
+   "line": "A two-sided freight marketplace for Australia: clients post a job, drivers bid, and payment is held in escrow.",
+   "kind": "Design only · client work",
+   "role": "Product design: UX, UI and the design system",
+   "alt": "FreightZone cover: three phone screens with bids, an arrival time and an escrow confirmation.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "70+ screens and states on one design system",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "Not built by me",
+     "absent": true
+    },
+    {
+     "layer": "measure",
+     "text": "Brand red darkened to <b>#D7102F</b> so white text passes AA",
+     "absent": false
+    }
+   ]
+  },
+  "ar": {
+   "name": "FreightZone",
+   "line": "سوق شحن ثنائي الطرف في أستراليا: العميل ينشر الطلب، والسائقون يقدّمون عروضهم، والدفع محفوظ في الضمان.",
+   "kind": "تصميم فقط · عمل لعميل",
+   "role": "تصميم المنتج: تجربة المستخدم والواجهة ونظام التصميم",
+   "alt": "غلاف FreightZone: ثلاث شاشات هاتف فيها عروض ووقت وصول وتأكيد الدفع في الضمان.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "أكثر من 70 شاشة وحالة على نظام تصميم واحد",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "لم أبنه بنفسي",
+     "absent": true
+    },
+    {
+     "layer": "measure",
+     "text": "الأحمر صار <b>#D7102F</b> ليجتاز النص الأبيض معيار AA",
+     "absent": false
+    }
+   ]
+  },
+  "page": true
+ },
+ {
+  "slug": "kevla",
+  "img": "kevla-home-1400",
+  "url": "https://imsemoo.github.io/kevla-campa/",
+  "en": {
+   "name": "Kevla Campa",
+   "line": "A design concept for a Kevlar and carbon-fibre caravan maker, written by hand with no framework.",
+   "kind": "Concept · independent",
+   "role": "Design and front-end",
+   "alt": "Kevla Campa’s home page: the headline Built Different over a white caravan at dusk.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "Archivo widened to 118%, one lime accent",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "HTML, CSS and ES modules; scenes on CSS view timelines",
+     "absent": false
+    },
+    {
+     "layer": "measure",
+     "text": "<b>0</b> axe-core violations across 24 page states",
+     "absent": false
+    }
+   ]
+  },
+  "ar": {
+   "name": "Kevla Campa",
+   "line": "تصور تصميمي لصانع كرفانات من الكيفلار وألياف الكربون، مكتوب يدويًا بلا framework.",
+   "kind": "تصور · عمل مستقل",
+   "role": "التصميم والواجهة الأمامية",
+   "alt": "الصفحة الرئيسية لـKevla Campa: عنوان Built Different فوق كرفان أبيض عند الغروب.",
+   "r": [
+    {
+     "layer": "design",
+     "text": "Archivo بعرض 118%، ولون أخضر واحد",
+     "absent": false
+    },
+    {
+     "layer": "build",
+     "text": "HTML وCSS وES modules، والمشاهد على خطوط CSS الزمنية",
+     "absent": false
+    },
+    {
+     "layer": "measure",
+     "text": "<b>0</b> مخالفة axe-core في 24 حالة صفحة",
+     "absent": false
+    }
+   ]
+  },
+  "page": true
+ }
+]

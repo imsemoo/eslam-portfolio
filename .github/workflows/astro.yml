@@ -1,0 +1,56 @@
+# The Astro rebuild of the portfolio, in site/.
+# Every push to the rebuild branch checks that the site builds.
+# Deploying to GitHub Pages is manual (Run workflow) and only takes effect once
+# the repository's Pages source is switched from the main branch to GitHub Actions.
+name: Astro site
+
+on:
+  push:
+    branches: [rebuild]
+    paths: ["site/**", "_dev/projects.json", "_dev/projects.ar.json", ".github/workflows/astro.yml"]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Deploy to GitHub Pages (replaces the live site)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astro-site
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.deploy
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

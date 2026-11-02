@@ -1,0 +1,82 @@
+---
+/* The person: where the years went, what I work with, how to reach me.
+   Same facts as the CV of 21 October 2026; nothing here that the CV does not say. */
+import { t, url, EMAIL, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const ar = lang === "ar";
+const C = ar
+  ? {
+      h1: "مع من ستعمل.",
+      intro: s.about_p,
+      tl_h: "أين ذهبت السنوات السبع",
+      tl: [
+        ["أكتوبر 2024 حتى الآن", "<b><bdi>TakTek</bdi></b> (إسطنبول، عن بُعد)، قائد فريق الواجهات الأمامية. أملك الواجهة الأمامية لديفلو، منصة <bdi>Laravel</bdi> التي تشغّل 24 موقعًا إخباريًا وإعلاميًا، ضمن فريق. ومنتجاتي الخاصة إلى جانب ذلك: احسبلي، والآن <bdi>Toolora</bdi>."],
+        ["يوليو 2020 إلى فبراير 2025", "<b><bdi>IntimeDev</bdi></b>، معارًا إلى <bdi>SilverTrees</bdi> في أستراليا، عن بُعد. واجهات أمامية من ملفات XD وFigma لعملاء في أستراليا والمملكة المتحدة ومصر."],
+        ["2019 حتى الآن", "عمل حر في الواجهات الأمامية وWordPress، معظمه لشركات عربية."],
+      ],
+      sk_h: "ما أعمل به",
+      skills: [
+        ["الواجهات الأمامية", ["HTML وCSS وSCSS وTailwind", "JavaScript وTypeScript", "Vue 3 وInertia", "Livewire وAlpine", "React، في Cutaway مع React Three Fiber", "فحوص إمكانية الوصول عبر axe"]],
+        ["التصميم", ["Figma", "أنظمة التصميم ومتغيراتها", "الخطوط العربية وتنضيدها", "نماذج أولية مكتوبة في HTML"]],
+        ["الواجهة الخلفية، خبرة جيدة لا الأقوى", ["Laravel وPHP", "MySQL وRedis", "WordPress مع ACF", "Core Web Vitals والبيانات المنظمة", "Git وGitHub Actions"]],
+      ],
+      cv_h: "السيرة الذاتية",
+      cv: [["بالإنجليزية", "cv/Islam-Nasser-CV.pdf"], ["بالعربية", "cv/Islam-Nasser-CV-ar.pdf"]],
+      cv_note: "ملف PDF، صفحتان.",
+    }
+  : {
+      h1: "Who you would be working with.",
+      intro: s.about_p,
+      tl_h: "Where the seven years went",
+      tl: [
+        ["Oct 2024 to now", "<b>TakTek</b> (Istanbul, remote), front-end team lead. I own the front end of Devlo CMS, the Laravel platform behind 24 news and media sites, in a team. My own products alongside: Ahsebli, and now Toolora."],
+        ["Jul 2020 to Feb 2025", "<b>IntimeDev</b>, placed with SilverTrees in Australia, remote. Front-end from XD and Figma for clients in Australia, the UK and Egypt."],
+        ["2019 to now", "Freelance front-end and WordPress, mostly for Arabic businesses."],
+      ],
+      sk_h: "What I work with",
+      skills: [
+        ["Front end", ["HTML, CSS, SCSS, Tailwind", "JavaScript, TypeScript", "Vue 3, Inertia", "Livewire, Alpine", "React, with React Three Fiber on Cutaway", "Accessibility checks with axe"]],
+        ["Design", ["Figma", "Design systems and tokens", "Arabic typography", "Prototypes in HTML"]],
+        ["Back end, good but not the strongest", ["Laravel, PHP", "MySQL, Redis", "WordPress with ACF", "Core Web Vitals, structured data", "Git, GitHub Actions"]],
+      ],
+      cv_h: "CV",
+      cv: [["In English", "cv/Islam-Nasser-CV.pdf"], ["In Arabic", "cv/Islam-Nasser-CV-ar.pdf"]],
+      cv_note: "PDF, two pages.",
+    };
+---
+<main id="top">
+<div class="shell">
+  <section class="page-head" aria-labelledby="about-title">
+    <h1 id="about-title">{C.h1}</h1>
+    {C.intro.map((p: string) => <p class="lede" set:html={p} />)}
+  </section>
+
+  <div class="about about--page">
+    <div style="display:grid;gap:48px">
+      <section aria-labelledby="tl-title">
+        <h2 id="tl-title" class="sub-h">{C.tl_h}</h2>
+        <ol class="timeline">{C.tl.map(([when, what]) => <li><span class="num">{when}</span><p set:html={what} /></li>)}</ol>
+      </section>
+      <section aria-labelledby="sk-title">
+        <h2 id="sk-title" class="sub-h">{C.sk_h}</h2>
+        <div class="skills">{C.skills.map(([h, items]) => <div><h3>{h}</h3><ul>{(items as string[]).map((i) => <li>{i}</li>)}</ul></div>)}</div>
+      </section>
+      <dl class="facts">{s.facts.map(([a, b]: [string, string]) => <div><dt>{a}</dt><dd set:html={b} /></div>)}</dl>
+    </div>
+    <div style="display:grid;gap:24px;align-content:start">
+      <div class="contact">
+        <h3>{s.contact_h}</h3>
+        <div class="paths">{s.paths.map(([h, p, subj]: [string, string, string]) => <a href={`mailto:${EMAIL}?subject=${subj}`}><b>{h}</b><span>{p}</span></a>)}</div>
+        <p class="email"><span data-address dir="ltr">{EMAIL}</span><button class="btn btn--quiet" type="button" data-copy={EMAIL}>{s.copy}</button><output data-copied aria-live="polite"></output></p>
+        <p class="clock">{s.clock} <time class="num" data-clock></time></p>
+      </div>
+      <div class="contact">
+        <h3>{C.cv_h}</h3>
+        <div class="paths">{C.cv.map(([l, f]) => <a href={url(f)}><b>{l}</b><span>{C.cv_note}</span></a>)}</div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>

@@ -1,0 +1,146 @@
+---
+/* The lab: things that run, not things that are described. A component you can
+   break on purpose, the rules for building in both directions, and the
+   experiments that are public. */
+import { url, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === "ar";
+const img = (f: string) => url(`img/work/${f}.webp`);
+const C = ar
+  ? {
+      h1: "المختبر.",
+      lede: "أشياء تعمل، لا أشياء تُوصف. مكوّن يمكنك كسره عمدًا، وقواعد البناء في الاتجاهين، والتجارب المنشورة.",
+      brk_h: "اكسر هذا المكوّن",
+      brk_l: "بطاقة حالة من الصفحة الرئيسية، في الحالات التي لا يرسمها أحد عادة. اختر حالة وانظر كيف تصمد.",
+      states: [["normal", "عادية"], ["long", "اسم طويل جدًا"], ["ar", "بالإنجليزية"], ["absent", "لم تُقس"], ["loading", "قيد التحميل"], ["narrow", "عمود ضيق"]],
+      card: { name: "Kevla Campa", long: "Kevla Campa، تصور تصميمي لصانع كرفانات من الكيفلار وألياف الكربون في أستراليا", line: "تصور تصميمي لصانع كرفانات، مكتوب يدويًا بلا framework.", design: ["التصميم", "Archivo بعرض 118%، ولون أخضر واحد"], build: ["البناء", "HTML وCSS وES modules"], measure: ["القياس", "<b>0</b> مخالفة axe-core في 24 حالة"], absent: "لم يُقس بعد", loading: "جارٍ التحميل" },
+      dir_h: "ما لا ينعكس وحده",
+      dir: [
+        ["القص والتحويلات", "لا صيغة منطقية لـclip-path وtransform، فيُقلبان يدويًا لصفحة من اليمين إلى اليسار."],
+        ["اللاتيني داخل العربي", "كل كلمة لاتينية أو رقم بوحدته يُعزل، فلا تعيد علامات الترقيم ترتيبه."],
+        ["الأرقام والوحدات", "تبقى من اليسار إلى اليمين، ومعها وحدتها على السطر نفسه."],
+        ["تباعد الحروف", "لا يُضاف أبدًا إلى النص العربي، فهو يقطع الحروف المتصلة."],
+        ["SVG والرسوم", "الرسم يحتفظ باتجاهه، والسهم يُرسم ثم يُقلب عن قصد."],
+      ],
+      exp_h: "تجارب منشورة",
+      exp: [
+        ["Cutaway", "توأم رقمي لمستشفى، تصور ببيانات مُحاكاة، بالعربية أو الإنجليزية.", "https://imsemoo.github.io/cutaway/", "cutaway-800", "دراسة الحالة", "work/cutaway/"],
+        ["احسبلي", "أكثر من مئة حاسبة مالية بالعربية. قابل للتثبيت، والحاسبة المحفوظة تعمل بلا اتصال.", "https://ahsebli.com/", "ahsebli-800", "", ""],
+      ],
+    }
+  : {
+      h1: "The lab.",
+      lede: "Things that run, not things that are described. A component you can break on purpose, the rules for building in both directions, and the experiments that are public.",
+      brk_h: "Break this component",
+      brk_l: "A case card from the home page, in the states nobody usually draws. Pick one and see whether it holds.",
+      states: [["normal", "Normal"], ["long", "Very long name"], ["ar", "In Arabic"], ["absent", "Not measured"], ["loading", "Loading"], ["narrow", "Narrow column"]],
+      card: { name: "Kevla Campa", long: "Kevla Campa, a design concept for a Kevlar and carbon-fibre caravan maker in Australia", line: "A design concept for a caravan maker, written by hand with no framework.", design: ["Design", "Archivo widened to 118%, one lime accent"], build: ["Build", "HTML, CSS and ES modules"], measure: ["Measure", "<b>0</b> axe-core violations across 24 states"], absent: "Not measured yet", loading: "Loading" },
+      dir_h: "What does not mirror by itself",
+      dir: [
+        ["Clips and transforms", "clip-path and transform have no logical form, so they are flipped by hand for right to left."],
+        ["Latin inside Arabic", "Every Latin word, and every number with its unit, is isolated, so punctuation cannot reorder it."],
+        ["Numbers and units", "They stay left to right, with the unit on the same line."],
+        ["Letter-spacing", "Never on Arabic: it breaks the joined letters apart."],
+        ["SVG and drawings", "A drawing keeps its direction; an arrow is drawn, then turned on purpose."],
+      ],
+      exp_h: "Public experiments",
+      exp: [
+        ["Cutaway", "A concept digital twin of a hospital, with simulated data, in English or Arabic.", "https://imsemoo.github.io/cutaway/", "cutaway-800", "The case study", "work/cutaway/"],
+        ["Ahsebli", "Over a hundred Arabic financial calculators. Installable, and a saved calculator keeps working with no connection.", "https://ahsebli.com/", "ahsebli-800", "", ""],
+      ],
+    };
+const AR_CARD = { name: "Kevla Campa", line: "تصور تصميمي لصانع كرفانات، مكتوب يدويًا بلا framework.", d: "Archivo بعرض 118%، ولون أخضر واحد", b: "HTML وCSS وES modules", m: "<b>0</b> مخالفة axe-core في 24 حالة", labels: ["التصميم", "البناء", "القياس"] };
+const EN_CARD = { name: "Kevla Campa", line: "A design concept for a caravan maker, written by hand with no framework.", d: "Archivo widened to 118%, one lime accent", b: "HTML, CSS and ES modules", m: "<b>0</b> axe-core violations across 24 states", labels: ["Design", "Build", "Measure"] };
+/* the "other language" state shows the card in the language this page is not in */
+const other = ar ? EN_CARD : AR_CARD;
+---
+<main id="top">
+<div class="shell">
+  <section class="page-head" aria-labelledby="lab-title">
+    <h1 id="lab-title">{C.h1}</h1>
+    <p class="lede">{C.lede}</p>
+  </section>
+
+  <section class="section lab-break" aria-labelledby="brk-title" data-break data-other={JSON.stringify(other)} data-absent={C.card.absent} data-loading={C.card.loading} data-long={C.card.long}>
+    <div class="section-head"><h2 id="brk-title">{C.brk_h}</h2><p class="lede">{C.brk_l}</p></div>
+    <div class="arch-group" role="group" aria-label={C.brk_h}>
+      {C.states.map(([id, l], i) => <button type="button" class="chip" data-state={id} aria-pressed={i === 0 ? "true" : "false"}>{l}</button>)}
+    </div>
+    <div class="break-stage" data-stage-box>
+      <article class="case-row case-row--solo" data-card>
+        <figure><img src={url("img/work/ev/kevla-home-1400.webp")} alt="" width="1400" height="875" loading="lazy" /></figure>
+        <div class="case-row__body">
+          <h3 data-f="name">{C.card.name}</h3>
+          <p data-f="line">{C.card.line}</p>
+          <dl class="readings">
+            <div class="reading reading--design"><dt data-f="l0">{C.card.design[0]}</dt><dd data-f="d">{C.card.design[1]}</dd></div>
+            <div class="reading reading--build"><dt data-f="l1">{C.card.build[0]}</dt><dd data-f="b">{C.card.build[1]}</dd></div>
+            <div class="reading reading--measure" data-f="mrow"><dt data-f="l2">{C.card.measure[0]}</dt><dd data-f="m" set:html={C.card.measure[1]} /></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="dir-title">
+    <div class="section-head"><h2 id="dir-title">{C.dir_h}</h2></div>
+    <ol class="dir-notes dir-notes--5">{C.dir.map(([h, p]) => <li><h3>{h}</h3><p>{p}</p></li>)}</ol>
+  </section>
+
+  <section class="section" aria-labelledby="exp-title">
+    <div class="section-head"><h2 id="exp-title">{C.exp_h}</h2></div>
+    <div class="exp">
+      {C.exp.map(([name, line, href, pic, caseLabel, casePath]) => (
+        <article>
+          <img src={img(pic)} alt="" width="800" height="500" loading="lazy" />
+          <h3><a href={href}>{name}</a></h3>
+          <p>{line}</p>
+          <div class="links"><a class="link-arrow" href={href}>{href.split("//")[1].replace(/\/$/, "")}</a>{casePath && <a class="link-arrow" href={url(`${ar ? "ar/" : ""}${casePath}`)}>{caseLabel}</a>}</div>
+        </article>
+      ))}
+    </div>
+  </section>
+</div>
+</main>
+
+<script>
+  const box = document.querySelector<HTMLElement>("[data-break]");
+  if (box) {
+    const card = box.querySelector<HTMLElement>("[data-card]")!;
+    const stage = box.querySelector<HTMLElement>("[data-stage-box]")!;
+    const f = (k: string) => card.querySelector<HTMLElement>(`[data-f="${k}"]`)!;
+    const keys = ["name", "line", "d", "b", "l0", "l1", "l2"];
+    const start: Record<string, string> = {};
+    keys.forEach((k) => (start[k] = f(k).textContent || ""));
+    const m0 = f("m").innerHTML;
+    const other = JSON.parse(box.dataset.other || "{}");
+    const pageLang = document.documentElement.lang;
+    const reset = () => {
+      keys.forEach((k) => (f(k).textContent = start[k]));
+      f("m").innerHTML = m0;
+      f("mrow").classList.remove("is-absent");
+      card.classList.remove("is-loading");
+      card.removeAttribute("lang"); card.removeAttribute("dir");
+      stage.classList.remove("is-narrow");
+    };
+    const states: Record<string, () => void> = {
+      normal: () => {},
+      long: () => { f("name").textContent = box.dataset.long || ""; },
+      ar: () => {
+        card.lang = pageLang === "ar" ? "en" : "ar"; card.dir = pageLang === "ar" ? "ltr" : "rtl";
+        f("name").textContent = other.name; f("line").textContent = other.line;
+        f("d").textContent = other.d; f("b").textContent = other.b; f("m").innerHTML = other.m;
+        [0, 1, 2].forEach((i) => (f(`l${i}`).textContent = other.labels[i]));
+      },
+      absent: () => { f("mrow").classList.add("is-absent"); f("m").textContent = box.dataset.absent || ""; },
+      loading: () => { card.classList.add("is-loading"); },
+      narrow: () => { stage.classList.add("is-narrow"); },
+    };
+    box.querySelectorAll<HTMLButtonElement>("[data-state]").forEach((b) => b.addEventListener("click", () => {
+      box.querySelectorAll("[data-state]").forEach((x) => x.setAttribute("aria-pressed", "false"));
+      b.setAttribute("aria-pressed", "true");
+      reset(); states[b.dataset.state!]();
+    }));
+  }
+</script>
