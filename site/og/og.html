@@ -12,7 +12,9 @@
   html[lang="ar"] body { font-family: "Vazirmatn", sans-serif; }
   .copy { padding: 64px 0 56px 64px; display: grid; grid-template-rows: auto 1fr auto; }
   html[lang="ar"] .copy { padding: 64px 64px 56px 0; }
-  .mark { width: 64px; height: 64px; }
+  .copy > div { align-self: end; }
+  html[lang="ar"] .site { text-align: right; }
+  .site { font: 18px "Fragment Mono", monospace; color: #5d6470; direction: ltr; }
   .name { align-self: end; font-size: 92px; line-height: 0.92; letter-spacing: -0.05em; font-weight: 800; }
   html[lang="ar"] .name { letter-spacing: 0; line-height: 1.2; font-size: 92px; }
   .line { margin-top: 26px; font-size: 32px; line-height: 1.18; font-weight: 700; letter-spacing: -0.02em; max-width: 470px; text-wrap: balance; }
@@ -36,7 +38,7 @@
 </head>
 <body>
   <div class="copy">
-    <svg class="mark" viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#0f1115"/><rect x="14.75" y="6" width="2.5" height="17" fill="#f4f5f7"/><rect x="12.4" y="22.4" width="7.2" height="7.2" transform="rotate(45 16 26)" fill="#5fd3a5"/></svg>
+    <p class="site">imsemoo.github.io/eslam-portfolio</p>
     <div>
       <h1 class="name" data-name>Islam Nasser</h1>
       <p class="line" data-line>What you approve in the design is what <em>ships.</em></p>

@@ -26,6 +26,17 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   btn.addEventListener("click", () => set(order[(order.indexOf(cur) + 1) % order.length]));
 })();
 
+
+/* ---------- the header takes a ground once the page moves ---------- */
+(function bar() {
+  const b = $("[data-bar]");
+  if (!b) return;
+  let on = null;
+  const set = () => { const v = scrollY > 8; if (v !== on) { on = v; b.toggleAttribute("data-scrolled", v); } };
+  addEventListener("scroll", set, { passive: true });
+  set();
+})();
+
 /* ---------- the hero: a miniature of this page, cut open ---------- */
 const MINI = [
   [4, 3.5, 16, 3.4, "ink"], [46, 4.2, 6, 2], [55, 4.2, 6, 2], [64, 4.2, 6, 2], [80, 2.5, 15, 5.5, "ink"],
