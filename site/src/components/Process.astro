@@ -1,0 +1,41 @@
+---
+/* How a project runs, drawn as one track: six stops in order, the layer each
+   belongs to drawn as a band above them, and what you receive at each stop
+   set before how it happens. The order matters, so the stops are numbered. */
+import { t, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const ar = lang === "ar";
+const get = ar
+  ? ["أسئلة مكتوبة، وقرارات موثّقة", "مسارات الاستخدام وقائمة الصفحات", "شاشة واحدة متفق عليها", "المكوّنات ثم الصفحات، على مراحل", "تقرير الأداء وإمكانية الوصول", "تعديلات تحافظ على ما يعمل"]
+  : ["Written questions, decisions on record", "The flows and the page list", "One screen, agreed", "Components, then pages, in stages", "A speed and accessibility report", "Changes that keep what works"];
+/* bands: which stops each layer spans, in order */
+const bands = [
+  { layer: "design", from: 1, to: 3 },
+  { layer: "build", from: 4, to: 4 },
+  { layer: "measure", from: 5, to: 5 },
+  { layer: "build", from: 6, to: 6, quiet: true },
+];
+---
+<section class="section track-sec" id="process" aria-labelledby="proc-title"><div class="shell">
+  <div class="track-head">
+    <h2 id="proc-title">{s.proc_h}</h2>
+    <p class="lede">{s.proc_l}</p>
+  </div>
+  <div class="track">
+    <div class="track__bands" aria-hidden="true">
+      {bands.map((b) => <span class={`band band--${b.layer}`} style={`grid-column:${b.from} / ${b.to + 1}`}>{!b.quiet && s.layers[b.layer]}</span>)}
+    </div>
+    <ol class="track__stops">
+      {s.steps.map((st: any, i: number) => (
+        <li class={`stop stop--${st.layer}`}>
+          <span class="stop__n num">{String(i + 1).padStart(2, "0")}</span>
+          <h3>{st.h}</h3>
+          <p class="stop__get">{get[i]}</p>
+          <p class="stop__how">{st.p}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</div></section>

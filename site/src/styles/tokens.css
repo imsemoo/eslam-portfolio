@@ -34,6 +34,12 @@
   /* what is not there: a layer someone else did, or a number not measured */
   --absent: #6b717c;
 
+  /* the closing band: ink in the light theme, a raised dark in the dark one */
+  --band: #0f1115;
+  --band-fg: #f4f5f7;
+  --band-2: rgb(244 245 247 / 0.72);
+  --band-line: rgb(244 245 247 / 0.16);
+
   /* type: Interface pairing, approved 2026-11-02 */
   --font-latin: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-arabic: "Vazirmatn", "Segoe UI", "SF Arabic", system-ui, sans-serif;
@@ -86,6 +92,7 @@
     --design: #84bde4; --build: #5fd3a5; --measure: #ff8a96;
     --design-soft: rgb(132 189 228 / 0.15); --build-soft: rgb(95 211 165 / 0.13); --measure-soft: rgb(255 138 150 / 0.13);
     --absent: #8a919e;
+    --band: #1a1e27; --band-line: rgb(244 245 247 / 0.12);
   }
 }
 :root[data-theme="dark"] {
@@ -96,6 +103,7 @@
   --design: #84bde4; --build: #5fd3a5; --measure: #ff8a96;
   --design-soft: rgb(132 189 228 / 0.15); --build-soft: rgb(95 211 165 / 0.13); --measure-soft: rgb(255 138 150 / 0.13);
   --absent: #8a919e;
+  --band: #1a1e27; --band-line: rgb(244 245 247 / 0.12);
 }
 
 :root:lang(ar) { --font-body: var(--font-arabic); }

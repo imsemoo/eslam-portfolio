@@ -1,0 +1,46 @@
+---
+/* The weekly PageSpeed numbers, drawn to scale: performance on 0–100 with a
+   line at 90, the largest paint on 0–6 s with a line at Google's 2.5 s. The
+   build bakes in the last committed numbers; site.js fetches the same files
+   when the page opens and moves the marks if a newer week is there. */
+import { loadPsi } from "../data/psi";
+import { t, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const ar = lang === "ar";
+const psi = await loadPsi();
+const last = Object.values(psi).map((p) => p.at).sort().pop() || "";
+const secs = (lcp: string) => parseFloat(lcp) || 0;
+const pct = (v: number, max: number) => Math.max(0, Math.min(100, (v / max) * 100)).toFixed(1);
+---
+<section class="section meas-sec" id="measured" aria-labelledby="meas-title"><div class="shell meas">
+  <div class="meas__head">
+    <h2 id="meas-title">{s.meas_h}</h2>
+    <p class="lede">{s.meas_l}</p>
+    <p class="meas__note">{ar ? "على الهاتف، الوسيط من ثلاث قياسات. الخط على مقياس الأداء عند 90، وعلى أكبر رسم عند 2.5 ثانية، حد Google للجيد. آخر قياس:" : "On a phone, the median of three runs. The line on the performance scale is at 90; on the largest paint, at 2.5 s, Google’s line for good. Last measured:"} <span data-psi-date class="num">{last}</span></p>
+  </div>
+  <div class="meas__rows">
+    <div class="meas__legend" aria-hidden="true"><span></span><span>{s.meas_cols[1]}</span><span>{s.meas_cols[3]}</span></div>
+    {s.meas_rows.map(([slug, label]: [string, string]) => {
+      const p = psi[slug];
+      const perf = typeof p.perf === "number" ? p.perf : 0;
+      const lcp = secs(p.lcp);
+      return (
+        <div class="meas__row" data-psi={slug}>
+          <div class="meas__site"><b>{label}</b><span>{ar ? "إمكانية الوصول" : "Accessibility"} <span class="num" data-k="a11y">{p.a11y}</span></span></div>
+          <div class={`scale${perf < 90 ? " is-under" : ""}`} data-scale="perf" style={`--v:${pct(perf, 100)}%`}>
+            <span class="scale__name">{s.meas_cols[1]}</span>
+            <span class="scale__track"><span class="scale__fill"></span><span class="scale__line" style="--at:90%"></span></span>
+            <b class="num" data-k="perf">{p.perf}</b>
+          </div>
+          <div class={`scale${lcp > 2.5 ? " is-under" : ""}`} data-scale="lcp" style={`--v:${pct(lcp, 6)}%`}>
+            <span class="scale__name">{s.meas_cols[3]}</span>
+            <span class="scale__track"><span class="scale__fill"></span><span class="scale__line" style={`--at:${pct(2.5, 6)}%`}></span></span>
+            <b class="num" data-k="lcp">{ar ? p.lcp.replace(" s", " ث") : p.lcp}</b>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</div></section>

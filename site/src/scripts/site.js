@@ -145,6 +145,11 @@ const tag = (t, x, y, ltr) => `<span class="tagx"${ltr ? ' dir="ltr"' : ""} styl
     set("perf", m.scores.performance, m.scores.performance < 90);
     set("a11y", m.scores.accessibility, m.scores.accessibility < 90);
     set("lcp", m.metrics.lcp.display.replace(/\s/g, " ").replace("s", AR ? "ث" : "s"));
+    /* move the marks on the scales too: performance on 0-100, the largest paint on 0-6 s */
+    const scale = (k, pct, under) => { const el = $(`[data-scale="${k}"]`, tr); if (el) { el.style.setProperty("--v", `${Math.max(0, Math.min(100, pct))}%`); el.classList.toggle("is-under", under); } };
+    scale("perf", m.scores.performance, m.scores.performance < 90);
+    const lcpS = m.metrics.lcp.value / 1000;
+    scale("lcp", (lcpS / 6) * 100, lcpS > 2.5);
     const when = new Date(d.measuredAt);
     if (!latest || when > latest) latest = when;
   })).then(() => {

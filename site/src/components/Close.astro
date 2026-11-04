@@ -1,0 +1,35 @@
+---
+/* The page ends on one request, on the ink ground: send the project. The two
+   ways in are full rows you can press, the address is large enough to read
+   across a room, and it copies with one press. Keeps id="about" so links to
+   the old #about section still land here. */
+import { t, url, EMAIL, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const s = t(lang);
+const ar = lang === "ar";
+const role = ar ? s.role : s.role.charAt(0).toLowerCase() + s.role.slice(1);
+---
+<section class="close" id="about" aria-labelledby="close-title"><div class="shell close__in">
+  <div class="close__top">
+    <h2 id="close-title">{ar ? "أرسل لي المشروع." : "Send me the project."}</h2>
+    <p class="close__who" set:html={ar ? `أنا إسلام، ${role} في <bdi>TakTek</bdi>، أعمل عن بُعد من مصر. أرد كتابةً خلال ساعات قليلة.` : `I’m Islam, a ${role} at TakTek, working remotely from Egypt. I reply in writing within a few hours.`} />
+  </div>
+  <div class="close__paths">
+    {s.paths.map(([h, p, subj]: [string, string, string]) => (
+      <a class="close__path" href={`mailto:${EMAIL}?subject=${subj}`}>
+        <b>{h}</b><span>{p}</span>
+        <svg class="close__arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      </a>
+    ))}
+  </div>
+  <div class="close__mail">
+    <span class="close__address" data-address dir="ltr">{EMAIL}</span>
+    <button class="close__copy" type="button" data-copy={EMAIL}>{s.copy}</button>
+    <output data-copied aria-live="polite"></output>
+  </div>
+  <div class="close__meta">
+    <p>{s.clock} <time class="num" data-clock></time></p>
+    <p class="close__links"><a href={url(`${ar ? "ar/" : ""}about/`)}>{ar ? "عني والسيرة الذاتية" : "About and CV"}</a><a href="https://www.linkedin.com/in/imsemooo/">LinkedIn</a><a href="https://github.com/imsemoo">GitHub</a><a href="https://www.behance.net/eslamnasserui">Behance</a></p>
+  </div>
+</div></section>

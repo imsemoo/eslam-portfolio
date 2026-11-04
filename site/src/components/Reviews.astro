@@ -21,8 +21,8 @@ const Q: Q[] = [
     <p class="lede">{ar ? "مراجعات منشورة على Upwork ومستقل، منقولة كما كتبها أصحابها، والإنجليزية منها مترجمة ونصها الأصلي تحتها." : "Published reviews from Upwork and Mostaql, quoted as written. The Arabic ones are in Arabic, as their writers left them."}</p>
   </div>
   <div class="quotes">
-    {Q.map((q) => (
-      <blockquote class="quote">
+    {Q.map((q, i) => (
+      <blockquote class={i === 0 ? "quote quote--lead" : "quote"}>
         {ar
           ? <><p>{q.ar}</p>{q.orig === "en" && <p class="quote__orig" lang="en" dir="ltr">{q.en}</p>}</>
           : q.orig === "en" ? <p>{q.en}</p> : <p lang="ar" dir="rtl">{q.ar}</p>}

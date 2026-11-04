@@ -1,7 +1,10 @@
 ---
 import CaseRows from "./CaseRows.astro";
 import Reviews from "./Reviews.astro";
-import { loadPsi } from "../data/psi";
+import Directions from "./Directions.astro";
+import Process from "./Process.astro";
+import Measured from "./Measured.astro";
+import Close from "./Close.astro";
 import { HERO } from "../data/hero";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
@@ -11,9 +14,6 @@ interface Props { lang: Lang }
 const { lang } = Astro.props;
 const s = t(lang);
 const ar = lang === "ar";
-const psi = await loadPsi();
-const lastMeasured = Object.values(psi).map((p) => p.at).sort().pop() || "";
-const under = (v: number | "") => (typeof v === "number" && v < 90 ? " under" : "");
 /* the portrait shows up as soon as public/img/me.webp exists; until then the name stands alone */
 const photo = existsSync(join(process.cwd(), "public", "img", "me.webp"));
 const shot = url(`img/work/ev/${HERO.image}.webp`);
@@ -60,42 +60,13 @@ const boxStyle = (b: any) => `--x:${b.x};--y:${b.y};--w:${b.w};--h:${b.h}`;
   <CaseRows lang={lang} />
 </div></section>
 
-<section class="section" id="directions" aria-labelledby="dir-title"><div class="shell">
-  <div class="section-head"><h2 id="dir-title">{s.dir_h}</h2><p class="lede">{s.dir_l}</p></div>
-  <ol class="dir-notes">{s.dir_notes.map(([h, p]: [string, string]) => <li><h3>{h}</h3><p set:html={p} /></li>)}</ol>
-  <p style="margin-top:32px"><a class="link-arrow" href={url(ar ? "" : "ar/")} hreflang={ar ? "en" : "ar"}>{s.dir_cta}</a></p>
-</div></section>
+<Directions lang={lang} />
 
-<section class="section" id="process" aria-labelledby="proc-title"><div class="shell">
-  <div class="section-head"><h2 id="proc-title">{s.proc_h}</h2><p class="lede">{s.proc_l}</p></div>
-  <ol class="steps">{s.steps.map((st: any) => <li class={`s-${st.layer}`}><h3>{st.h}</h3><p>{st.p}</p></li>)}</ol>
-</div></section>
+<Process lang={lang} />
 
-<section class="section" id="measured" aria-labelledby="meas-title"><div class="shell">
-  <div class="section-head"><h2 id="meas-title">{s.meas_h}</h2><p class="lede">{s.meas_l}</p></div>
-  <div class="table-wrap" tabindex="0" role="region" aria-labelledby="meas-title"><table class="measured">
-    <thead><tr>{s.meas_cols.map((c: string) => <th scope="col">{c}</th>)}</tr></thead>
-    <tbody>{s.meas_rows.map(([slug, label]: [string, string]) => {
-      const p = psi[slug];
-      return <tr data-psi={slug}><th scope="row">{label}</th><td class={`n${under(p.perf)}`} data-k="perf">{p.perf}</td><td class={`n${under(p.a11y)}`} data-k="a11y">{p.a11y}</td><td class="n" data-k="lcp">{ar ? p.lcp.replace(" s", " ث") : p.lcp}</td></tr>;
-    })}</tbody>
-  </table></div>
-  <p class="measured-note">{s.meas_note} <span data-psi-date class="num">{lastMeasured}</span></p>
-</div></section>
+<Measured lang={lang} />
 
 <Reviews lang={lang} />
 
-<section class="section" id="about" aria-labelledby="about-title"><div class="shell about">
-  <div style="display:grid;gap:24px">
-    <h2 id="about-title" style="font-size:var(--fs-h2);line-height:var(--lh-head)">{s.about_h}</h2>
-    {s.about_p.map((p: string) => <p class="lede" set:html={p} />)}
-    <dl class="facts">{s.facts.map(([a, b]: [string, string]) => <div><dt>{a}</dt><dd set:html={b} /></div>)}</dl>
-  </div>
-  <div class="contact" id="contact">
-    <h3>{s.contact_h}</h3>
-    <div class="paths">{s.paths.map(([h, p, subj]: [string, string, string]) => <a href={`mailto:${EMAIL}?subject=${subj}`}><b>{h}</b><span>{p}</span></a>)}</div>
-    <p class="email"><span data-address dir="ltr">{EMAIL}</span><button class="btn btn--quiet" type="button" data-copy={EMAIL}>{s.copy}</button><output data-copied aria-live="polite"></output></p>
-    <p class="clock">{s.clock} <time class="num" data-clock></time></p>
-  </div>
-</div></section>
+<Close lang={lang} />
 </main>

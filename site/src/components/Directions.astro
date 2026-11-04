@@ -1,0 +1,54 @@
+---
+/* Built in both directions, shown instead of described: the same card set
+   left to right and right to left, split by the cut. Three markers sit on the
+   three things that do not mirror by themselves, and the notes below are
+   numbered to match them. */
+import { url, type Lang } from "../lib";
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ar = lang === "ar";
+const img = url("img/work/ev/devlo-intro-still.webp");
+const sides = [
+  { dir: "ltr", lang: "en", kind: "Production", name: "Devlo CMS", line: "One codebase, 24 newsrooms.", stat: "Quds, real users:", num: "2.33 s", link: "Read the case" },
+  { dir: "rtl", lang: "ar", kind: "إنتاج", name: "ديفلو", line: "كود واحد، و24 غرفة أخبار.", stat: "مستخدمو قدس الفعليون:", num: "2.33 s", link: "اقرأ الحالة" },
+];
+const notes = ar
+  ? [
+      ["القص والتحويلات", "لا صيغة منطقية لـclip-path وtransform. الصورة مقصوصة من بدايتها في الاتجاهين، فالقص يُقلب يدويًا."],
+      ["الرقم بوحدته", "الرقم ووحدته معزولان، فلا تعيد علامات الترقيم العربية حولهما ترتيبهما، ويبقيان على سطر واحد."],
+      ["السهم", "السهم مرسوم لا مكتوب. ينقلب للعربية، والمرور عليه يدفعه في الاتجاه الآخر."],
+    ]
+  : [
+      ["Clips and transforms", "clip-path and transform have no logical form. The picture is cropped from its start in both directions, so the clip is flipped by hand."],
+      ["A number with its unit", "The number and its unit are isolated, so the Arabic punctuation around them cannot reorder them, and they stay on one line."],
+      ["The arrow", "An arrow is drawn, not typed. It turns for Arabic, and a hover nudges it the other way."],
+    ];
+---
+<section class="section mirror-sec" id="directions" aria-labelledby="dir-title"><div class="shell">
+  <div class="mirror-head">
+    <h2 id="dir-title">{ar ? "مبنيّ في الاتجاهين." : "Built in both directions."}</h2>
+    <p class="lede">{ar ? "البطاقة نفسها من اليسار إلى اليمين ومن اليمين إلى اليسار. معظمها ينعكس وحده عبر الخصائص المنطقية، والعلامات الثلاث على ما لا ينعكس." : "The same card, left to right and right to left. Most of it mirrors by itself through logical properties; the three markers sit on what does not."}</p>
+  </div>
+
+  <div class="mirror" aria-hidden="true">
+    {sides.map((s) => (
+      <div class="mirror__side" dir={s.dir} lang={s.lang}>
+        <div class="spec-card">
+          <div class="spec-card__pic"><img src={img} alt="" width="1280" height="720" loading="lazy" decoding="async" /><span class="pin" style="--n:'1'">1</span></div>
+          <span class="kind">{s.kind}</span>
+          <b class="spec-card__name">{s.name}</b>
+          <span class="spec-card__line">{s.line}</span>
+          <span class="spec-card__stat">{s.stat} <bdi class="spec-num">LCP {s.num}</bdi><span class="pin">2</span></span>
+          <span class="spec-card__link">{s.link}<span class="spec-arrow" aria-hidden="true"><svg viewBox="0 0 20 12"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span><span class="pin">3</span></span>
+        </div>
+        <span class="mirror__label">{s.dir === "ltr" ? "ltr" : "rtl"}</span>
+      </div>
+    ))}
+    <span class="mirror__cut"><i></i></span>
+  </div>
+
+  <ol class="mirror-notes">
+    {notes.map(([h, p], i) => <li><span class="pin pin--static">{i + 1}</span><div><h3>{h}</h3><p>{p}</p></div></li>)}
+  </ol>
+  <p class="mirror-cta"><a class="link-arrow" href={url(ar ? "" : "ar/")} hreflang={ar ? "en" : "ar"}>{ar ? "اقرأ هذا الموقع بالإنجليزية" : "Read this site in Arabic"}</a></p>
+</div></section>
